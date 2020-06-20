@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read string $openid
  *
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSocial bySocialAndProvider($id, $provider)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byUnionIdAndProvider($id, $provider)
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class UserSocial extends Model
@@ -114,5 +116,30 @@ class UserSocial extends Model
     public function unbind()
     {
         return $this->update(['user_id' => null]);
+    }
+    /**
+     * 查询指定的提供商
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $id
+     * @param string $provider
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBySocialAndProvider($query, $id, $provider)
+    {
+        return $query->where('social_id', $id)->where('provider', $provider);
+    }
+
+    /**
+     * 查询指定的提供商
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $id
+     * @param string $provider
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByUnionIdAndProvider($query, $id, $provider)
+    {
+        return $query->where('union_id', $id)->where('provider', $provider);
     }
 }

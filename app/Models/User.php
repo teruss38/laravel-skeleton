@@ -8,13 +8,16 @@
 
 namespace App\Models;
 
+use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
 
 /**
@@ -25,12 +28,15 @@ use Laravel\Passport\HasApiTokens;
  * @property string $email 邮箱
  * @property string $password 密码
  * @property string $remember_token
+ * @property string $avatar_path 头像路径
  * @property Carbon|null $phone_verified_at 手机验证时间
  * @property Carbon|null $email_verified_at 邮箱验证时间
  * @property Carbon $created_at 注册时间
  * @property Carbon $updated_at 更新时间
  * @property Carbon|null $deleted_at 删除时间
  *
+ * @property-read string $avatar 头像Url
+ * @property-read boolean $isAvatar 是否有头像
  * @property UserExtra $extra 扩展信息
  * @property UserProfile $profile 个人信息
  * @property UserSocial[] $socials 社交账户
@@ -63,7 +69,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'phone', 'password',
+        'username', 'email', 'phone', 'password', 'avatar_path'
     ];
 
     /**
@@ -151,7 +157,46 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('phone', $phone);
     }
 
-    /*
+    /**
+     * 是否有头像
+     * @return boolean
+     */
+    public function getIsAvatarAttribute()
+    {
+        return !empty($this->avatar_path);
+    }
+
+    /**
+     * 返回头像Url
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+        if (!empty($this->avatar_path)) {
+            return Storage::url($this->avatar_path);
+        }
+        return asset('img/avatar.jpg');
+    }
+
+    /**
+     * 设置头像
+     * @param \Illuminate\Http\UploadedFile $file
+     * @return bool
+     */
+    public function setAvatar(\Illuminate\Http\UploadedFile $file)
+    {
+        $oldAvatarPath = $this->avatar_path;
+        $path = UserService::getAvatarPath($this->id);
+        $fileName = $file->hashName();
+        $avatarPath = $file->storeAs($path, $fileName);
+        Storage::setVisibility($avatarPath, Filesystem::VISIBILITY_PUBLIC);
+        Storage::delete($oldAvatarPath);
+        return $this->forceFill([
+            'avatar_path' => $avatarPath
+        ])->save();
+    }
+
+    /**
      * 获取手机号
      * @param \Illuminate\Notifications\Notification|null $notification
      * @return int|null
@@ -304,5 +349,20 @@ class User extends Authenticatable implements MustVerifyEmail
             $username = $username . ++$row;
         }
         return $username;
+    }
+
+    /**
+     * 计算子路径
+     * @param int $userId 用户ID
+     * @param string $prefix 前缀
+     * @return string
+     */
+    private static function generateSubPath($userId, $prefix = 'user')
+    {
+        $id = sprintf("%09d", $userId);
+        $dir1 = substr($id, 0, 3);
+        $dir2 = substr($id, 3, 2);
+        $dir3 = substr($id, 5, 2);
+        return $prefix . '/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($userId, -2);
     }
 }
