@@ -11,9 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(Dcat\Admin\Models\AdminTablesSeeder::class);
         $this->call(AdminTablesSeeder::class);
         $this->call(SettingsSeeder::class);
+        $this->call(PassportSeeder::class);
         // $this->call(UserSeeder::class);
     }
 }
