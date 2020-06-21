@@ -15,9 +15,7 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController@index');
 
 Auth::routes(['verify' => true]);
 
