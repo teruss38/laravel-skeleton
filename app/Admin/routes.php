@@ -22,7 +22,6 @@ Route::group([
 
     //用户
     $router->get('user/settings/basic', 'User\SettingsController@basic')->name('admin.user.settings.basic');
-    $router->get('user/settings/socialite', 'User\SettingsController@socialite')->name('admin.user.settings.socialite');
     $router->resource('user/clients', 'User\ClientController');
     $router->resource('user/members', 'User\MemberController');
     $router->resource('user/socials', 'User\SocialController')->only(['index', 'show']);

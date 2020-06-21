@@ -105,30 +105,37 @@ class AdminTablesSeeder extends Seeder
                 'order' => 6,
                 'created_at' => $createdAt,
             ],
-
-
+            [
+                'id' => 7,
+                'name' => '网站设置',
+                'slug' => 'settings-system',
+                'http_method' => '',
+                'http_path' => '/settings/system',
+                'parent_id' => 1,
+                'order' => 7,
+                'created_at' => $createdAt,
+            ],
+            [
+                'id' => 8,
+                'name' => '附件设置',
+                'slug' => 'settings-storage',
+                'http_method' => '',
+                'http_path' => '/settings/storage',
+                'parent_id' => 1,
+                'order' => 8,
+                'created_at' => $createdAt,
+            ],
         ]);
 
 
         Permission::insert([
             [
-                'id' => 7,
-                'name' => '系统管理',
-                'slug' => 'settings-management',
+                'id' => 9,
+                'name' => '用户管理',
+                'slug' => 'user-management',
                 'http_method' => '',
                 'http_path' => '',
                 'parent_id' => 0,
-                'order' => 1,
-                'created_at' => $createdAt,
-            ],
-
-            [
-                'id' => 8,
-                'name' => '网站设置',
-                'slug' => 'settings-system',
-                'http_method' => '',
-                'http_path' => '/settings/system',
-                'parent_id' => 7,
                 'order' => 1,
                 'created_at' => $createdAt,
             ],
@@ -138,32 +145,12 @@ class AdminTablesSeeder extends Seeder
                 'name' => '用户设置',
                 'slug' => 'settings-user',
                 'http_method' => '',
-                'http_path' => '/settings/user',
+                'http_path' => '/user/settings/basic',
                 'parent_id' => 7,
                 'order' => 2,
                 'created_at' => $createdAt,
             ],
 
-            [
-                'id' => 10,
-                'name' => '附件设置',
-                'slug' => 'settings-storage',
-                'http_method' => '',
-                'http_path' => '/settings/storage',
-                'parent_id' => 7,
-                'order' => 3,
-                'created_at' => $createdAt,
-            ],
-            [
-                'id' => 11,
-                'name' => '社交设置',
-                'slug' => 'settings-socialite',
-                'http_method' => '',
-                'http_path' => '/settings/socialite',
-                'parent_id' => 7,
-                'order' => 4,
-                'created_at' => $createdAt,
-            ],
         ]);
 
 //        Role::first()->permissions()->save(Permission::first());
