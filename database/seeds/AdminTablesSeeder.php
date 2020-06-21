@@ -141,16 +141,25 @@ class AdminTablesSeeder extends Seeder
             ],
 
             [
-                'id' => 9,
+                'id' => 10,
                 'name' => '用户设置',
                 'slug' => 'settings-user',
                 'http_method' => '',
                 'http_path' => '/user/settings/basic',
-                'parent_id' => 7,
+                'parent_id' => 9,
                 'order' => 2,
                 'created_at' => $createdAt,
             ],
-
+            [
+                'id' => 11,
+                'name' => 'OAuth客户端管理',
+                'slug' => 'settings-user',
+                'http_method' => '',
+                'http_path' => 'user/clients',
+                'parent_id' => 9,
+                'order' => 3,
+                'created_at' => $createdAt,
+            ],
         ]);
 
 //        Role::first()->permissions()->save(Permission::first());
