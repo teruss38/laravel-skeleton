@@ -16,6 +16,13 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
 */
 
 /**
+ * RESTFul API common.
+ *
+ * Define the version of the interface that conforms to most of the
+ * REST ful specification.
+ */
+
+/**
  * RESTFul API version 1.
  *
  * Define the version of the interface that conforms to most of the
@@ -43,6 +50,7 @@ Route::group(['prefix' => 'v1'], function (RouteContract $api) {
         Route::get('search', 'Api\V1\UserController@search');//搜索用户
         Route::delete('', 'Api\V1\UserController@destroy');//注销并删除自己的账户
         Route::get('login-histories', 'Api\V1\UserController@loginHistories');//获取登录历史
+        
         /**
          * 社交账户
          */
