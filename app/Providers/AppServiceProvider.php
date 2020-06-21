@@ -8,7 +8,7 @@
 
 namespace App\Providers;
 
-use App\Http\Resources\Resource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
@@ -24,8 +24,10 @@ class AppServiceProvider extends ServiceProvider
         'tel_phone' => \App\Validators\TelPhoneValidator::class,
         'phone_two' => \App\Validators\PhoneTwoValidator::class,
         'hash' => \App\Validators\HashValidator::class,
-        
+        'ticket' => \App\Validators\TicketValidator::class,
+
     ];
+
     /**
      * Register any application services.
      *
@@ -47,9 +49,9 @@ class AppServiceProvider extends ServiceProvider
         //设置迁移的 string 字段默认长度是 191
         Schema::defaultStringLength(191);
         //关闭 API 响应的 data 包裹
-        Resource::withoutWrapping();
+        JsonResource::withoutWrapping();
         Carbon::setLocale('zh');
-        //
+
         $this->registerObserve();
         $this->registerValidators();
     }
