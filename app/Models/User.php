@@ -29,6 +29,7 @@ use Laravel\Passport\HasApiTokens;
  * @property string $password 密码
  * @property string $remember_token
  * @property string $avatar_path 头像路径
+ * @property boolean $disabled 是否已经停用
  * @property Carbon|null $phone_verified_at 手机验证时间
  * @property Carbon|null $email_verified_at 邮箱验证时间
  * @property Carbon $created_at 注册时间
@@ -44,6 +45,7 @@ use Laravel\Passport\HasApiTokens;
  * @property UserLoginHistory[] $loginHistories 登录历史
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User phone($phone)
+ * @method static \Illuminate\Database\Eloquent\Builder|User active()
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
@@ -69,7 +71,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'phone', 'password', 'avatar_path'
+        'username', 'email', 'phone', 'password', 'avatar_path', 'disabled'
     ];
 
     /**
@@ -87,6 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $casts = [
+        'disabled' => 'boolean',
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
     ];
@@ -99,6 +102,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $dates = [
         'created_at',
         'updated_at',
+    ];
+
+    /**
+     * 模型的默认属性值。
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'disabled' => false,
     ];
 
     /**
@@ -155,6 +167,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopePhone($query, $phone)
     {
         return $query->where('phone', $phone);
+    }
+
+    /**
+     * 查询未禁用的
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('disabled', '=', false);
     }
 
     /**
@@ -217,6 +239,19 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 获取微信(公众号) open_id
+     * @param \Illuminate\Notifications\Notification|null $notification
+     * @return string|null
+     */
+    public function routeNotificationForWechat($notification)
+    {
+        if (($social = UserSocial::byUser($this->id)->byWechatPlatform()->latest('id')->first()) != null) {
+            return $social->social_id;
+        }
+        return null;
+    }
+
+    /**
      * 用户是否在线
      * @return bool
      */
@@ -259,6 +294,28 @@ class User extends Authenticatable implements MustVerifyEmail
         ])->save();
         event(new \App\Events\User\PhoneVerified($this));
         return $status;
+    }
+
+    /**
+     * Mark the given user's disabled.
+     *
+     * @return bool
+     */
+    public function markDisabled()
+    {
+        return $this->forceFill([
+            'disabled' => true,
+        ])->save();
+    }
+
+    /**
+     * Determine if the user has disabled.
+     *
+     * @return bool
+     */
+    public function hasDisabled()
+    {
+        return $this->disabled;
     }
 
     /**
@@ -323,6 +380,42 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Find user using social provider's user
+     *
+     * @param string $provider Provider name as requested from oauth e.g. facebook
+     * @param \Laravel\Socialite\Contracts\User $socialUser User of social provider
+     *
+     * @return User
+     * @throws \Exception
+     */
+    public static function findForPassportSocialite($provider, \Laravel\Socialite\Contracts\User $socialUser)
+    {
+        try {
+            return UserService::byPassportSocialRequest($provider,$socialUser);
+        } catch (\Exception $e) {
+            throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
+        }
+    }
+
+    /**
+     * Verify and retrieve user by sms verify code request.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @param bool $autoRegistration 是否自动注册用户
+     * @return \Illuminate\Database\Eloquent\Model|null
+     * @throws \League\OAuth2\Server\Exception\OAuthServerException
+     */
+    public static function findForPassportSmsRequest(\Illuminate\Http\Request $request, $autoRegistration = false)
+    {
+        try {
+            return UserService::byPassportSmsRequest($request, true);
+        } catch (\Exception $e) {
+            throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
+        }
+    }
+
+    /**
      * 通过ID获取用户，带缓存
      * @param int $id
      * @return User|null
@@ -338,6 +431,24 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 查找用户
+     * @param string $username
+     * @return mixed
+     */
+    public static function findForPassport($username)
+    {
+        if (preg_match(config('system.phone_rule'), $username)) {
+            return static::active()
+                ->where('phone', $username)
+                ->first();
+        } else {
+            return static::active()
+                ->where('email', $username)
+                ->first();
+        }
+    }
+
+    /**
      * 随机生成一个用户名
      * @param string $username 用户名
      * @return string
@@ -349,20 +460,5 @@ class User extends Authenticatable implements MustVerifyEmail
             $username = $username . ++$row;
         }
         return $username;
-    }
-
-    /**
-     * 计算子路径
-     * @param int $userId 用户ID
-     * @param string $prefix 前缀
-     * @return string
-     */
-    private static function generateSubPath($userId, $prefix = 'user')
-    {
-        $id = sprintf("%09d", $userId);
-        $dir1 = substr($id, 0, 3);
-        $dir2 = substr($id, 3, 2);
-        $dir3 = substr($id, 5, 2);
-        return $prefix . '/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($userId, -2);
     }
 }

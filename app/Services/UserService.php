@@ -11,6 +11,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\UserSocial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -110,6 +111,26 @@ class UserService
     }
 
     /**
+     * Verify and retrieve user by socialite verify code request.
+     * @param $provider
+     * @param \Laravel\Socialite\Contracts\User $socialUser
+     * @param bool $autoRegistration 是否自动注册用户
+     * @return User|null
+     * @throws \Exception
+     */
+    public static function byPassportSocialRequest($provider, \Laravel\Socialite\Contracts\User $socialUser, $autoRegistration = false)
+    {
+        $social = UserService::getSocialUser($provider, $socialUser, $autoRegistration);
+        if ($social && $social->user) {
+            if ($social->user->hasDisabled()) {//禁止掉的用户不允许通过 社交账户登录
+                throw new \Exception(__('user.account_has_been_blocked'));
+            }
+            return $social->user;
+        }
+        return null;
+    }
+
+    /**
      * Verify and retrieve user by sms verify code request.
      *
      * @param \Illuminate\Http\Request $request
@@ -125,8 +146,9 @@ class UserService
             'verifyCode' => ['required', 'min:4', 'max:6', 'phone_verify_code',],
         ])->validate();
         if (($user = User::phone($request->phone)->first()) != null) {
-            //此处检查是否锁定用户
-
+            if ($user->hasDisabled()) {//禁止掉的用户不允许通过 社交账户登录
+                throw new \Exception(__('user.account_has_been_blocked'));
+            }
         } else if ($autoRegistration && config('user.enable_sms_auto_registration', false)) {
             $user = static::createByPhone($request->phone, '');
         }

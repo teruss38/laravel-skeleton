@@ -8,7 +8,9 @@
 
 namespace App\Models;
 
+use App\Services\UserService;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Socialite\Facades\Socialite;
 
 /**
  * 社交账户
@@ -31,8 +33,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read string $openid
  *
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byWechatPlatform()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial bySocialAndProvider($id, $provider)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byUnionIdAndProvider($id, $provider)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSocial bySocial($id)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byUser($userId)
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class UserSocial extends Model
@@ -46,7 +52,6 @@ class UserSocial extends Model
     const SERVICE_QQ = 'qq';
     const SERVICE_ALIPAY = 'alipay';
     const SERVICE_BAIDU = 'baidu';
-
 
     /**
      * @var bool
@@ -118,6 +123,28 @@ class UserSocial extends Model
         return $this->update(['user_id' => null]);
     }
     /**
+     * Finds an account by id.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param integer $id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBySocial($query, $id)
+    {
+        return $query->where('social_id', $id);
+    }
+
+    /**
+     * Finds an account by user_id.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param integer $userId
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByUser($query, $userId)
+    {
+        return $query->where('user_id', $userId);
+    }
+
+    /**
      * 查询指定的提供商
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -141,5 +168,25 @@ class UserSocial extends Model
     public function scopeByUnionIdAndProvider($query, $id, $provider)
     {
         return $query->where('union_id', $id)->where('provider', $provider);
+    }
+
+    /**
+     * 查询微信公众号
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByWechatPlatform($query)
+    {
+        return $query->where('provider', static::SERVICE_WECHAT);
+    }
+
+    /**
+     * 刷新用户资料
+     * @param bool $autoRegistration
+     */
+    public function refreshUser($autoRegistration = false)
+    {
+        $user = Socialite::driver($this->provider)->userFromToken($this->access_token);
+        UserService::getSocialUser($this->provider, $user, $autoRegistration);
     }
 }

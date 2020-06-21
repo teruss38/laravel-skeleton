@@ -9,11 +9,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\WelcomeNotification;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
@@ -55,6 +55,22 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function showRegistrationForm(Request $request)
+    {
+        if ($request->user()) {
+            return redirect(url()->previous());
+        } else if (!settings('user.enable_registration')) {
+            return redirect(url()->previous())->with('status', trans('user.registration_closed'));
+        }
+        $request->session()->put('actions-redirect', URL::previous());
+        return view('auth.register');
+    }
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param array $data
@@ -63,7 +79,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'nickname', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ];
@@ -78,10 +94,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return UserService::createByUsernameAndEmail($data['username'], $data['email'], $data['password']);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param mixed $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        //发送欢迎邮件
+        if (settings('user.enable_welcome_email') && !empty($user->email)) {
+            $user->notify(new WelcomeNotification($user->username));
+        }
+        return;
     }
 }

@@ -110,9 +110,11 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         $username = $request->input($this->username());
-
-        $credentials = ['email' => $username, 'password' => $request->input('password'), 'disabled' => false];
-
+        if (preg_match(config('system.phone_rule'), $username)) {
+            $credentials = ['phone' => $username, 'password' => $request->input('password'), 'disabled' => false];
+        } else {
+            $credentials = ['email' => $username, 'password' => $request->input('password'), 'disabled' => false];
+        }
         return $credentials;
     }
 
@@ -125,7 +127,11 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-
+        //绑定请求
+        if ($request->session()->has('social_id')) {
+            \App\Models\UserSocial::bySocial($request->session()->pull('social_id'))->connect($user);
+        }
+        $user->updateLogin($request->getClientIp(), $request->userAgent());
         return;
     }
 
