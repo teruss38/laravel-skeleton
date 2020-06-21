@@ -16,7 +16,7 @@
 1. 创建项目
 
 ```bash
-$ composer create-project larvacloud/laravel-skeleton -vv
+$ composer create-project larvacloud/laravel-skeleton:dev-master -vv
 ```
 
 
