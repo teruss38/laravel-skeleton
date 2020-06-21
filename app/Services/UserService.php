@@ -143,13 +143,13 @@ class UserService
     {
         Validator::make($request->all(), [
             'phone' => ['required', 'min:11', 'max:11', 'phone',],
-            'verifyCode' => ['required', 'min:4', 'max:6', 'phone_verify_code',],
+            'verifyCode' => ['required', 'min:4', 'max:6', 'phone_verify_code'],
         ])->validate();
         if (($user = User::phone($request->phone)->first()) != null) {
-            if ($user->hasDisabled()) {//禁止掉的用户不允许通过 社交账户登录
+            if ($user->hasDisabled()) {//禁止掉的用户不允许登录
                 throw new \Exception(__('user.account_has_been_blocked'));
             }
-        } else if ($autoRegistration && config('user.enable_sms_auto_registration', false)) {
+        } else if ($autoRegistration && settings('user.enable_sms_auto_registration', false)) {
             $user = static::createByPhone($request->phone, '');
         }
         return $user;

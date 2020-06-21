@@ -385,13 +385,14 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param string $provider Provider name as requested from oauth e.g. facebook
      * @param \Laravel\Socialite\Contracts\User $socialUser User of social provider
      *
+     * @param bool $autoRegistration
      * @return User
-     * @throws \Exception
+     * @throws \League\OAuth2\Server\Exception\OAuthServerException
      */
-    public static function findForPassportSocialite($provider, \Laravel\Socialite\Contracts\User $socialUser)
+    public static function findForPassportSocialite($provider, \Laravel\Socialite\Contracts\User $socialUser, $autoRegistration = true)
     {
         try {
-            return UserService::byPassportSocialRequest($provider,$socialUser);
+            return UserService::byPassportSocialRequest($provider, $socialUser, $autoRegistration);
         } catch (\Exception $e) {
             throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
         }
@@ -406,10 +407,10 @@ class User extends Authenticatable implements MustVerifyEmail
      * @return \Illuminate\Database\Eloquent\Model|null
      * @throws \League\OAuth2\Server\Exception\OAuthServerException
      */
-    public static function findForPassportSmsRequest(\Illuminate\Http\Request $request, $autoRegistration = false)
+    public static function findForPassportSmsRequest(\Illuminate\Http\Request $request, $autoRegistration = true)
     {
         try {
-            return UserService::byPassportSmsRequest($request, true);
+            return UserService::byPassportSmsRequest($request, $autoRegistration);
         } catch (\Exception $e) {
             throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
         }

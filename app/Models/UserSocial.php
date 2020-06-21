@@ -36,6 +36,7 @@ use Laravel\Socialite\Facades\Socialite;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byWechatPlatform()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial bySocialAndProvider($id, $provider)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byUnionIdAndProvider($id, $provider)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byProvider($provider)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial bySocial($id)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byUser($userId)
  *
@@ -122,6 +123,19 @@ class UserSocial extends Model
     {
         return $this->update(['user_id' => null]);
     }
+
+    /**
+     * 查询指定的提供商
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $provider
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByProvider($query, $provider)
+    {
+        return $query->where('provider', $provider);
+    }
+
     /**
      * Finds an account by id.
      * @param \Illuminate\Database\Eloquent\Builder $query
