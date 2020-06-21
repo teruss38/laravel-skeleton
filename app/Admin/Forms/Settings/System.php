@@ -19,8 +19,8 @@ class System extends Settings
      */
     public function form()
     {
-        $this->text('system.icp_record','ICP备案')->rules('string|nullable');
-        $this->text('system.police_record','公安备案')->rules('string|nullable');
-        $this->email('system.support_email','服务邮箱')->rules('email|nullable');
+        $this->text('system.icp_record','ICP备案')->rules('nullable|string');
+        $this->text('system.police_record','公安备案')->rules('nullable|string');
+        $this->email('system.support_email','服务邮箱')->rules('nullable|email');
     }
 }

@@ -11,10 +11,21 @@ namespace App\Providers;
 use App\Http\Resources\Resource;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * @var array 验证器
+     */
+    protected $validators = [
+        'phone' => \App\Validators\PhoneValidator::class,
+        'tel_phone' => \App\Validators\TelPhoneValidator::class,
+        'phone_two' => \App\Validators\PhoneTwoValidator::class,
+        'hash' => \App\Validators\HashValidator::class,
+        
+    ];
     /**
      * Register any application services.
      *
@@ -40,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('zh');
         //
         $this->registerObserve();
+        $this->registerValidators();
     }
 
     /**
@@ -51,4 +63,13 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\UserLoginHistory::observe(\App\Observers\UserLoginHistoryObserver::class);//登录
     }
 
+    /**
+     * Register validators.
+     */
+    protected function registerValidators()
+    {
+        foreach ($this->validators as $rule => $validator) {
+            Validator::extend($rule, "{$validator}@validate");
+        }
+    }
 }
