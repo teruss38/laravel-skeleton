@@ -68,6 +68,8 @@ class ClientController extends AdminController
                     1 => '是',
                 ]);
             });
+
+            $grid->enableDialogCreate();
         });
     }
 
