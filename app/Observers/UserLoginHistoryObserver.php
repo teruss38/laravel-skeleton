@@ -31,6 +31,6 @@ class UserLoginHistoryObserver
             $loginHistory->browser = $loginHistory->device->browserName();
         }
         $loginHistory->save();
-        //$loginHistory->user->notify(new \App\Notifications\LoginNotification($loginHistory));
+        $loginHistory->user->notify(new \App\Notifications\LoginNotification($loginHistory));
     }
 }
