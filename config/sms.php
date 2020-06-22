@@ -29,7 +29,7 @@ return [
         |
         */
         'gateways' => [
-
+            'qcloud', 'yunpian', 'aliyun'
         ],
     ],
 
