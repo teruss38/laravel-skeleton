@@ -9,6 +9,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * User 观察者
@@ -37,6 +38,7 @@ class UserObserver
      */
     public function updated(User $user)
     {
+        Cache::forget('users:' . $user->id);
     }
 
     /**
@@ -48,6 +50,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
+        Cache::forget('users:' . $user->id);
     }
 
     /**
@@ -74,5 +77,6 @@ class UserObserver
         $user->extra->delete();
         $user->socials()->delete();
         $user->loginHistories()->delete();
+        Cache::forget('users:' . $user->id);
     }
 }
