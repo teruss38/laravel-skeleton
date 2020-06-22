@@ -9,9 +9,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\PhoneRegisterRequest;
 use App\Notifications\WelcomeNotification;
 use App\Providers\RouteServiceProvider;
 use App\Services\UserService;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -70,6 +72,38 @@ class RegisterController extends Controller
         $request->session()->put('actions-redirect', URL::previous());
         return view('auth.register');
     }
+
+    /**
+     * 显示手机号码注册窗口
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function showPhoneRegistrationForm(Request $request)
+    {
+        if ($request->user()) {
+            return redirect(url()->previous());
+        } else if (!settings('user.enable_registration')) {
+            return redirect(url()->previous())->with('status', trans('user.registration_closed'));
+        }
+        $request->session()->put('actions-redirect', Url::previous());
+        return view('auth.register-phone');
+    }
+
+    /**
+     * 手机注册
+     * @param PhoneRegisterRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function phoneRegister(PhoneRegisterRequest $request)
+    {
+        event(new Registered($user = UserService::createByPhone($request->phone, $request->password)));
+        $this->guard()->login($user);
+        $user->markPhoneAsVerified();//标记为已验证
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *

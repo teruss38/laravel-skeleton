@@ -18,6 +18,8 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
 Route::get('/', 'MainController@index');
 
 Auth::routes(['verify' => true]);
+Route::get('register/phone', 'Auth\RegisterController@showPhoneRegistrationForm')->name('mobile.register');
+Route::post('register/phone', 'Auth\RegisterController@phoneRegister')->name('mobile.register.store');
 
 //社交账户登录
 Route::get('auth/social/{provider}', 'Auth\SocialLoginController@redirectToProvider');
