@@ -25,9 +25,21 @@ class MainController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except([
-            'mailVerifyCode',
+            'phoneVerifyCode', 'mailVerifyCode',
         ]);
         //$this->middleware('throttle:1,2')->only('phoneVerifyCode', 'mailVerifyCode');
+    }
+
+    /**
+     * 短信验证码
+     * @param \App\Http\Requests\Api\Main\PhoneVerifyCodeRequest $request
+     * @return mixed
+     */
+    public function phoneVerifyCode(\App\Http\Requests\Api\Main\PhoneVerifyCodeRequest $request)
+    {
+        $verifyCode = \App\Services\PhoneVerifyCodeService::make($request->phone);
+        $verifyCode->setIp($request->getClientIp());//记录客户端IP
+        return $verifyCode->send();
     }
 
     /**
