@@ -1,26 +1,33 @@
 # Laravel 7 基础模板
 
-开箱即用的 Laravel 7 基础结构。
+开箱即用的 Laravel 7 基础结构。只需很少的代码即可快速构建出一个功能完善的高颜值系统。内置丰富的常用组件，开箱即用，让开发者告别冗杂的代码，对 RESTFul 开发者非常友好。
 
-## 特点
-- 内置 laravel/passport 的授权机制；
-- 扩充 laravel/passport 短信验证码登录；
-- 扩充 laravel/passport 社交账户登录（App）；
-- 高度完善的控制器、模型、模块模板；
-- 集成常用基础扩展；
-- 内置模型通用高阶 Traits 封装;
-- 自动注册 Policies；
-- 内置用户系统和基础接口；
-- 内置DcatAdmin管理后台；
-- 内置支持邮件验证码；
-- 内置支持短信验证码；
-- 无缝可选支持微信和支付宝交易；
-- 无缝可选支持App通知推送；
-- 无缝可选支持带签名的开放API接口；
+## 功能特性
+- [x] 内置 laravel/passport 的授权机制；
+- [x] 扩充 laravel/passport 短信验证码登录；
+- [x] 扩充 laravel/passport 社交账户登录（App）；
+- [x] 高度完善的控制器、模型、模块模板；
+- [x] 集成常用基础扩展；
+- [x] 内置模型通用高阶 Traits 封装;
+- [x] 自动注册 Policies；
+- [x] 内置用户系统和基础接口；
+- [x] 内置 `DcatAdmin` 管理后台；
+- [x] 内置支持邮件验证码；
+- [x] 内置支持短信验证码；
+- [x] 无缝可选支持微信和支付宝交易；
+- [x] 无缝可选支持App通知推送；
+- [x] 无缝可选支持带签名的开放API接口；
 
 ## RESTFul
+
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5e5655b5100a1eafc2f6)
 
+## 环境
+ - PHP >= 7.2.5
+ - Laravel 5.5.0 ~ 7.*
+ - Fileinfo PHP Extension
+ - Redis PHP Extension(短信、邮件验证码必须)
+ 
 ## 安装
 
 1. 创建项目
@@ -43,3 +50,7 @@ $ php artisan migrate --seed
 ```
 
 然后访问 `http://laravel-skeleton.test/` 将会看到网站信息。 
+
+## License
+------------
+`dcat-admin` is licensed under [The MIT License (MIT)](LICENSE).
