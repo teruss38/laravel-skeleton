@@ -98,6 +98,9 @@ class LoginController extends Controller
             $this->username() => 'required|string',
             'password' => 'required|string',
         ];
+        if (config('app.env') != 'testing') {
+            $rules['ticket'] = ['required', 'ticket:login'];//开启防水墙
+        }
         $request->validate($rules);
     }
 

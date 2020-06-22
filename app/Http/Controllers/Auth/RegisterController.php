@@ -82,7 +82,11 @@ class RegisterController extends Controller
             'username' => ['required', 'string', 'max:255', 'nickname', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'terms' => ['accepted'],
         ];
+        if (config('app.env') != 'testing') {
+            $rules['ticket'] = ['required', 'ticket:register'];//开启防水墙
+        }
         return Validator::make($data, $rules);
     }
 
