@@ -8,6 +8,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Forms\Settings\MiniProgram;
 use App\Admin\Forms\Settings\Storage;
 use App\Admin\Forms\Settings\System;
 use App\Http\Controllers\Controller;
@@ -40,6 +41,15 @@ class SettingsController extends Controller
         return $content->title('网站设置')->body(new Card('网站设置', new System));
     }
 
+    /**
+     * 小程序设置
+     * @param Content $content
+     * @return Content
+     */
+    public function miniprogram(Content $content)
+    {
+        return $content->title('小程序设置')->body(new Card('小程序设置', new MiniProgram));
+    }
 
     /**
      * 附件设置

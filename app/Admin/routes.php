@@ -19,6 +19,7 @@ Route::group([
      */
     $router->get('settings/system', 'SettingsController@system')->name('admin.settings.system');
     $router->get('settings/storage', 'SettingsController@storage')->name('admin.settings.storage');
+    $router->get('settings/miniprogram', 'SettingsController@miniprogram')->name('admin.settings.miniprogram');
 
     //用户
     $router->get('user/settings/basic', 'User\SettingsController@basic')->name('admin.user.settings.basic');

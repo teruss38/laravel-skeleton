@@ -125,12 +125,21 @@ class AdminTablesSeeder extends Seeder
                 'order' => 8,
                 'created_at' => $createdAt,
             ],
+            [
+                'id' => 9,
+                'name' => '小程序设置',
+                'slug' => 'settings-miniprogram',
+                'http_method' => '',
+                'http_path' => '/settings/miniprogram',
+                'parent_id' => 1,
+                'order' => 8,
+                'created_at' => $createdAt,
+            ],
         ]);
-
 
         Permission::insert([
             [
-                'id' => 9,
+                'id' => 10,
                 'name' => '用户管理',
                 'slug' => 'user-management',
                 'http_method' => '',
@@ -141,22 +150,42 @@ class AdminTablesSeeder extends Seeder
             ],
 
             [
-                'id' => 10,
+                'id' => 11,
                 'name' => '用户设置',
                 'slug' => 'settings-user',
                 'http_method' => '',
                 'http_path' => '/user/settings/basic',
-                'parent_id' => 9,
+                'parent_id' => 10,
                 'order' => 2,
                 'created_at' => $createdAt,
             ],
             [
-                'id' => 11,
+                'id' => 12,
                 'name' => 'OAuth客户端管理',
                 'slug' => 'oauth-management',
                 'http_method' => '',
                 'http_path' => 'user/clients',
-                'parent_id' => 9,
+                'parent_id' => 10,
+                'order' => 3,
+                'created_at' => $createdAt,
+            ],
+            [
+                'id' => 13,
+                'name' => '用户管理管理',
+                'slug' => 'user-members',
+                'http_method' => '',
+                'http_path' => 'user/members',
+                'parent_id' => 10,
+                'order' => 3,
+                'created_at' => $createdAt,
+            ],
+            [
+                'id' => 14,
+                'name' => '社交账户管理',
+                'slug' => 'user-socials',
+                'http_method' => '',
+                'http_path' => 'user/socials',
+                'parent_id' => 10,
                 'order' => 3,
                 'created_at' => $createdAt,
             ],
@@ -275,7 +304,14 @@ class AdminTablesSeeder extends Seeder
                 'uri' => 'settings/storage',
                 'created_at' => $createdAt,
             ],
-
+            [
+                'parent_id' => 2,
+                'order' => 8,
+                'title' => '小程序设置',
+                'icon' => '',
+                'uri' => 'settings/miniprogram',
+                'created_at' => $createdAt,
+            ],
             //数据管理 3
             [
                 'parent_id' => 3,
