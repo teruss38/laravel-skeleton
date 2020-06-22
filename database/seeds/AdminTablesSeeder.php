@@ -153,7 +153,7 @@ class AdminTablesSeeder extends Seeder
             [
                 'id' => 11,
                 'name' => 'OAuth客户端管理',
-                'slug' => 'settings-user',
+                'slug' => 'oauth-management',
                 'http_method' => '',
                 'http_path' => 'user/clients',
                 'parent_id' => 9,
