@@ -4,12 +4,16 @@
 
 ## 特点
 - 内置 laravel/passport 的授权机制；
+- 扩充 laravel/passport 短信验证码登录；
+- 扩充 laravel/passport 社交账户登录（App）；
 - 高度完善的控制器、模型、模块模板；
 - 集成常用基础扩展；
 - 内置模型通用高阶 Traits 封装;
 - 自动注册 Policies；
 - 内置用户系统和基础接口；
 - 内置DcatAdmin管理后台；
+- 内置支持邮件验证码；
+- 内置支持短信验证码；
 
 ## 安装
 
