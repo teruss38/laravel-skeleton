@@ -14,6 +14,8 @@
 - 内置DcatAdmin管理后台；
 - 内置支持邮件验证码；
 - 内置支持短信验证码；
+- 无缝可选支持微信和支付宝交易；
+- 无缝可选支持App通知推送；
 
 ## RESTFul
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5e5655b5100a1eafc2f6)
