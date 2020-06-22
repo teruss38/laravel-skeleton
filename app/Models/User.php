@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
+use Larva\Passport\Socialite\User\UserSocialAccount;
 
 /**
  * 用户模型
@@ -49,7 +50,7 @@ use Laravel\Passport\HasApiTokens;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
 {
     use HasApiTokens, Notifiable, SoftDeletes;
 
