@@ -15,6 +15,8 @@
 - 内置支持邮件验证码；
 - 内置支持短信验证码；
 
+## RESTFul
+    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5e5655b5100a1eafc2f6)
 ## 安装
 
 1. 创建项目
