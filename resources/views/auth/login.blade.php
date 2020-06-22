@@ -13,7 +13,7 @@
                         <input id="account" type="text"
                                class="form-control @error('account') is-invalid @enderror"
                                name="account" value="{{ old('account') }}" required
-                               autocomplete="account" placeholder="{{ __('Account') }}" autofocus>
+                               autocomplete="account" placeholder="{{ __('PhoneOrEmail') }}" autofocus>
 
                         @error('account')
                         <span class="invalid-feedback" role="alert">
