@@ -23,8 +23,10 @@ class AppServiceProvider extends ServiceProvider
         'phone' => \App\Validators\PhoneValidator::class,
         'tel_phone' => \App\Validators\TelPhoneValidator::class,
         'phone_two' => \App\Validators\PhoneTwoValidator::class,
+        'mail_verify_code' => \App\Validators\MailVerifyCodeValidator::class,
         'hash' => \App\Validators\HashValidator::class,
         'ticket' => \App\Validators\TicketValidator::class,
+        'mail_verify' => \App\Validators\MailVerifyValidator::class,
 
     ];
 

@@ -21,6 +21,7 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
  * Define the version of the interface that conforms to most of the
  * REST ful specification.
  */
+Route::post('mail-verify-code', 'Api\MainController@mailVerifyCode');//邮件验证码
 
 /**
  * RESTFul API version 1.
