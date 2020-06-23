@@ -16,7 +16,6 @@ use App\Services\UserService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -69,7 +68,6 @@ class RegisterController extends Controller
         } else if (!settings('user.enable_registration')) {
             return redirect(url()->previous())->with('status', trans('user.registration_closed'));
         }
-        $request->session()->put('actions-redirect', URL::previous());
         return view('auth.register');
     }
 
@@ -86,7 +84,6 @@ class RegisterController extends Controller
         } else if (!settings('user.enable_registration')) {
             return redirect(url()->previous())->with('status', trans('user.registration_closed'));
         }
-        $request->session()->put('actions-redirect', Url::previous());
         return view('auth.register-phone');
     }
 

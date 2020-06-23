@@ -38,8 +38,11 @@ class SocialLoginController extends Controller
      */
     public function redirectTo()
     {
-        //跳转到登录前页面
-        return Session::pull('actions-redirect', $this->redirectTo);
+        $redirectTo = Session::previousUrl();
+        if (!$redirectTo) {
+            $redirectTo = $this->redirectTo;
+        }
+        return $redirectTo;
     }
 
     /**
@@ -51,9 +54,7 @@ class SocialLoginController extends Controller
     public function redirectToProvider(Request $request, $provider)
     {
         try {
-            if (!$request->session()->has('actions-redirect')) {
-                $request->session()->put('actions-redirect', Url::previous());
-            }
+            Session::setPreviousUrl(URL::previous());
             $driver = Socialite::driver($provider);
             if ($provider == 'qq') {
                 $driver->withUnionId();
@@ -84,7 +85,7 @@ class SocialLoginController extends Controller
                 return redirect("/auth/social/{$provider}/binding", 302)->with('status', trans('user.login_bind'));
             }
         } else {//如果已经绑定过了账户，这里检查用户是否被禁用
-            if ($social->user->disabled) {
+            if ($social->user->hasDisabled()) {
                 return redirect('/login')->with('status', trans('user.account_has_been_blocked'));
             } else {
                 Auth::login($social->user);

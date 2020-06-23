@@ -68,7 +68,11 @@ class LoginController extends Controller
      */
     public function redirectTo()
     {
-        return Session::pull('actions-redirect', $this->redirectTo);
+        $redirectTo = Session::previousUrl();
+        if (!$redirectTo) {
+            $redirectTo = $this->redirectTo;
+        }
+        return $redirectTo;
     }
 
     /**
@@ -78,9 +82,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        if (!Session::has('actions-redirect')) {
-            Session::put('actions-redirect', URL::previous());
-        }
+        Session::setPreviousUrl(URL::previous());
         return view('auth.login');
     }
 

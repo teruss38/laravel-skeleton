@@ -25,6 +25,8 @@ Route::post('register/phone', 'Auth\RegisterController@phoneRegister')->name('mo
 Route::get('auth/social/{provider}', 'Auth\SocialLoginController@redirectToProvider');
 Route::get('auth/social/{provider}/callback', 'Auth\SocialLoginController@handleProviderCallback');
 Route::get('auth/social/{provider}/binding', 'Auth\SocialLoginController@handleProviderBinding');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 /**
