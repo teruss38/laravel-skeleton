@@ -9,6 +9,7 @@
 namespace App\Admin\Controllers\User;
 
 use App\Admin\Repositories\PassportClient;
+use App\Models\User;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -70,6 +71,7 @@ class ClientController extends AdminController
             });
 
             $grid->enableDialogCreate();
+            $grid->disableRowSelector();
         });
     }
 
@@ -104,7 +106,7 @@ class ClientController extends AdminController
     protected function form()
     {
         return Form::make(new PassportClient(), function (Form $form) {
-            $form->number('user_id');
+            $form->select('user_id')->model(User::class, 'id', 'name');
             $form->text('name')->required();
             $form->text('secret');
             $form->text('redirect')->default('http://localhost');

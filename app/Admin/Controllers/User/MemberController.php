@@ -62,7 +62,10 @@ class MemberController extends AdminController
             $grid->created_at;
             $grid->updated_at->sortable();
 
-            $grid->enableDialogCreate();
+
+            $grid->disableRowSelector();
+            $grid->disableCreateButton();
+            $grid->paginate(10);
         });
     }
 
