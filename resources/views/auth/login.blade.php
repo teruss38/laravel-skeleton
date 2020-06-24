@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <input type="hidden" name="ticket" id="ticket" value="">
                         <input type="hidden" name="randstr" id="randstr" value="">
-                        <button type="button" class="login-btn" id="TencentCaptcha" data-appid="{{config('services.captcha.login.aid')}}" data-cbfn="captchaCallback">
+                        <button @if (config('app.env') != 'testing' && settings('user.enable_login_ticket')) type="button" @else type="submit" @endif class="login-btn" id="TencentCaptcha" data-appid="{{config('services.captcha.login.aid')}}" data-cbfn="captchaCallback">
                             {{ __('Login') }}
                         </button>
                     </div>
