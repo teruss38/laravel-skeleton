@@ -44,6 +44,7 @@ use Larva\Passport\Socialite\User\UserSocialAccount;
  * @property UserSocial[] $socials 社交账户
  * @property UserDevice[] $devices 移动设备
  * @property UserLoginHistory[] $loginHistories 登录历史
+ * @property \Larva\Wallet\Models\Wallet $wallet 钱包
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User phone($phone)
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
@@ -157,6 +158,20 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     public function devices()
     {
         return $this->hasMany(UserDevice::class);
+    }
+
+    /**
+     * 获取用户钱包
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @throws \Exception
+     */
+    public function wallet()
+    {
+        if (class_exists('\Larva\Wallet\Models\Wallet')) {
+            return $this->hasOne(\Larva\Wallet\Models\Wallet::class);
+        } else {
+            throw new \Exception('Please install the wallet extension first.');//钱包未安装
+        }
     }
 
     /**

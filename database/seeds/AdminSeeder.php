@@ -11,7 +11,7 @@ use Dcat\Admin\Models\Permission;
 use Dcat\Admin\Models\Role;
 use Illuminate\Database\Seeder;
 
-class AdminTablesSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.

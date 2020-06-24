@@ -22,14 +22,17 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-        Settings::set('system.icp_record', '鲁ICP备09088162号');
+        Settings::set('system.icp_record', '京ICP备00000001号');
         Settings::set('system.police_record', '');
-        Settings::set('system.support_email', 'support@larva.com.cn');
+        Settings::set('system.support_email', 'support@email.com');
 
         Settings::set('user.enable_registration', '1');//启用注册
         Settings::set('user.enable_socialite_auto_registration', '1');
         Settings::set('user.enable_sms_auto_registration', '1');
         Settings::set('user.enable_password_recovery', '1');
         Settings::set('user.enable_welcome_email', '1');
+        Settings::set('user.enable_login_email', '0');
+        Settings::set('user.enable_register_ticket', '0');
+        Settings::set('user.enable_login_ticket', '0');
     }
 }
