@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone', 11)->unique()->nullable()->comment('手机号');//邮箱//手机号码
             $table->string('avatar_path', 191)->nullable();//头像地址
             $table->string('password')->comment('密码');
+            $table->boolean('disabled')->default(false)->nullable();//是否被禁用
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();

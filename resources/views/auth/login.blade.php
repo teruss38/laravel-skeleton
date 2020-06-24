@@ -80,6 +80,7 @@
 @endsection
 
 @push('footer')
+    @if (config('app.env') != 'testing' && settings('user.enable_login_ticket'))
     <!-- 腾讯防水墙 -->
     <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
     <script>
@@ -91,4 +92,5 @@
             }
         }
     </script>
+    @endif
 @endpush

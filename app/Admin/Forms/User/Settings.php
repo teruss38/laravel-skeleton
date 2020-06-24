@@ -52,6 +52,9 @@ class Settings extends Form
         $this->switch('user.enable_sms_auto_registration', '启用短信验证码注册');
         $this->switch('user.enable_password_recovery', '启用找回密码');
         $this->switch('user.enable_welcome_email', '发送注册欢迎邮件');
+        $this->switch('user.enable_login_email', '发送登录通知邮件');
+        $this->switch('user.enable_register_ticket', '启用注册滑动解锁');
+        $this->switch('user.enable_login_ticket', '启用登录滑动解锁');
     }
 
     /**

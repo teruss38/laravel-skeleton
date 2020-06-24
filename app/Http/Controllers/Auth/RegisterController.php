@@ -115,7 +115,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'terms' => ['accepted'],
         ];
-        if (config('app.env') != 'testing') {
+        if (config('app.env') != 'testing' && settings('user.enable_register_ticket')) {
             $rules['ticket'] = ['required', 'ticket:register'];//开启防水墙
         }
         return Validator::make($data, $rules);
