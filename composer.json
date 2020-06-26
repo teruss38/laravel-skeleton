@@ -13,7 +13,7 @@
         "ext-json": "*",
         "dcat/laravel-admin": "^1.5",
         "fideloper/proxy": "^4.2",
-        "fruitcake/laravel-cors": "^1.0",
+        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "hisorange/browser-detect": "^4.2",
         "laravel/framework": "^7.0",
