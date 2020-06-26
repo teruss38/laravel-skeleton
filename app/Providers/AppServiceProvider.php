@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         'phone_verify' => \App\Validators\PhoneVerifyValidator::class,
         'mail_verify' => \App\Validators\MailVerifyValidator::class,
         'mac_address' => \App\Validators\MacAddressValidator::class,//Mac 地址验证
-
+        'captcha' => \App\Validators\CaptchaValidator::class,//验证码验证
     ];
 
     /**
