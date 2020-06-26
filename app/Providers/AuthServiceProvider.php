@@ -34,6 +34,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         $this->registerPassport();
+        Gate::guessPolicyNamesUsing(function ($modelClass) {
+            return \sprintf('App\Policies\%sPolicy', \class_basename($modelClass));
+        });
     }
 
     /**

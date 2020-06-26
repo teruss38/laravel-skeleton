@@ -55,8 +55,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //设置迁移的 string 字段默认长度是 191
-        Schema::defaultStringLength(191);
+        if ($this->app->runningInConsole() || $this->app->runningUnitTests()) {
+            Schema::defaultStringLength(191);
+        }
         //关闭 API 响应的 data 包裹
         JsonResource::withoutWrapping();
         Carbon::setLocale('zh');
