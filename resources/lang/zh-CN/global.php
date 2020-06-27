@@ -22,6 +22,7 @@ return [
         'roles'                 => '角色',
         'path'                  => '路径',
         'input'                 => '输入',
+        'captcha'=>'验证码',
         'nickname'=>'昵称',
         'user_id'=>'用户ID',
 

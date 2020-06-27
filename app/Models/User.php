@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
 
     //系统用户Id
     const SYSTEM_USER_ID = 10000000;
-    
+
     /**
      * The table associated with the model.
      *

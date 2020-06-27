@@ -150,6 +150,10 @@ return [
             'required' => '请输入昵称。',
             'nickname' => '昵称不正确，请重新输入。',
         ],
+        'captcha' => [
+            'required' => '请输入验证码。',
+            'captcha' => '验证码不正确。',
+        ],
     ],
 
     /*
@@ -165,6 +169,7 @@ return [
 
     'attributes' => [
         'account' => '账号',
+        'captcha' => '验证码',
         'id_card' => '身份证号码',
         'nickname' => '昵称',
         'email' => '邮箱',
