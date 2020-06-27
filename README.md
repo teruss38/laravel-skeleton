@@ -6,7 +6,8 @@
 - [x] 内置 laravel/passport 的授权机制；
 - [x] 扩充 laravel/passport 短信验证码登录；
 - [x] 扩充 laravel/passport 社交账户登录（App）；
-- [x] 可选扩充 laravel/passport 微信登录、QQ登录、百度登录、头条登录（小程序）；
+- [x] 可选扩充 laravel/passport 小程序登录（微信、QQ、百度、头条）；
+- [x] 可选扩充 laravel/passport App扫码登录；
 - [x] 高度完善的控制器、模型、模块模板；
 - [x] 集成常用基础扩展；
 - [x] 内置模型通用高阶 Traits 封装;
