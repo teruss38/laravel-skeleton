@@ -8,15 +8,12 @@
 
 namespace App\Models\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Trait BelongsToUserTrait
- * @property Model $this
  *
- * @package App\Models\Relations
+ * @package App\Models\Traits
  */
-trait UserTrait
+trait BelongsToUser
 {
     /**
      * Get the user relation.
@@ -25,8 +22,6 @@ trait UserTrait
      */
     public function user()
     {
-        return $this->belongsTo(
-            config('auth.providers.' . config('auth.guards.web.provider') . '.model')
-        );
+        return $this->belongsTo(config('auth.providers.' . config('auth.guards.web.provider') . '.model'));
     }
 }
