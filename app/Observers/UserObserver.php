@@ -21,13 +21,17 @@ class UserObserver
     /**
      * 处理 User「新建」事件
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return void
+     * @throws \Exception
      */
     public function created(User $user)
     {
         $user->profile()->create();//创建Profile
         $user->extra()->create();//创建Extra
+        if (class_exists('\Larva\Wallet\Models\Wallet')) {
+            $user->wallet()->create();//创建wallet
+        }
     }
 
     /**
@@ -77,6 +81,9 @@ class UserObserver
         $user->extra->delete();
         $user->socials()->delete();
         $user->loginHistories()->delete();
+        if (class_exists('\Larva\Wallet\Models\Wallet')) {
+            $user->wallet()->delete();
+        }
         Cache::forget('users:' . $user->id);
     }
 }
