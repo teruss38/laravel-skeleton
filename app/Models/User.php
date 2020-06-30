@@ -436,6 +436,24 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     }
 
     /**
+     * Verify and retrieve user by mini program request.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @param bool $autoRegistration 是否自动注册用户
+     * @return \Illuminate\Database\Eloquent\Model|null
+     * @throws \League\OAuth2\Server\Exception\OAuthServerException
+     */
+    public static function findForPassportMiniProgramRequest(\Illuminate\Http\Request $request, $autoRegistration = true)
+    {
+        try {
+            return UserService::findForPassportMiniProgramRequest($request, $autoRegistration);
+        } catch (\Exception $e) {
+            throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
+        }
+    }
+
+    /**
      * 通过ID获取用户，带缓存
      * @param int $id
      * @return User|null
