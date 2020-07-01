@@ -71,7 +71,7 @@ class UserDevice extends Model
 
     /**
      * 链接用户
-     * @param User $user
+     * @param \Illuminate\Contracts\Auth\Authenticatable|null $user
      * @return bool
      */
     public function connect(User $user)
