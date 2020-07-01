@@ -84,4 +84,26 @@ return [
         'client_secret' => env('ALI_PRIVATE_KEY', storage_path('alipay/private.pem')),
         'redirect' => env('ALI_REDIRECT_URI', '/auth/social/alipay/callback')
     ],
+
+    'baidu_smart_program' => [
+        'app_id' => env('BAIDU_SMART_PROGRAM_APP_ID', ''),
+        'app_key' => env('BAIDU_SMART_PROGRAM_APP_KEY', ''),
+        'app_secret' => env('BAIDU_SMART_PROGRAM_APP_SECRET', ''),
+    ],
+
+    'wechat_mini_program' => [
+        'app_id' => env('WECHAT_NIMI_PROGRAM_APP_ID', ''),
+        'app_secret' => env('WECHAT_NIMI_PROGRAM_APP_SECRET', ''),
+    ],
+
+    'qq_mini_program' => [//QQ小程序设置
+        'app_id' => env('QQ_NIMI_PROGRAM_APP_ID', ''),
+        'app_token' => env('QQ_NIMI_PROGRAM_APP_KEY', ''),
+        'app_secret' => env('QQ_NIMI_PROGRAM_APP_SECRET', ''),
+    ],
+
+    'bytedance_mini_program' => [//字节跳动小程序设置
+        'app_id' => env('BYTEDANCE_NIMI_PROGRAM_APP_ID', ''),
+        'app_secret' => env('BYTEDANCE_NIMI_PROGRAM_APP_SECRET', ''),
+    ],
 ];
