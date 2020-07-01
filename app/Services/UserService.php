@@ -13,6 +13,7 @@ use App\Models\UserSocial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -111,6 +112,59 @@ class UserService
     }
 
     /**
+     * 获取小程序用户
+     * @param string $provider
+     * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
+     * @param boolean $autoRegistration
+     * @return User|UserSocial|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
+    public static function getMiniProgramUser($provider, $socialUser, $autoRegistration = false)
+    {
+        $userId = null;
+        if (!empty($socialUser->unionid)) {
+            if (($union = UserSocial::byUnionIdAndProvider($socialUser->getUnionid(), $provider)->first()) != null && $union->user_id) {
+                $userId = $union->user_id;
+            }
+        }
+        if (($social = UserSocial::bySocialAndProvider($socialUser->getId(), $provider)->first()) == null) {
+            $attributes = [
+                'user_id' => $userId,
+                'provider' => $provider,
+                'social_id' => $socialUser->getId(),
+                'union_id' => $socialUser->getUnionid(),
+                'name' => $socialUser->getName(),
+                'nickname' => $socialUser->getNickname(),
+                'email' => $socialUser->getEmail(),
+                'avatar' => $socialUser->getAvatar(),
+            ];
+            if ($socialUser->user) {
+                $attributes['data'] = $socialUser->user;
+            }
+            $social = UserSocial::create($attributes);
+        } else {
+            if ($socialUser->user) {
+                $social->update(['data' => $socialUser->user]);
+            }
+        }
+        //小程序账户自动注册用户
+        if (!$social->user && $autoRegistration && settings('user.enable_miniprogram_auto_registration', false)) {
+            $user = static::createByUsernameAndEmail('', '', '');
+            if (!empty($attributes['name'])) {
+                $user->username = User::generateUsername($attributes['name']);
+            } else if (!empty($attributes['nickname'])) {
+                $user->username = User::generateUsername($attributes['nickname']);
+            }
+            if (!empty($attributes['email'])) {
+                $user->email = $attributes['email'];
+            }
+            $user->save();
+            $social->connect($user);
+            return static::getMiniProgramUser($provider, $socialUser);
+        }
+        return $social;
+    }
+
+    /**
      * Verify and retrieve user by socialite verify code request.
      * @param $provider
      * @param \Laravel\Socialite\Contracts\User $socialUser
@@ -153,6 +207,40 @@ class UserService
             $user = static::createByPhone($request->phone, '');
         }
         return $user;
+    }
+
+    /**
+     * Verify and retrieve user by mini program request.
+     *
+     * @param string $authorizationCode
+     * @param string $provider
+     * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
+     * @param bool $autoRegistration 是否自动注册用户
+     * @return User|null
+     * @throws \Exception
+     */
+    public static function findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser, $autoRegistration = false)
+    {
+        if ($provider == UserSocial::SERVICE_BAIDU_SMART_PROGRAM) {//获取百度的openid
+            $socialUser = static::getBaiduMiniProgramUser($authorizationCode, $socialUser);
+        } else if ($provider == UserSocial::SERVICE_WECHAT_MINI_PROGRAM) {//微信
+            $socialUser = static::getWeChatMiniProgramUser($authorizationCode, $socialUser);
+        } else if ($provider == UserSocial::SERVICE_QQ_MINI_PROGRAM) {//QQ
+            $socialUser = static::getQQMiniProgramUser($authorizationCode, $socialUser);
+        } else if ($provider == UserSocial::SERVICE_BYTEDANCE_MINI_PROGRAM) {//字节跳动
+            $socialUser = static::getBytedanceMiniProgramUser($authorizationCode, $socialUser);
+        } else {
+            throw new \Exception(__('user.not_supported_yet'));
+        }
+
+        $social = UserService::getMiniProgramUser($provider, $socialUser, $autoRegistration);
+        if ($social && $social->user) {
+            if ($social->user->hasDisabled()) {//禁止掉的用户不允许通过 社交账户登录
+                throw new \Exception(__('user.account_has_been_blocked'));
+            }
+            return $social->user;
+        }
+        return null;
     }
 
     /**
@@ -202,5 +290,113 @@ class UserService
         $dir2 = substr($id, 3, 2);
         $dir3 = substr($id, 5, 2);
         return $prefix . '/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($userId, -2);
+    }
+
+    /**
+     * 获取 百度用户
+     * @param string $authorizationCode
+     * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
+     * @return \Larva\Passport\MiniProgram\MiniProgramUser
+     * @throws \Exception
+     */
+    private static function getBaiduMiniProgramUser($authorizationCode, $socialUser)
+    {
+        $response = Http::asForm()
+            ->post('https://spapi.baidu.com/oauth/jscode2sessionkey', [
+                'client_id' => config('services.baidu_smart_program.app_key'),
+                'sk' => config('services.baidu_smart_program.app_secret'),
+                'code' => $authorizationCode
+            ]);
+        if ($response->successful() && isset($response['openid'])) {
+            $socialUser->setOpenid($response['openid']);
+            $socialUser->setSessionKey($response['session_key']);
+        } else {
+            throw new \Exception($response['error_description']);
+        }
+        return $socialUser;
+    }
+
+    /**
+     * 获取微信小程序用户
+     * @param $authorizationCode
+     * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
+     * @return \Larva\Passport\MiniProgram\MiniProgramUser
+     * @throws \Exception
+     */
+    private static function getWeChatMiniProgramUser($authorizationCode, $socialUser)
+    {
+        $response = Http::retry(3, 100)
+            ->asForm()
+            ->get('https://api.weixin.qq.com/sns/jscode2session', [
+                'appid' => config('services.wechat_mini_program.app_id'),
+                'secret' => config('services.wechat_mini_program.app_secret'),
+                'js_code' => $authorizationCode,
+                'grant_type' => 'authorization_code'
+            ]);
+        if ($response->successful() && isset($response['openid'])) {
+            $socialUser->setOpenid($response['openid']);
+            $socialUser->setSessionKey($response['session_key']);
+            if (isset($response['unionid'])) {
+                $socialUser->setUnionid($response['unionid']);
+            }
+        } else {
+            throw new \Exception($response['errmsg']);
+        }
+        return $socialUser;
+    }
+
+    /**
+     * 获取QQ小程序用户
+     * @param $authorizationCode
+     * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
+     * @return \Larva\Passport\MiniProgram\MiniProgramUser
+     * @throws \Exception
+     */
+    private static function getQQMiniProgramUser($authorizationCode, $socialUser)
+    {
+        $response = Http::retry(3, 100)
+            ->asForm()
+            ->get('https://api.q.qq.com/sns/jscode2session', [
+                'appid' => config('services.qq_mini_program.app_id'),
+                'secret' => config('services.qq_mini_program.app_secret'),
+                'js_code' => $authorizationCode,
+                'grant_type' => 'authorization_code'
+            ]);
+        if ($response->successful() && isset($response['openid'])) {
+            $socialUser->setOpenid($response['openid']);
+            $socialUser->setSessionKey($response['session_key']);
+            if (isset($response['unionid'])) {
+                $socialUser->setUnionid($response['unionid']);
+            }
+        } else {
+            throw new \Exception($response['errmsg']);
+        }
+        return $socialUser;
+    }
+
+    /**
+     * 获取字节跳动小程序用户
+     * @param $authorizationCode
+     * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
+     * @return \Larva\Passport\MiniProgram\MiniProgramUser
+     * @throws \Exception
+     */
+    private static function getBytedanceMiniProgramUser($authorizationCode, $socialUser)
+    {
+        $response = Http::retry(3, 100)
+            ->asForm()
+            ->get('https://developer.toutiao.com/api/apps/jscode2session', [
+                'appid' => config('services.bytedance_mini_program.app_id'),
+                'secret' => config('services.bytedance_mini_program.app_secret'),
+                'js_code' => $authorizationCode,
+                'grant_type' => 'authorization_code'
+            ]);
+        if ($response->successful() && isset($response['openid'])) {
+            $socialUser->setOpenid($response['openid']);
+            $socialUser->setSessionKey($response['session_key']);
+        } else {
+            throw new \Exception($response['message']);
+        }
+        return $socialUser;
     }
 }

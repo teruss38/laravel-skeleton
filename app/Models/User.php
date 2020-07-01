@@ -438,16 +438,17 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     /**
      * Verify and retrieve user by mini program request.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param string $authorizationCode
+     * @param string $provider
+     * @param array $socialUser
      * @param bool $autoRegistration 是否自动注册用户
      * @return \Illuminate\Database\Eloquent\Model|null
      * @throws \League\OAuth2\Server\Exception\OAuthServerException
      */
-    public static function findForPassportMiniProgramRequest(\Illuminate\Http\Request $request, $autoRegistration = true)
+    public static function findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser, $autoRegistration = true)
     {
         try {
-            return UserService::findForPassportMiniProgramRequest($request, $autoRegistration);
+            return UserService::findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser,$autoRegistration);
         } catch (\Exception $e) {
             throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
         }
