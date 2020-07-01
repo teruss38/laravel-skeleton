@@ -50,6 +50,7 @@ class Settings extends Form
         $this->switch('user.enable_registration', '启用新用户注册');
         $this->switch('user.enable_socialite_auto_registration', '启用社交用户自动注册');
         $this->switch('user.enable_sms_auto_registration', '启用短信验证码注册');
+        $this->switch('user.enable_miniprogram_auto_registration', '启用小程序注册');
         $this->switch('user.enable_password_recovery', '启用找回密码');
         $this->switch('user.enable_welcome_email', '发送注册欢迎邮件');
         $this->switch('user.enable_login_email', '发送登录通知邮件');
