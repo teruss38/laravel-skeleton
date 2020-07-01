@@ -265,7 +265,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     public function routeNotificationForWechat($notification)
     {
         if (($social = UserSocial::byUser($this->id)->byWechatPlatform()->latest('id')->first()) != null) {
-            return $social->social_id;
+            return $social->openid;
         }
         return null;
     }

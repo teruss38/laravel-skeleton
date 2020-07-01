@@ -149,6 +149,16 @@ class UserSocial extends Model
     }
 
     /**
+     * 获取Openid
+     * @return string
+     */
+    public function getOpenidAttribute()
+    {
+        return $this->social_id;
+    }
+
+
+    /**
      * 链接用户
      * @param User $user
      * @return bool

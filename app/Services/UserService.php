@@ -293,7 +293,7 @@ class UserService
     }
 
     /**
-     * 获取 百度用户
+     * 获取百度用户
      * @param string $authorizationCode
      * @param \Larva\Passport\MiniProgram\MiniProgramUser $socialUser
      * @return \Larva\Passport\MiniProgram\MiniProgramUser
