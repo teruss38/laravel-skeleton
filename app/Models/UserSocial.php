@@ -38,6 +38,7 @@ use Laravel\Socialite\Facades\Socialite;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byUnionIdAndProvider($id, $provider)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byProvider($provider)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial bySocial($id)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byOpenid($openid)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSocial byUser($userId)
  *
  * @author Tongle Xu <xutongle@gmail.com>
@@ -157,7 +158,6 @@ class UserSocial extends Model
         return $this->social_id;
     }
 
-
     /**
      * 链接用户
      * @param User $user
@@ -190,9 +190,20 @@ class UserSocial extends Model
     }
 
     /**
+     * Finds an account by openid.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $openid
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByOpenid($query, $openid)
+    {
+        return $query->where('social_id', $openid);
+    }
+
+    /**
      * Finds an account by id.
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param integer $id
+     * @param string $id
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeBySocial($query, $id)
