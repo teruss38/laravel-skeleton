@@ -30,6 +30,7 @@
 
 ## 可选支持
 
+- [短信接口](https://github.com/larvacent/laravel-sms)
 - [小程序登录](https://github.com/larvacent/laravel-passport-miniprogram)
 - [签名的开放API接口](https://github.com/larvacent/laravel-auth-signature-guard)
 - [微信通知](https://github.com/larvacent/laravel-wechat-notification-channel)

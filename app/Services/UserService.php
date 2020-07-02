@@ -118,7 +118,7 @@ class UserService
      * @param boolean $autoRegistration
      * @return User|UserSocial|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public static function getMiniProgramUser($provider, $socialUser, $autoRegistration = false)
+    public static function getMiniProgramUser($provider, \Larva\Passport\MiniProgram\MiniProgramUser $socialUser, $autoRegistration = false)
     {
         $userId = null;
         if (!empty($socialUser->unionid)) {
@@ -299,7 +299,7 @@ class UserService
      * @return \Larva\Passport\MiniProgram\MiniProgramUser
      * @throws \Exception
      */
-    private static function getBaiduMiniProgramUser($authorizationCode, $socialUser)
+    private static function getBaiduMiniProgramUser($authorizationCode, \Larva\Passport\MiniProgram\MiniProgramUser $socialUser)
     {
         $response = Http::asForm()
             ->post('https://spapi.baidu.com/oauth/jscode2sessionkey', [
@@ -323,7 +323,7 @@ class UserService
      * @return \Larva\Passport\MiniProgram\MiniProgramUser
      * @throws \Exception
      */
-    private static function getWeChatMiniProgramUser($authorizationCode, $socialUser)
+    private static function getWeChatMiniProgramUser($authorizationCode, \Larva\Passport\MiniProgram\MiniProgramUser $socialUser)
     {
         $response = Http::retry(3, 100)
             ->asForm()
@@ -352,7 +352,7 @@ class UserService
      * @return \Larva\Passport\MiniProgram\MiniProgramUser
      * @throws \Exception
      */
-    private static function getQQMiniProgramUser($authorizationCode, $socialUser)
+    private static function getQQMiniProgramUser($authorizationCode, \Larva\Passport\MiniProgram\MiniProgramUser $socialUser)
     {
         $response = Http::retry(3, 100)
             ->asForm()
@@ -381,7 +381,7 @@ class UserService
      * @return \Larva\Passport\MiniProgram\MiniProgramUser
      * @throws \Exception
      */
-    private static function getBytedanceMiniProgramUser($authorizationCode, $socialUser)
+    private static function getBytedanceMiniProgramUser($authorizationCode, \Larva\Passport\MiniProgram\MiniProgramUser $socialUser)
     {
         $response = Http::retry(3, 100)
             ->asForm()
