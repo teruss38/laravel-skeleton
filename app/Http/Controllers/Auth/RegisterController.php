@@ -110,7 +110,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'username' => ['required', 'string', 'max:255', 'nickname', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'nickname', 'keep_word', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'terms' => ['accepted'],

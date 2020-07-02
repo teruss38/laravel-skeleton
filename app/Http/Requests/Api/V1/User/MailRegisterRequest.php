@@ -39,7 +39,7 @@ class MailRegisterRequest extends Request
     public function rules()
     {
         $rules = [
-            'username' => 'required|string|max:255|unique:users|username',
+            'username' => 'required|string|max:255|nickname|keep_word|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ];
