@@ -19,6 +19,7 @@ class System extends Settings
      */
     public function form()
     {
+        $this->switch('system.censor','启用文本反垃圾');
         $this->text('system.icp_record','ICP备案')->rules('nullable|string');
         $this->text('system.police_record','公安备案')->rules('nullable|string');
         $this->email('system.support_email','服务邮箱')->rules('nullable|email');

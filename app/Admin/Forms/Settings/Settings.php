@@ -20,6 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Settings extends Form
 {
+    /**
+     * Constructor.
+     * @param array $data
+     * @param null $key
+     */
     public function __construct($data = [], $key = null)
     {
         parent::__construct($data, $key);
