@@ -103,6 +103,22 @@ class AdminSeeder extends Seeder
                 'http_path' => '/settings/miniprogram',
             ],
         ]);
+        //数据管理
+        $this->addPermission([
+            'name' => '数据管理',
+            'slug' => 'dictionary-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'order' => 2,
+        ], [
+            [
+                'name' => '敏感词管理',
+                'slug' => 'stop-word-management',
+                'http_method' => '',
+                'http_path' => '/dictionary/stop-word*',
+            ],
+        ]);
 
         //用户管理
         $this->addPermission([
@@ -242,7 +258,7 @@ class AdminSeeder extends Seeder
             [
                 'title' => '敏感词管理',
                 'icon' => '',
-                'uri' => 'dictionary/system',
+                'uri' => 'dictionary/stop-word',
             ],
         ]);
         //内容管理 4
