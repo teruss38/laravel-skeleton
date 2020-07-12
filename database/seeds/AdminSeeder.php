@@ -44,151 +44,99 @@ class AdminSeeder extends Seeder
 
         //create a permission
         Permission::truncate();
-        Permission::insert([
+
+        //认证管理
+        $this->addPermission([
+            'name' => '认证管理',
+            'slug' => 'auth-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'order' => 1,
+        ], [
             [
-                'id' => 1,
-                'name' => '认证管理',
-                'slug' => 'auth-management',
-                'http_method' => '',
-                'http_path' => '',
-                'parent_id' => 0,
-                'order' => 1,
-                'created_at' => $createdAt,
-            ],
-            [
-                'id' => 2,
                 'name' => '管理员管理',
                 'slug' => 'users',
                 'http_method' => '',
                 'http_path' => '/auth/users*',
-                'parent_id' => 1,
-                'order' => 2,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 3,
                 'name' => '角色管理',
                 'slug' => 'roles',
                 'http_method' => '',
                 'http_path' => '/auth/roles*',
-                'parent_id' => 1,
-                'order' => 3,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 4,
                 'name' => '权限管理',
                 'slug' => 'permissions',
                 'http_method' => '',
                 'http_path' => '/auth/permissions*',
-                'parent_id' => 1,
-                'order' => 4,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 5,
                 'name' => '菜单管理',
                 'slug' => 'menu',
                 'http_method' => '',
                 'http_path' => '/auth/menu*',
-                'parent_id' => 1,
-                'order' => 5,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 6,
                 'name' => '操作日志',
                 'slug' => 'operation-log',
                 'http_method' => '',
                 'http_path' => '/auth/logs*',
-                'parent_id' => 1,
-                'order' => 6,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 7,
                 'name' => '网站设置',
                 'slug' => 'settings-system',
                 'http_method' => '',
                 'http_path' => '/settings/system',
-                'parent_id' => 1,
-                'order' => 7,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 8,
                 'name' => '附件设置',
                 'slug' => 'settings-storage',
                 'http_method' => '',
                 'http_path' => '/settings/storage',
-                'parent_id' => 1,
-                'order' => 8,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 9,
                 'name' => '小程序设置',
                 'slug' => 'settings-miniprogram',
                 'http_method' => '',
                 'http_path' => '/settings/miniprogram',
-                'parent_id' => 1,
-                'order' => 8,
-                'created_at' => $createdAt,
             ],
         ]);
 
-        Permission::insert([
+        //用户管理
+        $this->addPermission([
+            'name' => '用户管理',
+            'slug' => 'user-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'order' => 1,
+        ], [
             [
-                'id' => 10,
-                'name' => '用户管理',
-                'slug' => 'user-management',
-                'http_method' => '',
-                'http_path' => '',
-                'parent_id' => 0,
-                'order' => 1,
-                'created_at' => $createdAt,
-            ],
-
-            [
-                'id' => 11,
                 'name' => '用户设置',
                 'slug' => 'settings-user',
                 'http_method' => '',
                 'http_path' => '/user/settings/basic',
-                'parent_id' => 10,
-                'order' => 2,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 12,
                 'name' => 'OAuth客户端管理',
                 'slug' => 'oauth-management',
                 'http_method' => '',
                 'http_path' => 'user/clients',
-                'parent_id' => 10,
-                'order' => 3,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 13,
                 'name' => '用户管理管理',
                 'slug' => 'user-members',
                 'http_method' => '',
                 'http_path' => 'user/members',
-                'parent_id' => 10,
-                'order' => 3,
-                'created_at' => $createdAt,
             ],
             [
-                'id' => 14,
                 'name' => '社交账户管理',
                 'slug' => 'user-socials',
                 'http_method' => '',
                 'http_path' => 'user/socials',
-                'parent_id' => 10,
-                'order' => 3,
-                'created_at' => $createdAt,
-            ],
+            ]
         ]);
 
 //        Role::first()->permissions()->save(Permission::first());
@@ -246,122 +194,144 @@ class AdminSeeder extends Seeder
             ],//模块管理 6
         ]);
 
-        Menu::insert([
-            //系统设置 2
+        //系统设置 2
+        $this->addSubMenu(2,[
             [
-                'parent_id' => 2,
-                'order' => 1,
                 'title' => '网站设置',
                 'icon' => '',
                 'uri' => 'settings/system',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 2,
-                'order' => 2,
                 'title' => '管理员管理',
                 'icon' => '',
                 'uri' => 'auth/users',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 2,
-                'order' => 3,
                 'title' => '角色管理',
                 'icon' => '',
                 'uri' => 'auth/roles',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 2,
-                'order' => 4,
                 'title' => '权限管理',
                 'icon' => '',
                 'uri' => 'auth/permissions',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 2,
-                'order' => 5,
                 'title' => '菜单管理',
                 'icon' => '',
                 'uri' => 'auth/menu',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 2,
-                'order' => 6,
                 'title' => '操作日志',
                 'icon' => '',
                 'uri' => 'auth/logs',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 2,
-                'order' => 7,
                 'title' => '附件设置',
                 'icon' => '',
                 'uri' => 'settings/storage',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 2,
-                'order' => 8,
                 'title' => '小程序设置',
                 'icon' => '',
                 'uri' => 'settings/miniprogram',
-                'created_at' => $createdAt,
             ],
-            //数据管理 3
+        ]);
+        //数据管理 3
+        $this->addSubMenu(3,[
             [
-                'parent_id' => 3,
-                'order' => 1,
                 'title' => '敏感词管理',
                 'icon' => '',
                 'uri' => 'dictionary/system',
-                'created_at' => $createdAt,
             ],
+        ]);
+        //内容管理 4
 
-            //内容管理 4
-
-            //会员管理 5
+        //会员管理 5
+        $this->addSubMenu(5,[
             [
-                'parent_id' => 5,
-                'order' => 1,
                 'title' => '用户设置',
                 'icon' => '',
                 'uri' => 'user/settings/basic',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 5,
-                'order' => 2,
                 'title' => 'Auth客户端',
                 'icon' => '',
                 'uri' => 'user/clients',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 5,
-                'order' => 3,
                 'title' => '会员管理',
                 'icon' => '',
                 'uri' => 'user/members',
-                'created_at' => $createdAt,
             ],
             [
-                'parent_id' => 5,
-                'order' => 4,
                 'title' => '社交用户管理',
                 'icon' => '',
                 'uri' => 'user/socials',
-                'created_at' => $createdAt,
             ],
-
-            //模块管理 6
-
         ]);
 
+        //模块管理 6
+
         (new Menu())->flushCache();
+    }
+
+
+    /**
+     * 添加权限
+     * @param array $parenPermission 父权限
+     * @param array $permissions 子权限
+     */
+    public function addPermission($parenPermission = [], $permissions = []): void
+    {
+        $createdAt = date('Y-m-d H:i:s');
+        $parenPermission['created_at'] = $createdAt;
+        $permissionId = Permission::insertGetId($parenPermission);
+        $i = 1;
+        foreach ($permissions as $permission) {
+            $permission['parent_id'] = $permissionId;
+            $permission['order'] = $i;
+            $permission['created_at'] = $createdAt;
+            Permission::insert($permission);
+            $i++;
+        }
+    }
+
+    /**
+     * 添加子菜单
+     * @param int $parentId 父菜单ID
+     * @param array $menus 子菜单
+     */
+    public function addSubMenu($parentId, $menus = []): void
+    {
+        $createdAt = date('Y-m-d H:i:s');
+        $i = 1;
+        foreach ($menus as $menu) {
+            $menu['parent_id'] = $parentId;
+            $menu['order'] = $i;
+            $menu['created_at'] = $createdAt;
+            Menu::insert($menu);
+            $i++;
+        }
+    }
+
+    /**
+     * 添加菜单
+     * @param array $parentMenu 父菜单
+     * @param array $menus 子菜单
+     */
+    public function addMenu($parentMenu = [], $menus = []): void
+    {
+        $createdAt = date('Y-m-d H:i:s');
+        $parentMenu['created_at'] = $createdAt;
+        $menuId = Menu::insertGetId($parentMenu);
+        $i = 1;
+        foreach ($menus as $menu) {
+            $menu['parent_id'] = $menuId;
+            $menu['order'] = $i;
+            $menu['created_at'] = $createdAt;
+            Menu::insert($menu);
+            $i++;
+        }
     }
 }
