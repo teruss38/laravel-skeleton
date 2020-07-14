@@ -47,18 +47,6 @@ service.interceptors.response.use(
         return response.data;
     },
     error => {
-        //console.log('err' + error); // for debug
-        // 针对特定的http状态码进行处理
-        if (error.response && error.response.status === 404) {
-            return new Promise(() => {
-            });
-        } else if (error.response && error.response.status === 500 && error.response.data.message) {
-
-        } else {
-
-        }
-
-
         return Promise.reject(error)
     }
 );

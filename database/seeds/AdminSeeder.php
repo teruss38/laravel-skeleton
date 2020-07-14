@@ -292,7 +292,6 @@ class AdminSeeder extends Seeder
         (new Menu())->flushCache();
     }
 
-
     /**
      * 添加权限
      * @param array $parenPermission 父权限

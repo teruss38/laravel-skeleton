@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\URL;
 use Laravel\Socialite\Facades\Socialite;
 
 /**
- * 社交账户登录
+ * 社交账户登录和回调
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class SocialLoginController extends Controller
+class SocialController extends Controller
 {
     /**
      * Where to redirect users after verification.

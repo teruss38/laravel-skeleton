@@ -23,9 +23,9 @@ Route::get('register/phone', 'Auth\RegisterController@showPhoneRegistrationForm'
 Route::post('register/phone', 'Auth\RegisterController@phoneRegister')->name('mobile.register.store');
 
 //社交账户登录
-Route::get('auth/social/{provider}', 'Auth\SocialLoginController@redirectToProvider');
-Route::get('auth/social/{provider}/callback', 'Auth\SocialLoginController@handleProviderCallback');
-Route::get('auth/social/{provider}/binding', 'Auth\SocialLoginController@handleProviderBinding');
+Route::get('auth/social/{provider}', 'Auth\SocialController@redirectToProvider');
+Route::get('auth/social/{provider}/callback', 'Auth\SocialController@handleProviderCallback');
+Route::get('auth/social/{provider}/binding', 'Auth\SocialController@handleProviderBinding');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
