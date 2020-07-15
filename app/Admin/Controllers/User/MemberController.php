@@ -102,7 +102,9 @@ class MemberController extends AdminController
             $form->display('id');
             $form->text('username');
             $form->text('phone');
+            $form->text('phone_verified_at');
             $form->text('email');
+            $form->text('email_verified_at');
             $form->display('created_at');
             $form->display('updated_at');
         });

@@ -8,7 +8,7 @@
 
 namespace App\Admin\Controllers\User;
 
-use App\Admin\Repositories\PassportClient;
+use App\Models\PassportClient;
 use App\Models\User;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -30,17 +30,17 @@ class ClientController extends AdminController
     protected function grid()
     {
         return Grid::make(new PassportClient(), function (Grid $grid) {
-            $grid->model()->repository()->eloquent()->hidden = [];
-            $grid->id->sortable();
-            $grid->user_id;
-            $grid->name;
-            $grid->secret;
-            $grid->redirect;
-            $grid->personal_access_client;
-            $grid->password_client;
-            $grid->revoked;
-            $grid->created_at->sortable();
-            $grid->updated_at->sortable();
+            $grid->model()->orderBy('id', 'desc');
+            $grid->column('id')->sortable();
+            $grid->column('user_id');
+            $grid->column('name')->editable();
+            $grid->column('secret');
+            $grid->column('redirect');
+            $grid->column('personal_access_client')->switch();
+            $grid->column('password_client')->switch();
+            $grid->column('revoked')->switch();
+            $grid->column('created_at')->sortable();
+            $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->scope('today', '今天数据')->whereDay('created_at', Carbon::today());
@@ -106,7 +106,7 @@ class ClientController extends AdminController
     protected function form()
     {
         return Form::make(new PassportClient(), function (Form $form) {
-            $form->select('user_id')->model(User::class, 'id', 'name');
+            $form->select('user_id')->model(User::class, 'id', 'username')->options('api/users');
             $form->text('name')->required();
             $form->text('secret');
             $form->text('redirect')->default('http://localhost');

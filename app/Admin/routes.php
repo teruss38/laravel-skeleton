@@ -14,6 +14,10 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('admin.home');
 
+    //Api
+    $router->get('api/tags', 'ApiController@tags');
+    $router->get('api/users', 'ApiController@users');
+
     /**
      * 设置中心
      */

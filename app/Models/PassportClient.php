@@ -33,7 +33,7 @@ class PassportClient extends Client
      * @var array
      */
     protected $hidden = [
-        'secret',
+        //'secret',
     ];
 
     /**

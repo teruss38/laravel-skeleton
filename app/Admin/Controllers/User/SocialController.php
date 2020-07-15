@@ -8,7 +8,7 @@
 
 namespace App\Admin\Controllers\User;
 
-use App\Admin\Repositories\UserSocial;
+use App\Models\UserSocial;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
