@@ -31,8 +31,9 @@ class ClientController extends AdminController
     {
         return Grid::make(new PassportClient(), function (Grid $grid) {
             $grid->model()->orderBy('id', 'desc');
+            $grid->model()->with(['user']);
             $grid->column('id')->sortable();
-            $grid->column('user_id');
+            $grid->column('user.username');
             $grid->column('name')->editable();
             $grid->column('secret');
             $grid->column('redirect');
@@ -106,7 +107,7 @@ class ClientController extends AdminController
     protected function form()
     {
         return Form::make(new PassportClient(), function (Form $form) {
-            $form->select('user_id')->model(User::class, 'id', 'username')->options('api/users');
+            $form->select('user_id')->model(User::class, 'id', 'username')->ajax('api/users','id','username');
             $form->text('name')->required();
             $form->text('secret');
             $form->text('redirect')->default('http://localhost');

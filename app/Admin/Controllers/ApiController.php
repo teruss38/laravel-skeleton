@@ -24,14 +24,12 @@ class ApiController extends Controller
      */
     public function users(Request $request)
     {
+        $query = \App\Models\User::query()->select(['id', 'username'])->orderByDesc('id');
         $q = $request->get('q');
-        if (mb_strlen($q) < 2) {
-            return null;
+        if (mb_strlen($q) >= 2) {
+            $query->where('username', 'LIKE', '%' . $q . '%');
         }
-        $query = \App\Models\User::query()->select(['id', 'username']);
-        return $query->where('username', 'LIKE', '%' . $q . '%')
-            ->orderByDesc('id')
-            ->paginate(10);
+        return $query->paginate(10);
     }
 
     /**
@@ -41,13 +39,11 @@ class ApiController extends Controller
      */
     public function tags(Request $request)
     {
+        $query = \App\Models\Tag::query()->select(['id', 'name', 'frequency'])->orderByDesc('frequency');
         $q = $request->get('q');
-        if (mb_strlen($q) < 2) {
-            return null;
+        if (mb_strlen($q) >= 2) {
+            $query->where('name', 'LIKE', '%' . $q . '%');
         }
-        $query = \App\Models\Tag::query()->select(['id', 'name', 'frequency']);
-        return $query->where('name', 'LIKE', '%' . $q . '%')
-            ->orderByDesc('frequency')
-            ->paginate(10);
+        return $query->paginate(10);
     }
 }

@@ -29,9 +29,9 @@ class SocialController extends AdminController
     protected function grid()
     {
         return Grid::make(new UserSocial(), function (Grid $grid) {
-            // 这里的字段会自动使用翻译文件
+            $grid->model()->with(['user']);
             $grid->id->sortable();
-            $grid->user_id;
+            $grid->column('user.username');
             $grid->provider;
             $grid->union_id;
             $grid->social_id;
