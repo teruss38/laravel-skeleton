@@ -116,7 +116,7 @@ class AdminSeeder extends Seeder
                 'name' => '敏感词管理',
                 'slug' => 'stop-word-management',
                 'http_method' => '',
-                'http_path' => '/dictionary/stop-word*',
+                'http_path' => '/dictionary/stop-words*',
             ],
         ]);
 
@@ -127,7 +127,7 @@ class AdminSeeder extends Seeder
             'http_method' => '',
             'http_path' => '',
             'parent_id' => 0,
-            'order' => 1,
+            'order' => 3,
         ], [
             [
                 'name' => '用户设置',
@@ -153,6 +153,51 @@ class AdminSeeder extends Seeder
                 'http_method' => '',
                 'http_path' => 'user/socials',
             ]
+        ]);
+
+        //内容管理
+        $this->addPermission([
+            'name' => '内容管理',
+            'slug' => 'content-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'order' => 4,
+        ], [
+            [
+                'name' => '文章管理',
+                'slug' => 'content-articles-management',
+                'http_method' => '',
+                'http_path' => 'content/articles',
+            ],
+            [
+                'name' => '栏目管理',
+                'slug' => 'content-article-categories-management',
+                'http_method' => '',
+                'http_path' => 'content/categories',
+            ],
+            [
+                'name' => 'Tag管理',
+                'slug' => 'content-tags',
+                'http_method' => '',
+                'http_path' => 'content/tags',
+            ],
+        ]);
+        //模块管理
+        $this->addPermission([
+            'name' => '模块管理',
+            'slug' => 'module-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'order' => 5,
+        ], [
+            [
+                'name' => '友情链接管理',
+                'slug' => 'module-links-management',
+                'http_method' => '',
+                'http_path' => 'module/links',
+            ],
         ]);
 
 //        Role::first()->permissions()->save(Permission::first());
@@ -258,11 +303,27 @@ class AdminSeeder extends Seeder
             [
                 'title' => '敏感词管理',
                 'icon' => '',
-                'uri' => 'dictionary/stop-word',
+                'uri' => 'dictionary/stop-words',
             ],
         ]);
         //内容管理 4
-
+        $this->addSubMenu(4, [
+            [
+                'title' => '文章管理',
+                'icon' => '',
+                'uri' => 'content/articles',
+            ],
+            [
+                'title' => '栏目管理',
+                'icon' => '',
+                'uri' => 'content/categories',
+            ],
+            [
+                'title' => 'Tag管理',
+                'icon' => '',
+                'uri' => 'content/tags',
+            ],
+        ]);
         //会员管理 5
         $this->addSubMenu(5,[
             [
@@ -288,6 +349,13 @@ class AdminSeeder extends Seeder
         ]);
 
         //模块管理 6
+        $this->addSubMenu(6, [
+            [
+                'title' => '友情链接管理',
+                'icon' => '',
+                'uri' => 'module/links',
+            ],
+        ]);
 
         (new Menu())->flushCache();
     }

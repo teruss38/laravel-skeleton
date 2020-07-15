@@ -18,11 +18,9 @@ class PassportSeeder extends Seeder
     public function run()
     {
         Passport::client()->forceFill([
-            'id' => 100000000,
             'name' => '测试项目',
-            'secret' => 'J1ZcU3xtcNHNbVLo5JoTJe2h8husBz9fzqNLSqBS',
             'redirect' => 'https://dev.larvacms.cn',
-            'personal_access_client' => true,
+            'personal_access_client' => false,
             'password_client' => true,
             'revoked' => false,
         ])->save();

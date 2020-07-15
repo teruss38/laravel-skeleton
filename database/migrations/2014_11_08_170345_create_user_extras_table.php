@@ -18,6 +18,8 @@ class CreateUserExtrasTable extends Migration
             $table->ipAddress('login_ip')->nullable();
             $table->dateTime('login_at')->nullable();
             $table->unsignedInteger('login_num')->default(0)->nullable();
+            $table->unsignedInteger('views')->default(0)->nullable();
+            $table->unsignedInteger('articles')->default(0)->nullable();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

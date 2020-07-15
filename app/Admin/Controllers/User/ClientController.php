@@ -107,7 +107,7 @@ class ClientController extends AdminController
     protected function form()
     {
         return Form::make(new PassportClient(), function (Form $form) {
-            $form->select('user_id')->model(User::class, 'id', 'username')->ajax('api/users','id','username');
+            $form->select('user_id')->model(User::class, 'id', 'username')->ajax('api/users','id','username')->rules('required_if:personal_access_client,1');
             $form->text('name')->required();
             $form->text('secret');
             $form->text('redirect')->default('http://localhost');

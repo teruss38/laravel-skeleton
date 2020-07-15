@@ -19,7 +19,7 @@ class Storage extends Settings
      */
     public function form()
     {
-
+        $this->select('storage.article_disk', '文章附件磁盘')->options(array_keys(config('filesystems.disks')));
         $this->select('storage.avatar_disk', '头像存储磁盘')->options(array_keys(config('filesystems.disks')));
     }
 }

@@ -27,7 +27,6 @@ Route::get('auth/social/{provider}', 'Auth\SocialController@redirectToProvider')
 Route::get('auth/social/{provider}/callback', 'Auth\SocialController@handleProviderCallback');
 Route::get('auth/social/{provider}/binding', 'Auth\SocialController@handleProviderBinding');
 
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 /**
@@ -43,3 +42,25 @@ Route::group(['prefix' => 'messages'], function () {
  * 通知
  */
 Route::get('notifications', 'User\NotificationController@index')->name('user.notifications');
+
+/**
+ * 文章
+ */
+Route::group(['prefix' => 'articles'], function () {
+    Route::get('/', 'ArticleController@index')->name('article.index');
+    Route::get('category/{id}', 'ArticleController@category')->name('article.category');
+    Route::get('{id}.html', 'ArticleController@show')->name('article.show');
+    Route::get('create', 'ArticleController@create')->name('article.create');
+    Route::post('create', 'ArticleController@store')->name('article.store');
+});
+
+/**
+ * 标签
+ */
+Route::group(['prefix' => 'tags'], function () {
+    Route::get('/', 'TagController@index')->name('tag.index');
+    Route::get('{id}', 'TagController@show')->name('tag.show');
+    Route::get('{id}/articles', 'ArticleController@tag')->name('tag.articles');
+    Route::get('auto-complete', 'TagController@autoComplete')->name('tag.auto-complete');
+});
+

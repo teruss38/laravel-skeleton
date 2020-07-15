@@ -90,4 +90,31 @@ class UserExtra extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * 计数器增加
+     * @param int $user_id
+     * @param string $column
+     * @param float|int $amount
+     * @param array $extra
+     * @return int
+     * @return int
+     */
+    public static function inc($user_id, $column, $amount = 1, array $extra = [])
+    {
+        return static::query()->where('user_id', $user_id)->increment($column, $amount, $extra);
+    }
+
+    /**
+     * 计数器减少
+     * @param int $user_id
+     * @param string $column
+     * @param float|int $amount
+     * @param array $extra
+     * @return int
+     */
+    public static function dec($user_id, $column, $amount = 1, array $extra = [])
+    {
+        return static::query()->where('user_id', $user_id)->where($column, '>', 0)->decrement($column, $amount, $extra);
+    }
 }

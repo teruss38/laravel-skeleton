@@ -13,18 +13,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $dbConnection = DB::connection();
+        $autoIncrement = 10000000;
+        $tables = [
+            'users', 'user_social_accounts', 'user_login_history', 'messages', 'oauth_clients', 'articles', 'tags'
+        ];
         if ($dbConnection->getConfig('driver') == 'mysql') {
             $tablePrefix = DB::connection()->getTablePrefix();
-            DB::statement('ALTER TABLE ' . $tablePrefix . 'users AUTO_INCREMENT = 10000000');
-            DB::statement('ALTER TABLE ' . $tablePrefix . 'user_social_accounts AUTO_INCREMENT = 10000000');
-            DB::statement('ALTER TABLE ' . $tablePrefix . 'user_login_history AUTO_INCREMENT = 10000000');
-            DB::statement('ALTER TABLE ' . $tablePrefix . 'messages AUTO_INCREMENT = 10000000');
-            DB::statement('ALTER TABLE ' . $tablePrefix . 'oauth_clients AUTO_INCREMENT = 10000000');
+            foreach ($tables as $table) {
+                DB::statement('ALTER TABLE ' . $tablePrefix . $table . ' AUTO_INCREMENT = ' . $autoIncrement);
+            }
         }
 
         $this->call(AdminSeeder::class);
         $this->call(SettingsSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(PassportSeeder::class);
+        $this->call(TagSeeder::class);
+        $this->call(ArticleCategorySeeder::class);
     }
 }

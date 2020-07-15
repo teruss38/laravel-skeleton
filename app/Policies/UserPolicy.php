@@ -57,8 +57,8 @@ class UserPolicy extends Policy
     /**
      * Determine whether the user can delete the user.
      *
-     * @param \App\User $user
-     * @param \App\User $targetUser
+     * @param \App\Models\User $user
+     * @param \App\Models\User $targetUser
      *
      * @return mixed
      */
