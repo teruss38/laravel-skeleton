@@ -37,15 +37,9 @@ class UpdateArticleRequest extends Request
         return [
             'category_id' => 'numeric|min:1',
             'title' => 'required|string|max:191',
-            'thumbnail' => 'sometimes|required|string|max:191',
-            'sub_title' => 'sometimes|required|string|max:191',
+            'thumb' => 'sometimes|required|string|max:191',
             'description' => 'sometimes|required|string|max:191',
             'content' => 'required|string',
-            'from' => 'sometimes|required|string|max:191',
-            'from_url' => 'sometimes|required|url|max:191',
-            'seo_title' => 'sometimes|required|string|max:191',
-            'seo_keywords' => 'sometimes|required|string|max:191',
-            'seo_description' => 'sometimes|required|string|max:191',
         ];
     }
 }
