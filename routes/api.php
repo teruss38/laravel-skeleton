@@ -88,4 +88,11 @@ Route::group(['prefix' => 'v1'], function (RouteContract $api) {
     Route::group(['prefix' => 'device'], function () {
         Route::post('register', 'Api\V1\DeviceController@register');//设备注册
     });
+
+    /**
+     * 文章接口
+     */
+    Route::get('articles/my', 'Api\V1\ArticleController@my');//获取我发布的
+    Route::get('articles/categories', 'Api\V1\ArticleController@category');//获取文章栏目
+    Route::apiResource('articles', 'Api\V1\ArticleController');
 });

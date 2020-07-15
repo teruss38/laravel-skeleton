@@ -178,6 +178,7 @@ return [
         'password' => '密码',
         'verify_code' => '验证码',
         'terms' => '服务条款',
+
     ],
 
 ];
