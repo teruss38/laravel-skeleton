@@ -17,5 +17,7 @@ if (mix.inProduction()) {
 }
 
 mix.copyDirectory('resources/img', 'public/img');
+
 mix.js('resources/js/app.js', 'public/js')
+    .extract(['vue','vuex'])
     .sass('resources/sass/app.scss', 'public/css');

@@ -34,6 +34,8 @@ class Kernel extends ConsoleKernel
 
         // Flush expired password reset tokens
         $schedule->command('auth:clear-resets')->daily()->onOneServer();
+
+        $schedule->command('passport:purge')->hourly();
     }
 
     /**

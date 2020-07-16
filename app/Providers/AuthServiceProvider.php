@@ -53,13 +53,15 @@ class AuthServiceProvider extends ServiceProvider
         Passport::enableImplicitGrant();
 
         //忽略 CSRF 验证
-        Passport::$ignoreCsrfToken = true;
+        Passport::ignoreCsrfToken();
 
         //设置令牌过期时间15天
         Passport::tokensExpireIn(now()->addDays(config('passport.tokens_expire_in', 15)));
 
         //设置刷新令牌过期时间30天
         Passport::refreshTokensExpireIn(now()->addDays(config('passport.refresh_tokens_expire_in', 30)));
+
+        Passport::personalAccessTokensExpireIn(now()->addMonths(6));
 
         // 定义作用域
         //Passport::tokensCan(config('passport.scopes'));

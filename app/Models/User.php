@@ -418,6 +418,35 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     }
 
     /**
+     * 查找用户
+     * @param string $username
+     * @return mixed
+     */
+    public function findForPassport($username)
+    {
+        if (preg_match(config('system.phone_rule'), $username)) {
+            return static::active()
+                ->where('phone', $username)
+                ->first();
+        } else {
+            return static::active()
+                ->where('email', $username)
+                ->first();
+        }
+    }
+
+    /**
+     * 通过Passport的密码授权验证用户使用的密码。
+     *
+     * @param  string  $password
+     * @return bool
+     */
+    public function validateForPassportPasswordGrant($password)
+    {
+        return Hash::check($password, $this->password);
+    }
+
+    /**
      * Verify and retrieve user by sms verify code request.
      *
      * @param \Illuminate\Http\Request $request
@@ -467,24 +496,6 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
         return Cache::remember('users:' . $id, Carbon::now()->addMinutes(30), function () use ($id) {
             return static::find($id);
         });
-    }
-
-    /**
-     * 查找用户
-     * @param string $username
-     * @return mixed
-     */
-    public static function findForPassport($username)
-    {
-        if (preg_match(config('system.phone_rule'), $username)) {
-            return static::active()
-                ->where('phone', $username)
-                ->first();
-        } else {
-            return static::active()
-                ->where('email', $username)
-                ->first();
-        }
     }
 
     /**

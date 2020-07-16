@@ -67,4 +67,15 @@ class PassportClient extends Client
             }
         });
     }
+
+    /**
+     * 确定客户端是否应跳过授权提示
+     *
+     * @return bool
+     */
+    public function skipsAuthorization()
+    {
+        return $this->firstParty();
+    }
+
 }

@@ -17,6 +17,7 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
 
 Route::get('/', 'MainController@index');
 Route::get('captcha', 'CaptchaController')->name('captcha');
+Route::get('info', 'MainController@info');//获取用户登录状态
 
 Auth::routes(['verify' => true]);
 Route::get('register/phone', 'Auth\RegisterController@showPhoneRegistrationForm')->name('mobile.register');

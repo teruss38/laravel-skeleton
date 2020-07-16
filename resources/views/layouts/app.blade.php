@@ -12,7 +12,7 @@
     <meta name="Keywords" content="@yield('Keywords', __('Keywords'))">
     <title>@yield('title', __('Title'))@if (request()->path() != '/') - {{ config('app.name', 'Laravel') }}@endif</title>
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset(mix('/css/app.css')) }}" rel="stylesheet">
     @stack('head')
 </head>
 <body>
@@ -30,7 +30,9 @@
         <!-- End Copyright Footer -->
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset(mix('/js/manifest.js')) }}"></script>
+<script src="{{ asset(mix('/js/vendor.js')) }}"></script>
+<script src="{{ asset(mix('/js/app.js')) }}"></script>
     @stack('footer')
 </body>
 </html>
