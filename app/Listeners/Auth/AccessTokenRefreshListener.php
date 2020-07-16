@@ -11,6 +11,7 @@ namespace App\Listeners\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Request;
 use Laravel\Passport\Events\RefreshTokenCreated;
+use Laravel\Passport\Passport;
 
 /**
  * Class AccessTokenRefreshListener
@@ -36,6 +37,9 @@ class AccessTokenRefreshListener
      */
     public function handle(RefreshTokenCreated $event)
     {
-
+        $token = Passport::token()->where('id', $event->accessTokenId)->first();
+        if ($token && $token->user_id) {
+            //User::findById($token->user_id)->updateLogin(Request::ip(), Request::userAgent());
+        }
     }
 }

@@ -38,9 +38,7 @@ class AccessTokenCreatedListener
     public function handle(AccessTokenCreated $event)
     {
         if ($event->userId) {
-            /** @var User $user */
-            $user = User::findById($event->userId);
-            $user->updateLogin(Request::ip(), Request::userAgent());
+            User::findById($event->userId)->updateLogin(Request::ip(), Request::userAgent());
         }
     }
 }
