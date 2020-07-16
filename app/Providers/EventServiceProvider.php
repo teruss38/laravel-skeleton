@@ -30,7 +30,7 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Auth\AccessTokenCreatedListener::class
         ],
         \Laravel\Passport\Events\RefreshTokenCreated::class => [
-            \App\Listeners\Auth\AccessTokenCreatedListener::class
+            \App\Listeners\Auth\AccessTokenRefreshListener::class
         ],
     ];
 

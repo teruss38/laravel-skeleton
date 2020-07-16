@@ -22,6 +22,7 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
+        Settings::set('system.censor', '1');
         Settings::set('system.icp_record', '京ICP备00000001号');
         Settings::set('system.police_record', '');
         Settings::set('system.support_email', 'support@email.com');
@@ -34,5 +35,8 @@ class SettingsSeeder extends Seeder
         Settings::set('user.enable_login_email', '0');
         Settings::set('user.enable_register_ticket', '0');
         Settings::set('user.enable_login_ticket', '0');
+
+        Settings::set('storage.article_disk', 'public');
+        Settings::set('storage.avatar_disk', 'public');
     }
 }
