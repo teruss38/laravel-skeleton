@@ -45,7 +45,6 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AddETagToResponse::class,
             \App\Http\Middleware\LogLastUserActivity::class,
-            \App\Http\Middleware\BanUserCheck::class,
             //Passport 前端JS
             \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ],
@@ -74,6 +73,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'ban.user' => \App\Http\Middleware\BanUserCheck::class,
 
         //Passport 客户端授权
         'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
