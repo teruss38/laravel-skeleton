@@ -19,6 +19,7 @@ class PassportSeeder extends Seeder
     {
         Passport::client()->forceFill([
             'name' => '测试项目',
+            'secret' => '4RY5mYUz95kmufjqCJvo2KxMw2yCe1WrZcEqc94C',
             'redirect' => 'https://dev.larvacms.cn',
             'personal_access_client' => false,
             'password_client' => true,

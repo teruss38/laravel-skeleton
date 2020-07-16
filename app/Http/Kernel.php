@@ -45,6 +45,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AddETagToResponse::class,
             \App\Http\Middleware\LogLastUserActivity::class,
+            \App\Http\Middleware\BanUserCheck::class,
             //Passport 前端JS
             \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ],
