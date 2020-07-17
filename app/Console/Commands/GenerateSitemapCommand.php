@@ -61,7 +61,7 @@ class GenerateSitemapCommand extends Command
         if (!is_dir($this->storePath)) {
             @mkdir($this->storePath, 0755, true);
         }
-        $this->baiduStorePath = public_path('sitemap-baidu');
+        $this->baiduStorePath = public_path('sitemap/baidu');
         if (!is_dir($this->baiduStorePath)) {
             @mkdir($this->baiduStorePath, 0755, true);
         }
@@ -135,7 +135,7 @@ class GenerateSitemapCommand extends Command
         $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.8', 'daily');
 
         $sitemap->store('baidu', 'misc', $this->baiduStorePath);
-        $sitemap->addSitemap(secure_url('sitemap-baidu/misc.xml'), now()->toRfc3339String());
+        $sitemap->addSitemap(secure_url('sitemap/baidu/misc.xml'), now()->toRfc3339String());
         $sitemap->model->resetItems();
 
         // counters
@@ -145,7 +145,7 @@ class GenerateSitemapCommand extends Command
                 $sitemap->add($item->link, $item->created_at->toRfc3339String(), '0.6', 'always');
             }
             $sitemap->store('baidu', $counter, $this->baiduStorePath);
-            $sitemap->addSitemap(secure_url('sitemap-baidu/' . $counter . '.xml'), now()->toRfc3339String());
+            $sitemap->addSitemap(secure_url('sitemap/baidu/' . $counter . '.xml'), now()->toRfc3339String());
             $sitemap->model->resetItems();
             $counter++;
         });
@@ -153,7 +153,7 @@ class GenerateSitemapCommand extends Command
         // you need to check for unused items
         if (!empty($sitemap->model->getItems())) {
             $sitemap->store('baidu', $counter, $this->baiduStorePath);
-            $sitemap->addSitemap(secure_url('sitemap-baidu/' . $counter . '.xml'), now()->toRfc3339String());
+            $sitemap->addSitemap(secure_url('sitemap/baidu/' . $counter . '.xml'), now()->toRfc3339String());
             $sitemap->model->resetItems();
         }
         $sitemap->store('sitemapindex', 'sitemap-baidu');
