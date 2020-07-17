@@ -9,6 +9,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -94,7 +95,7 @@ class GenerateSitemapCommand extends Command
 
         // add items to the sitemap (url, date, priority, freq)
         $sitemap->add(URL::to('/'), now()->toRfc3339String(), '1.0', 'daily');
-        $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.8', 'daily');
+        $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.6', 'always');
 
         $sitemap->store('xml', 'misc', $this->storePath);
         $sitemap->addSitemap(secure_url('sitemap/misc.xml'), now()->toRfc3339String());
@@ -102,9 +103,21 @@ class GenerateSitemapCommand extends Command
 
         // counters
         $counter = 0;
+        //文章
         Article::accepted()->orderBy('id')->chunk($this->mapChunk, function ($items) use ($sitemap, &$counter) {
             foreach ($items as $item) {
-                $sitemap->add($item->link, $item->created_at->toRfc3339String(), '0.6', 'always');
+                $sitemap->add($item->link, $item->created_at->toRfc3339String(), '0.8', 'daily');
+            }
+            $sitemap->store('xml', $counter, $this->storePath);
+            $sitemap->addSitemap(secure_url('sitemap/' . $counter . '.xml'), now()->toRfc3339String());
+            $sitemap->model->resetItems();
+            $counter++;
+        });
+
+        // Tag
+        Tag::query()->orderBy('id')->chunk($this->mapChunk, function ($items) use ($sitemap, &$counter) {
+            foreach ($items as $item) {
+                $sitemap->add($item->link, $item->created_at->toRfc3339String(), '0.6', 'daily');
             }
             $sitemap->store('xml', $counter, $this->storePath);
             $sitemap->addSitemap(secure_url('sitemap/' . $counter . '.xml'), now()->toRfc3339String());
@@ -119,7 +132,6 @@ class GenerateSitemapCommand extends Command
             $sitemap->model->resetItems();
         }
         $sitemap->store('sitemapindex', 'sitemap');
-
     }
 
     /**
@@ -132,7 +144,7 @@ class GenerateSitemapCommand extends Command
 
         // add items to the sitemap (url, date, priority, freq)
         $sitemap->add(URL::to('/'), now()->toRfc3339String(), '1.0', 'daily');
-        $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.8', 'daily');
+        $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.6', 'always');
 
         $sitemap->store('baidu', 'misc', $this->baiduStorePath);
         $sitemap->addSitemap(secure_url('sitemap/baidu/misc.xml'), now()->toRfc3339String());
@@ -140,9 +152,22 @@ class GenerateSitemapCommand extends Command
 
         // counters
         $counter = 0;
+
+        //文章
         Article::accepted()->orderBy('id')->chunk($this->mapChunk, function ($items) use ($sitemap, &$counter) {
             foreach ($items as $item) {
-                $sitemap->add($item->link, $item->created_at->toRfc3339String(), '0.6', 'always');
+                $sitemap->add($item->link, $item->created_at->toRfc3339String(), '0.8', 'daily');
+            }
+            $sitemap->store('baidu', $counter, $this->baiduStorePath);
+            $sitemap->addSitemap(secure_url('sitemap/baidu/' . $counter . '.xml'), now()->toRfc3339String());
+            $sitemap->model->resetItems();
+            $counter++;
+        });
+
+        // Tag
+        Tag::query()->orderBy('id')->chunk($this->mapChunk, function ($items) use ($sitemap, &$counter) {
+            foreach ($items as $item) {
+                $sitemap->add($item->link, $item->created_at->toRfc3339String(), '0.6', 'daily');
             }
             $sitemap->store('baidu', $counter, $this->baiduStorePath);
             $sitemap->addSitemap(secure_url('sitemap/baidu/' . $counter . '.xml'), now()->toRfc3339String());
