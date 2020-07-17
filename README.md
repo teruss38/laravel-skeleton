@@ -29,7 +29,7 @@
 - [x] 内置支持短信验证码(需要Redis)；
 - [x] 内置支持栏目管理、Tag管理、文章管理；
 - [x] 内置支持文本反垃圾（根据命中的词自动选择是审核还是拒绝）；
-
+- [x] 内置 Sitemap 支持；
 ## 可选支持
 
 - [短信接口](https://github.com/larvacent/laravel-sms)
