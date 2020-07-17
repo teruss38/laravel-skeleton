@@ -37,6 +37,9 @@ class Kernel extends ConsoleKernel
 
         // Purge revoked and expired tokens and auth codes...
         $schedule->command('passport:purge')->hourly();
+
+        // Generate sitemap once a day
+        $schedule->command('generate:sitemap')->daily();
     }
 
     /**
