@@ -93,6 +93,7 @@ Route::group(['prefix' => 'v1'], function (RouteContract $api) {
      * 文章接口
      */
     Route::get('articles/my', 'Api\V1\ArticleController@my');//获取我发布的
+    Route::get('articles/sitemap', 'Api\V1\ArticleController@sitemap');//获取sitemap
     Route::get('articles/categories', 'Api\V1\ArticleController@category');//获取文章栏目
     Route::apiResource('articles', 'Api\V1\ArticleController');
 });

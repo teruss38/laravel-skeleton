@@ -8,6 +8,7 @@
 
 namespace App\Http\Resources\Api\V1\Article;
 
+use App\Http\Resources\Api\V1\Tag\TagResource;
 use App\Http\Resources\Resource;
 use App\Models\Article;
 
@@ -46,10 +47,11 @@ class ArticleResource extends Resource
             'comment_count' => $this->comment_count,
             'support_count' => $this->support_count,
             'collection_count' => $this->collection_count,
-            'tags' => $this->tags,
+            'tags' => TagResource::collection($this->tags),
             'content' => $this->content,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
+            'feed'=>$this->baidu_feed
         ];
     }
 }

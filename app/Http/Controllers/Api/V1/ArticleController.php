@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Article\CreateArticleRequest;
 use App\Http\Requests\Api\V1\Article\UpdateArticleRequest;
 use App\Http\Resources\Api\V1\Article\ArticleResource;
+use App\Http\Resources\Api\V1\Article\ArticleBaiduSmartProgramSitemapResource;
 use App\Http\Resources\Api\V1\Article\CategoryResource;
 use App\Models\Article;
 use App\Models\ArticleCategory;
@@ -29,7 +30,7 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index', 'category', 'show']);
+        $this->middleware('auth:api')->except(['index', 'sitemap', 'category', 'show']);
     }
 
     /**
@@ -40,6 +41,17 @@ class ArticleController extends Controller
     {
         $items = Article::accepted()->orderByDesc('id')->paginate(15);
         return ArticleResource::collection($items);
+    }
+
+    /**
+     * sitemap
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function sitemap(Request $request)
+    {
+        $items = Article::accepted()->orderByDesc('id')->paginate(100);
+        return ArticleBaiduSmartProgramSitemapResource::collection($items);
     }
 
     /**

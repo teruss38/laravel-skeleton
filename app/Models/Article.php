@@ -41,6 +41,7 @@ use Illuminate\Support\Str;
  * @property-read string $link
  * @property-read boolean $accepted
  * @property-read boolean $pending
+ * @property array $baidu_feed 百度信息流
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Article accepted()
  * @method static \Illuminate\Database\Eloquent\Builder|Article recommend()
@@ -112,6 +113,11 @@ class Article extends Model
     protected $casts = [
         'seo' => 'array',
         'extra' => 'array',
+        'views' => 'int',
+        'order' => 'int',
+        'comment_count' => 'int',
+        'support_count' => 'int',
+        'collection_count' => 'int',
     ];
 
     /**
@@ -223,6 +229,31 @@ class Article extends Model
     public function getLinkAttribute()
     {
         return route('article.show', ['id' => $this->id]);
+    }
+
+    /**
+     * 获取百度信息流参数
+     * @return array
+     */
+    public function getBaiduFeedAttribute()
+    {
+        $resource = [
+            'title' => $this->title,
+            'body' => $this->description,
+            'publish_time' => date('Y 年 m 月 d 日', time()),
+            'tags' => $this->tag_values,
+            'feed_type' => 1000,
+            'feed_sub_type' => 1001,
+        ];
+        if (($images = $this->getThumb()) != null) {
+            $resource['images'][] = $this->getThumb();
+        } else {
+            $resource['images'][] = asset('img/baidu_thumb.jpg');
+        }
+        if (isset($this->extra['publish_time'])) {
+            $resource['publish_time'] = date('Y 年 m 月 d 日', $this->created_at->getTimestamp());
+        }
+        return $resource;
     }
 
     /**
