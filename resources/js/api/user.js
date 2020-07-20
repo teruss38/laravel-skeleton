@@ -74,17 +74,6 @@ const existPhone = function (phone) {
 };
 
 /**
- * 获取 登录状态
- * @returns {AxiosPromise}
- */
-const getInfo = function () {
-    return request({
-        method: 'get',
-        url: '/info'
-    });
-};
-
-/**
  * 手机注册
  * @param phone
  * @param verifyCode
@@ -338,7 +327,7 @@ const sendMessage = function (data) {
 };
 
 export {
-    login, logout, existUsername, existEMail, existPhone, getInfo, getProfile, getExtra, editEMail, editMobile,
+    login, logout, existUsername, existEMail, existPhone, getProfile, getExtra, editEMail, editMobile,
     editPassword, editProfile, phoneResetPassword, phoneRegister, emailRegister, identification, modifyIdentification,
     loginHistories, socialAccounts, deleteSocialAccount, search, markNotificationsAsRead,
     unreadNotificationCount, sendMessage

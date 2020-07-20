@@ -1,0 +1,199 @@
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1360px
+    }
+}
+
+// Nav
+.navbar-nav {
+    font-size: 1rem;
+}
+
+.navbar .navbar-brand img {
+    height: 40px;
+}
+
+.nav-link {
+    i {
+        font-size: 1.25rem;
+    }
+}
+
+// 鼠标触动下拉
+.dropdown:hover > .dropdown-menu {
+    display: block;
+    top: 80%;
+}
+
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none;
+}
+
+//Carousel
+.carousel-item {
+    height: 450px !important;
+
+    & > img {
+        height: 450px !important;
+    }
+
+    .carousel-caption {
+        margin-bottom: 30px;
+
+        h1 {
+            font-size: 2.875rem;
+        }
+
+        h6 {
+            font-size: 1.25rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .btn-ban {
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: 50px;
+            margin-bottom: 10px;
+            width: 170px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
+            background-color: #0984e3;
+            background-image: -webkit-linear-gradient(-138deg, #00a2ff, #0984e3);
+            background-image: -ms-linear-gradient(-138deg, #00a2ff, #0984e3);
+            background-image: linear-gradient(-138deg, #00a2ff, #0984e3);
+        }
+    }
+}
+
+// Form
+.form-check-input.is-invalid ~ .form-check-label {
+    a {
+        color: #e3342f;
+    }
+}
+
+// Breadcrumbs
+.breadcrumb {
+    margin-bottom: 0;
+    padding: 0.75rem 0;
+}
+
+// 分页
+.pagination {
+    display: flex;
+    padding: 1rem 1rem;
+}
+
+//Card
+.card-default {
+    padding: 0 15px;
+    border: none;
+
+    .card-header {
+        background: #fff;
+        padding: 0.75rem 0;
+    }
+
+    .card-title {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 14px;
+        color: inherit
+    }
+
+    .card-body {
+        position: relative;
+        padding: 15px 0;
+    }
+}
+
+
+.p-6 {
+    padding: 6rem !important
+}
+
+.pt-6, .py-6 {
+    padding-top: 6rem !important
+}
+
+.pr-6, .px-6 {
+    padding-right: 6rem !important
+}
+
+.pb-6, .py-6 {
+    padding-bottom: 6rem !important
+}
+
+.pl-6, .px-6 {
+    padding-left: 6rem !important
+}
+
+.p-7 {
+    padding: 8rem !important
+}
+
+.pt-7, .py-7 {
+    padding-top: 8rem !important
+}
+
+.pr-7, .px-7 {
+    padding-right: 8rem !important
+}
+
+.pb-7, .py-7 {
+    padding-bottom: 8rem !important
+}
+
+.pl-7, .px-7 {
+    padding-left: 8rem !important
+}
+
+.m-6 {
+    margin: 6rem !important
+}
+
+.mt-6, .my-6 {
+    margin-top: 6rem !important
+}
+
+.mr-6, .mx-6 {
+    margin-right: 6rem !important
+}
+
+.mb-6, .my-6 {
+    margin-bottom: 6rem !important
+}
+
+.ml-6, .mx-6 {
+    margin-left: 6rem !important
+}
+
+.m-7 {
+    margin: 8rem !important
+}
+
+.mt-7, .my-7 {
+    margin-top: 8rem !important
+}
+
+.mr-7, .mx-7 {
+    margin-right: 8rem !important
+}
+
+.mb-7, .my-7 {
+    margin-bottom: 8rem !important
+}
+
+.ml-7, .mx-7 {
+    margin-left: 8rem !important
+}

@@ -17,11 +17,14 @@ return [
 
     'public_key' => env('PASSPORT_PUBLIC_KEY'),
 
-    //设置令牌过期时间15天
+    //设置令牌有效期15天
     'tokens_expire_in' => env('PASSPORT_TOKENS_EXPIRE_IN', 15),
 
-    //设置刷新令牌过期时间30天
+    //设置刷新令牌有效期30天
     'refresh_tokens_expire_in' => env('PASSPORT_REFRESH_TOKENS_EXPIRE_IN', 30),
+
+    //个人令牌有效期
+    'personal_access_tokens_expire_in' => env('PASSPORT_PERSONAL_ACCESS_TOKENS_EXPIRE_IN', 6),
 
     /*
     |--------------------------------------------------------------------------
