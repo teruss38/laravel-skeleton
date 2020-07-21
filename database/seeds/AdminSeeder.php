@@ -88,19 +88,7 @@ class AdminSeeder extends Seeder
                 'name' => '网站设置',
                 'slug' => 'settings-system',
                 'http_method' => '',
-                'http_path' => '/settings/system',
-            ],
-            [
-                'name' => '附件设置',
-                'slug' => 'settings-storage',
-                'http_method' => '',
-                'http_path' => '/settings/storage',
-            ],
-            [
-                'name' => '小程序设置',
-                'slug' => 'settings-miniprogram',
-                'http_method' => '',
-                'http_path' => '/settings/miniprogram',
+                'http_path' => '/settings',
             ],
         ]);
         //数据管理
@@ -129,12 +117,6 @@ class AdminSeeder extends Seeder
             'parent_id' => 0,
             'order' => 3,
         ], [
-            [
-                'name' => '用户设置',
-                'slug' => 'settings-user',
-                'http_method' => '',
-                'http_path' => '/user/settings/basic',
-            ],
             [
                 'name' => 'OAuth客户端管理',
                 'slug' => 'oauth-management',
@@ -260,7 +242,7 @@ class AdminSeeder extends Seeder
             [
                 'title' => '网站设置',
                 'icon' => '',
-                'uri' => 'settings/system',
+                'uri' => 'settings',
             ],
             [
                 'title' => '管理员管理',
@@ -286,16 +268,6 @@ class AdminSeeder extends Seeder
                 'title' => '操作日志',
                 'icon' => '',
                 'uri' => 'auth/logs',
-            ],
-            [
-                'title' => '附件设置',
-                'icon' => '',
-                'uri' => 'settings/storage',
-            ],
-            [
-                'title' => '小程序设置',
-                'icon' => '',
-                'uri' => 'settings/miniprogram',
             ],
         ]);
         //数据管理 3
@@ -326,11 +298,6 @@ class AdminSeeder extends Seeder
         ]);
         //会员管理 5
         $this->addSubMenu(5,[
-            [
-                'title' => '用户设置',
-                'icon' => '',
-                'uri' => 'user/settings/basic',
-            ],
             [
                 'title' => 'Auth客户端',
                 'icon' => '',

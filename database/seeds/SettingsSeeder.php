@@ -22,6 +22,9 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
+        Settings::set('system.title', 'LarvaCMS内容管理系统');
+        Settings::set('system.keywords', 'LarvaCMS内容管理系统');
+        Settings::set('system.description', 'LarvaCMS内容管理系统');
         Settings::set('system.censor', '1');
         Settings::set('system.icp_record', '京ICP备00000001号');
         Settings::set('system.police_record', '');
