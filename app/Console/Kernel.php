@@ -40,6 +40,9 @@ class Kernel extends ConsoleKernel
 
         // Generate sitemap once a day
         $schedule->command('generate:sitemap')->daily();
+
+        // Generate statistic once a day
+        $schedule->command('generate:statistic')->daily();
     }
 
     /**
