@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AdminSeeder::class);
         $this->call(SettingsSeeder::class);
+        $this->call(RegionSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(PassportSeeder::class);
         $this->call(TagSeeder::class);

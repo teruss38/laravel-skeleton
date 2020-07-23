@@ -45,6 +45,12 @@ Route::group(['prefix' => 'messages'], function () {
 Route::get('notifications', 'User\NotificationController@index')->name('user.notifications');
 
 /**
+ * 搜索
+ */
+Route::get('search', 'SearchController@index')->name('search');
+Route::get('search/query', 'SearchController@query')->name('search.query');
+
+/**
  * 文章
  */
 Route::group(['prefix' => 'articles'], function () {

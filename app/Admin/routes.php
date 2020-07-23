@@ -21,6 +21,8 @@ Route::group([
 
     //数据管理
     $router->resource('dictionary/stop-words', 'Dictionary\StopWordController');
+    $router->resource('dictionary/key-words', 'Dictionary\KeyWordController');
+    $router->resource('dictionary/region', 'Dictionary\RegionController');
 
     //内容
     $router->resource('content/categories', 'Content\CategoryController');

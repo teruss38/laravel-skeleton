@@ -106,6 +106,18 @@ class AdminSeeder extends Seeder
                 'http_method' => '',
                 'http_path' => '/dictionary/stop-words*',
             ],
+            [
+                'name' => '关键词管理',
+                'slug' => 'key-word-management',
+                'http_method' => '',
+                'http_path' => '/dictionary/key-words*',
+            ],
+            [
+                'name' => '地区管理',
+                'slug' => 'region-management',
+                'http_method' => '',
+                'http_path' => '/dictionary/region*',
+            ],
         ]);
 
         //用户管理
@@ -276,6 +288,16 @@ class AdminSeeder extends Seeder
                 'title' => '敏感词管理',
                 'icon' => '',
                 'uri' => 'dictionary/stop-words',
+            ],
+            [
+                'title' => '关键词管理',
+                'icon' => '',
+                'uri' => 'dictionary/key-words',
+            ],
+            [
+                'title' => '地区管理',
+                'icon' => '',
+                'uri' => 'dictionary/region',
             ],
         ]);
         //内容管理 4

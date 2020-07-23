@@ -4,6 +4,8 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Forms\Settings;
 use App\Admin\Metrics\Examples;
+use App\Admin\Metrics\NewDevices;
+use App\Admin\Metrics\NewUsers;
 use App\Http\Controllers\Controller;
 use Dcat\Admin\Controllers\Dashboard;
 use Dcat\Admin\Layout\Column;
@@ -16,8 +18,8 @@ class HomeController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Dashboard')
-            ->description('Description...')
+            ->header('控制台')
+            //->description('Description...')
             ->body(function (Row $row) {
                 $row->column(6, function (Column $column) {
                     $column->row(Dashboard::title());
@@ -26,8 +28,8 @@ class HomeController extends Controller
 
                 $row->column(6, function (Column $column) {
                     $column->row(function (Row $row) {
-                        $row->column(6, new Examples\NewUsers());
-                        $row->column(6, new Examples\NewDevices());
+                        $row->column(6, new NewUsers());
+                        $row->column(6, new NewDevices());
                     });
 
                     $column->row(new Examples\Sessions());

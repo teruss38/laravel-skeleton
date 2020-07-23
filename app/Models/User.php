@@ -16,6 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
@@ -438,7 +439,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     /**
      * 通过Passport的密码授权验证用户使用的密码。
      *
-     * @param  string  $password
+     * @param string $password
      * @return bool
      */
     public function validateForPassportPasswordGrant($password)
@@ -477,7 +478,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     public static function findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser, $autoRegistration = true)
     {
         try {
-            return UserService::findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser,$autoRegistration);
+            return UserService::findForPassportMiniProgramRequest($authorizationCode, $provider, $socialUser, $autoRegistration);
         } catch (\Exception $e) {
             throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
         }
