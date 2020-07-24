@@ -46,6 +46,7 @@ use Larva\Passport\Socialite\User\UserSocialAccount;
  * @property UserDevice[] $devices 移动设备
  * @property UserLoginHistory[] $loginHistories 登录历史
  * @property \Larva\Wallet\Models\Wallet $wallet 钱包
+ * @property \Larva\Integral\Models\IntegralWallet $integral 积分
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User phone($phone)
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
