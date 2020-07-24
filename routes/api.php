@@ -23,6 +23,9 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
  */
 Route::post('phone-verify-code', 'Api\MainController@phoneVerifyCode');//短信验证码
 Route::post('mail-verify-code', 'Api\MainController@mailVerifyCode');//邮件验证码
+Route::get('country', 'Api\MainController@country');//国家列表
+Route::post('idcard', 'Api\MainController@idCard');//身份证号码归属地
+Route::any('dns-record', 'Api\MainController@dnsRecord');//远程DNS解析
 
 /**
  * RESTFul API version 1.

@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 /**
  * Class MainController
@@ -25,7 +26,7 @@ class MainController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except([
-            'phoneVerifyCode', 'mailVerifyCode',
+            'phoneVerifyCode', 'mailVerifyCode', 'country', 'idCard', 'dnsRecord',
         ]);
         //$this->middleware('throttle:1,2')->only('phoneVerifyCode', 'mailVerifyCode');
     }
@@ -55,5 +56,42 @@ class MainController extends Controller
         return $verifyCode->send();
     }
 
+    /**
+     * 获取国家列表
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
+    public function country(\Illuminate\Http\Request $request)
+    {
+        $items = \Larva\Supports\ISO3166::$countries;
+        $countries = [];
+        foreach ($items as $code => $value) {
+            $country = [
+                'label' => \Larva\Supports\ISO3166::country($code, \Illuminate\Support\Facades\App::getLocale()),
+                'value' => $code
+            ];
+            $countries[] = $country;
+        }
+        return $countries;
+    }
 
+    /**
+     * 身份证号码归属地
+     * @param \App\Http\Requests\Api\Main\IDCardRequest $request
+     * @return array|false
+     */
+    public function idCard(\App\Http\Requests\Api\Main\IDCardRequest $request)
+    {
+        return \Larva\Supports\IDCard::getInfo($request->id);
+    }
+
+    /**
+     * 远程DNS解析
+     * @param Request $request
+     * @return array|string
+     */
+    public function dnsRecord(Request $request)
+    {
+        return \Larva\Supports\IPHelper::dnsRecord($request->input('host'), DNS_A, $request->input('only-ip', false));
+    }
 }
