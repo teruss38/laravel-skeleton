@@ -32,6 +32,9 @@ class UserObserver
         if (class_exists('\Larva\Wallet\Models\Wallet')) {
             $user->wallet()->create();//创建wallet
         }
+        if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+            $user->integral()->create();//创建
+        }
     }
 
     /**
@@ -83,6 +86,9 @@ class UserObserver
         $user->loginHistories()->delete();
         if (class_exists('\Larva\Wallet\Models\Wallet')) {
             $user->wallet()->delete();
+        }
+        if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+            $user->integral()->delete();
         }
         Cache::forget('users:' . $user->id);
     }

@@ -179,6 +179,20 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     }
 
     /**
+     * 获取用户积分钱包
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @throws \Exception
+     */
+    public function integral()
+    {
+        if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+            return $this->hasOne(\Larva\Integral\Models\IntegralWallet::class);
+        } else {
+            throw new \Exception('Please install the integral extension first.');//未安装
+        }
+    }
+
+    /**
      * 查询指定的手机号
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $phone
@@ -429,9 +443,13 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
             return static::active()
                 ->where('phone', $username)
                 ->first();
-        } else {
+        } else if(filter_var($username, FILTER_VALIDATE_EMAIL)){
             return static::active()
                 ->where('email', $username)
+                ->first();
+        } else {
+            return static::active()
+                ->where('username', $username)
                 ->first();
         }
     }
