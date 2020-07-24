@@ -55,6 +55,17 @@ class Settings extends Form
             $this->switch('user.enable_login_email', '发送登录通知邮件');
             $this->switch('user.enable_register_ticket', '启用注册滑动解锁');
             $this->switch('user.enable_login_ticket', '启用登录滑动解锁');
+
+            if (class_exists('\Larva\Wallet\Models\Wallet')) {
+
+            }
+            if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+                $this->text('integral.cny_exchange_rate', '积分充值汇率')->rules('nullable|string');
+                $this->text('integral.recharge_gift_mix', '充值赠送起点')->rules('nullable|string');
+                $this->text('integral.recharge_gift', '充值赠送')->rules('nullable|string');
+                $this->text('integral.withdrawals_mix', '最小提现积分')->rules('nullable|string');
+                $this->text('integral.withdrawals_cny_exchange_rate', '提现汇率')->rules('nullable|string');
+            }
         });
         $this->tab('小程序设置', function () {
             $this->text('miniprogram.name', '小程序名称')->rules('nullable|string')->default(config('app.name'));

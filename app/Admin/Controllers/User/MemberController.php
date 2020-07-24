@@ -52,16 +52,32 @@ class MemberController extends AdminController
                 $filter->scope('year', '本年数据')->whereYear('created_at', Carbon::now()->year);
             });
             $grid->quickSearch(['id', 'phone', 'email']);
+            $grid->model()->orderBy('id', 'desc');
+            $with = ['profile'];
+            if (class_exists('\Larva\Wallet\Models\Wallet')) {
+                $with[] = 'wallet';
+            }
+            if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+                $with[] = 'integral';
+            }
 
-            $grid->id->sortable();
-            $grid->username;
-            $grid->phone;
-            $grid->email;
-            $grid->phone_verified_at;
-            $grid->email_verified_at;
-            $grid->created_at;
-            $grid->updated_at->sortable();
+            $grid->model()->with($with);
 
+            $grid->column('id', 'ID')->sortable();
+            $grid->column('profile.nickname', '昵称');
+            $grid->column('username', '用户名');
+            $grid->column('phone', '手机');
+            $grid->column('email', '邮箱');
+            if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+                $grid->column('integral.integral', '积分');
+            }
+            if (class_exists('\Larva\Wallet\Models\Wallet')) {
+                $grid->column('wallet.available_amount', '余额');
+            }
+            $grid->column('phone_verified_at');
+            $grid->column('email_verified_at');
+            $grid->column('created_at');
+            $grid->column('updated_at')->sortable();
 
             $grid->disableRowSelector();
             $grid->disableCreateButton();
@@ -79,6 +95,16 @@ class MemberController extends AdminController
     protected function detail($id)
     {
         return Show::make($id, new User(), function (Show $show) {
+            $with = ['profile'];
+            if (class_exists('\Larva\Wallet\Models\Wallet')) {
+                $with[] = 'wallet';
+            }
+            if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+                $with[] = 'integral';
+            }
+
+            $show->model()->with($with);
+
             $show->id;
             $show->username;
             $show->phone;
@@ -98,7 +124,8 @@ class MemberController extends AdminController
     protected function form()
     {
         return Form::make(new User(), function (Form $form) {
-            // 这里的字段会自动使用翻译文件
+
+
             $form->display('id');
             $form->text('username');
             $form->text('phone');
