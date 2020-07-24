@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * 关键词库
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class KeywordController extends AdminController
+class KeyWordController extends AdminController
 {
     protected function title()
     {
