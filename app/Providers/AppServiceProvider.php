@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         'mail_verify' => \App\Validators\MailVerifyValidator::class,
         'mac_address' => \App\Validators\MacAddressValidator::class,//Mac 地址验证
         'captcha' => \App\Validators\CaptchaValidator::class,//验证码验证
+        'id_card' => \App\Validators\IdCardValidator::class,//中国大陆身份证验证
     ];
 
     /**
