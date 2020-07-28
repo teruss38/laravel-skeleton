@@ -60,11 +60,7 @@ class Settings extends Form
 
             }
             if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
-                $this->text('integral.cny_exchange_rate', '积分充值汇率')->rules('nullable|string');
-                $this->text('integral.recharge_gift_mix', '充值赠送起点')->rules('nullable|string');
-                $this->text('integral.recharge_gift', '充值赠送')->rules('nullable|string');
-                $this->text('integral.withdrawals_mix', '最小提现积分')->rules('nullable|string');
-                $this->text('integral.withdrawals_cny_exchange_rate', '提现汇率')->rules('nullable|string');
+
             }
         });
         $this->tab('小程序设置', function () {

@@ -9,7 +9,6 @@
 namespace App\Admin\Controllers\User;
 
 use App\Models\UserSocial;
-use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Controllers\AdminController;
@@ -30,16 +29,15 @@ class SocialController extends AdminController
     {
         return Grid::make(new UserSocial(), function (Grid $grid) {
             $grid->model()->with(['user']);
-            $grid->id->sortable();
-            $grid->column('user.username');
-            $grid->provider;
-            $grid->union_id;
-            $grid->social_id;
-            $grid->name;
-            $grid->nickname;
-            $grid->created_at;
-            $grid->updated_at;
-            $grid->updated_at->sortable();
+            $grid->column('id', 'ID')->sortable();
+            $grid->column('user.username','绑定用户');
+            $grid->column('provider', '供应商');
+            $grid->column('union_id', 'Union ID');
+            $grid->column('social_id', 'UID');
+            $grid->column('name', '用户名');
+            $grid->column('nickname', '昵称');
+            $grid->column('created_at');
+            $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');

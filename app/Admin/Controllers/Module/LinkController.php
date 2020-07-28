@@ -8,7 +8,6 @@
 
 namespace App\Admin\Controllers\Module;
 
-use App\Models\Article;
 use App\Models\Link;
 use Dcat\Admin\Controllers\AdminController;
 use Dcat\Admin\Form;
