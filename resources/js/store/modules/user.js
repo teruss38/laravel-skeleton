@@ -1,4 +1,4 @@
-import {getProfile} from '../../api/user'
+import {getInfo, getProfile} from '../../api/user'
 
 const state = {
     guest: true,//是否是游客
@@ -20,19 +20,26 @@ const mutations = {
     SET_PROFILE(state, profile) {
         state.profile = profile;
         state.avatar = profile.avatar;
-        state.username = profile.username;
     }
 };
 
 const actions = {
-    //初始化 Profile 信息
     init({dispatch, commit}) {
+        getInfo().then(response => {
+            commit('SET_INFO', response);
+            if (response.isLogin) {
+                dispatch('getProfile');
+            }
+        });
+    },
+
+    //初始化 Profile 信息
+    getProfile({commit}) {
         return new Promise((resolve, reject) => {
             getProfile().then(response => {
                 commit('SET_PROFILE', response);
                 resolve(response)
             }).catch(error => {
-
                 reject(error)
             })
         });
