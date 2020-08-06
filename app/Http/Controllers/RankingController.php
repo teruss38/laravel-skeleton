@@ -12,11 +12,21 @@ use App\Models\Keyword;
 use Illuminate\Http\Request;
 
 /**
- * 关键词
+ * 实时热点
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class KeywordController extends Controller
+class RankingController extends Controller
 {
+    /**
+     * Show the ranking pages.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('ranking.index');
+    }
+
     /**
      * 查询关键词ID
      * @param int $id
@@ -26,6 +36,6 @@ class KeywordController extends Controller
     {
         $word = Keyword::find($id);
         //TODO 调用搜索引擎，搜索这个词。
-        return view('keyword.show');
+        return view('ranking.show');
     }
 }

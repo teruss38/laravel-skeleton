@@ -45,6 +45,12 @@ Route::group(['prefix' => 'messages'], function () {
 Route::get('notifications', 'User\NotificationController@index')->name('user.notifications');
 
 /**
+ * 实时热点
+ */
+Route::get('ranking', 'RankingController@index')->name('ranking');
+Route::get('ranking/{hash}', 'RankingController@show')->name('ranking.show');
+
+/**
  * 搜索
  */
 Route::get('search', 'SearchController@index')->name('search');
