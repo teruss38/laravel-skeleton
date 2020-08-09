@@ -21,8 +21,8 @@ class CreateArticlesTable extends Migration
             $table->string('description')->nullable()->comment('描述');
             $table->string('thumb')->nullable()->comment('缩略图');
             $table->boolean('recommend')->default(false)->nullable()->comment('是否推荐');
-            $table->string('order')->nullable()->default(0)->comment('排序');
-            $table->string('views')->nullable()->default(0)->comment('查看次数');
+            $table->unsignedInteger('order')->nullable()->default(0)->comment('排序');
+            $table->unsignedInteger('views')->nullable()->default(0)->comment('查看次数');
             $table->unsignedInteger('comment_count')->nullable()->default(0)->comment('评论数量');
             $table->unsignedInteger('support_count')->nullable()->default(0)->comment('点赞数量');
             $table->unsignedInteger('collection_count')->nullable()->default(0)->comment('收藏数量');
