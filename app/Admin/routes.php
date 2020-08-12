@@ -13,8 +13,8 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
 
-    $router->get('/', 'HomeController@index')->name('admin.home');
-    $router->get('settings', 'HomeController@settings')->name('admin.settings');
+    $router->get('/', 'HomeController@index')->name('home');
+    $router->get('settings', 'HomeController@settings')->name('settings');
 
     //Api
     $router->get('api/tags', 'ApiController@tags');
@@ -37,6 +37,4 @@ Route::group([
 
     //模块
     $router->resource('module/links', 'Module\LinkController');
-
-
 });
