@@ -3,7 +3,7 @@
 @section('title', __('Confirm Password'))
 
 @section('content')
-    <div class="container py-6 login-box">
+    <div class="container py-4 login-box">
         <div class="row justify-content-center shadow ">
             <div class="col-12 login-bg">
                 <h4 class="mb-3">{{ __('Confirm Password') }}</h4>

@@ -9,13 +9,13 @@
         <div class="row">
             <div class="col col-md-9">
                 @include('tag._header',['tag'=>$tag])
-                <div class="article-list">
+                <div class="article-list shadow border border-top-0">
                     <div class="article-list-contain">
                         @foreach ($items as $item)
                             <div class="item">
-                                @if ($item->thumbnail)
+                                @if ($item->thumb)
                                     <div class="image">
-                                        <img src="{{$item->thumbnail}}">
+                                        <img src="{{$item->thumb}}">
                                     </div>
                                 @endif
                                 <div class="content">
@@ -34,6 +34,9 @@
                         {{ $items->links() }}
                     </div>
                 </div>
+            </div>
+            <div class="col-md-3">
+
             </div>
         </div>
     </div>

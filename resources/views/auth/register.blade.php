@@ -3,7 +3,7 @@
 @section('title', __('Register'))
 
 @section('content')
-    <div class="container py-6 login-box">
+    <div class="container py-4 login-box">
         <div class="row justify-content-center shadow ">
             <div class="col-12 col-sm-7 col-lg-7 col-xl-8 login-bg">
                 <h4 class="mb-3">{{ __('Register') }}</h4>
