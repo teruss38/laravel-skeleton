@@ -56,7 +56,7 @@ class CategoryController extends AdminController
             $form->display('id', 'ID');
             $form->select('parent_id', '父栏目')->options(ArticleCategory::selectOptions())->default(0);
             $form->text('title', '栏目名称')->required()->placeholder('请输入栏目名称。');
-            $form->image('image', '栏目图片');
+            $form->image('image_path', '栏目图片')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
             $form->textarea('description', '栏目描述')->required()->placeholder('请输入栏目描述。');
             $form->display('created_at', trans('admin.created_at'));
             $form->display('updated_at', trans('admin.updated_at'));

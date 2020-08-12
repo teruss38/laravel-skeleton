@@ -39,7 +39,5 @@ class SettingsSeeder extends Seeder
         Settings::set('user.enable_register_ticket', '0');
         Settings::set('user.enable_login_ticket', '0');
 
-        Settings::set('storage.article_disk', 'public');
-        Settings::set('storage.avatar_disk', 'public');
     }
 }

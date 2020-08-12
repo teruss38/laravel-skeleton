@@ -139,7 +139,7 @@ class ArticleController extends AdminController
                 $form->switch('recommend', '推荐');
                 $form->select('category_id', '栏目')->options(ArticleCategory::selectOptions())->required();
                 $form->tags('tag_values', '标签')->ajax('api/tags', 'name', 'name');
-                $form->image('thumb', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
+                $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
                 $form->textarea('description', '摘要')->rows(3);
                 $form->select('user_id', '作者')->model(User::class, 'id', 'username')->default(User::SYSTEM_USER_ID)->ajax('api/users', 'id', 'username');
                 $form->number('order', '排序权重')->default(0);

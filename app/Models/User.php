@@ -230,7 +230,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     public function getAvatarAttribute()
     {
         if (!empty($this->avatar_path)) {
-            return Storage::url($this->avatar_path);
+            return Storage::cloud()->url($this->avatar_path);
         }
         return asset('img/avatar.jpg');
     }
@@ -245,9 +245,9 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
         $oldAvatarPath = $this->avatar_path;
         $path = UserService::getAvatarPath($this->id);
         $fileName = $file->hashName();
-        $avatarPath = $file->storeAs($path, $fileName);
-        Storage::setVisibility($avatarPath, Filesystem::VISIBILITY_PUBLIC);
-        Storage::delete($oldAvatarPath);
+        $avatarPath = $file->storeAs($path, $fileName, ['disk' => config('filesystems.cloud')]);
+        Storage::cloud()->setVisibility($avatarPath, Filesystem::VISIBILITY_PUBLIC);
+        Storage::cloud()->delete($oldAvatarPath);
         return $this->forceFill([
             'avatar_path' => $avatarPath
         ])->save();
@@ -444,7 +444,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
             return static::active()
                 ->where('phone', $username)
                 ->first();
-        } else if(filter_var($username, FILTER_VALIDATE_EMAIL)){
+        } else if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             return static::active()
                 ->where('email', $username)
                 ->first();

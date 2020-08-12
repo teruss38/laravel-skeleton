@@ -37,7 +37,7 @@ class Settings extends Form
     public function form()
     {
         $this->tab('基本设置', function () {
-            $this->text('system.title', '网站标题')->required()->rules('required|string|min:5')->placeholder('请输入网站标题（一般不超过80个字符）');
+            $this->text('system.title', '网站标题')->required()->rules('required|string|min:2')->placeholder('请输入网站标题（一般不超过80个字符）');
             $this->text('system.keywords', '网站关键词')->required()->rules('required|string|min:5')->placeholder('请输入网站标题（一般不超过100个字符）');
             $this->textarea('system.description', '网站描述')->required()->rules('required|string|min:5')->placeholder('请输入网站标题（一般不超过200个字符）');
             $this->switch('system.censor', '启用文本反垃圾');
@@ -66,15 +66,6 @@ class Settings extends Form
         $this->tab('小程序设置', function () {
             $this->text('miniprogram.name', '小程序名称')->rules('nullable|string')->default(config('app.name'));
             $this->text('miniprogram.desc', '小程序描述')->rules('nullable|string');
-        });
-        $this->tab('附件设置', function () {
-            $disks = array_keys(config('filesystems.disks'));
-            $filesystems = [];
-            foreach ($disks as $disk) {
-                $filesystems[$disk] = $disk;
-            }
-            $this->select('storage.article_disk', '文章附件磁盘')->options($filesystems);
-            $this->select('storage.avatar_disk', '头像存储磁盘')->options($filesystems);
         });
     }
 

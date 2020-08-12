@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable()->index()->comment('作者ID');
             $table->string('title')->comment('标题');
             $table->string('description')->nullable()->comment('描述');
-            $table->string('thumb')->nullable()->comment('缩略图');
+            $table->string('thumb_path')->nullable()->comment('缩略图存储路径');
             $table->boolean('recommend')->default(false)->nullable()->comment('是否推荐');
             $table->unsignedInteger('order')->nullable()->default(0)->comment('排序');
             $table->unsignedInteger('views')->nullable()->default(0)->comment('查看次数');

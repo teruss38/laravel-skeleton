@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
  * @property int $category_id 栏目ID
  * @property string $title 标题
  * @property string $description 描述
- * @property string $thumb 缩略图
+ * @property string $thumb_path 缩略图
  * @property boolean $recommend 是否推荐
  * @property int $status 状态
  * @property string $content 内容
@@ -41,6 +41,7 @@ use Illuminate\Support\Str;
  * @property-read string $link
  * @property-read boolean $accepted
  * @property-read boolean $pending
+ * @property-read boolean $thumb 缩略图Url
  * @property array $baidu_feed 百度信息流
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Article accepted()
@@ -70,7 +71,7 @@ class Article extends Model
      * @var array
      */
     public $fillable = [
-        'user_id', 'category_id', 'title', 'thumb', 'recommend', 'status', 'description', 'content', 'order', 'tag_values',
+        'user_id', 'category_id', 'title', 'thumb_path', 'recommend', 'status', 'description', 'content', 'order', 'tag_values',
         'seo', 'extra'
     ];
 
@@ -81,7 +82,8 @@ class Article extends Model
     protected $appends = [
         'tag_values',
         'accepted',
-        'pending'
+        'pending',
+        'thumb'
     ];
 
     /**
@@ -192,13 +194,13 @@ class Article extends Model
      * 获取缩略图
      * @return string
      */
-    public function getThumb()
+    public function getThumbAttribute()
     {
-        if (!empty($this->attributes['thumb'])) {
-            if (Str::contains($this->attributes['thumb'], '//')) {
-                return $this->attributes['thumb'];
+        if (!empty($this->attributes['thumb_path'])) {
+            if (Str::contains($this->attributes['thumb_path'], '//')) {
+                return $this->attributes['thumb_path'];
             } else {
-                return Storage::disk(settings('storage.article_disk'))->url($this->attributes['thumb']);
+                return Storage::cloud()->url($this->attributes['thumb_path']);
             }
         }
         return null;
@@ -245,8 +247,8 @@ class Article extends Model
             'feed_type' => 1000,
             'feed_sub_type' => 1001,
         ];
-        if (($images = $this->getThumb()) != null) {
-            $resource['images'][] = $this->getThumb();
+        if (($images = $this->thumb) != null) {
+            $resource['images'][] = $this->thumb;
         } else {
             $resource['images'][] = asset('img/baidu_thumb.jpg');
         }

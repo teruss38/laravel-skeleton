@@ -18,7 +18,7 @@ class CreateLinksTable extends Migration
             $table->tinyInteger('type')->comment('类别');
             $table->string('title');
             $table->string('url');
-            $table->string('logo')->nullable();
+            $table->string('logo_path')->nullable();
             $table->string('description')->nullable();
             $table->timestamp('expired_at',0)->nullable()->comment('过期时间');
             $table->timestamps();

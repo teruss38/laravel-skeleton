@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'cloud' => env('FILESYSTEM_CLOUD', 'public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ return [
     | may even configure multiple disks of the same driver. Defaults have
     | been setup for each driver as an example of the required options.
     |
-    | Supported Drivers: "local", "ftp", "sftp", "s3"
+    | Supported Drivers: "local", "ftp", "sftp", "s3", "oss"
     |
     */
 
@@ -65,6 +65,19 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'oss' => [
+            'driver' => 'oss',
+            'access_id' => env('ALIYUN_ACCESS_ID'),
+            'access_key' => env('ALIYUN_ACCESS_KEY'),
+            'bucket' => env('OSS_BUCKET', 'aliyun'),
+            'endpoint' => env('OSS_ENDPOINT', 'oss-cn-beijing.aliyuncs.com'),
+            'url' => env('OSS_URL', null),
+            'prefix' => env('OSS_PREFIX', null),
+            'security_token' => null,
+            'proxy' => null,
+            'timeout' => 3600,
+            'ssl' => true
+        ],
     ],
 
     /*

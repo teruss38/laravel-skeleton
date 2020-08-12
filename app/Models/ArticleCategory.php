@@ -10,6 +10,8 @@ namespace App\Models;
 
 use Dcat\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
 
 /**
@@ -18,11 +20,12 @@ use Spatie\EloquentSortable\Sortable;
  * @property int $parent_id 父ID
  * @property string $title 栏目名称
  * @property int $order 排序
- * @property string $image 缩略图
+ * @property string $image_path 缩略图
  * @property string $description 描述
  * @property-read string $link 链接
  * @property \Illuminate\Support\Carbon $created_at 创建时间
  * @property \Illuminate\Support\Carbon $updated_at 更新时间
+ * @property-read string $image
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
@@ -42,7 +45,7 @@ class ArticleCategory extends Model implements Sortable
      * @var array
      */
     public $fillable = [
-        'id', 'parent_id', 'title', 'order', 'image', 'description'
+        'id', 'parent_id', 'title', 'order', 'image_path', 'description'
     ];
 
     /**
@@ -61,6 +64,11 @@ class ArticleCategory extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
+
+    protected $appends = [
+        'image'
+    ];
+
     /**
      * 获取子栏目
      * @return array
@@ -77,5 +85,21 @@ class ArticleCategory extends Model implements Sortable
     public function getLinkAttribute()
     {
         return route('article.category', ['id' => $this->id]);
+    }
+
+    /**
+     * 获取image存储位置
+     * @return string
+     */
+    public function getImageAttribute()
+    {
+        if (!empty($this->attributes['image_path'])) {
+            if (Str::contains($this->attributes['image_path'], '//')) {
+                return $this->attributes['image_path'];
+            } else {
+                return Storage::cloud()->url($this->attributes['image_path']);
+            }
+        }
+        return null;
     }
 }

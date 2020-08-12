@@ -11,6 +11,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * 友情链接管理
@@ -18,11 +20,12 @@ use Illuminate\Support\Carbon;
  * @property int $type 链接类型
  * @property string $title 链接标题
  * @property string $url 链接Url
- * @property string $logo Logo
+ * @property string $logo_path Logo
  * @property string $description 链接描述
  * @property \Illuminate\Support\Carbon $expired_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property-read string $logo
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Link active()
  * @method static \Illuminate\Database\Eloquent\Builder|Link logo()
@@ -50,7 +53,7 @@ class Link extends Model
      * @var array 允许批量赋值属性
      */
     public $fillable = [
-        'type', 'title', 'url', 'logo', 'description', 'expired_at'
+        'type', 'title', 'url', 'logo_path', 'description', 'expired_at'
     ];
 
     /**
@@ -62,6 +65,10 @@ class Link extends Model
         'expired_at',
         'created_at',
         'updated_at',
+    ];
+
+    protected $appends = [
+        'logo'
     ];
 
     /**
@@ -174,6 +181,22 @@ class Link extends Model
         return $ids->map(function ($id) {
             return static::findById($id);
         });
+    }
+
+    /**
+     * 获取Logo存储位置
+     * @return string
+     */
+    public function getLogoAttribute()
+    {
+        if (!empty($this->attributes['logo_path'])) {
+            if (Str::contains($this->attributes['logo_path'], '//')) {
+                return $this->attributes['logo_path'];
+            } else {
+                return Storage::cloud()->url($this->attributes['logo_path']);
+            }
+        }
+        return null;
     }
 
     public static function getTypeLabels()

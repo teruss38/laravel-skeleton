@@ -65,6 +65,7 @@ class LinkController extends AdminController
             $grid->column('created_at','创建时间')->sortable();
             $grid->disableRowSelector();
             $grid->enableDialogCreate();
+            $grid->disableViewButton();
             $grid->paginate(10);
         });
     }
@@ -80,7 +81,7 @@ class LinkController extends AdminController
             $form->radio('type', '链接类型')->options(Link::getTypeLabels())->required()->default(Link::TYPE_HOME);
             $form->text('title', '链接名称')->required();
             $form->url('url', 'Url')->required();
-            $form->image('logo', '链接Logo');
+            $form->image('logo_path', '链接Logo')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
             $form->text('description', '链接描述');
             $form->datetime('expired_at', '过期时间');
         });
