@@ -7,3 +7,20 @@
 // User
 @import "user";
 
+// Article
+@import "article";
+
+// 页尾
+.footer {
+    bottom: 0;
+    background-color: #373f49;
+    padding: 1rem 0;
+    color: #778496;
+    margin-top: 40px;
+    a {
+        color: #778496;
+        :hover {
+            color: #2371dd;
+        }
+    }
+}

@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
-@section('title', __('Article'))
+@section('title', $tag->title.'_'.__('Topics'))
+@section('keywords', $tag->keywords)
+@section('description', $tag->description)
 
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col col-lg-9 main">
+            <div class="col col-md-9">
                 @include('tag._header',['tag'=>$tag])
                 <div class="article-list">
                     <div class="article-list-contain">

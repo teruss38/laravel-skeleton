@@ -101,6 +101,42 @@ class Tag extends Model
     }
 
     /**
+     * 获取 访问Url
+     * @return string
+     */
+    public function getTitleAttribute()
+    {
+        if (!empty($this->attributes['title'])) {
+            return $this->attributes['title'];
+        }
+        return $this->attributes['name'];
+    }
+
+    /**
+     * 获取 访问Url
+     * @return string
+     */
+    public function getKeywordsAttribute()
+    {
+        if (!empty($this->attributes['keywords'])) {
+            return $this->attributes['keywords'];
+        }
+        return $this->attributes['name'];
+    }
+
+    /**
+     * 获取 访问Url
+     * @return string
+     */
+    public function getDescriptionAttribute()
+    {
+        if (!empty($this->attributes['description'])) {
+            return $this->attributes['description'];
+        }
+        return $this->attributes['name'];
+    }
+
+    /**
      * 拥有这个标签的文章
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */

@@ -49,13 +49,10 @@ class ArticleController extends Controller
             ->orderByDesc('id')
             ->paginate(15);
         $categories = ArticleCategory::query()->get();
-        $recommendedArticles = Article::recommended();
+        $recommendedArticles = Article::recommended(10);
         return $this->response->view('article.index', [
             'items' => $items,
             'categories' => $categories,
-            'category_title' => trans('Articles'),
-            'category_description' => trans('Articles'),
-            'category_id' => null,
             'recommendedArticles' => $recommendedArticles
         ]);
     }
@@ -92,10 +89,8 @@ class ArticleController extends Controller
         $recommendedArticles = Article::recommended();
         return $this->response->view('article.index', [
             'items' => $items,
+            'category' => $category,
             'categories' => $categories,
-            'category_title' => $category->title,
-            'category_description' => $category->description,
-            'category_id' => $category_id,
             'recommendedArticles' => $recommendedArticles
         ]);
     }
@@ -143,10 +138,12 @@ class ArticleController extends Controller
         $this->authorize('show', $article);
         /*查看数+1*/
         $article->increment('views');
-        $recommendedArticles = Article::recommended();
+        $recommendedArticles = Article::recommended(10);
+        $latestArticles = Article::latest(10);
         return $this->response->view('article.show', [
             'article' => $article,
-            'recommendedArticles' => $recommendedArticles
+            'recommendedArticles' => $recommendedArticles,
+            'latestArticles' => $latestArticles
         ]);
     }
 }

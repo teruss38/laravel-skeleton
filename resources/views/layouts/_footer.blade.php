@@ -1,5 +1,4 @@
 <footer class="footer">
-    <hr class="d-none d-xl-block">
     <div class="container">
         <div class="d-flex">
             <span class="mr-auto">Copyright © 2009-{{ gmdate('Y') }} by <a href="{{ config('app.url') }}">{{ config('app.name', 'Laravel') }}</a>. <span class="d-none d-sm-inline">All Rights Reserved.</span></span>

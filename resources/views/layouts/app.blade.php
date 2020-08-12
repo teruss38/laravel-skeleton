@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="Description" content="@yield('description', __('Description'))">
-    <meta name="Keywords" content="@yield('Keywords', __('Keywords'))">
+    <meta name="Keywords" content="@yield('keywords', __('Keywords'))">
     <title>@yield('title', __('Title'))@if (request()->path() != '/') - {{ config('app.name', 'Laravel') }}@endif</title>
     <!-- Styles -->
     <link href="{{ asset(mix('/css/app.css')) }}" rel="stylesheet">
@@ -22,7 +22,7 @@
         <!-- End Header -->
         @yield('jumbotron')
 
-        <main class="py-4">
+        <main class="py-2">
             @yield('content')
         </main>
         <!-- Copyright Footer -->
