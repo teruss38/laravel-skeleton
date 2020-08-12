@@ -45,16 +45,18 @@ Route::group(['prefix' => 'messages'], function () {
 Route::get('notifications', 'User\NotificationController@index')->name('user.notifications');
 
 /**
- * 实时热点
- */
-Route::get('ranking', 'RankingController@index')->name('ranking');
-Route::get('ranking/{hash}', 'RankingController@show')->name('ranking.show');
-
-/**
  * 搜索
  */
 Route::get('search', 'SearchController@index')->name('search');
 Route::get('search/query', 'SearchController@query')->name('search.query');
+
+/**
+ * 实时热点
+ */
+Route::group(['prefix' => 'ranking'], function () {
+    Route::get('/', 'RankingController@index')->name('ranking.index');
+    Route::get('{id}', 'RankingController@show')->name('ranking.show');
+});
 
 /**
  * 文章
