@@ -21,10 +21,7 @@
         @include('layouts._header')
         <!-- End Header -->
         @yield('jumbotron')
-
-        <main class="py-2">
-            @yield('content')
-        </main>
+        @yield('content')
         <!-- Copyright Footer -->
         @include('layouts._footer')
         <!-- End Copyright Footer -->
