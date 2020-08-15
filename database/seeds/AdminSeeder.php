@@ -133,19 +133,19 @@ class AdminSeeder extends Seeder
                 'name' => 'OAuth客户端管理',
                 'slug' => 'oauth-management',
                 'http_method' => '',
-                'http_path' => 'user/clients',
+                'http_path' => '/user/clients*',
             ],
             [
                 'name' => '用户管理管理',
                 'slug' => 'user-members',
                 'http_method' => '',
-                'http_path' => 'user/members',
+                'http_path' => '/user/members*',
             ],
             [
                 'name' => '社交账户管理',
                 'slug' => 'user-socials',
                 'http_method' => '',
-                'http_path' => 'user/socials',
+                'http_path' => '/user/socials*',
             ]
         ]);
 
@@ -162,13 +162,13 @@ class AdminSeeder extends Seeder
                 'name' => '文章管理',
                 'slug' => 'content-articles-management',
                 'http_method' => '',
-                'http_path' => 'content/articles',
+                'http_path' => '/content/articles*',
             ],
             [
                 'name' => '栏目管理',
                 'slug' => 'content-article-categories-management',
                 'http_method' => '',
-                'http_path' => 'content/categories',
+                'http_path' => '/content/categories*',
             ],
             [
                 'name' => 'Tag管理',
