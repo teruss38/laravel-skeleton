@@ -28,7 +28,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedInteger('collection_count')->nullable()->default(0)->comment('收藏数量');
             $table->unsignedTinyInteger('status');
             $table->json('seo')->nullable()->comment('SEO');
-            $table->json('extra')->comment('扩展字段');
+            $table->json('extra')->nullable()->comment('扩展字段');
             $table->mediumText('content')->comment('内容');
             $table->timestamps();
             $table->index(['category_id', 'recommend', 'status']);
