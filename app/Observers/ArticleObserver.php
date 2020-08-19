@@ -75,15 +75,7 @@ class ArticleObserver
      */
     public function updated(Article $article)
     {
-        //远程图片本地化
-        $article->content = FileService::handleContentRemoteFile($article->content);
 
-        //自动提取缩略图
-        if (empty($article->thumb_path)) {
-            if (preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $article->content, $matches)) {
-                $article->thumb_path = $matches[3][0];
-            }
-        }
     }
 
     /**
