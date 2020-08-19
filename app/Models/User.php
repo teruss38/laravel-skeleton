@@ -243,9 +243,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     public function setAvatar(\Illuminate\Http\UploadedFile $file)
     {
         $oldAvatarPath = $this->avatar_path;
-        $path = UserService::getAvatarPath($this->id);
-        $fileName = $file->hashName();
-        $avatarPath = $file->storePubliclyAs($path, $fileName, ['disk' => config('filesystems.cloud')]);
+        $avatarPath = $file->storePubliclyAs(UserService::getAvatarPath($this->id), $file->hashName(), ['disk' => config('filesystems.cloud')]);
         Storage::cloud()->delete($oldAvatarPath);
         return $this->forceFill([
             'avatar_path' => $avatarPath

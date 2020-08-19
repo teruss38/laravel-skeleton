@@ -10,9 +10,9 @@ namespace App\Observers;
 
 use App\Models\Article;
 use App\Models\UserExtra;
+use App\Services\FileService;
 use Larva\Censor\Censor;
 use Larva\Censor\CensorNotPassedException;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Article 观察者
@@ -29,11 +29,22 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-        if (empty($article->description)) {//自动提取摘要
-            $description = str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($article->content));
-            $article->description = mb_substr($description, 0, 200);
-            $article->save();
+        //远程图片本地化
+        $article->content = FileService::handleContentRemoteFile($article->content);
+
+        //自动提取缩略图
+        if (empty($article->thumb_path)) {
+            if (preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $article->content, $matches)) {
+                $article->thumb_path = $matches[3][0];
+            }
         }
+
+        //自动提取摘要
+        if (empty($article->description)) {
+            $description = str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($article->content));
+            $article->description = mb_substr($description, 0, 190);
+        }
+
         if ($article->user_id) {
             UserExtra::inc($article->user_id, 'articles');
         }
@@ -64,7 +75,15 @@ class ArticleObserver
      */
     public function updated(Article $article)
     {
+        //远程图片本地化
+        $article->content = FileService::handleContentRemoteFile($article->content);
 
+        //自动提取缩略图
+        if (empty($article->thumb_path)) {
+            if (preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $article->content, $matches)) {
+                $article->thumb_path = $matches[3][0];
+            }
+        }
     }
 
     /**
