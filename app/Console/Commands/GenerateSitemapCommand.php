@@ -38,7 +38,7 @@ class GenerateSitemapCommand extends Command
     /**
      * @var int
      */
-    protected $mapChunk = 1000;
+    protected $mapChunk = 3000;
 
     /**
      * @var string
