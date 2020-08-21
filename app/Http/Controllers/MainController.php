@@ -8,8 +8,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 /**
  * Class MainController
  * @author Tongle Xu <xutongle@gmail.com>
@@ -23,28 +21,5 @@ class MainController extends Controller
     public function index()
     {
         return view('main.index');
-    }
-
-    /**
-     * 前端 Ajax 获取用户信息
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function info(Request $request)
-    {
-        $result = ['isLogin' => false];
-        if (($user = $request->user()) != null) {
-            $result = [
-                'isLogin' => true,
-                'id' => $user->id,
-                'username' => $user->username,
-                'nickname' => $user->nickname,
-                'avatar' => $user->avatar,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'unreadNotificationCount' => $user->unreadNotifications()->count()
-            ];
-        }
-        return response()->json($result);
     }
 }

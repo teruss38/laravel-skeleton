@@ -80,7 +80,7 @@ const existPhone = function (phone) {
 const getInfo = function () {
     return request({
         method: 'get',
-        url: '/info'
+        url: '/ajax/info'
     });
 };
 

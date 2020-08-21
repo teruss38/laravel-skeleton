@@ -17,7 +17,6 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
 
 Route::get('/', 'MainController@index');
 Route::get('captcha', 'CaptchaController')->name('captcha');
-Route::get('info', 'MainController@info');//获取用户登录状态
 
 Auth::routes(['verify' => true]);
 Route::get('register/phone', 'Auth\RegisterController@showPhoneRegistrationForm')->name('mobile.register');
@@ -49,6 +48,13 @@ Route::get('notifications', 'User\NotificationController@index')->name('user.not
  */
 Route::get('search', 'SearchController@index')->name('search');
 Route::get('search/query', 'SearchController@query')->name('search.query');
+
+/**
+ * 远程调用
+ */
+Route::group(['prefix' => 'ajax'], function () {
+    Route::get('info', 'AjaxController@info');//获取用户登录状态
+});
 
 /**
  * 实时热点
