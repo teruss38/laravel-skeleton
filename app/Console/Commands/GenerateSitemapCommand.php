@@ -96,6 +96,7 @@ class GenerateSitemapCommand extends Command
         // add items to the sitemap (url, date, priority, freq)
         $sitemap->add(URL::to('/'), now()->toRfc3339String(), '1.0', 'daily');
         $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.8', 'always');
+        $sitemap->add(URL::route('keyword.index'), now()->toRfc3339String(), '0.8', 'always');
 
         $sitemap->store('xml', 'misc', $this->storePath);
         $sitemap->addSitemap(secure_url('sitemap/misc.xml'), now()->toRfc3339String());
@@ -145,6 +146,7 @@ class GenerateSitemapCommand extends Command
         // add items to the sitemap (url, date, priority, freq)
         $sitemap->add(URL::to('/'), now()->toRfc3339String(), '1.0', 'daily');
         $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.8', 'always');
+        $sitemap->add(URL::route('keyword.index'), now()->toRfc3339String(), '0.8', 'always');
 
         $sitemap->store('baidu', 'misc', $this->baiduStorePath);
         $sitemap->addSitemap(secure_url('sitemap/baidu/misc.xml'), now()->toRfc3339String());

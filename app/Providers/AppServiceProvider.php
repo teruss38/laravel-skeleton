@@ -78,6 +78,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Message::observe(\App\Observers\MessageObserver::class);//站内信
         \App\Models\Tag::observe(\App\Observers\TagObserver::class);//文章
         \App\Models\Article::observe(\App\Observers\ArticleObserver::class);//文章
+        \App\Models\Keyword::observe(\App\Observers\KeywordObserver::class);//新词
     }
 
     /**

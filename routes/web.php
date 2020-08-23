@@ -57,11 +57,11 @@ Route::group(['prefix' => 'ajax'], function () {
 });
 
 /**
- * 实时热点
+ * 热点长尾词
  */
-Route::group(['prefix' => 'ranking'], function () {
-    Route::get('/', 'RankingController@index')->name('ranking.index');
-    Route::get('{id}', 'RankingController@show')->name('ranking.show');
+Route::group(['prefix' => 'hotword'], function () {
+    Route::get('/', 'KeywordController@index')->name('keyword.index');
+    Route::get('{id}', 'KeywordController@show')->name('keyword.show');
 });
 
 /**

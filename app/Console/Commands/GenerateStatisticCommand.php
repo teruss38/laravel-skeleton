@@ -8,6 +8,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Article;
+use App\Models\Keyword;
 use App\Models\Statistic;
 use App\Models\User;
 use App\Models\UserDevice;
@@ -62,9 +64,23 @@ class GenerateStatisticCommand extends Command
         try {
             $this->user();
             $this->device();
+            $this->keyword();
+            $this->article();
             $this->info('[' . date('Y-m-d H:i:s', time()) . ']统计完成!');
         } catch (\Exception $exception) {
             $this->error('执行统计失败：' . $exception->getMessage());
+        }
+    }
+
+    /**
+     * 文章统计
+     */
+    public function article()
+    {
+        $yesterday = Carbon::yesterday($this->tz);
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_ARTICLE)->whereDate('date', $yesterday)->exists()) {
+            $quantity = Article::query()->whereDate('created_at', $yesterday)->count();
+            Statistic::create(['type' => Statistic::TYPE_NEW_ARTICLE, 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
         }
     }
 
@@ -74,9 +90,9 @@ class GenerateStatisticCommand extends Command
     public function user()
     {
         $yesterday = Carbon::yesterday($this->tz);
-        if (!Statistic::query()->where('type', 'new_user')->whereDate('date', $yesterday)->exists()) {
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_USER)->whereDate('date', $yesterday)->exists()) {
             $quantity = User::query()->whereDate('created_at', $yesterday)->count();
-            Statistic::create(['type' => 'new_user', 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
+            Statistic::create(['type' => Statistic::TYPE_NEW_USER, 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
         }
     }
 
@@ -86,13 +102,25 @@ class GenerateStatisticCommand extends Command
     public function device()
     {
         $yesterday = Carbon::yesterday($this->tz);
-        if (!Statistic::query()->where('type', 'new_device_android')->whereDate('date', $yesterday)->exists()) {
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_DEVICE_ANDROID)->whereDate('date', $yesterday)->exists()) {
             $quantity = UserDevice::query()->whereDate('created_at', $yesterday)->count();
-            Statistic::create(['type' => 'new_device_android', 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
+            Statistic::create(['type' => Statistic::TYPE_NEW_DEVICE_ANDROID, 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
         }
-        if (!Statistic::query()->where('type', 'new_device_ios')->whereDate('date', $yesterday)->exists()) {
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_DEVICE_IOS)->whereDate('date', $yesterday)->exists()) {
             $quantity = UserDevice::query()->whereDate('created_at', $yesterday)->count();
-            Statistic::create(['type' => 'new_device_ios', 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
+            Statistic::create(['type' => Statistic::TYPE_NEW_DEVICE_IOS, 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
+        }
+    }
+
+    /**
+     * 长尾词
+     */
+    public function keyword()
+    {
+        $yesterday = Carbon::yesterday($this->tz);
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_KEYWORD)->whereDate('date', $yesterday)->exists()) {
+            $quantity = Keyword::query()->whereDate('created_at', $yesterday)->count();
+            Statistic::create(['type' => Statistic::TYPE_NEW_KEYWORD, 'date' => $yesterday->toDateString(), 'quantity' => $quantity]);
         }
     }
 }

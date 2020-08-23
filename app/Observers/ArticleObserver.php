@@ -57,14 +57,16 @@ class ArticleObserver
         } catch (CensorNotPassedException $e) {
             $article->status = Article::STATUS_REJECTED;
         }
-        if ($article->status == Article::STATUS_ACCEPTED) {
+        $article->save();
+
+        if ($article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
 //            if ($article->recommend) {
-//                BaiduPing::pushRealtime($article->link);//推天级收录
+//                BaiduPush::daily($article->link);//推快速收录
 //            } else {
-//                BaiduPing::pushBatch($article->link);//推周级收录
+//                BaiduPush::push($article->link);//推普通收录
+//                BingPush::push($article->link);//推普通收录
 //            }
         }
-        $article->save();
     }
 
     /**
@@ -75,7 +77,10 @@ class ArticleObserver
      */
     public function updated(Article $article)
     {
-
+        if ($article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
+//            BaiduPush::push($article->link);//推普通收录
+//            BingPush::push($article->link);//推普通收录
+        }
     }
 
     /**
@@ -89,6 +94,9 @@ class ArticleObserver
     {
         if ($article->user_id) {
             UserExtra::dec($article->user_id, 'articles');
+        }
+        if ($article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
+//            BingPush::push($article->link);//推普通收录
         }
     }
 }

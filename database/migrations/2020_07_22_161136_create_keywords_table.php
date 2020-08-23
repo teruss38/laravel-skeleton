@@ -15,7 +15,7 @@ class CreateKeywordsTable extends Migration
     {
         Schema::create('keywords', function (Blueprint $table) {
             $table->id();
-            $table->string('word')->comment('关键词');
+            $table->string('word')->comment('关键词')->unique();
             $table->unsignedInteger('frequency')->default(0)->nullable()->comment('热度');
             $table->string('title', 50)->nullable();
             $table->string('keywords')->nullable();
