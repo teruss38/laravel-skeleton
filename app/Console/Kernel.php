@@ -36,13 +36,17 @@ class Kernel extends ConsoleKernel
         $schedule->command('auth:clear-resets')->daily()->onOneServer();
 
         // Purge revoked and expired tokens and auth codes...
-        $schedule->command('passport:purge')->hourly();
+        $schedule->command('passport:purge')->daily();
 
         // Generate sitemap once a day
-        $schedule->command('generate:sitemap')->daily();
+        $schedule->command('generate:sitemap')->daily()->twiceDaily(9, 16);
 
         // Generate statistic once a day
-        $schedule->command('generate:statistic')->daily();
+        $schedule->command('generate:statistic')->twiceDaily(7, 19);
+
+        // Search engine push retry once a day
+//        $schedule->command('baidu:push-retry')->daily();
+//        $schedule->command('bing:push-retry')->daily();
     }
 
     /**

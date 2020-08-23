@@ -7,8 +7,9 @@ install:	##@system build this application
 	git pull
 	php -r "file_exists('.env') || copy('.env.prod', '.env');"
 	composer install --prefer-dist --no-dev --no-suggest --optimize-autoloader --no-progress --no-interaction
+	chmod +x artisan
 	php artisan storage:link
-	php artisan migrate --force
+	php artisan migrate --seed
 	$(MAKE) optimize
 
 update:	##@update this application
@@ -17,10 +18,17 @@ update:	##@update this application
 	php artisan queue:restart
 	$(MAKE) optimize
 
+sitemap:	##@make this application sitemap
+	php artisan generate:sitemap
+
 reload:	##@reload this application
 	rm -f .env
 	rm -rf vendor/
-	$(MAKE) install
+	git pull
+	php -r "file_exists('.env') || copy('.env.prod', '.env');"
+	composer install --prefer-dist --no-dev --no-suggest --optimize-autoloader --no-progress --no-interaction
+	php artisan migrate --force
+	$(MAKE) optimize
 
 optimize:	##@system build this application cache
 	php artisan optimize

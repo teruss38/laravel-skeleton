@@ -44,12 +44,6 @@ Route::group(['prefix' => 'messages'], function () {
 Route::get('notifications', 'User\NotificationController@index')->name('user.notifications');
 
 /**
- * 搜索
- */
-Route::get('search', 'SearchController@index')->name('search');
-Route::get('search/query', 'SearchController@query')->name('search.query');
-
-/**
  * 远程调用
  */
 Route::group(['prefix' => 'ajax'], function () {
@@ -57,12 +51,10 @@ Route::group(['prefix' => 'ajax'], function () {
 });
 
 /**
- * 热点长尾词
+ * 搜索
  */
-Route::group(['prefix' => 'hotword'], function () {
-    Route::get('/', 'KeywordController@index')->name('keyword.index');
-    Route::get('{id}', 'KeywordController@show')->name('keyword.show');
-});
+Route::get('search', 'SearchController@index')->name('search');
+Route::get('search/query', 'SearchController@query')->name('search.query');
 
 /**
  * 文章
@@ -85,3 +77,10 @@ Route::group(['prefix' => 'tags'], function () {
     Route::get('auto-complete', 'TagController@autoComplete')->name('tag.auto-complete');
 });
 
+/**
+ * 热点长尾词
+ */
+Route::group(['prefix' => 'hotword'], function () {
+    Route::get('/', 'KeywordController@index')->name('keyword.index');
+    Route::get('{id}', 'KeywordController@show')->name('keyword.show');
+});
