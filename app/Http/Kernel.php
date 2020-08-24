@@ -80,5 +80,8 @@ class Kernel extends HttpKernel
         //Passport  检查作用域
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+
+        //火车采集器
+        'auth.locoy' => \App\Http\Middleware\LocoyAuthenticate::class,
     ];
 }

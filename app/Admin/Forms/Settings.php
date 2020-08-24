@@ -44,6 +44,7 @@ class Settings extends Form
             $this->text('system.icp_record', 'ICP备案')->rules('nullable|string');
             $this->text('system.police_record', '公安备案')->rules('nullable|string');
             $this->email('system.support_email', '服务邮箱')->rules('nullable|email');
+            $this->text('system.locoy', '火车采集器密钥')->rules('nullable|string');
         });
         $this->tab('用户设置', function () {
             $this->switch('user.enable_registration', '启用新用户注册');

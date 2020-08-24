@@ -28,6 +28,14 @@ Route::post('idcard', 'Api\MainController@idCard');//身份证号码归属地
 Route::any('dns-record', 'Api\MainController@dnsRecord');//远程DNS解析
 
 /**
+ * 火车头接口
+ */
+Route::group(['prefix' => 'locoy'], function (RouteContract $api) {
+    Route::get('article/categories', 'Api\LocoyController@articleCategories');
+    Route::post('article', 'Api\LocoyController@storeArticle');
+});
+
+/**
  * RESTFul API version 1.
  *
  * Define the version of the interface that conforms to most of the
