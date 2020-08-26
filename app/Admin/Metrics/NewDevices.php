@@ -46,8 +46,8 @@ class NewDevices extends Donut
      */
     public function fill()
     {
-        $android = Statistic::getTimingHistory('new_device_android', 30);
-        $ios = Statistic::getTimingHistory('new_device_android', 30);
+        $android = Statistic::getTimingHistory(Statistic::TYPE_NEW_DEVICE_ANDROID, 30);
+        $ios = Statistic::getTimingHistory(Statistic::TYPE_NEW_DEVICE_IOS, 30);
         $this->withContent($android['quantity'], $ios['quantity']);
 
         // 图表数据

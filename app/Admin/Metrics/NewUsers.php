@@ -37,21 +37,21 @@ class NewUsers extends Line
     {
         switch ($request->get('option')) {
             case '365':
-                $data = Statistic::getTimingHistory('new_user', 365);
+                $data = Statistic::getTimingHistory(Statistic::TYPE_NEW_USER, 365);
                 // 卡片内容
                 $this->withContent($data['quantity']);
                 // 图表数据
                 $this->withChart($data['data']->toArray());
                 break;
             case '90':
-                $data = Statistic::getTimingHistory('new_user', 90);
+                $data = Statistic::getTimingHistory(Statistic::TYPE_NEW_USER, 90);
                 // 卡片内容
                 $this->withContent($data['quantity']);
                 // 图表数据
                 $this->withChart($data['data']->toArray());
                 break;
             case '28':
-                $data = Statistic::getTimingHistory('new_user', 28);
+                $data = Statistic::getTimingHistory(Statistic::TYPE_NEW_USER, 28);
                 // 卡片内容
                 $this->withContent($data['quantity']);
                 // 图表数据
@@ -59,7 +59,7 @@ class NewUsers extends Line
                 break;
             case '7':
             default:
-                $data = Statistic::getTimingHistory('new_user', 7);
+                $data = Statistic::getTimingHistory(Statistic::TYPE_NEW_USER, 7);
                 // 卡片内容
                 $this->withContent($data['quantity']);
                 // 图表数据
