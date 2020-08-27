@@ -38,11 +38,11 @@ class Kernel extends ConsoleKernel
         // Purge revoked and expired tokens and auth codes...
         $schedule->command('passport:purge')->daily();
 
-        // Generate sitemap once a day
-        $schedule->command('generate:sitemap')->daily()->twiceDaily(9, 16);
+        // Generate sitemap once a hourly
+        $schedule->command('generate:sitemap')->hourly();
 
         // Generate statistic once a day
-        $schedule->command('generate:statistic')->twiceDaily(7, 19);
+        $schedule->command('generate:statistic')->daily();
 
         // Search engine push retry once a day
 //        $schedule->command('baidu:push-retry')->daily();

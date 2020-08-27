@@ -16,8 +16,14 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
 */
 
 Route::get('/', 'MainController@index');
-Route::get('captcha', 'CaptchaController')->name('captcha');
+Route::get('about', 'MainController@about')->name('page.about');
+Route::get('pay', 'MainController@pay')->name('page.pay');
+Route::get('privacy', 'MainController@privacy')->name('page.privacy');
+Route::get('terms', 'MainController@terms')->name('page.terms');
+Route::get('contact', 'MainController@contact')->name('page.contact');
+Route::get('copyright', 'MainController@copyright')->name('page.copyright');
 
+Route::get('captcha', 'CaptchaController')->name('captcha');
 Auth::routes(['verify' => true]);
 Route::get('register/phone', 'Auth\RegisterController@showPhoneRegistrationForm')->name('mobile.register');
 Route::post('register/phone', 'Auth\RegisterController@phoneRegister')->name('mobile.register.store');
