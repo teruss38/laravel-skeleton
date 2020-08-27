@@ -60,6 +60,12 @@ $ cp .env.develop .env
 $ php artisan migrate --seed
 ```
 
+4. 配置任务调度
+
+```bash
+* * * * * cd /app/path/project && php artisan schedule:run >> /dev/null 2>&1
+```
+
 然后访问 `http://laravel-skeleton.test/` 将会看到网站信息。 
 
 ## License
