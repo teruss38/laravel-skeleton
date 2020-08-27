@@ -118,6 +118,18 @@ class AdminSeeder extends Seeder
                 'http_method' => '',
                 'http_path' => '/dictionary/region*',
             ],
+            [
+                'name' => 'Tag管理',
+                'slug' => 'content-tags',
+                'http_method' => '',
+                'http_path' => 'content/tags*',
+            ],
+            [
+                'name' => '文章栏目管理',
+                'slug' => 'content-article-categories-management',
+                'http_method' => '',
+                'http_path' => '/content/categories*',
+            ],
         ]);
 
         //用户管理
@@ -164,18 +176,7 @@ class AdminSeeder extends Seeder
                 'http_method' => '',
                 'http_path' => '/content/articles*',
             ],
-            [
-                'name' => '栏目管理',
-                'slug' => 'content-article-categories-management',
-                'http_method' => '',
-                'http_path' => '/content/categories*',
-            ],
-            [
-                'name' => 'Tag管理',
-                'slug' => 'content-tags',
-                'http_method' => '',
-                'http_path' => 'content/tags',
-            ],
+
         ]);
         //模块管理
         $this->addPermission([
@@ -250,7 +251,7 @@ class AdminSeeder extends Seeder
         ]);
 
         //系统设置 2
-        $this->addSubMenu(2,[
+        $this->addSubMenu(2, [
             [
                 'title' => '网站设置',
                 'icon' => '',
@@ -283,7 +284,7 @@ class AdminSeeder extends Seeder
             ],
         ]);
         //数据管理 3
-        $this->addSubMenu(3,[
+        $this->addSubMenu(3, [
             [
                 'title' => '敏感词管理',
                 'icon' => '',
@@ -299,6 +300,16 @@ class AdminSeeder extends Seeder
                 'icon' => '',
                 'uri' => 'dictionary/region',
             ],
+            [
+                'title' => 'Tag管理',
+                'icon' => '',
+                'uri' => 'content/tags',
+            ],
+            [
+                'title' => '文章栏目管理',
+                'icon' => '',
+                'uri' => 'content/categories',
+            ],
         ]);
         //内容管理 4
         $this->addSubMenu(4, [
@@ -307,19 +318,9 @@ class AdminSeeder extends Seeder
                 'icon' => '',
                 'uri' => 'content/articles',
             ],
-            [
-                'title' => '栏目管理',
-                'icon' => '',
-                'uri' => 'content/categories',
-            ],
-            [
-                'title' => 'Tag管理',
-                'icon' => '',
-                'uri' => 'content/tags',
-            ],
         ]);
         //会员管理 5
-        $this->addSubMenu(5,[
+        $this->addSubMenu(5, [
             [
                 'title' => 'Auth客户端',
                 'icon' => '',
