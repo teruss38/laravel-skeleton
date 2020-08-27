@@ -191,7 +191,7 @@ class AdminSeeder extends Seeder
                 'name' => '友情链接管理',
                 'slug' => 'module-links-management',
                 'http_method' => '',
-                'http_path' => 'module/links',
+                'http_path' => '/module/links*',
             ],
         ]);
 
