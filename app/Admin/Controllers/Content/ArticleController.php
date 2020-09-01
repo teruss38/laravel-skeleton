@@ -114,7 +114,7 @@ class ArticleController extends AdminController
     {
         return Form::make(new Article, function (Form $form) {
             $form->tab('基本', function (Form $form) {
-                $form->text('title', '标题')->required()->rules('required|string|max:30:min:5')->placeholder('请输入文字标题（5-30个汉字）');
+                $form->text('title', '标题')->required()->rules('required|string|max:40|min:5')->placeholder('请输入文字标题（5-30个汉字）');
                 $form->editor('content', '内容')->required()->placeholder('请输入正文');
             })->tab('扩展', function (Form $form) {
                 $form->embeds('seo', 'SEO设置', function ($form) {
