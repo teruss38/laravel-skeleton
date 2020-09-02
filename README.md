@@ -5,7 +5,7 @@
 [![Total Downloads](https://poser.pugx.org/larvacloud/laravel-skeleton/downloads.png)](https://packagist.org/packages/larvacloud/laravel-skeleton)
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5e5655b5100a1eafc2f6)
 
-开箱即用的 Laravel 7 基础结构。只需很少的代码即可快速构建出一个功能完善的高颜值系统。内置丰富的常用组件，开箱即用，让开发者告别冗杂的代码，对 RESTFul 开发者非常友好。
+开箱即用的 Laravel 7 基础结构，只需很少的代码即可快速构建出一个功能完善的高颜值系统。内置丰富的常用组件，开箱即用，让开发者告别冗杂的代码，对 RESTFul 开发者非常友好。
 
 ## 环境
  - PHP >= 7.2.5
@@ -30,8 +30,8 @@
 - [x] 内置支持栏目管理、Tag管理、文章管理；
 - [x] 内置支持文本反垃圾（根据命中的词自动选择是审核还是拒绝）；
 - [x] 内置 Sitemap 支持；
-## 可选支持
 
+## 可选支持（默认未安装）
 - [短信接口](https://github.com/larvacent/laravel-sms)
 - [小程序登录](https://github.com/larvacent/laravel-passport-miniprogram)
 - [签名的开放API接口](https://github.com/larvacent/laravel-auth-signature-guard)

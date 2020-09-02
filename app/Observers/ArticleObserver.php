@@ -70,20 +70,6 @@ class ArticleObserver
     }
 
     /**
-     * Handle the user "updated" event.
-     *
-     * @param \App\Models\Article $article
-     * @return void
-     */
-    public function updated(Article $article)
-    {
-        if ($article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
-//            BaiduPush::push($article->link);//推普通收录
-//            BingPush::push($article->link);//推普通收录
-        }
-    }
-
-    /**
      * Handle the user "deleted" event.
      *
      * @param \App\Models\Article $article

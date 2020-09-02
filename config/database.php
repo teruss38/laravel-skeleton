@@ -39,7 +39,7 @@ return [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
+            'prefix' => 'larva_',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
@@ -57,6 +57,7 @@ return [
             'prefix' => 'larva_',
             'prefix_indexes' => true,
             'strict' => true,
+            //'strict' => false,//关闭严格模式(站内信依赖)
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -72,7 +73,7 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
-            'prefix' => '',
+            'prefix' => 'larva_',
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
@@ -87,7 +88,7 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
-            'prefix' => '',
+            'prefix' => 'larva_',
             'prefix_indexes' => true,
         ],
 
