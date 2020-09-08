@@ -8,9 +8,9 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="Description" content="@yield('description', __('Description'))">
-    <meta name="Keywords" content="@yield('keywords', __('Keywords'))">
-    <title>@yield('title', __('Title'))@if (request()->path() != '/') - {{ config('app.name', 'Laravel') }}@endif</title>
+    <meta name="Description" content="@yield('description', settings('system.description'))">
+    <meta name="Keywords" content="@yield('keywords', settings('system.keywords'))">
+    <title>@yield('title', settings('system.title'))@if (request()->path() != '/') - {{ config('app.name', 'Laravel') }}@endif</title>
     <!-- Styles -->
     <link href="{{ asset(mix('/css/app.css')) }}" rel="stylesheet">
     @stack('head')
