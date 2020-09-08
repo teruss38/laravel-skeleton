@@ -53,6 +53,27 @@ class FileService
     }
 
     /**
+     * 保存远程文件
+     * @param string $url
+     * @return mixed
+     */
+    public static function saveRemoteFile($url)
+    {
+        $ext = File::extension($url);
+        $file_content = static::getRemoteFile($url);
+        if ($ext) {
+            $path = 'images/' . date('Y/m/') . Str::random(40) . '.' . $ext;
+        } else {
+            $path = 'images/' . date('Y/m/') . Str::random(40);
+        }
+        if ($file_content && Storage::cloud()->put($path, $file_content)) {
+            Storage::cloud()->setVisibility($path, Filesystem::VISIBILITY_PUBLIC);
+            $url = Storage::cloud()->url($path);
+        }
+        return $url;
+    }
+
+    /**
      * 模拟浏览器下载远程文件
      * @param string $url
      * @return false|string
