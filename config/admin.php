@@ -211,7 +211,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        //'disk' => env('FILESYSTEM_CLOUD', 'oss'),//这是个多余的配置，请通过  config/filesystem.php` 的cloud 磁盘修改存储位置
+        'disk' => env('FILESYSTEM_CLOUD', 'public'),
 
         // Image and file upload path under the disk above.
         'directory' => [
