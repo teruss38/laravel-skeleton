@@ -38,11 +38,8 @@ class SocialController extends Controller
      */
     public function redirectTo()
     {
-        $redirectTo = Session::previousUrl();
-        if (!$redirectTo) {
-            $redirectTo = $this->redirectTo;
-        }
-        return $redirectTo;
+        //跳转到登录前页面
+        return Session::pull('actions-redirect', $this->redirectTo);
     }
 
     /**
@@ -54,7 +51,9 @@ class SocialController extends Controller
     public function redirectToProvider(Request $request, $provider)
     {
         try {
-            Session::setPreviousUrl(URL::previous());
+            if (!$request->session()->has('actions-redirect')) {
+                $request->session()->put('actions-redirect', Url::previous());
+            }
             $driver = Socialite::driver($provider);
             if ($provider == 'qq') {
                 $driver->withUnionId();

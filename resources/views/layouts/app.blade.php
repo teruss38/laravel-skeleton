@@ -12,6 +12,7 @@
     <meta name="Keywords" content="@yield('keywords', settings('system.keywords'))">
     <title>@yield('title', settings('system.title'))@if (request()->path() != '/') - {{ config('app.name', 'Laravel') }}@endif</title>
     <!-- Styles -->
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ asset(mix('/css/app.css')) }}" rel="stylesheet">
     @stack('head')
 </head>
@@ -26,6 +27,7 @@
         @include('layouts._footer')
         <!-- End Copyright Footer -->
     </div>
+    <x-alert/>
     <!-- Scripts -->
 <script src="{{ asset(mix('/js/manifest.js')) }}"></script>
 <script src="{{ asset(mix('/js/vendor.js')) }}"></script>

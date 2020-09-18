@@ -1,0 +1,110 @@
+//首页广告
+.main_ad_style1 {
+    padding: 10px 10px 0 10px;
+    background: #fff;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 10px;
+
+    dl {
+        position: relative;
+        padding: 0 0 0 600px;
+        height: auto;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    dt {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    dd {
+        width: 275px;
+        height: 150px;
+        float: left;
+        margin: 0 0 10px 10px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.footer {
+    background-color: #2d3237;
+    color: hsla(0, 0%, 100%, .7);
+    font-size: .75rem;
+    padding: 1rem 0;
+
+    .footer_nav {
+        margin-bottom: 0.5rem;
+        margin-left: 0;
+    }
+    p {
+        margin-bottom: 0.5rem;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+//Flash Message
+.flash-message {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    min-width: 300px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    position: fixed;
+    left: 50%;
+    top: -20px;
+    transform: translateX(-50%);
+    background-color: #fff;
+    transition: opacity .3s, transform .4s;
+    overflow: hidden;
+    opacity: 0;
+    .flash-message-group {
+        margin-left: 15px;
+        position: relative;
+        p {
+            font-size: 14px;
+            color: #8391a5;
+            padding: 5px 0 5px 40px;
+            text-align: justify;
+            margin: 10px 50px;
+            font-weight: 400;
+        }
+        .flash-icon {
+            font-size: 30px;
+            float: left;
+        }
+        .icon-success {
+            color: #13ce66;
+        }
+        .icon-warning {
+            color: #f7ba2a;
+        }
+        .icon-error {
+            color: #ff4949;
+        }
+        .icon-info {
+            color: #50bfff;
+        }
+        .icon-close {
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            color: #d5d5d5;
+            font-size: 20px;
+        }
+        .icon-close:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+
