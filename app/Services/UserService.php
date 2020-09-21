@@ -12,9 +12,11 @@ use App\Models\User;
 use App\Models\UserSocial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 /**
  * 用户服务助手
@@ -259,6 +261,18 @@ class UserService
         ]);
         $user->markPhoneAsVerified();
         return $user;
+    }
+
+    /**
+     * 通过邮箱创建用户
+     * @param string $email
+     * @param string $password
+     * @return User
+     */
+    public static function createByEmail($email, $password)
+    {
+        $emailArr = explode('@', $email);
+        return static::createByUsernameAndEmail($emailArr[0], $email, $password);
     }
 
     /**

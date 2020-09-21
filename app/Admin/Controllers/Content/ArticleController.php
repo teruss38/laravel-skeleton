@@ -72,7 +72,7 @@ class ArticleController extends AdminController
             $grid->column('order', '排序权重')->editable();
             $grid->column('created_at', '发布时间')->sortable();
             $grid->column('pending', '审核')->action(ArticleVerify::make());
-            $grid->disableRowSelector();
+
             $grid->paginate(10);
         });
     }
@@ -141,7 +141,7 @@ class ArticleController extends AdminController
                 $form->tags('tag_values', '标签')->ajax('api/tags', 'name', 'name');
                 $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
                 $form->textarea('description', '摘要')->rows(3);
-                $form->select('user_id', '作者')->model(User::class, 'id', 'username')->default(User::SYSTEM_USER_ID)->ajax('api/users', 'id', 'username');
+                $form->select('user_id', '作者')->model(User::class, 'id', 'username')->default(User::getRandomSystemUserId())->ajax('api/users', 'id', 'username');
                 $form->number('order', '排序权重')->default(0);
             });
         });

@@ -29,6 +29,7 @@ class SettingsSeeder extends Seeder
         Settings::set('system.icp_record', '京ICP备00000001号');
         Settings::set('system.police_record', '');
         Settings::set('system.support_email', 'support@email.com');
+        Settings::set('system.lawyer_email', 'lawyer@email.com');
 
         Settings::set('user.enable_registration', '1');//启用注册
         Settings::set('user.enable_socialite_auto_registration', '1');

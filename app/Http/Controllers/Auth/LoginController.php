@@ -68,11 +68,7 @@ class LoginController extends Controller
      */
     public function redirectTo()
     {
-        $redirectTo = Session::previousUrl();
-        if (!$redirectTo) {
-            $redirectTo = $this->redirectTo;
-        }
-        return $redirectTo;
+        return $this->getReferrer($this->redirectTo);
     }
 
     /**
@@ -82,7 +78,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        Session::setPreviousUrl(URL::previous());
+        $this->setReferrer();
         return view('auth.login');
     }
 

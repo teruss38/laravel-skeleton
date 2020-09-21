@@ -34,6 +34,7 @@ use Larva\Passport\Socialite\User\UserSocialAccount;
  * @property boolean $disabled 是否已经停用
  * @property Carbon|null $phone_verified_at 手机验证时间
  * @property Carbon|null $email_verified_at 邮箱验证时间
+ * @property Carbon|null $first_sign_in_at 开始签到时间
  * @property Carbon $created_at 注册时间
  * @property Carbon $updated_at 更新时间
  * @property Carbon|null $deleted_at 删除时间
@@ -46,7 +47,7 @@ use Larva\Passport\Socialite\User\UserSocialAccount;
  * @property UserDevice[] $devices 移动设备
  * @property UserLoginHistory[] $loginHistories 登录历史
  * @property \Larva\Wallet\Models\Wallet $wallet 钱包
- * @property \Larva\Integral\Models\IntegralWallet $integral 积分
+ * @property \Larva\Integral\Models\IntegralWallet $integral 积分钱包
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User phone($phone)
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
@@ -56,9 +57,6 @@ use Larva\Passport\Socialite\User\UserSocialAccount;
 class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
 {
     use HasApiTokens, Notifiable, SoftDeletes;
-
-    //系统用户Id
-    const SYSTEM_USER_ID = 10000000;
 
     /**
      * The table associated with the model.
@@ -78,7 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'phone', 'password', 'avatar_path', 'disabled'
+        'username', 'email', 'phone', 'password', 'avatar_path', 'disabled', 'first_sign_in_at'
     ];
 
     /**
@@ -99,6 +97,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
         'disabled' => 'boolean',
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
+        'first_sign_in_at' => 'datetime',
     ];
 
     /**
@@ -164,6 +163,16 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     {
         return $this->hasMany(UserDevice::class);
     }
+
+    /**
+     * 获取用户签到记录
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function signs()
+    {
+        return $this->hasMany(UserSignIn::class);
+    }
+
 
     /**
      * 获取用户钱包
@@ -397,7 +406,7 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     /**
      * 更新最后登录
      * @param string $clientIp
-     * @param string $userAgent
+     * @param string|null $userAgent
      */
     public function updateLogin($clientIp, $userAgent = null)
     {
@@ -527,5 +536,16 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
             $username = $username . ++$row;
         }
         return $username;
+    }
+
+    /**
+     * 随机获取一个系统用户
+     * @return int
+     */
+    public static function getRandomSystemUserId()
+    {
+        $systemUserIds = config('system.system_user_ids');
+        $random_keys = array_rand($systemUserIds);
+        return $systemUserIds[$random_keys];
     }
 }

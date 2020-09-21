@@ -11,6 +11,9 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+use Larva\Flash\FlashNotify;
 
 /**
  * 控制器基类
@@ -29,4 +32,46 @@ class Controller extends \Illuminate\Routing\Controller
     {
         return response('', 204);
     }
+
+    /**
+     * 记录来源页面
+     * @param string|null $url
+     */
+    protected function setReferrer(string $url = null)
+    {
+        if (!Session::has('actions-referrer')) {
+            if (is_null($url)) {
+                $url = Url::previous();
+            }
+            Session::put('actions-referrer', $url);
+        }
+    }
+
+    /**
+     * 获取来源页面
+     * @param string|null $redirectTo
+     * @return mixed
+     */
+    protected function getReferrer(string $redirectTo = null)
+    {
+        return Session::pull('actions-referrer', $redirectTo);
+    }
+
+    /**
+     * flash 消息
+     * @param string|null $message
+     * @param string $type
+     * @return FlashNotify
+     */
+    protected function flash(string $message = null, $type = 'info'): FlashNotify
+    {
+        /** @var FlashNotify $flashNotify */
+        $flashNotify = app(FlashNotify::class);
+
+        if (is_null($message)) {
+            return $flashNotify;
+        }
+        return $flashNotify->message($message, $type);
+    }
+
 }

@@ -42,4 +42,6 @@
             <div class="col-12 col-sm-5 col-lg-5 col-xl-4 bg-three">
                 @include('auth._social')
             </div>
+        </div>
+    </div>
 @endsection

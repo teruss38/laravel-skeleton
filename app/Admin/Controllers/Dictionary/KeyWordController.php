@@ -76,8 +76,8 @@ class KeyWordController extends AdminController
             $form->tools(function (Form\Tools $tools) {
                 $tools->disableView();
             });
-            $form->text('word', '关键词')->rules('required');
-            $form->number('frequency', '搜索热度');
+            $form->text('word', '关键词')->rules('required|unique:keywords');
+            $form->text('frequency', '搜索热度')->default(0);
             $form->text('title', 'SEO标题');
             $form->text('keywords', 'SEO关键词');
             $form->textarea('description', 'SEO描述');

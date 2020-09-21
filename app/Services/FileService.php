@@ -54,23 +54,40 @@ class FileService
 
     /**
      * 保存远程文件
-     * @param string $url
+     * @param string $url 文件Url
+     * @param string $prefix 保存前缀
      * @return mixed
      */
-    public static function saveRemoteFile($url)
+    public static function saveRemoteFile($url, $prefix = 'images')
     {
         $ext = File::extension($url);
         $file_content = static::getRemoteFile($url);
         if ($ext) {
-            $path = 'images/' . date('Y/m/') . Str::random(40) . '.' . $ext;
+            $path = $prefix . '/' . date('Y/m/') . Str::random(40) . '.' . $ext;
         } else {
-            $path = 'images/' . date('Y/m/') . Str::random(40);
+            $path = $prefix . '/' . date('Y/m/') . Str::random(40);
         }
         if ($file_content && Storage::cloud()->put($path, $file_content)) {
             Storage::cloud()->setVisibility($path, Filesystem::VISIBILITY_PUBLIC);
             $url = Storage::cloud()->url($path);
         }
         return $url;
+    }
+
+    /**
+     * 获取远程到临时文件
+     * @param string $url
+     * @return false|string
+     */
+    public static function saveRemoteTempFile(string $url)
+    {
+        $file_name = File::basename($url);
+        $file_content = static::getRemoteFile($url);
+        $file_path = 'temp/' . $file_name;
+        if ($file_content && Storage::cloud()->put($file_path, $file_content)) {
+            return $file_path;
+        }
+        return false;
     }
 
     /**

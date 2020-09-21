@@ -21,7 +21,7 @@ class CategoryController extends AdminController
 {
     public function title()
     {
-        return '栏目管理';
+        return '文章栏目管理';
     }
 
     protected function grid()
@@ -57,6 +57,7 @@ class CategoryController extends AdminController
             $form->select('parent_id', '父栏目')->options(ArticleCategory::selectOptions())->default(0);
             $form->text('title', '栏目名称')->required()->placeholder('请输入栏目名称。');
             $form->image('image_path', '栏目图片')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
+            $form->text('keywords', '关键词')->placeholder('请输入类别关键词。');
             $form->textarea('description', '栏目描述')->required()->placeholder('请输入栏目描述。');
             $form->display('created_at', trans('admin.created_at'));
             $form->display('updated_at', trans('admin.updated_at'));

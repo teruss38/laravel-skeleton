@@ -9,6 +9,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Cache;
  * @property string $title
  * @property string $keywords
  * @property string $description
+ * @property \Illuminate\Support\Carbon $created_at
  *
  * @property-read string $link
  *
@@ -39,7 +41,7 @@ class Keyword extends Model
      * @var array
      */
     protected $fillable = [
-        'word',  'frequency', 'title', 'keywords', 'description'
+        'word', 'frequency', 'title', 'keywords', 'description'
     ];
 
     /**
@@ -105,7 +107,7 @@ class Keyword extends Model
      */
     public static function latest($limit = 10)
     {
-        $ids = Cache::store('file')->remember('keywords:latest:'.$limit, now()->addMinutes(15), function () use ($limit) {
+        $ids = Cache::store('file')->remember('keywords:latest:' . $limit, now()->addMinutes(15), function () use ($limit) {
             return static::query()->orderByDesc('id')->limit($limit)->pluck('id');
         });
         return $ids->map(function ($id) {

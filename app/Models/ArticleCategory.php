@@ -21,6 +21,7 @@ use Spatie\EloquentSortable\Sortable;
  * @property string $title 栏目名称
  * @property int $order 排序
  * @property string $image_path 缩略图
+ * @property string $keywords 关键词
  * @property string $description 描述
  * @property-read string $link 链接
  * @property \Illuminate\Support\Carbon $created_at 创建时间
@@ -45,7 +46,7 @@ class ArticleCategory extends Model implements Sortable
      * @var array
      */
     public $fillable = [
-        'id', 'parent_id', 'title', 'order', 'image_path', 'description'
+        'id', 'parent_id', 'title', 'order', 'image_path', 'keywords', 'description'
     ];
 
     /**

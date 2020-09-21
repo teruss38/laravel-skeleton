@@ -18,7 +18,8 @@ class CreateArticleCategoriesTable extends Migration
             $table->unsignedInteger('parent_id')->default(0);
             $table->string('title', 30);
             $table->string('image_path')->nullable();
-            $table->text('description');
+            $table->string('keywords')->nullable();
+            $table->text('description')->nullable();
             $table->smallInteger('order')->default(0)->comment('栏目排序');
             $table->timestamps();
         });

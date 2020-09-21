@@ -77,7 +77,7 @@ class TagController extends AdminController
                 $tools->disableView();
             });
             $form->text('name', '名称')->rules('required');
-            $form->number('frequency', '标签热度');
+            $form->text('frequency', '标签热度')->default(0);
             $form->text('title', 'SEO标题');
             $form->text('keywords', 'SEO关键词');
             $form->textarea('description', 'SEO描述');

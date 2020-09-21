@@ -93,7 +93,6 @@ class Article extends Model
      */
     protected $attributes = [
         'recommend' => false,
-        'user_id' => User::SYSTEM_USER_ID,
         'status' => 0b1,
         'views' => 0,
         'order' => 0,

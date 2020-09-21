@@ -56,6 +56,15 @@ class RegisterController extends Controller
     }
 
     /**
+     * 登录后的页面转向
+     * @return mixed
+     */
+    public function redirectTo()
+    {
+        return $this->getReferrer($this->redirectTo);
+    }
+
+    /**
      * Show the application registration form.
      *
      * @param Request $request
@@ -68,6 +77,7 @@ class RegisterController extends Controller
         } else if (!settings('user.enable_registration')) {
             return redirect(url()->previous())->with('status', trans('user.registration_closed'));
         }
+        $this->setReferrer();
         return view('auth.register');
     }
 
@@ -84,6 +94,7 @@ class RegisterController extends Controller
         } else if (!settings('user.enable_registration')) {
             return redirect(url()->previous())->with('status', trans('user.registration_closed'));
         }
+        $this->setReferrer();
         return view('auth.register-phone');
     }
 

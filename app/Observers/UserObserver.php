@@ -33,7 +33,7 @@ class UserObserver
             $user->wallet()->create();//创建wallet
         }
         if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
-            $user->integral()->create();//创建
+            $user->integral()->create();//创建积分钱包
         }
     }
 

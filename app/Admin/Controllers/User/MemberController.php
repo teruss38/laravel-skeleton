@@ -64,7 +64,6 @@ class MemberController extends AdminController
             $grid->model()->with($with);
 
             $grid->column('id', 'ID')->sortable();
-            $grid->column('profile.nickname', '昵称');
             $grid->column('username', '用户名');
             $grid->column('phone', '手机');
             $grid->column('email', '邮箱');
@@ -76,7 +75,7 @@ class MemberController extends AdminController
             }
             $grid->column('phone_verified_at');
             $grid->column('email_verified_at');
-            $grid->column('created_at');
+            $grid->column('created_at')->sortable();
             $grid->column('updated_at')->sortable();
 
             $grid->disableRowSelector();

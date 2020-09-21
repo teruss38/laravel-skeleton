@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('phone_verified_at')->nullable();
+            $table->timestamp('first_sign_in_at')->nullable()->comment('开始签到时间');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Services\UserService;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -24,6 +25,8 @@ use Laravel\Socialite\Facades\Socialite;
  */
 class SocialController extends Controller
 {
+    use RedirectsUsers;
+
     /**
      * Where to redirect users after verification.
      *
@@ -39,7 +42,7 @@ class SocialController extends Controller
     public function redirectTo()
     {
         //跳转到登录前页面
-        return Session::pull('actions-redirect', $this->redirectTo);
+        return $this->getReferrer($this->redirectTo);
     }
 
     /**
@@ -51,11 +54,9 @@ class SocialController extends Controller
     public function redirectToProvider(Request $request, $provider)
     {
         try {
-            if (!$request->session()->has('actions-redirect')) {
-                $request->session()->put('actions-redirect', Url::previous());
-            }
+            $this->setReferrer();
             $driver = Socialite::driver($provider);
-            if ($provider == 'qq') {
+            if ($provider == 'qq' && method_exists($driver, 'withUnionId')) {
                 $driver->withUnionId();
             }
             return $driver->redirect();
@@ -78,18 +79,20 @@ class SocialController extends Controller
         if ($social->user == null) {//用户未绑定
             if ($request->user()) {//已经登录，自动绑定
                 $social->connect($request->user());
-                return redirect($this->redirectTo());
+                return redirect()->intended($this->redirectPath());
             } else {
                 $request->session()->put('social_id', $social->id);
-                return redirect("/auth/social/{$provider}/binding", 302)->with('status', trans('user.login_bind'));
+                $this->flash()->warning(trans('user.login_bind'));
+                return redirect("/auth/social/{$provider}/binding", 302);
             }
         } else {//如果已经绑定过了账户，这里检查用户是否被禁用
             if ($social->user->hasDisabled()) {
-                return redirect('/login')->with('status', trans('user.account_has_been_blocked'));
+                $this->flash()->warning(trans('user.account_has_been_blocked'));
+                return redirect('/login');
             } else {
                 Auth::login($social->user);
-                $social->user->updateLogin( $request->getClientIp(), $request->userAgent());
-                return redirect($this->redirectTo());
+                $social->user->updateLogin($request->getClientIp(), $request->userAgent());
+                return redirect()->intended($this->redirectPath());
             }
         }
     }
