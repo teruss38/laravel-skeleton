@@ -24,6 +24,11 @@ use Illuminate\Support\Str;
  */
 class UserService
 {
+    //APP缓存登录标记
+    const APP_LOGIN = 'app_login';
+
+    //微信缓存登录标记
+    const WECHAT_LOGIN = 'wx_login';
 
     /**
      * 计算用户头像子路径

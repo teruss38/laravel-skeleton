@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Support\Str;
 use Laravel\Passport\Client;
 
@@ -27,6 +28,8 @@ use Laravel\Passport\Client;
  */
 class PassportClient extends Client
 {
+    use DefaultDatetimeFormat;
+
     /**
      * The attributes excluded from the model's JSON form.
      *

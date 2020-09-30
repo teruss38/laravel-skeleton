@@ -47,3 +47,4 @@ Homestead.yaml
 .env
 .env.backup
 .phpunit.result.cache
+/app/Console/Commands/Test.php

@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use Dcat\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -33,6 +34,7 @@ use Spatie\EloquentSortable\Sortable;
 class ArticleCategory extends Model implements Sortable
 {
     use ModelTree;
+    use DefaultDatetimeFormat;
 
     /**
      * The table associated with the model.

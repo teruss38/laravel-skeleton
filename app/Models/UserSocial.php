@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Socialite\Facades\Socialite;
@@ -45,6 +46,8 @@ use Laravel\Socialite\Facades\Socialite;
  */
 class UserSocial extends Model
 {
+    use DefaultDatetimeFormat;
+
     const SERVICE_WECHAT = 'wechat';
     const SERVICE_WECHAT_WEB = 'wechat_web';
     const SERVICE_WECHAT_MOBILE = 'wechat_mobile';

@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -54,7 +55,8 @@ class Article extends Model
 {
     use Traits\Taggable;
     use Traits\BelongsToUser;
-
+    use DefaultDatetimeFormat;
+    
     const STATUS_PENDING = 0b0;//待审核
     const STATUS_ACCEPTED = 0b1;//正常
     const STATUS_REJECTED = 0b10;//拒绝

@@ -10,13 +10,11 @@ namespace App\Models;
 
 use App\Services\UserService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\HasApiTokens;
@@ -221,6 +219,17 @@ class User extends Authenticatable implements MustVerifyEmail, UserSocialAccount
     public function scopeActive($query)
     {
         return $query->where('disabled', '=', false);
+    }
+
+    /**
+     * 为数组 / JSON 序列化准备日期。
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format($this->dateFormat ?: 'Y-m-d H:i:s');
     }
 
     /**

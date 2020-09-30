@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use hisorange\BrowserDetect\Facade as Browser;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserLoginHistory extends Model
 {
+    use DefaultDatetimeFormat;
+
     const UPDATED_AT = null;
 
     /**

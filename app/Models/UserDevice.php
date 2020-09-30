@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,8 @@ use Illuminate\Support\Facades\DB;
  */
 class UserDevice extends Model
 {
+    use DefaultDatetimeFormat;
+
     /**
      * 与模型关联的数据表。
      *

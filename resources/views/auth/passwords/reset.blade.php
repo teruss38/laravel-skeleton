@@ -13,7 +13,9 @@
                     <input type="hidden" name="token" value="{{ $token }}">
 
                     <div class="form-group">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" placeholder="{{ __('E-Mail Address') }}" required autocomplete="email" autofocus>
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                               name="email" value="{{ $email ?? old('email') }}"
+                               placeholder="{{ __('E-Mail Address') }}" required autocomplete="email" autofocus>
 
                         @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -23,7 +25,9 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="{{ __('Password') }}" required autocomplete="new-password">
+                        <input id="password" type="password"
+                               class="form-control @error('password') is-invalid @enderror" name="password"
+                               placeholder="{{ __('Password') }}" required autocomplete="new-password">
 
                         @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -33,7 +37,8 @@
                     </div>
 
                     <div class="form-group">
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ __('Confirm Password') }}" required autocomplete="new-password">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                               placeholder="{{ __('Confirm Password') }}" required autocomplete="new-password">
                     </div>
 
                     <div class="form-group mb-0">
@@ -55,5 +60,4 @@
             </div>
         </div>
     </div>
-
 @endsection

@@ -7,6 +7,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Message extends Model
 {
+    use DefaultDatetimeFormat;
 
     /**
      * The table associated with the model.

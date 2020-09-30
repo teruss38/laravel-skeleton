@@ -16,14 +16,8 @@ use Illuminate\Contracts\Routing\Registrar as RouteContract;
 */
 
 Route::get('/', 'MainController@index');
-Route::get('about', 'MainController@about')->name('page.about');
-Route::get('pay', 'MainController@pay')->name('page.pay');
-Route::get('privacy', 'MainController@privacy')->name('page.privacy');
-Route::get('terms', 'MainController@terms')->name('page.terms');
-Route::get('contact', 'MainController@contact')->name('page.contact');
-Route::get('copyright', 'MainController@copyright')->name('page.copyright');
-
 Route::get('captcha', 'CaptchaController')->name('captcha');
+
 Auth::routes(['verify' => true]);
 Route::get('register/phone', 'Auth\RegisterController@showPhoneRegistrationForm')->name('mobile.register');
 Route::post('register/phone', 'Auth\RegisterController@phoneRegister')->name('mobile.register.store');
@@ -34,6 +28,18 @@ Route::get('auth/social/{provider}/callback', 'Auth\SocialController@handleProvi
 Route::get('auth/social/{provider}/binding', 'Auth\SocialController@handleProviderBinding');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * 单页面
+ */
+Route::get('about', 'PageController@about')->name('page.about');
+Route::get('contact', 'PageController@contact')->name('page.contact');
+Route::get('terms', 'PageController@terms')->name('page.terms');
+Route::get('copyright', 'PageController@copyright')->name('page.copyright');
+Route::get('privacy', 'PageController@privacy')->name('page.privacy');
+Route::get('adm', 'PageController@adm')->name('page.adm');
+Route::get('delete', 'PageController@delete')->name('page.delete');
+Route::get('link', 'PageController@link')->name('page.link');
 
 /**
  * 站内信
