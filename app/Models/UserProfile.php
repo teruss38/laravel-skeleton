@@ -92,4 +92,17 @@ class UserProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * 性别
+     * @return string[]
+     */
+    public static function genders()
+    {
+        return [
+            0 => '未知',
+            1 => '男',
+            2 => '女'
+        ];
+    }
 }
