@@ -64,7 +64,7 @@ class UserService
         $userId = null;
         $unionId = null;
         $socialId = $socialUser->getId();
-        if (isset($socialUser->unionid)) {
+        if (isset($socialUser->unionid) && !empty($socialUser->unionid)) {
             $unionId = $socialUser->unionid;
             if (($union = UserSocial::byUnionIdAndProvider($socialUser->unionid, $provider)->first()) != null && $union->user_id) {
                 $userId = $union->user_id;
