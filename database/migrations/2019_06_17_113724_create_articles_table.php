@@ -31,7 +31,7 @@ class CreateArticlesTable extends Migration
             $table->json('extra')->nullable()->comment('扩展字段');
             $table->mediumText('content')->comment('内容');
             $table->timestamps();
-            $table->index(['category_id', 'recommend', 'status']);
+            $table->index(['category_id', 'recommend', 'status', 'order']);
         });
     }
 
