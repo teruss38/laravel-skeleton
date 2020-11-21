@@ -13,6 +13,13 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
+     * @var array 验证器
+     */
+    protected $validators = [
+        'captcha' => \App\Validators\CaptchaValidator::class,//验证码验证
+    ];
+
+    /**
      * Register any application services.
      *
      * @return void
@@ -30,6 +37,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Illuminate\Support\Carbon::setLocale('zh');
-        //
+        $this->registerValidators();
+    }
+
+    /**
+     * Register validators.
+     */
+    protected function registerValidators()
+    {
+        foreach ($this->validators as $rule => $validator) {
+            \Illuminate\Support\Facades\Validator::extend($rule, "{$validator}@validate");
+        }
     }
 }
