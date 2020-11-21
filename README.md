@@ -1,4 +1,4 @@
-# Laravel 7 基础模板
+# Laravel 8 基础模板
 
 [![License](https://poser.pugx.org/larvacloud/laravel-skeleton/license.svg)](https://packagist.org/packages/larvacloud/laravel-skeleton)
 [![Latest Stable Version](https://poser.pugx.org/larvacloud/laravel-skeleton/v/stable.png)](https://packagist.org/packages/larvacloud/laravel-skeleton)
@@ -8,7 +8,7 @@
 开箱即用的 Laravel 7 基础结构，只需很少的代码即可快速构建出一个功能完善的高颜值系统。内置丰富的常用组件，开箱即用，让开发者告别冗杂的代码，对 RESTFul 开发者非常友好。
 
 ## 环境
- - PHP >= 7.2.5
+ - PHP >= 7.3
  - Fileinfo PHP Extension
  - Redis PHP Extension(短信、邮件验证码必须)
  
@@ -70,4 +70,4 @@ $ php artisan migrate --seed
 
 ## License
 ------------
-`dcat-admin` is licensed under [The MIT License (MIT)](LICENSE).
+`laravel-skeleton` is licensed under [The MIT License (MIT)](LICENSE).

@@ -1,10 +1,4 @@
 <?php
-/**
- * This is NOT a freeware, use is subject to license terms
- * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
- */
 
 namespace App\Providers;
 
@@ -24,14 +18,6 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-
-        // Passport 事件
-        \Laravel\Passport\Events\AccessTokenCreated::class => [
-            \App\Listeners\Auth\AccessTokenCreatedListener::class
-        ],
-        \Laravel\Passport\Events\RefreshTokenCreated::class => [
-            \App\Listeners\Auth\AccessTokenRefreshListener::class
-        ],
     ];
 
     /**
@@ -41,8 +27,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        parent::boot();
-
         //
     }
 }

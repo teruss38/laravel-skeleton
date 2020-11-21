@@ -1,10 +1,4 @@
 <?php
-/**
- * This is NOT a freeware, use is subject to license terms
- * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
- */
 
 namespace App\Console;
 
@@ -31,22 +25,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-
-        // Flush expired password reset tokens
-        $schedule->command('auth:clear-resets')->daily()->onOneServer();
-
-        // Purge revoked and expired tokens and auth codes...
-        $schedule->command('passport:purge')->daily();
-
-        // Generate sitemap once a hourly
-        $schedule->command('generate:sitemap')->hourly();
-
-        // Generate statistic once a day
-        $schedule->command('generate:statistic')->daily();
-
-        // Search engine push retry once a day
-//        $schedule->command('baidu:push-retry')->daily();
-//        $schedule->command('bing:push-retry')->daily();
     }
 
     /**

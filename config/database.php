@@ -57,7 +57,6 @@ return [
             'prefix' => 'larva_',
             'prefix_indexes' => true,
             'strict' => true,
-            //'strict' => false,//关闭严格模式(站内信依赖)
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
