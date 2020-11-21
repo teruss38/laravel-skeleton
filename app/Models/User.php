@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -40,6 +41,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes;
+    use DefaultDatetimeFormat;
 
     /**
      * 模型数据表
@@ -96,17 +98,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $attributes = [
         'disabled' => false,
     ];
-
-    /**
-     * 为数组 / JSON 序列化准备日期。
-     *
-     * @param \DateTimeInterface $date
-     * @return string
-     */
-    protected function serializeDate(\DateTimeInterface $date)
-    {
-        return $date->format($this->dateFormat ?: config('system.date_format'));
-    }
 
     /**
      * 查询未禁用的
