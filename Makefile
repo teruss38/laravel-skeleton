@@ -6,7 +6,7 @@ default: help
 install:	##@system build this application
 	git pull
 	php -r "file_exists('.env') || copy('.env.prod', '.env');"
-	composer install --prefer-dist --no-dev --no-suggest --optimize-autoloader --no-progress --no-interaction
+	composer install --prefer-dist --no-dev --optimize-autoloader --no-progress --no-interaction
 	chmod +x artisan
 	php artisan storage:link
 	php artisan migrate --seed
@@ -26,7 +26,7 @@ reload:	##@reload this application
 	rm -rf vendor/
 	git pull
 	php -r "file_exists('.env') || copy('.env.prod', '.env');"
-	composer install --prefer-dist --no-dev --no-suggest --optimize-autoloader --no-progress --no-interaction
+	composer install --prefer-dist --no-dev --optimize-autoloader --no-progress --no-interaction
 	php artisan migrate --force
 	$(MAKE) optimize
 
