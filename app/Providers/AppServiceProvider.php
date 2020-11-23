@@ -51,7 +51,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Illuminate\Support\Carbon::setLocale('zh');
+        $this->registerObserve();
         $this->registerValidators();
+    }
+
+    /**
+     * Register observes.
+     */
+    protected function registerObserve()
+    {
+        \App\Models\User::observe(\App\Observers\UserObserver::class);//用户
+        \App\Models\UserLoginHistory::observe(\App\Observers\UserLoginHistoryObserver::class);//登录
     }
 
     /**
