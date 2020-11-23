@@ -15,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\MainController::class, 'index']);
 Route::get('captcha', \App\Http\Controllers\CaptchaController::class)->name('captcha');
+
+Illuminate\Support\Facades\Auth::routes(['verify' => true]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

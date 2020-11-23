@@ -30,7 +30,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        $this->registerPassport();
         //
+    }
+
+    /**
+     * 注册 Passport
+     */
+    public function registerPassport()
+    {
+
     }
 }
