@@ -49,6 +49,12 @@ class UserSocial extends Model
     const SERVICE_WECHAT = 'wechat';
     const SERVICE_WECHAT_WEB = 'wechat_web';
     const SERVICE_WECHAT_MOBILE = 'wechat_mobile';
+    const SERVICE_WECHAT_MINI_PROGRAM = 'wechat_mini_program';
+    const SERVICE_QQ_MINI_PROGRAM = 'qq_mini_program';
+    const SERVICE_BAIDU_SMART_PROGRAM = 'baidu_smart_program';
+    const SERVICE_BYTEDANCE_MINI_PROGRAM = 'bytedance_mini_program';
+    const SERVICE_ALIPAY_MINI_PROGRAM = 'alipay_mini_program';
+    const SERVICE_DINGTALK_MINI_PROGRAM = 'dingtalk_mini_program';
     const SERVICE_WEIBO = 'weibo';
     const SERVICE_QQ = 'qq';
     const SERVICE_ALIPAY = 'alipay';
@@ -94,6 +100,45 @@ class UserSocial extends Model
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * 获取所有提供商类型
+     * @return array
+     */
+    public static function getProviders()
+    {
+        return [
+            static::SERVICE_WECHAT => trans('user.' . static::SERVICE_WECHAT),
+            static::SERVICE_WECHAT_WEB => trans('user.' . static::SERVICE_WECHAT_WEB),
+            static::SERVICE_WECHAT_MOBILE => trans('user.' . static::SERVICE_WECHAT_MOBILE),
+            static::SERVICE_WECHAT_MINI_PROGRAM => trans('user.' . static::SERVICE_WECHAT_MINI_PROGRAM),
+            static::SERVICE_QQ_MINI_PROGRAM => trans('user.' . static::SERVICE_QQ_MINI_PROGRAM),
+            static::SERVICE_BAIDU_SMART_PROGRAM => trans('user.' . static::SERVICE_BAIDU_SMART_PROGRAM),
+            static::SERVICE_BYTEDANCE_MINI_PROGRAM => trans('user.' . static::SERVICE_BYTEDANCE_MINI_PROGRAM),
+            static::SERVICE_ALIPAY_MINI_PROGRAM => trans('user.' . static::SERVICE_ALIPAY_MINI_PROGRAM),
+            static::SERVICE_DINGTALK_MINI_PROGRAM => trans('user.' . static::SERVICE_DINGTALK_MINI_PROGRAM),
+            static::SERVICE_WEIBO => trans('user.' . static::SERVICE_WEIBO),
+            static::SERVICE_QQ => trans('user.' . static::SERVICE_QQ),
+            static::SERVICE_ALIPAY => trans('user.' . static::SERVICE_ALIPAY),
+            static::SERVICE_BAIDU => trans('user.' . static::SERVICE_BAIDU),
+        ];
+    }
+
+    /**
+     * 获取所有小程序提供商类型
+     * @return array
+     */
+    public static function getMiniProgramProviders()
+    {
+        return [
+            static::SERVICE_WECHAT_MINI_PROGRAM => trans('user.' . static::SERVICE_WECHAT_MINI_PROGRAM),
+            static::SERVICE_QQ_MINI_PROGRAM => trans('user.' . static::SERVICE_QQ_MINI_PROGRAM),
+            static::SERVICE_BAIDU_SMART_PROGRAM => trans('user.' . static::SERVICE_BAIDU_SMART_PROGRAM),
+            static::SERVICE_BYTEDANCE_MINI_PROGRAM => trans('user.' . static::SERVICE_BYTEDANCE_MINI_PROGRAM),
+            static::SERVICE_ALIPAY_MINI_PROGRAM => trans('user.' . static::SERVICE_ALIPAY_MINI_PROGRAM),
+            static::SERVICE_DINGTALK_MINI_PROGRAM => trans('user.' . static::SERVICE_DINGTALK_MINI_PROGRAM),
+        ];
+    }
 
     /**
      * Get the user relation.
@@ -220,7 +265,7 @@ class UserSocial extends Model
      */
     public function refreshUser($autoRegistration = false)
     {
-        $user = \App\Services\UserService::driver($this->provider)->userFromToken($this->access_token);
-        \Laravel\Socialite\Facades\Socialite::getSocialUser($this->provider, $user, $autoRegistration);
+        $user = \Laravel\Socialite\Facades\Socialite::driver($this->provider)->userFromToken($this->access_token);
+        \App\Services\UserService::getSocialUser($this->provider, $user, $autoRegistration);
     }
 }
