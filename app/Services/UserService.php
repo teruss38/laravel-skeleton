@@ -110,14 +110,14 @@ class UserService
     /**
      * Verify and retrieve user by socialite verify code request.
      * @param $provider
-     * @param \Laravel\Socialite\Contracts\User $socialUser
+     * @param \Laravel\Socialite\Contracts\User $user
      * @param bool $autoRegistration 是否自动注册用户
      * @return User|null
      * @throws \Exception
      */
-    public static function byPassportSocialRequest($provider, \Laravel\Socialite\Contracts\User $socialUser, $autoRegistration = false)
+    public static function byPassportSocialRequest($provider, \Laravel\Socialite\Contracts\User $user, $autoRegistration = false)
     {
-        $social = UserService::getSocialUser($provider, $socialUser, $autoRegistration);
+        $social = UserService::getSocialUser($provider, $user, $autoRegistration);
         if ($social && $social->user) {
             if ($social->user->hasDisabled()) {//禁止掉的用户不允许通过 社交账户登录
                 throw new \Exception(__('user.account_has_been_blocked'));

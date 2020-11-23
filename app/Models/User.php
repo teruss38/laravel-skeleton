@@ -400,16 +400,15 @@ class User extends Authenticatable implements MustVerifyEmail
      * Find user using social provider's user
      *
      * @param string $provider Provider name as requested from oauth e.g. facebook
-     * @param \Laravel\Socialite\Contracts\User $socialUser User of social provider
-     *
+     * @param \Laravel\Socialite\Contracts\User $user User of social provider
      * @param bool $autoRegistration
      * @return User
      * @throws \League\OAuth2\Server\Exception\OAuthServerException
      */
-    public static function findForPassportSocialite($provider, \Laravel\Socialite\Contracts\User $socialUser, $autoRegistration = true)
+    public static function findForPassportSocialite($provider, \Laravel\Socialite\Contracts\User $user, $autoRegistration = true)
     {
         try {
-            return \App\Services\UserService::byPassportSocialRequest($provider, $socialUser, $autoRegistration);
+            return \App\Services\UserService::byPassportSocialRequest($provider, $user, $autoRegistration);
         } catch (\Exception $e) {
             throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
         }

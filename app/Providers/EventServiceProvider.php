@@ -24,6 +24,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        // Passport 事件
+        \Laravel\Passport\Events\AccessTokenCreated::class => [
+            \App\Listeners\Auth\AccessTokenCreatedListener::class
+        ],
+        \Laravel\Passport\Events\RefreshTokenCreated::class => [
+            \App\Listeners\Auth\AccessTokenRefreshListener::class
+        ],
     ];
 
     /**
