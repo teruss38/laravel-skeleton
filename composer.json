@@ -17,6 +17,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
+        "larva/laravel-flash": "^1.0",
         "larva/laravel-settings": "^1.0"
     },
     "require-dev": {

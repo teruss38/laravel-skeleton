@@ -55,4 +55,22 @@ class Controller extends \Illuminate\Routing\Controller
     {
         return Session::pull('actions-referrer', $redirectTo);
     }
+
+    /**
+     * flash 消息
+     * @param string|null $message
+     * @param string $type
+     * @return \Larva\Flash\FlashNotify
+     */
+    protected function flash(string $message = null, $type = 'info'): \Larva\Flash\FlashNotify
+    {
+        /** @var \Larva\Flash\FlashNotify $flashNotify */
+        $flashNotify = app(\Larva\Flash\FlashNotify::class);
+
+        if (is_null($message)) {
+            return $flashNotify;
+        }
+        return $flashNotify->message($message, $type);
+    }
+
 }

@@ -32,7 +32,15 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Support\Carbon|null $updated_at 更新时间
  * @property \Illuminate\Support\Carbon|null $deleted_at 删除时间
  *
+ * @property-read string $avatar 头像Url
  * @property-read boolean $hasAvatar 是否有头像
+ * @property UserExtra $extra 扩展信息
+ * @property UserProfile $profile 个人信息
+ * @property UserSocial[] $socials 社交账户
+ * @property UserDevice[] $devices 移动设备
+ * @property UserLoginHistory[] $loginHistories 登录历史
+ * @property \Larva\Wallet\Models\Wallet $wallet 钱包
+ * @property \Larva\Integral\Models\IntegralWallet $integral 积分钱包
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
  *
@@ -100,6 +108,88 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * 获取用户资料
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    /**
+     * 获取用户扩展资料
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function extra()
+    {
+        return $this->hasOne(UserExtra::class);
+    }
+
+    /**
+     * 获取用户已经绑定的社交账户
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function socials()
+    {
+        return $this->hasMany(UserSocial::class);
+    }
+
+    /**
+     * 获取登录历史
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function loginHistories()
+    {
+        return $this->hasMany(UserLoginHistory::class);
+    }
+
+    /**
+     * 获取用户设备列表
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function devices()
+    {
+        return $this->hasMany(UserDevice::class);
+    }
+
+    /**
+     * 获取用户签到记录
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function signs()
+    {
+        return $this->hasMany(UserSignIn::class);
+    }
+
+    /**
+     * 获取用户钱包
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @throws \Exception
+     */
+    public function wallet()
+    {
+        if (class_exists('\Larva\Wallet\Models\Wallet')) {
+            return $this->hasOne(\Larva\Wallet\Models\Wallet::class);
+        } else {
+            throw new \Exception('Please install the wallet extension first.');//钱包未安装
+        }
+    }
+
+    /**
+     * 获取用户积分钱包
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @throws \Exception
+     */
+    public function integral()
+    {
+        if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
+            return $this->hasOne(\Larva\Integral\Models\IntegralWallet::class);
+        } else {
+            throw new \Exception('Please install the integral extension first.');//未安装
+        }
+    }
+
+    /**
      * 查询未禁用的
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -119,6 +209,33 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 返回头像Url
+     * @return string
+     */
+    public function getAvatarAttribute()
+    {
+        if (!empty($this->avatar_path)) {
+            return \Illuminate\Support\Facades\Storage::cloud()->url($this->avatar_path);
+        }
+        return asset('img/avatar.jpg');
+    }
+
+    /**
+     * 设置头像
+     * @param \Illuminate\Http\UploadedFile $file
+     * @return bool
+     */
+    public function setAvatar(\Illuminate\Http\UploadedFile $file)
+    {
+        $oldAvatarPath = $this->avatar_path;
+        $avatarPath = $file->storePubliclyAs(\App\Services\UserService::getAvatarPath($this->id), $file->hashName(), ['disk' => config('filesystems.cloud')]);
+        \Illuminate\Support\Facades\Storage::cloud()->delete($oldAvatarPath);
+        return $this->forceFill([
+            'avatar_path' => $avatarPath
+        ])->save();
+    }
+
+    /**
      * 获取手机号
      * @param \Illuminate\Notifications\Notification|null $notification
      * @return int|null
@@ -126,6 +243,29 @@ class User extends Authenticatable implements MustVerifyEmail
     public function routeNotificationForPhone($notification)
     {
         return $this->phone;
+    }
+
+    /**
+     * 获取移动端设备
+     * @param \Illuminate\Notifications\Notification|null $notification
+     * @return UserDevice|null
+     */
+    public function routeNotificationForDevice($notification)
+    {
+        return UserDevice::byUser($this->id)->latest('id')->first();
+    }
+
+    /**
+     * 获取微信(公众号) open_id
+     * @param \Illuminate\Notifications\Notification|null $notification
+     * @return string|null
+     */
+    public function routeNotificationForWechat($notification)
+    {
+        if (($social = UserSocial::byUser($this->id)->byWechatPlatform()->latest('id')->first()) != null) {
+            return $social->openid;
+        }
+        return null;
     }
 
     /**
@@ -240,6 +380,42 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 更新最后登录
+     * @param string $clientIp
+     * @param string|null $userAgent
+     */
+    public function updateLogin($clientIp, $userAgent = null)
+    {
+        $this->extra()->increment('login_num', 1, [
+            'login_at' => $this->fromDateTime($this->freshTimestamp()),
+            'login_ip' => $clientIp
+        ]);
+        $this->loginHistories()->create([
+            'ip' => $clientIp,
+            'user_agent' => $userAgent
+        ]);
+    }
+
+    /**
+     * Find user using social provider's user
+     *
+     * @param string $provider Provider name as requested from oauth e.g. facebook
+     * @param \Laravel\Socialite\Contracts\User $socialUser User of social provider
+     *
+     * @param bool $autoRegistration
+     * @return User
+     * @throws \League\OAuth2\Server\Exception\OAuthServerException
+     */
+    public static function findForPassportSocialite($provider, \Laravel\Socialite\Contracts\User $socialUser, $autoRegistration = true)
+    {
+        try {
+            return \App\Services\UserService::byPassportSocialRequest($provider, $socialUser, $autoRegistration);
+        } catch (\Exception $e) {
+            throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
+        }
+    }
+
+    /**
      * 查找用户
      * @param string $username
      * @return mixed
@@ -262,6 +438,35 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Verify and retrieve user by sms verify code request.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @param bool $autoRegistration 是否自动注册用户
+     * @return \Illuminate\Database\Eloquent\Model|null
+     * @throws \League\OAuth2\Server\Exception\OAuthServerException
+     */
+    public static function findForPassportSmsRequest(\Illuminate\Http\Request $request, $autoRegistration = true)
+    {
+        try {
+            return \App\Services\UserService::byPassportSmsRequest($request, $autoRegistration);
+        } catch (\Exception $e) {
+            throw \League\OAuth2\Server\Exception\OAuthServerException::accessDenied($e->getMessage());
+        }
+    }
+
+    /**
+     * 通过Passport的密码授权验证用户使用的密码。
+     *
+     * @param string $password
+     * @return bool
+     */
+    public function validateForPassportPasswordGrant($password)
+    {
+        return \Illuminate\Support\Facades\Hash::check($password, $this->password);
+    }
+
+    /**
      * 随机生成一个用户名
      * @param string $username 用户名
      * @return string
@@ -273,5 +478,16 @@ class User extends Authenticatable implements MustVerifyEmail
             $username = $username . ++$row;
         }
         return $username;
+    }
+
+    /**
+     * 随机获取一个系统用户
+     * @return int
+     */
+    public static function getRandomSystemUserId()
+    {
+        $systemUserIds = config('system.system_user_ids');
+        $random_keys = array_rand($systemUserIds);
+        return $systemUserIds[$random_keys];
     }
 }
