@@ -30,4 +30,22 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /**
+     * 腾讯 007 防水墙设置
+     * https://007.qq.com/
+     */
+    'captcha' => [
+        'register' => [
+            'aid' => env('CAPTCHA_ID_REGISTER', ''),
+            'secret' => env('CAPTCHA_SECRET_REGISTER', ''),
+        ],
+        'login' => [
+            'aid' => env('CAPTCHA_ID_LOGIN', ''),
+            'secret' => env('CAPTCHA_SECRET_LOGIN', ''),
+        ],
+        'verify_code' => [
+            'aid' => env('CAPTCHA_ID_VERIFY_CODE', ''),
+            'secret' => env('CAPTCHA_SECRET_VERIFY_CODE', ''),
+        ]
+    ],
 ];

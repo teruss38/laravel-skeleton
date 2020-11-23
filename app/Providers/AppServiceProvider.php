@@ -16,6 +16,15 @@ class AppServiceProvider extends ServiceProvider
      * @var array 验证器
      */
     protected $validators = [
+        'phone' => \App\Validators\PhoneValidator::class,
+        'username' => \App\Validators\UsernameValidator::class,
+        'nickname' => \App\Validators\NicknameValidator::class,
+        'phone_verify_code' => \App\Validators\PhoneVerifyCodeValidator::class,
+        'mail_verify_code' => \App\Validators\MailVerifyCodeValidator::class,
+        'hash' => \App\Validators\HashValidator::class,
+        'ticket' => \App\Validators\TicketValidator::class,
+        'phone_verify' => \App\Validators\PhoneVerifyValidator::class,
+        'mail_verify' => \App\Validators\MailVerifyValidator::class,
         'captcha' => \App\Validators\CaptchaValidator::class,//验证码验证
     ];
 

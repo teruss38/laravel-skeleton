@@ -9,8 +9,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\PhoneRegisterRequest;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Services\UserService;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -80,6 +82,37 @@ class RegisterController extends Controller
     }
 
     /**
+     * 显示手机号码注册窗口
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function showPhoneRegistrationForm(Request $request)
+    {
+        if ($request->user()) {
+            return redirect(url()->previous());
+        } else if (!settings('user.enable_registration')) {
+            return redirect(url()->previous())->with('status', trans('user.registration_closed'));
+        }
+        $this->setReferrer();
+        return view('auth.register-phone');
+    }
+
+    /**
+     * 手机注册
+     * @param PhoneRegisterRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function phoneRegister(PhoneRegisterRequest $request)
+    {
+        event(new Registered($user = UserService::createByPhone($request->phone, $request->password)));
+        $this->guard()->login($user);
+        $user->markPhoneAsVerified();//标记为已验证
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -87,11 +120,16 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+        $rules = [
+            'username' => ['required', 'string', 'max:255', 'nickname', 'keep_word', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'terms' => ['accepted'],
+        ];
+        if (config('app.env') != 'testing' && settings('user.enable_register_ticket')) {
+            $rules['ticket'] = ['required', 'ticket:register'];//开启防水墙
+        }
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -102,11 +140,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return UserService::createByUsernameAndEmail($data['username'], $data['email'], $data['password']);
     }
 
     /**
