@@ -7,6 +7,7 @@ use Dcat\Admin\Admin;
 Admin::routes();
 
 Route::group([
+    'as' => 'admin.',
     'prefix'        => config('admin.route.prefix'),
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
