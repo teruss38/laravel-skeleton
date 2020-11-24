@@ -14,9 +14,13 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
+    $router->get('settings', 'HomeController@settings')->name('settings');
 
     //用户
     $router->resource('user/clients', 'User\ClientController');
     $router->resource('user/members', 'User\MemberController');
     $router->resource('user/socials', 'User\SocialController')->only(['index', 'show']);
+
+    //模块
+    $router->resource('module/links', 'Module\LinkController');
 });

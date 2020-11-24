@@ -23,6 +23,16 @@ use Illuminate\Support\Carbon;
 class ClientController extends AdminController
 {
     /**
+     * Get content title.
+     *
+     * @return string
+     */
+    protected function title()
+    {
+        return 'OAuth客户端';
+    }
+
+    /**
      * Make a grid builder.
      *
      * @return Grid

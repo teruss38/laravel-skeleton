@@ -21,6 +21,16 @@ use Illuminate\Support\Carbon;
 class SocialController extends AdminController
 {
     /**
+     * Get content title.
+     *
+     * @return string
+     */
+    protected function title()
+    {
+        return '社交账户';
+    }
+
+    /**
      * Make a grid builder.
      *
      * @return Grid
