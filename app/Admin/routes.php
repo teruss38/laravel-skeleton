@@ -13,6 +13,10 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
 
-    $router->get('/', 'HomeController@index');
+    $router->get('/', 'HomeController@index')->name('home');
 
+    //用户
+    $router->resource('user/clients', 'User\ClientController');
+    $router->resource('user/members', 'User\MemberController');
+    $router->resource('user/socials', 'User\SocialController')->only(['index', 'show']);
 });
