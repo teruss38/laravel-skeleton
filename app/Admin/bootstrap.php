@@ -5,6 +5,7 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid\Filter;
 use Dcat\Admin\Show;
+use Dcat\Admin\Layout\Navbar;
 
 /**
  * Dcat-admin - admin builder based on Laravel.
@@ -24,3 +25,11 @@ use Dcat\Admin\Show;
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
+
+Admin::navbar(function (Navbar $navbar) {
+
+    // ajax请求不执行
+    if (! Dcat\Admin\Support\Helper::isAjaxRequest()) {
+        $navbar->right(App\Admin\Actions\HomeAction::make()->render());
+    }
+});

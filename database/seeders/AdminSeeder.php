@@ -51,10 +51,11 @@ class AdminSeeder extends Seeder
 
         //create a permission
         Permission::truncate();
+        //认证管理
         Permission::insert([
             [
                 'id'          => 1,
-                'name'        => 'Auth management',
+                'name'        => '认证管理',
                 'slug'        => 'auth-management',
                 'http_method' => '',
                 'http_path'   => '',
@@ -64,7 +65,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'id'          => 2,
-                'name'        => 'Users',
+                'name'        => '管理员管理',
                 'slug'        => 'users',
                 'http_method' => '',
                 'http_path'   => '/auth/users*',
@@ -74,7 +75,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'id'          => 3,
-                'name'        => 'Roles',
+                'name'        => '角色管理',
                 'slug'        => 'roles',
                 'http_method' => '',
                 'http_path'   => '/auth/roles*',
@@ -84,7 +85,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'id'          => 4,
-                'name'        => 'Permissions',
+                'name'        => '权限管理',
                 'slug'        => 'permissions',
                 'http_method' => '',
                 'http_path'   => '/auth/permissions*',
@@ -94,7 +95,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'id'          => 5,
-                'name'        => 'Menu',
+                'name'        => '菜单管理',
                 'slug'        => 'menu',
                 'http_method' => '',
                 'http_path'   => '/auth/menu*',
@@ -104,7 +105,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'id'          => 6,
-                'name'        => 'Extension',
+                'name'        => '扩展管理',
                 'slug'        => 'extension',
                 'http_method' => '',
                 'http_path'   => '/auth/extensions*',
