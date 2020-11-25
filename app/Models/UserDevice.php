@@ -8,7 +8,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -34,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserDevice extends Model
 {
-    use DefaultDatetimeFormat;
+    use Traits\HasDateTimeFormatter;
 
     /**
      * 与模型关联的数据表。

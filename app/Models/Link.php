@@ -8,7 +8,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
@@ -36,7 +35,7 @@ use Illuminate\Support\Str;
  */
 class Link extends Model
 {
-    use DefaultDatetimeFormat;
+    use Traits\HasDateTimeFormatter;
 
     //版本约定
     const TYPE_SPONSOR = 1;//赞助商

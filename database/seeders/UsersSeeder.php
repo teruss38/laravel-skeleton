@@ -24,6 +24,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        UserService::createByUsernameAndEmail('root','root@larva.com.cn','root');
+        UserService::createByUsernameAndEmail('root', 'root@larva.com.cn', '12345678');
     }
 }

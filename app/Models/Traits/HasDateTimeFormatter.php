@@ -12,7 +12,7 @@ namespace App\Models\Traits;
  * 默认日期格式
  * @author Tongle Xu <xutongle@gmail.com>
  */
-trait DefaultDatetimeFormat
+trait HasDateTimeFormatter
 {
 
     /**
@@ -23,6 +23,6 @@ trait DefaultDatetimeFormat
      */
     protected function serializeDate(\DateTimeInterface $date)
     {
-        return $date->format($this->dateFormat ?: config('system.date_format'));
+        return $date->format($this->getDateFormat());
     }
 }

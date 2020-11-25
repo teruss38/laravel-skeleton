@@ -11,10 +11,19 @@ namespace App\Admin\Repositories;
 use Dcat\Admin\Repositories\EloquentRepository;
 
 /**
- * Class User
+ * 用户仓库
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class User extends EloquentRepository
 {
     protected $eloquentClass = \App\Models\User::class;
+
+    /**
+     * 支持软删除
+     * @return bool
+     */
+    public function isSoftDeletes()
+    {
+        return true;
+    }
 }

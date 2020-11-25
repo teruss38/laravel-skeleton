@@ -8,7 +8,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -44,7 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserSocial extends Model
 {
-    use DefaultDatetimeFormat;
+    use Traits\HasDateTimeFormatter;
 
     const SERVICE_WECHAT = 'wechat';
     const SERVICE_WECHAT_WEB = 'wechat_web';

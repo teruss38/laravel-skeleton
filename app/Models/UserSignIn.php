@@ -8,7 +8,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -24,7 +23,7 @@ use Illuminate\Support\Carbon;
  */
 class UserSignIn extends Model
 {
-    use DefaultDatetimeFormat;
+    use Traits\HasDateTimeFormatter;
 
     const UPDATED_AT = null;
 

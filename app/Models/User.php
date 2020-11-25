@@ -8,7 +8,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\DefaultDatetimeFormat;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -49,7 +48,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes;
-    use DefaultDatetimeFormat;
+    use Traits\HasDateTimeFormatter;
 
     /**
      * 模型数据表
