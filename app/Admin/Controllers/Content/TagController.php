@@ -42,6 +42,7 @@ class TagController extends AdminController
                 $filter->equal('id');
                 $filter->equal('name');
                 $filter->equal('title','SEO标题');
+                $filter->scope('trashed', '回收站')->onlyTrashed();
             });
             $grid->quickSearch(['id', 'name','title']);
             $grid->model()->orderBy('id', 'desc');

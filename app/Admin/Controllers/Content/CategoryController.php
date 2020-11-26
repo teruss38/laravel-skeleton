@@ -32,6 +32,9 @@ class CategoryController extends AdminController
     protected function grid()
     {
         return Grid::make(new Category(), function (Grid $grid) {
+            $grid->filter(function (Grid\Filter $filter) {
+                $filter->scope('trashed', '回收站')->onlyTrashed();
+            });
             $grid->column('id', 'ID')->bold()->sortable();
             $grid->column('name', '栏目名称')->tree(); // 开启树状表格功能
             $grid->column('order', '排序')->orderable();

@@ -139,4 +139,13 @@ class Category extends Model implements Sortable
         }
         return asset('img/img_invalid.png');
     }
+
+    /**
+     * 获取顶级栏目下拉数据
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getRootSelect()
+    {
+        return static::query()->select(['id', 'name'])->where('parent_id', 0)->orderBy('order')->pluck('name', 'id');
+    }
 }

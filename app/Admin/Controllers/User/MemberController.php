@@ -8,6 +8,9 @@
 
 namespace App\Admin\Controllers\User;
 
+use App\Admin\Actions\Grid\BatchRestore;
+use App\Admin\Actions\Grid\ForceDelete;
+use App\Admin\Actions\Grid\Restore;
 use App\Admin\Repositories\User;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -55,6 +58,7 @@ class MemberController extends AdminController
                 $filter->scope('this_month', '本月数据')->whereMonth('created_at', Carbon::now()->month);
                 $filter->scope('last_month', '上月数据')->whereBetween('created_at', [Carbon::now()->subMonth()->startOfDay(), Carbon::now()->subMonth()->endOfDay()]);
                 $filter->scope('year', '本年数据')->whereYear('created_at', Carbon::now()->year);
+                $filter->scope('trashed', '回收站')->onlyTrashed();
             });
             $grid->quickSearch(['id', 'phone', 'email']);
             $grid->model()->orderBy('id', 'desc');
@@ -86,6 +90,17 @@ class MemberController extends AdminController
             $grid->disableRowSelector();
             $grid->disableCreateButton();
             $grid->paginate(10);
+            if (request('_scope_') == 'trashed') {// 回收站
+                $grid->tools(function (Grid\Tools $tools) {
+                    $tools->append(new ForceDelete(User::class));
+                });
+                $grid->actions(function (Grid\Displayers\Actions $actions) {
+                    $actions->append(new Restore(User::class));
+                });
+                $grid->batchActions(function (Grid\Tools\BatchActions $batch) {
+                    $batch->add(new BatchRestore(User::class));
+                });
+            }
         });
     }
 
