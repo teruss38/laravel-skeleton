@@ -9,7 +9,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Tag
@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Cache;
 class Tag extends Model
 {
     use Traits\HasDateTimeFormatter;
+    use SoftDeletes;
 
     /**
      * 与模型关联的数据表。

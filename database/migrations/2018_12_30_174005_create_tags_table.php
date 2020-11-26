@@ -21,6 +21,7 @@ class CreateTagsTable extends Migration
             $table->string('keywords')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
