@@ -8,6 +8,9 @@
 
 namespace App\Admin\Controllers\Content;
 
+use App\Admin\Actions\Grid\BatchRestore;
+use App\Admin\Actions\Grid\ForceDelete;
+use App\Admin\Actions\Grid\Restore;
 use App\Models\Category;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Form;
@@ -47,6 +50,19 @@ class CategoryController extends AdminController
             $grid->quickSearch(['id', 'name']);
             $grid->enableDialogCreate();
             $grid->disableViewButton();
+
+            // 回收站
+            if (request('_scope_') == 'trashed') {
+                $grid->tools(function (Grid\Tools $tools) {
+                    $tools->append(new ForceDelete(Category::class));
+                });
+                $grid->actions(function (Grid\Displayers\Actions $actions) {
+                    $actions->append(new Restore(Category::class));
+                });
+                $grid->batchActions(function (Grid\Tools\BatchActions $batch) {
+                    $batch->add(new BatchRestore(Category::class));
+                });
+            }
         });
     }
 

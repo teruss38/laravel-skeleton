@@ -22,9 +22,7 @@ use Illuminate\Support\Str;
  * @property string $title 标题
  * @property string $description 描述
  * @property string $thumb_path 缩略图
- * @property boolean $recommend 是否推荐
  * @property int $status 状态
- * @property string $content 内容
  * @property int $order 排序
  * @property int $views 查看次数
  * @property int $comment_count 评论次数
@@ -37,6 +35,7 @@ use Illuminate\Support\Str;
  * @property Tag[] $tags
  * @property Category $category
  * @property User $user
+ * @property ArticleDetail $detail 文章详情
  *
  * @property string $tag_values Tags
  * @property-read string $link
@@ -46,7 +45,6 @@ use Illuminate\Support\Str;
  * @property array $baidu_feed 百度信息流
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Article accepted()
- * @method static \Illuminate\Database\Eloquent\Builder|Article recommend()
  * @method static \Illuminate\Database\Eloquent\Builder|Article byCategoryId($categoryId)
  *
  * @author Tongle Xu <xutongle@gmail.com>
@@ -73,7 +71,7 @@ class Article extends Model
      * @var array
      */
     public $fillable = [
-        'user_id', 'category_id', 'title', 'thumb_path', 'recommend', 'status', 'description', 'order', 'tag_values',
+        'user_id', 'category_id', 'title', 'thumb_path', 'status', 'description', 'order', 'tag_values',
         'metas'
     ];
 
@@ -157,17 +155,6 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * 查询推荐的文章
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param bool $recommend
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeRecommend($query, $recommend = true)
-    {
-        return $query->where('recommend', $recommend);
     }
 
     /**
@@ -293,21 +280,6 @@ class Article extends Model
     }
 
     /**
-     * 获取推荐文章
-     * @param int $limit
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public static function recommended($limit = 10)
-    {
-        $ids = Cache::store('file')->remember('articles:recommended:ids', now()->addMinutes(60), function () use ($limit) {
-            return static::accepted()->where('recommend', '=', true)->orderByDesc('support_count')->orderByDesc('created_at')->limit($limit)->pluck('id');
-        });
-        return $ids->map(function ($id) {
-            return static::find($id);
-        });
-    }
-
-    /**
      * 获取最新的10条资讯
      * @param int $limit
      * @return mixed
@@ -329,7 +301,7 @@ class Article extends Model
     public static function getStatusLabels()
     {
         return [
-            Article::STATUS_PENDING => '等待复审',
+            Article::STATUS_PENDING => '待审核',
             Article::STATUS_ACCEPTED => '通过',
             Article::STATUS_REJECTED => '拒绝',
         ];

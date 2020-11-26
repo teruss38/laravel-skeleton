@@ -18,6 +18,7 @@ use App\Models\Category;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Show;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -49,7 +50,7 @@ class ArticleController extends AdminController
             $grid->filter(function (Grid\Filter $filter) {
                 //右侧搜索
                 $filter->equal('id');
-                $filter->equal('title');
+                $filter->equal('title', '标题');
                 $filter->scope('pending', '待审核')->where('status', Article::STATUS_PENDING);
                 $filter->scope('rejected', '已拒绝')->where('status', Article::STATUS_REJECTED);
                 $filter->scope('trashed', '回收站')->onlyTrashed();
@@ -75,7 +76,9 @@ class ArticleController extends AdminController
                     $actions->append(new ReviewAccept(Article::class));
                     $actions->append(new ReviewReject(Article::class));
                 });
-            } else if (request('_scope_') == 'trashed') {// 回收站
+            }
+            // 回收站
+            if (request('_scope_') == 'trashed') {
                 $grid->tools(function (Grid\Tools $tools) {
                     $tools->append(new ForceDelete(Article::class));
                 });
@@ -86,6 +89,34 @@ class ArticleController extends AdminController
                     $batch->add(new BatchRestore(Article::class));
                 });
             }
+        });
+    }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     *
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        return Show::make($id, new Article, function (Show $show) {
+            $show->model()->with(['category', 'tags', 'detail']);
+            $show->field('id', 'ID');
+            $show->field('category.title', '文章栏目');
+            $show->field('title', '标题');
+            $show->field('description', '摘要');
+            $show->field('thumb', '特色图像')->image();
+            $show->field('tag_values', '标签');
+            $show->field('views', '查看数');
+            $show->field('comment_count', '评论数');
+            $show->field('support_count', '点赞数');
+            $show->field('collection_count', '收藏数');
+            $show->field('order', '排序权重');
+            $show->field('detail.content', '文章内容');
+            $show->field('created_at');
+            $show->field('updated_at');
         });
     }
 
@@ -120,7 +151,6 @@ class ArticleController extends AdminController
 
             $form->block(4, function (Form\BlockForm $form) {
                 $form->radio('status', '状态')->options(Article::getStatusLabels())->default(Article::STATUS_ACCEPTED);
-                //$form->switch('recommend', '推荐');
                 $form->select('category_id', '栏目')->options(Category::selectOptions())->required();
                 $form->tags('tag_values', '标签')->ajax('api/tags', 'name', 'name');
                 $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
