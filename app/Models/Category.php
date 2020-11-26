@@ -11,20 +11,21 @@ namespace App\Models;
 use App\Models\Traits\HasDateTimeFormatter;
 use Dcat\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
 
 /**
  * 栏目
  * @property int $id ID
  * @property int $parent_id 父ID
- * @property string $title 栏目名称
- * @property int $order 排序
+ * @property string $name 栏目名称
  * @property string $image_path 缩略图
+ * @property string $title 网页Title
  * @property string $keywords 关键词
  * @property string $description 描述
+ * @property int $order 排序
  * @property \Illuminate\Support\Carbon $created_at 创建时间
  * @property \Illuminate\Support\Carbon $updated_at 更新时间
  * @property-read string $image 缩略图连接
@@ -36,6 +37,7 @@ class Category extends Model implements Sortable
 {
     use ModelTree;
     use HasDateTimeFormatter;
+    use SoftDeletes;
 
     /**
      * The table associated with the model.
@@ -49,7 +51,7 @@ class Category extends Model implements Sortable
      * @var array
      */
     public $fillable = [
-        'id', 'parent_id', 'title', 'order', 'image_path', 'keywords', 'description'
+        'id', 'parent_id', 'name', 'order', 'image_path', 'title', 'keywords', 'description'
     ];
 
     /**

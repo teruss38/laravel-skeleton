@@ -16,12 +16,14 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('parent_id')->default(0);
-            $table->string('title', 30);
+            $table->string('name', 30);
             $table->string('image_path')->nullable();
+            $table->string('title')->nullable();
             $table->string('keywords')->nullable();
             $table->text('description')->nullable();
             $table->smallInteger('order')->default(0)->comment('栏目排序');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->index(['parent_id', 'order', 'id']);
         });
