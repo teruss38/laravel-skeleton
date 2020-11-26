@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\URL;
 
 /**
  * 用户模型
@@ -213,8 +214,12 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getAvatarAttribute()
     {
-        if (!empty($this->avatar_path)) {
-            return \Illuminate\Support\Facades\Storage::cloud()->url($this->avatar_path);
+        $avatar = $this->avatar_path;
+        if ($avatar) {
+            if (!URL::isValidUrl($avatar)) {
+                $avatar = \Illuminate\Support\Facades\Storage::cloud()->url($avatar);
+            }
+            return $avatar;
         }
         return asset('img/avatar.jpg');
     }

@@ -8,7 +8,6 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasDateTimeFormatter;
 use Dcat\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,7 +35,7 @@ use Spatie\EloquentSortable\Sortable;
 class Category extends Model implements Sortable
 {
     use ModelTree;
-    use HasDateTimeFormatter;
+    use Traits\HasDateTimeFormatter;
     use SoftDeletes;
 
     /**
@@ -127,8 +126,8 @@ class Category extends Model implements Sortable
     {
         $image = $this->attributes['image_path'];
         if ($image) {
-            if (!URL::isValidUrl($this->attributes['image_path'])) {
-                $image = Storage::cloud()->url($this->attributes['image_path']);
+            if (!URL::isValidUrl($image)) {
+                $image = Storage::cloud()->url($image);
             }
             return $image;
         }
