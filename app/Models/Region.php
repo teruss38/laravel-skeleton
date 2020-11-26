@@ -84,54 +84,58 @@ class Region extends Model implements Sortable
         });
     }
 
-
     /**
      * 获取地区
      * @param int $parent_id
+     * @param string[] $columns
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getRegion($parent_id = 0)
+    public static function getRegion($parent_id = 0, $columns = ['id', 'name'])
     {
-        return static::query()->select(['id', 'name'])->where('parent_id', $parent_id)->orderBy('ad_code')->get();
+        return static::query()->select($columns)->where('parent_id', $parent_id)->orderBy('ad_code')->get();
     }
 
     /**
      * 获取省份
+     * @param string[] $columns
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getProvince()
+    public static function getProvince($columns = ['id', 'name'])
     {
-        return static::query()->select(['id', 'name'])->where('level', 1)->orderBy('ad_code')->get();
+        return static::query()->select($columns)->where('level', 1)->orderBy('ad_code')->get();
     }
 
     /**
      * 获取城市
-     * @param int $parent_id
+     * @param int $provinceId
+     * @param string[] $columns
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getCity($parent_id)
+    public static function getCity($provinceId, $columns = ['id', 'name'])
     {
-        return static::query()->select(['id', 'name'])->where('level', 2)->orderBy('ad_code')->get();
+        return static::query()->select($columns)->where('level', 2)->where('parent_id', $provinceId)->orderBy('ad_code')->get();
     }
 
     /**
      * 获取区县
-     * @param int $parent_id
+     * @param int $cityId
+     * @param string[] $columns
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getDistrict($parent_id)
+    public static function getDistrict($cityId, $columns = ['id', 'name'])
     {
-        return static::query()->select(['id', 'name'])->where('parent_id', $parent_id)->where('level', 3)->orderBy('ad_code')->get();
+        return static::query()->select($columns)->where('parent_id', $cityId)->where('level', 3)->orderBy('ad_code')->get();
     }
 
     /**
      * 获取乡镇
-     * @param int $parent_id
+     * @param int $districtId
+     * @param string[] $columns
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getStreet($parent_id)
+    public static function getStreet($districtId, $columns = ['id', 'name'])
     {
-        return static::query()->select(['id', 'name'])->where('parent_id', $parent_id)->where('level', 4)->orderBy('ad_code')->get();
+        return static::query()->select($columns)->where('parent_id', $districtId)->where('level', 4)->orderBy('ad_code')->get();
     }
 
     /**
@@ -159,7 +163,7 @@ class Region extends Model implements Sortable
      * @param string $keywords
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function searchProvince($keywords)
+    public static function searchProvince($keywords)
     {
         return static::query()
             ->select(['id', 'name'])
@@ -179,7 +183,7 @@ class Region extends Model implements Sortable
      * @param int $parent_id
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function searchCity($keywords, $parent_id = 0)
+    public static function searchCity($keywords, $parent_id = 0)
     {
         return static::query()
             ->select(['id', 'name'])
@@ -200,7 +204,7 @@ class Region extends Model implements Sortable
      * @param int $parent_id
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function searchDistrict($keywords, $parent_id = 0)
+    public static function searchDistrict($keywords, $parent_id = 0)
     {
         return static::query()
             ->select(['id', 'name'])
@@ -220,7 +224,7 @@ class Region extends Model implements Sortable
      * @param int $parent_id
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function searchStreet($keywords, $parent_id = 0)
+    public static function searchStreet($keywords, $parent_id = 0)
     {
         return static::query()
             ->select(['id', 'name'])
@@ -232,5 +236,32 @@ class Region extends Model implements Sortable
                     ->orWhere('initial', 'LIKE', '%' . $keywords . '%');
             })
             ->orderBy('ad_code')->get();
+    }
+
+    /**
+     * 获取省下拉数据
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getProvinceSelect()
+    {
+        return static::query()->select(['id', 'name'])->where('level', 1)->orderBy('ad_code')->pluck('name', 'id');
+    }
+
+    /**
+     * 获取市下拉数据
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getCitySelect()
+    {
+        return static::query()->select(['id', 'name'])->where('level', 2)->orderBy('ad_code')->pluck('name', 'id');
+    }
+
+    /**
+     * 获取县下拉数据
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getDistrictSelect()
+    {
+        return static::query()->select(['id', 'name'])->where('level', 3)->orderBy('ad_code')->pluck('name', 'id');
     }
 }

@@ -25,6 +25,8 @@ class CreateRegionTable extends Migration
             $table->string('lng_lat', 30)->comment('中心经纬度');
             $table->smallInteger('order')->default(0)->nullable()->comment('排序');
             $table->index(['name', 'initial', 'pinyin']);
+
+            $table->index(['parent_id', 'order', 'id']);
         });
     }
 

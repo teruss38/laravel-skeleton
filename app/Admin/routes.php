@@ -19,6 +19,7 @@ Route::group([
     //Api
     $router->get('api/tags', 'ApiController@tags');
     $router->get('api/users', 'ApiController@users');
+    $router->get('api/regions', 'ApiController@regions');
 
     //数据管理
     $router->resource('dictionary/stop-words', 'Dictionary\StopWordController');

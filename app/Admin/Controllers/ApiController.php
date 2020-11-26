@@ -18,6 +18,17 @@ use Illuminate\Http\Request;
 class ApiController extends Controller
 {
     /**
+     * 加载地区
+     * @param Request $request
+     * @return mixed
+     */
+    public function regions(Request $request)
+    {
+        $parent_id = $request->get('q');
+        return \App\Models\Region::getRegion($parent_id, ['id', \Illuminate\Support\Facades\DB::raw('name as text')]);
+    }
+
+    /**
      * Tag Ajax加载
      * @param Request $request
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null

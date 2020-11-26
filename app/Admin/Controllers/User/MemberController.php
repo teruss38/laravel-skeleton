@@ -127,17 +127,30 @@ class MemberController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new User(), function (Form $form) {
+        return Form::make(User::with('profile'), function (Form $form) {
+            $form->tab('基本信息', function (Form $form) {
+                $form->display('id');
+                $form->text('username');
+                $form->text('phone', '手机');
+                $form->text('phone_verified_at', '手机验证时间');
+                $form->text('email');
+                $form->text('email_verified_at', '邮箱验证时间');
+                $form->display('created_at');
+                $form->display('updated_at');
+            })->tab('个人信息', function (Form $form) {
+                $form->date('birthday', '生日');
+                $form->url('address', '联系地址');
+                $form->text('website', '个人主页');
+                $form->textarea('introduction', '个人描述');
+                $form->textarea('bio', '个性签名');
 
 
-            $form->display('id');
-            $form->text('username');
-            $form->text('phone');
-            $form->text('phone_verified_at');
-            $form->text('email');
-            $form->text('email_verified_at');
-            $form->display('created_at');
-            $form->display('updated_at');
+                $form->row(function (Form\Row $form) {
+                    $form->width(3)->select('profile.province_id', '省')->options(\App\Models\Region::getProvinceSelect())->load('profile.city_id', '/api/regions');
+                    $form->width(3)->select('profile.city_id', '市')->load('profile.district_id', '/api/regions');
+                    $form->width(3)->select('profile.district_id', '区');
+                });
+            });
         });
     }
 }

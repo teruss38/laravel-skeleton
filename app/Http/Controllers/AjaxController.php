@@ -38,4 +38,30 @@ class AjaxController extends Controller
         }
         return response()->json($result);
     }
+
+    /**
+     * Tag Ajax加载
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
+     */
+    public function tags(Request $request)
+    {
+        $query = \App\Models\Tag::query()->select(['id', 'name', 'frequency'])->orderByDesc('frequency');
+        $q = $request->get('q');
+        if (mb_strlen($q) >= 2) {
+            $query->where('name', 'LIKE', '%' . $q . '%');
+        }
+        return $query->paginate(10);
+    }
+
+    /**
+     * 加载地区
+     * @param Request $request
+     * @return mixed
+     */
+    public function regions(Request $request)
+    {
+        $parent_id = $request->get('q');
+        return \App\Models\Region::getRegion($parent_id, ['id', \Illuminate\Support\Facades\DB::raw('name as text')]);
+    }
 }
