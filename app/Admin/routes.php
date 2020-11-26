@@ -16,6 +16,18 @@ Route::group([
     $router->get('/', 'HomeController@index')->name('home');
     $router->get('settings', 'HomeController@settings')->name('settings');
 
+    //Api
+    $router->get('api/tags', 'ApiController@tags');
+    $router->get('api/users', 'ApiController@users');
+
+    //数据管理
+    $router->resource('dictionary/stop-words', 'Dictionary\StopWordController');
+    $router->resource('dictionary/region', 'Dictionary\RegionController');
+
+    //内容
+    $router->resource('content/categories', 'Content\CategoryController');
+    $router->resource('content/tags', 'Content\TagController');
+
     //用户
     $router->resource('user/clients', 'User\ClientController');
     $router->resource('user/members', 'User\MemberController');

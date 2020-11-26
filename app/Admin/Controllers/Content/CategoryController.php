@@ -14,11 +14,16 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 
 /**
- * Class CategoryController
+ * 栏目管理
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class CategoryController extends AdminController
 {
+    /**
+     * Get content title.
+     *
+     * @return string
+     */
     public function title()
     {
         return '栏目';
@@ -57,9 +62,11 @@ class CategoryController extends AdminController
             $form->select('parent_id', '父栏目')->options(Category::selectOptions())->default(0);
             $form->text('name', '栏目名称')->required()->placeholder('请输入栏目名称。');
             $form->image('image_path', '栏目图片')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
-            $form->text('title', '栏目名称')->placeholder('请输入栏目Title。');
-            $form->text('keywords', '关键词')->placeholder('请输入类别关键词。');
-            $form->textarea('description', '栏目描述')->required()->placeholder('请输入栏目描述。');
+            $form->fieldset('Metas', function (Form $form) {
+                $form->text('title', 'Meta Title');
+                $form->text('keywords', 'Meta Keywords');
+                $form->textarea('description', 'Meta Description');
+            })->collapsed();
             $form->display('created_at', trans('admin.created_at'));
             $form->display('updated_at', trans('admin.updated_at'));
         });

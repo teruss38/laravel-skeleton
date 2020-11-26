@@ -14,11 +14,16 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 
 /**
- * Class TagController
+ * 标签管理
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class TagController extends AdminController
 {
+    /**
+     * Get content title.
+     *
+     * @return string
+     */
     protected function title()
     {
         return '标签';
@@ -36,7 +41,7 @@ class TagController extends AdminController
                 //右侧搜索
                 $filter->equal('id');
                 $filter->equal('name');
-                $filter->equal('title');
+                $filter->equal('title','SEO标题');
             });
             $grid->quickSearch(['id', 'name','title']);
             $grid->model()->orderBy('id', 'desc');
@@ -67,9 +72,11 @@ class TagController extends AdminController
             });
             $form->text('name', '名称')->rules('required');
             $form->text('frequency', '标签热度')->default(0);
-            $form->text('title', 'SEO标题');
-            $form->text('keywords', 'SEO关键词');
-            $form->textarea('description', 'SEO描述');
+            $form->fieldset('Metas', function (Form $form) {
+                $form->text('title', 'Meta Title');
+                $form->text('keywords', 'Meta Keywords');
+                $form->textarea('description', 'Meta Description');
+            });
         });
     }
 }

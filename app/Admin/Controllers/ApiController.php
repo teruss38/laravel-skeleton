@@ -31,4 +31,19 @@ class ApiController extends Controller
         }
         return $query->paginate(10);
     }
+
+    /**
+     * Tag Ajax加载
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|null
+     */
+    public function tags(Request $request)
+    {
+        $query = \App\Models\Tag::query()->select(['id', 'name', 'frequency'])->orderByDesc('frequency');
+        $q = $request->get('q');
+        if (mb_strlen($q) >= 2) {
+            $query->where('name', 'LIKE', '%' . $q . '%');
+        }
+        return $query->paginate(10);
+    }
 }

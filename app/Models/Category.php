@@ -82,6 +82,12 @@ class Category extends Model implements Sortable
     ];
 
     /**
+     * 标题字段
+     * @var string
+     */
+    protected $titleColumn = 'name';
+
+    /**
      * Get the children relation.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

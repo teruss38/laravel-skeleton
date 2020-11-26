@@ -145,22 +145,6 @@ class AdminSeeder extends Seeder
                 'http_path' => '/dictionary/region*',
                 'created_at' => $createdAt
             ],
-            [
-                'order' => 4,
-                'name' => 'Tag管理',
-                'slug' => 'content-tags',
-                'http_method' => '',
-                'http_path' => '/content/tags*',
-                'created_at' => $createdAt
-            ],
-            [
-                'order' => 5,
-                'name' => '文章栏目管理',
-                'slug' => 'content-article-categories-management',
-                'http_method' => '',
-                'http_path' => '/content/categories*',
-                'created_at' => $createdAt
-            ],
         ]);
 
         //用户管理
@@ -217,7 +201,24 @@ class AdminSeeder extends Seeder
                 'http_path' => '/content/articles*',
                 'created_at' => $createdAt
             ],
+            [
+                'order' => 2,
+                'name' => '标签管理',
+                'slug' => 'content-tags',
+                'http_method' => '',
+                'http_path' => '/content/tags*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'name' => '栏目管理',
+                'slug' => 'content-article-categories-management',
+                'http_method' => '',
+                'http_path' => '/content/categories*',
+                'created_at' => $createdAt
+            ],
         ]);
+
         //模块管理
         $this->addPermission([
             'order' => 6,
@@ -362,20 +363,6 @@ class AdminSeeder extends Seeder
                 'uri' => 'dictionary/region',
                 'created_at' => $createdAt,
             ],
-            [
-                'order' => 4,
-                'title' => 'Tag管理',
-                'icon' => '',
-                'uri' => 'content/tags',
-                'created_at' => $createdAt,
-            ],
-            [
-                'order' => 5,
-                'title' => '文章栏目管理',
-                'icon' => '',
-                'uri' => 'content/categories',
-                'created_at' => $createdAt,
-            ],
         ]);
 
         //会员管理 4
@@ -410,6 +397,20 @@ class AdminSeeder extends Seeder
                 'title' => '文章管理',
                 'icon' => '',
                 'uri' => 'content/articles',
+            ],
+            [
+                'order' => 2,
+                'title' => '标签管理',
+                'icon' => '',
+                'uri' => 'content/tags',
+                'created_at' => $createdAt,
+            ],
+            [
+                'order' => 3,
+                'title' => '栏目管理',
+                'icon' => '',
+                'uri' => 'content/categories',
+                'created_at' => $createdAt,
             ],
         ]);
 
