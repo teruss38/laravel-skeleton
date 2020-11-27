@@ -21,8 +21,13 @@
         "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
+        "laravelium/sitemap": "^8.0",
         "larva/laravel-flash": "^1.0",
-        "larva/laravel-settings": "^1.0"
+        "larva/laravel-passport-sms": "^1.2",
+        "larva/laravel-passport-socialite": "^2.0",
+        "larva/laravel-settings": "^1.0",
+        "larva/laravel-sms": "^2.0",
+        "larva/laravel-socialite": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

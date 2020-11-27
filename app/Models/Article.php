@@ -294,4 +294,16 @@ class Article extends Model
             Article::STATUS_REJECTED => 'warning',
         ];
     }
+
+    /**
+     * 获取缓存的文章总数
+     * @param int $cacheMinutes
+     * @return mixed
+     */
+    public static function getTotal($cacheMinutes = 60)
+    {
+        return Cache::remember('articles:total', now()->addMinutes($cacheMinutes), function () {
+            return static::query()->count();
+        });
+    }
 }

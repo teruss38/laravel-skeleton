@@ -10,6 +10,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Tag
@@ -56,7 +57,6 @@ class Tag extends Model
         'created_at',
         'updated_at',
     ];
-
 
     /**
      * 模型的默认属性值。
@@ -144,5 +144,17 @@ class Tag extends Model
     public function articles()
     {
         return $this->morphedByMany(Article::class, 'taggable');
+    }
+
+    /**
+     * 获取缓存的总数
+     * @param int $cacheMinutes
+     * @return mixed
+     */
+    public static function getTotal($cacheMinutes = 60)
+    {
+        return Cache::remember('tags:total', now()->addMinutes($cacheMinutes), function () {
+            return static::count();
+        });
     }
 }
