@@ -27,12 +27,27 @@ class SitemapController extends Controller
     /**
      * @var int 每页数量
      */
-    protected $mapChunk = 5;
+    protected $mapChunk;
 
     /**
      * @var int 缓存分钟数
      */
-    protected $cacheMinutes = 60;
+    protected $cacheMinutes;
+
+    /**
+     * @var boolean 智能静态化
+     */
+    protected $smartStatic;
+
+    /**
+     * SitemapController constructor.
+     */
+    public function __construct()
+    {
+        $this->cacheMinutes = settings('system.sitemap_cache', 60);
+        $this->smartStatic = settings('system.sitemap_static', false);
+        $this->mapChunk = settings('system.sitemap_chunk', 2000);
+    }
 
     /**
      * 站点地图首页
@@ -108,7 +123,7 @@ class SitemapController extends Controller
         }
         /** @var \Illuminate\Http\Response $response */
         $response = $sitemap->render('xml');
-        if (isset($storeFile)) {
+        if (isset($storeFile) && $this->smartStatic) {
             $fileName = public_path($request->path());
             $this->storeFile($fileName, $response->getContent());
         }
@@ -142,7 +157,7 @@ class SitemapController extends Controller
         }
         /** @var \Illuminate\Http\Response $response */
         $response = $sitemap->render('xml');
-        if (isset($storeFile)) {
+        if (isset($storeFile) && $this->smartStatic) {
             $fileName = public_path($request->path());
             $this->storeFile($fileName, $response->getContent());
         }

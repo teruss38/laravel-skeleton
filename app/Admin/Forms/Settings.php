@@ -34,6 +34,10 @@ class Settings extends Form
         });
         $this->tab('系统设置', function () {
             //$this->switch('system.censor', '启用文本反垃圾');
+
+            $this->text('system.sitemap_chunk', '单个Sitemap Url 数量')->append('<span class="input-group-text">个</span>')->help('修改该值请手动删除所有已经生成的 XML 文件，防止错乱！');
+            $this->text('system.sitemap_cache', 'Sitemap 缓存时间')->append('<span class="input-group-text">分钟</span>');
+            $this->switch('system.sitemap_static', 'Sitemap 智能静态化')->help('在第一次请求时自动生成静态 XML 文件减轻服务器压力并自动跳过最后一页。');
         });
         $this->tab('用户设置', function () {
             $this->switch('user.enable_registration', '启用新用户注册');

@@ -32,6 +32,11 @@ class SettingsSeeder extends Seeder
         Settings::set('system.support_email', 'support@email.com');
         Settings::set('system.lawyer_email', 'lawyer@email.com');
 
+        //系统设置
+        Settings::set('system.sitemap_cache', '60');
+        Settings::set('system.sitemap_static', '1');
+        Settings::set('system.sitemap_chunk', '2000');
+
         //用户设置
         Settings::set('user.enable_registration', '1');//启用注册
         Settings::set('user.enable_socialite_auto_registration', '1');
