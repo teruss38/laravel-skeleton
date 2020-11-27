@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\Route;
  * Define the version of the interface that conforms to most of the
  * REST ful specification.
  */
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('phone-verify-code', [App\Http\Controllers\Api\MainController::class, 'phoneVerifyCode']);//短信验证码
+Route::post('mail-verify-code', [App\Http\Controllers\Api\MainController::class, 'mailVerifyCode']);//邮件验证码
+Route::get('country', [App\Http\Controllers\Api\MainController::class, 'country']);//国家列表
+Route::post('idcard', [App\Http\Controllers\Api\MainController::class, 'idCard']);//身份证号码归属地
+Route::any('dns-record', [App\Http\Controllers\Api\MainController::class, 'dnsRecord']);//远程DNS解析
 
 /**
  * RESTFul API version 1.
@@ -66,21 +68,19 @@ Route::group(['prefix' => 'v1'], function (Illuminate\Contracts\Routing\Registra
          * 私信
          */
         Route::group(['prefix' => 'messages'], function () {
-//            Route::get('', 'Api\V1\MessageController@index');//获取话题列表
-//            Route::post('', 'Api\V1\MessageController@store');//发送短消息
-//            Route::get('{user_id}', 'Api\V1\MessageController@show');//获取话题详情
-//            Route::delete('{id}', 'Api\V1\MessageController@destroy');//删除消息
+            Route::get('', [App\Http\Controllers\Api\V1\MessageController::class, 'index']);//获取话题列表
+            Route::post('', [App\Http\Controllers\Api\V1\MessageController::class, 'store']);//发送短消息
+            Route::get('{user_id}', [App\Http\Controllers\Api\V1\MessageController::class, 'show']);//获取会话详情
+            Route::delete('{id}', [App\Http\Controllers\Api\V1\MessageController::class, 'destroy']);//删除消息
         });
 
         /**
          * 通知
          */
         Route::group(['prefix' => 'notifications'], function () {
-//            Route::post('mark-read', [App\Http\Controllers\Api\V1\NotificationController::class, 'markAsRead']);//标记所有未读通知为已读
-
-//            Route::get('unread-count', 'Api\V1\NotificationController@unreadCount');// 通知统计
+            Route::post('mark-read', [App\Http\Controllers\Api\V1\NotificationController::class, 'markAsRead']);//标记所有未读通知为已读
+            Route::get('unread-count', [App\Http\Controllers\Api\V1\NotificationController::class, 'unreadCount']);// 通知统计
         });
-
     });
 
     /**
