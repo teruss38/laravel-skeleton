@@ -148,4 +148,13 @@ class Category extends Model implements Sortable
     {
         return static::query()->select(['id', 'name'])->where('parent_id', 0)->orderBy('order')->pluck('name', 'id');
     }
+
+    /**
+     * 获取顶级栏目
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getRootNodes()
+    {
+        return static::query()->select(['id', 'name'])->where('parent_id', 0)->orderBy('order')->get();
+    }
 }

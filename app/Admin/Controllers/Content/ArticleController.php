@@ -15,6 +15,7 @@ use App\Admin\Actions\Grid\ReviewAccept;
 use App\Admin\Actions\Grid\ReviewReject;
 use App\Models\Article;
 use App\Models\Category;
+use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
@@ -131,7 +132,7 @@ class ArticleController extends AdminController
             $form->block(8, function (Form\BlockForm $form) {
                 $form->showFooter();
                 $form->tab('基本信息', function (Form\BlockForm $form) {
-                    $form->hidden('user_id')->value(Auth::guard('admin')->user()->getAuthIdentifier());
+                    $form->hidden('user_id');
                     $form->text('title', '标题')->required()->rules('required|string|max:40|min:5')->placeholder('请输入文字标题（5-30个汉字）');
                     $form->editor('detail.content', '内容')->required()->placeholder('请输入正文');
                 })->tab('Metas', function (Form\BlockForm $form) {
@@ -156,6 +157,12 @@ class ArticleController extends AdminController
                 $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
                 $form->textarea('description', '摘要')->rows(3);
                 $form->number('order', '排序权重')->default(0);
+            });
+
+            $form->saving(function (Form $form) {
+                if ($form->isCreating()) {
+                    $form->user_id = Admin::user()->user_id;
+                }
             });
         });
     }

@@ -171,6 +171,22 @@ class UserService
     }
 
     /**
+     * 通过手机创建用户
+     * @param string $username
+     * @param string $password
+     * @return User
+     */
+    public static function createByUsername($username, $password)
+    {
+        /** @var User $user */
+        $user = User::create([
+            'username' => $username,
+            'password' => Hash::make($password)
+        ]);
+        return $user;
+    }
+
+    /**
      * 通过邮箱创建用户
      * @param string $email
      * @param string $password

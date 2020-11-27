@@ -8,7 +8,7 @@
 
 namespace Database\Seeders;
 
-use Dcat\Admin\Models\Administrator;
+use App\Models\Administrator;
 use Dcat\Admin\Models\Menu;
 use Dcat\Admin\Models\Permission;
 use Dcat\Admin\Models\Role;

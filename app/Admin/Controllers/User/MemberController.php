@@ -148,7 +148,7 @@ class MemberController extends AdminController
                 $form->text('username');
                 $form->text('phone', '手机');
                 $form->text('phone_verified_at', '手机验证时间');
-                $form->text('email');
+                $form->email('email');
                 $form->text('email_verified_at', '邮箱验证时间');
                 $form->display('created_at');
                 $form->display('updated_at');

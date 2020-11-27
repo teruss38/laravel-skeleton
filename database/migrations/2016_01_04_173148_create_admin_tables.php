@@ -13,7 +13,7 @@ class CreateAdminTables extends Migration
 
     public function config($key)
     {
-        return config('admin.'.$key);
+        return config('admin.' . $key);
     }
 
     /**
@@ -25,6 +25,7 @@ class CreateAdminTables extends Migration
     {
         Schema::create($this->config('database.users_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('username', 120)->unique();
             $table->string('password', 80);
             $table->string('name');
