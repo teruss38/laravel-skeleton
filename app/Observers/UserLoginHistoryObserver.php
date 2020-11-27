@@ -30,7 +30,7 @@ class UserLoginHistoryObserver
         if ($loginHistory->device) {
             $loginHistory->browser = $loginHistory->device->browserName();
         }
-        $loginHistory->save();
+        $loginHistory->saveQuietly();
         if (settings('user.enable_login_email')) {
             $loginHistory->user->notify(new \App\Notifications\LoginNotification($loginHistory));
         }
