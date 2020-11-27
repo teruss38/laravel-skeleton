@@ -80,8 +80,6 @@ class Article extends Model
      */
     protected $appends = [
         'tag_values',
-        'accepted',
-        'pending',
         'thumb'
     ];
 
@@ -256,11 +254,12 @@ class Article extends Model
     /**
      * 获取最新的10条资讯
      * @param int $limit
+     * @param int $cacheMinutes
      * @return mixed
      */
-    public static function latest($limit = 10)
+    public static function latest($limit = 10, $cacheMinutes = 15)
     {
-        $ids = Cache::store('file')->remember('articles:latest:ids', now()->addMinutes(15), function () use ($limit) {
+        $ids = Cache::store('file')->remember('articles:latest:ids', now()->addMinutes($cacheMinutes), function () use ($limit) {
             return static::accepted()->orderByDesc('id')->limit($limit)->pluck('id');
         });
         return $ids->map(function ($id) {
