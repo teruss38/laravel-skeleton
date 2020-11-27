@@ -37,12 +37,11 @@ use Illuminate\Support\Str;
  * @property User $user
  * @property ArticleDetail $detail 文章详情
  *
- * @property string $tag_values Tags
- * @property-read string $link
- * @property-read boolean $accepted
- * @property-read boolean $pending
+ * @property string $tag_values 文章标签
+ * @property-read string $link 文章Url
+ * @property-read boolean $hasAccepted 是否已审核
+ * @property-read boolean $hasPending 是否待审核
  * @property-read boolean $thumb 缩略图Url
- * @property array $baidu_feed 百度信息流
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Article accepted()
  * @method static \Illuminate\Database\Eloquent\Builder|Article byCategoryId($categoryId)
@@ -76,7 +75,7 @@ class Article extends Model
     ];
 
     /**
-     * 追加标签字段
+     * 追加字段
      * @var string[]
      */
     protected $appends = [
@@ -181,7 +180,7 @@ class Article extends Model
      * 是否待审核
      * @return boolean
      */
-    public function getPendingAttribute()
+    public function getHasPendingAttribute()
     {
         return $this->status == static::STATUS_PENDING;
     }
@@ -190,7 +189,7 @@ class Article extends Model
      * 是否已经审核
      * @return boolean
      */
-    public function getAcceptedAttribute()
+    public function getHasAcceptedAttribute()
     {
         return $this->status == static::STATUS_ACCEPTED;
     }
@@ -252,31 +251,6 @@ class Article extends Model
     public function setRejected()
     {
         $this->update(['status' => static::STATUS_REJECTED]);
-    }
-
-    /**
-     * 获取百度信息流参数
-     * @return array
-     */
-    public function getBaiduFeedAttribute()
-    {
-        $resource = [
-            'title' => $this->title,
-            'body' => $this->description,
-            'publish_time' => date('Y 年 m 月 d 日', time()),
-            'tags' => $this->tag_values,
-            'feed_type' => 1000,
-            'feed_sub_type' => 1001,
-        ];
-        if (($images = $this->thumb) != null) {
-            $resource['images'][] = $this->thumb;
-        } else {
-            $resource['images'][] = asset('img/baidu_thumb.jpg');
-        }
-        if (isset($this->extra['publish_time'])) {
-            $resource['publish_time'] = date('Y 年 m 月 d 日', $this->created_at->getTimestamp());
-        }
-        return $resource;
     }
 
     /**

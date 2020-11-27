@@ -9,10 +9,10 @@
 namespace App\Models\Traits;
 
 use App\Models\Tag;
-use Illuminate\Support\Facades\Log;
 
 /**
  * 标签处理
+ * @property Tag[] $tags
  * @property \Illuminate\Database\Eloquent\Model $this
  *
  * @author Tongle Xu <xutongle@gmail.com>
@@ -26,7 +26,7 @@ trait HasTaggable
      *
      * Listen for the deleting event of a model, then remove the relation between it and tags
      */
-    protected static function bootTaggable(): void
+    protected static function bootHasTaggable(): void
     {
         static::created(function ($model) {
             $model->addTags($model->_tagValues);
@@ -52,12 +52,8 @@ trait HasTaggable
         }
         foreach ($tags as $value) {
             /* @var Tag $tag */
-            $tag = Tag::firstOrCreate(['name' => $value]);
-            $frequency = $tag->frequency;
-            $tag->frequency = ++$frequency;
-            if ($tag->save()) {
-                $this->tags()->save($tag);
-            }
+            $tag = Tag::firstOrCreate(['name' => $value], ['frequency' => 1]);
+            $this->tags()->save($tag);
         }
     }
 
@@ -68,8 +64,7 @@ trait HasTaggable
     {
         foreach ($this->tags as $tag) {
             if ($tag->frequency > 0) {
-                $tag->frequency--;
-                $tag->save();
+                $tag->decrement('frequency');
             }
         }
         $this->tags()->detach();
