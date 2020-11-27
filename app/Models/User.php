@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\URL;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * 用户模型
@@ -41,6 +42,7 @@ use Illuminate\Support\Facades\URL;
  * @property UserLoginHistory[] $loginHistories 登录历史
  * @property \Larva\Wallet\Models\Wallet $wallet 钱包
  * @property \Larva\Integral\Models\IntegralWallet $integral 积分钱包
+ * @property Administrator $administrator 管理员实例
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
  *
@@ -48,7 +50,7 @@ use Illuminate\Support\Facades\URL;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
     use Traits\HasDateTimeFormatter;
 
     /**
@@ -162,6 +164,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the admin relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function administrator()
+    {
+        return $this->belongsTo(Administrator::class, 'id', 'user_id');
+    }
+
+    /**
      * 获取用户钱包
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      * @throws \Exception
@@ -234,6 +246,10 @@ class User extends Authenticatable implements MustVerifyEmail
         $oldAvatarPath = $this->avatar_path;
         $avatarPath = $file->storePubliclyAs(\App\Services\UserService::getAvatarPath($this->id), $file->hashName(), ['disk' => config('filesystems.cloud')]);
         \Illuminate\Support\Facades\Storage::cloud()->delete($oldAvatarPath);
+        if ($this->administrator) {
+            $this->administrator->avatar = $avatarPath;
+            $this->administrator->saveQuietly();
+        }
         return $this->forceFill([
             'avatar_path' => $avatarPath
         ])->save();

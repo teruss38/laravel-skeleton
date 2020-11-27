@@ -40,4 +40,34 @@ class Administrator extends \Dcat\Admin\Models\Administrator
             $model->user->saveQuietly();
         });
     }
+
+    /**
+     * 获取用户资料
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    /**
+     * Get avatar attribute.
+     *
+     * @return mixed|string
+     */
+    public function getAvatar()
+    {
+        return $this->user->avatar;
+    }
+
+    /**
+     * 设置头像
+     * @param $avatar
+     */
+    public function setAvatarAttribute($avatar)
+    {
+        $this->attributes['avatar'] = $avatar;
+        $this->user->avatar_path = $avatar;
+        $this->user->saveQuietly();
+    }
 }

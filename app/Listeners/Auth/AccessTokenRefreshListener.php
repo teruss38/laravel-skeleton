@@ -39,7 +39,7 @@ class AccessTokenRefreshListener
     {
         $token = Passport::token()->where('id', $event->accessTokenId)->first();
         if ($token && $token->user_id) {
-            //User::findById($token->user_id)->updateLogin(Request::ip(), Request::userAgent());
+            //User::find($token->user_id)->updateLogin(Request::ip(), Request::userAgent());
         }
     }
 }
