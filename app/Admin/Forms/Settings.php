@@ -79,7 +79,7 @@ class Settings extends Form
         foreach ($input as $key => $val) {
             \Larva\Settings\Settings::set($key, $val);
         }
-        return $this->response()->success('Processed successfully.')->refresh();
+        return $this->response()->success('操作成功！')->refresh();
     }
 
     /**
