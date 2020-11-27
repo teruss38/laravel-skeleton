@@ -8,7 +8,9 @@
 
 namespace App\Observers;
 
+use App\Models\Article;
 use App\Models\ArticleDetail;
+use App\Models\User;
 use App\Services\FileService;
 
 /**
@@ -25,6 +27,26 @@ class ArticleDetailObserver
      */
     public function created(ArticleDetail $articleDetail)
     {
+        $this->updateModel($articleDetail);
+    }
+
+    /**
+     * 处理 更新」事件
+     *
+     * @param \App\Models\ArticleDetail $articleDetail
+     * @return void
+     */
+    public function updated(ArticleDetail $articleDetail)
+    {
+        $this->updateModel($articleDetail);
+    }
+
+    /**
+     * 更新模型
+     * @param ArticleDetail $articleDetail
+     */
+    protected function updateModel(ArticleDetail $articleDetail)
+    {
         //远程图片本地化
         $articleDetail->content = FileService::handleContentRemoteFile($articleDetail->content);
 
@@ -39,6 +61,18 @@ class ArticleDetailObserver
             $articleDetail->article->description = mb_substr($description, 0, 190);
         }
 
-        $articleDetail->article->save();
+        //保存并且不再触发 事件
+        $articleDetail->saveQuietly();
+        $articleDetail->article->saveQuietly();
+
+        //推送
+        if ($articleDetail->article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
+            if ($articleDetail->extra['bd_daily']) {
+                //BaiduPush::daily($articleDetail->article->link);//推快速收录
+            } else {
+                //BaiduPush::push($articleDetail->article->link);//推普通收录
+            }
+            //BingPush::push($articleDetail->article->link);//推普通收录
+        }
     }
 }

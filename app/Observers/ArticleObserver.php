@@ -25,14 +25,7 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-        if ($article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
-            if ($article->detail->extra['bd_daily']) {
-                //BaiduPush::daily($article->link);//推快速收录
-            } else {
-                //BaiduPush::push($article->link);//推普通收录
-            }
-            //BingPush::push($article->link);//推普通收录
-        }
+
     }
 
     /**
@@ -52,6 +45,10 @@ class ArticleObserver
             foreach ($matches[3] as $img) {
                 FileService::deleteFile($img);
             }
+        }
+        //删除缩略图
+        if ($article->thumb_path) {
+            FileService::deleteFile($article->thumb);
         }
     }
 }

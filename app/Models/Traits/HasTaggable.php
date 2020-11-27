@@ -28,13 +28,8 @@ trait HasTaggable
      */
     protected static function bootHasTaggable(): void
     {
-        static::created(function ($model) {
-            $model->addTags($model->_tagValues);
-        });
-        static::updating(function ($model) {
+        static::saved(function ($model) {
             $model->delAllTags();
-        });
-        static::updated(function ($model) {
             $model->addTags($model->_tagValues);
         });
         static::deleted(function ($model) {
@@ -45,14 +40,15 @@ trait HasTaggable
     /**
      * @param array $tags
      */
-    public function addTags($tags)
+    public function addTags($tags): void
     {
         if ($tags === null || empty($tags)) {
             return;
         }
         foreach ($tags as $value) {
             /* @var Tag $tag */
-            $tag = Tag::firstOrCreate(['name' => $value], ['frequency' => 1]);
+            $tag = Tag::firstOrCreate(['name' => $value], ['frequency' => 0]);
+            $tag->increment('frequency');
             $this->tags()->save($tag);
         }
     }
@@ -60,7 +56,7 @@ trait HasTaggable
     /**
      * 删除所有tag
      */
-    public function delAllTags()
+    public function delAllTags(): void
     {
         foreach ($this->tags as $tag) {
             if ($tag->frequency > 0) {

@@ -27,6 +27,8 @@ class CategoryObserver
     public function forceDeleted(Category $category)
     {
         //删除缩略图
-        FileService::deleteFile($category->image);
+        if ($category->image) {
+            FileService::deleteFile($category->image);
+        }
     }
 }
