@@ -32,9 +32,16 @@ trait HasTaggable
             $model->delAllTags();
             $model->addTags($model->_tagValues);
         });
-        static::deleted(function ($model) {
-            $model->delAllTags();
-        });
+
+        if (method_exists(static::class, 'forceDelete')) {
+            static::forceDeleted(function ($model) {
+                $model->delAllTags();
+            });
+        } else {
+            static::deleted(function ($model) {
+                $model->delAllTags();
+            });
+        }
     }
 
     /**
