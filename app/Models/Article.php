@@ -240,7 +240,8 @@ class Article extends Model
      */
     public function setAccepted()
     {
-        $this->update(['status' => static::STATUS_ACCEPTED]);
+        $this->status = static::STATUS_ACCEPTED;
+        $this->saveQuietly();
     }
 
     /**
@@ -248,7 +249,8 @@ class Article extends Model
      */
     public function setRejected()
     {
-        $this->update(['status' => static::STATUS_REJECTED]);
+        $this->status = static::STATUS_REJECTED;
+        $this->saveQuietly();
     }
 
     /**
