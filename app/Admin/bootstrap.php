@@ -26,6 +26,8 @@ use Dcat\Admin\Layout\Navbar;
  *
  */
 
+Form::extend('logo', App\Admin\Extensions\Form\Logo::class);
+
 Admin::navbar(function (Navbar $navbar) {
 
     // ajax请求不执行
