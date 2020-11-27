@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 文章内容
+ * @property string $content
+ * @property array $extra
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class ArticleDetail extends Model

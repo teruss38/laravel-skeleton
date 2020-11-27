@@ -107,4 +107,18 @@ class FileService
         }
         return $content;
     }
+
+    /**
+     * 删除文件
+     * @param string $url
+     * @return bool
+     */
+    public static function deleteFile($url): bool
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+        if ($path && Storage::cloud()->exists($path)) {
+            return Storage::cloud()->delete($path);
+        }
+        return true;
+    }
 }
