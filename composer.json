@@ -27,7 +27,8 @@
         "larva/laravel-passport-socialite": "^2.0",
         "larva/laravel-settings": "^1.0",
         "larva/laravel-sms": "^2.0",
-        "larva/laravel-socialite": "^2.0"
+        "larva/laravel-socialite": "^2.0",
+        "larva/supports": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
