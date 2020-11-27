@@ -11,7 +11,6 @@ namespace App\Admin\Forms;
 use Dcat\Admin\Widgets\Form;
 use Illuminate\Support\Arr;
 use Larva\Settings\SettingEloquent;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * 系统设置
@@ -19,17 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Settings extends Form
 {
-    /**
-     * Constructor.
-     * @param array $data
-     * @param null $key
-     */
-//    public function __construct($data = [], $key = null)
-//    {
-//        parent::__construct($data, $key);
-//        $this->disableResetButton();
-//    }
-
     /**
      * Build a form here.
      */
@@ -45,7 +33,7 @@ class Settings extends Form
             $this->email('system.lawyer_email', '法律邮箱')->rules('nullable|email');
         });
         $this->tab('系统设置', function () {
-            //            $this->switch('system.censor', '启用文本反垃圾');
+            //$this->switch('system.censor', '启用文本反垃圾');
         });
         $this->tab('用户设置', function () {
             $this->switch('user.enable_registration', '启用新用户注册');

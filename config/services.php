@@ -48,4 +48,5 @@ return [
             'secret' => env('CAPTCHA_SECRET_VERIFY_CODE', ''),
         ]
     ],
+
 ];

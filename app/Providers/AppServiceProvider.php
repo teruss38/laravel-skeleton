@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         'longitude' => \App\Validators\LongitudeValidator::class,//纬度
         'latitude' => \App\Validators\LatitudeValidator::class,//经度
         'ticket' => \App\Validators\TicketValidator::class,
+        'keep_word' => \App\Validators\KeepWordValidator::class,//保留词
         'phone_verify' => \App\Validators\PhoneVerifyValidator::class,
         'mac_address' => \App\Validators\MacAddressValidator::class,//Mac 地址验证
         'captcha' => \App\Validators\CaptchaValidator::class,//验证码验证

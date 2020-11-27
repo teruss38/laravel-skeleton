@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Hash;
  */
 class UserService
 {
+    //APP缓存登录标记
+    const APP_LOGIN = 'app_login';
+
+    //微信缓存登录标记
+    const WECHAT_LOGIN = 'wx_login';
 
     /**
      * 计算用户头像子路径
@@ -171,7 +176,7 @@ class UserService
     }
 
     /**
-     * 通过手机创建用户
+     * 通过用户名创建用户
      * @param string $username
      * @param string $password
      * @return User
