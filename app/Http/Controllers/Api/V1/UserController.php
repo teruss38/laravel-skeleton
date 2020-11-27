@@ -13,11 +13,11 @@ use App\Http\Requests\Api\V1\User\MailRegisterRequest;
 use App\Http\Requests\Api\V1\User\ModifyAvatarRequest;
 use App\Http\Requests\Api\V1\User\ModifyMailRequest;
 use App\Http\Requests\Api\V1\User\ModifyPasswordRequest;
-use App\Http\Requests\Api\V1\User\ModifyPhoneRequest;
+use App\Http\Requests\Api\V1\User\ModifyMobileRequest;
 use App\Http\Requests\Api\V1\User\ModifyProfileRequest;
-use App\Http\Requests\Api\V1\User\PhoneRegisterRequest;
-use App\Http\Requests\Api\V1\User\ResetPasswordByPhoneRequest;
-use App\Http\Requests\Api\V1\User\VerifyPhoneRequest;
+use App\Http\Requests\Api\V1\User\MobileRegisterRequest;
+use App\Http\Requests\Api\V1\User\ResetPasswordByMobileRequest;
+use App\Http\Requests\Api\V1\User\VerifyMobileRequest;
 use App\Http\Resources\Api\V1\User\ExtraResource;
 use App\Http\Resources\Api\V1\User\LoginHistoriesResource;
 use App\Http\Resources\Api\V1\User\UserResource;
@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['exists', 'phoneRegister', 'emailRegister', 'resetPasswordByPhone']);
+        $this->middleware('auth:api')->except(['exists', 'mobileRegister', 'emailRegister', 'resetPasswordByMobile']);
     }
 
     /**
@@ -55,8 +55,8 @@ class UserController extends Controller
             return ['exist' => !User::withTrashed()->where('username', $request->get('username'))->exists()];
         } else if ($request->has('email') && !empty($request->get('email'))) {
             return ['exist' => !User::withTrashed()->where('email', $request->get('email'))->exists()];
-        } else if ($request->has('phone') && !empty($request->get('phone'))) {
-            return ['exist' => !User::withTrashed()->where('phone', $request->get('phone'))->exists()];
+        } else if ($request->has('mobile') && !empty($request->get('mobile'))) {
+            return ['exist' => !User::withTrashed()->where('mobile', $request->get('mobile'))->exists()];
         } else {
             throw new BadRequestHttpException('Bad request');
         }
@@ -64,15 +64,15 @@ class UserController extends Controller
 
     /**
      * 手机注册接口
-     * @param PhoneRegisterRequest $request
+     * @param MobileRegisterRequest $request
      * @return UserResource
      */
-    public function phoneRegister(PhoneRegisterRequest $request)
+    public function mobileRegister(MobileRegisterRequest $request)
     {
         if (!settings('user.enable_registration')) {
             throw new AccessDeniedHttpException(__('user.registration_closed'));
         }
-        event(new Registered($user = UserService::createByPhone($request->phone, $request->password)));
+        event(new Registered($user = UserService::createByMobile($request->mobile, $request->password)));
         return new UserResource($user);
     }
 
@@ -105,13 +105,13 @@ class UserController extends Controller
 
     /**
      * 通过短信重置密码
-     * @param ResetPasswordByPhoneRequest $request
+     * @param ResetPasswordByMobileRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function resetPasswordByPhone(ResetPasswordByPhoneRequest $request)
+    public function resetPasswordByMobile(ResetPasswordByMobileRequest $request)
     {
         /** @var User $user */
-        if (($user = User::query()->where('phone', $request->phone)->first()) != null) {
+        if (($user = User::query()->where('mobile', $request->mobile)->first()) != null) {
             $user->resetPassword($request->password);
             return response('', 200);
         } else {
@@ -143,13 +143,13 @@ class UserController extends Controller
 
     /**
      * 验证手机号码
-     * @param VerifyPhoneRequest $request
+     * @param VerifyMobileRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function verifyPhone(VerifyPhoneRequest $request)
+    public function verifyMobile(VerifyMobileRequest $request)
     {
-        if (!$request->user()->hasVerifiedPhone()) {
-            $request->user()->markPhoneAsVerified();
+        if (!$request->user()->hasVerifiedMobile()) {
+            $request->user()->markMobileAsVerified();
         }
         return response('', 200);
     }
@@ -167,12 +167,12 @@ class UserController extends Controller
 
     /**
      * 修改手机号码
-     * @param ModifyPhoneRequest $request
+     * @param ModifyMobileRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function modifyPhone(ModifyPhoneRequest $request)
+    public function modifyMobile(ModifyMobileRequest $request)
     {
-        $request->user()->resetPhone($request->phone);
+        $request->user()->resetMobile($request->mobile);
         return response('', 200);
     }
 

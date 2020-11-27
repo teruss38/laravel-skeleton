@@ -45,7 +45,7 @@ class MemberController extends AdminController
             $grid->filter(function (Grid\Filter $filter) {
                 //右侧搜索
                 $filter->equal('id');
-                $filter->equal('phone');
+                $filter->equal('mobile');
                 $filter->equal('email');
                 //顶部筛选
                 $filter->scope('today', '今天数据')->whereDay('created_at', Carbon::today());
@@ -60,7 +60,7 @@ class MemberController extends AdminController
                 $filter->scope('year', '本年数据')->whereYear('created_at', Carbon::now()->year);
                 $filter->scope('trashed', '回收站')->onlyTrashed();
             });
-            $grid->quickSearch(['id', 'phone', 'email']);
+            $grid->quickSearch(['id', 'mobile', 'email']);
             $grid->model()->orderBy('id', 'desc');
             $with = ['profile'];
             if (class_exists('\Larva\Wallet\Models\Wallet')) {
@@ -74,7 +74,7 @@ class MemberController extends AdminController
 
             $grid->column('id', 'ID')->sortable();
             $grid->column('username', '用户名');
-            $grid->column('phone', '手机');
+            $grid->column('mobile', '手机');
             $grid->column('email', '邮箱');
             if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
                 $grid->column('integral.integral', '积分');
@@ -82,7 +82,7 @@ class MemberController extends AdminController
             if (class_exists('\Larva\Wallet\Models\Wallet')) {
                 $grid->column('wallet.available_amount', '余额');
             }
-            $grid->column('phone_verified_at');
+            $grid->column('mobile_verified_at');
             $grid->column('email_verified_at');
             $grid->column('created_at')->sortable();
             $grid->column('updated_at')->sortable();
@@ -126,9 +126,9 @@ class MemberController extends AdminController
 
             $show->id;
             $show->username;
-            $show->phone;
+            $show->mobile;
             $show->email;
-            $show->phone_verified_at;
+            $show->mobile_verified_at;
             $show->email_verified_at;
             $show->created_at;
             $show->updated_at;
@@ -146,8 +146,8 @@ class MemberController extends AdminController
             $form->tab('基本信息', function (Form $form) {
                 $form->display('id');
                 $form->text('username');
-                $form->text('phone', '手机');
-                $form->text('phone_verified_at', '手机验证时间');
+                $form->text('mobile', '手机');
+                $form->text('mobile_verified_at', '手机验证时间');
                 $form->email('email');
                 $form->text('email_verified_at', '邮箱验证时间');
                 $form->display('created_at');

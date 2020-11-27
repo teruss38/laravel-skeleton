@@ -9,7 +9,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\PhoneRegisterRequest;
+use App\Http\Requests\Auth\MobileRegisterRequest;
 use App\Providers\RouteServiceProvider;
 use App\Services\UserService;
 use Illuminate\Auth\Events\Registered;
@@ -86,7 +86,7 @@ class RegisterController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function showPhoneRegistrationForm(Request $request)
+    public function showMobileRegistrationForm(Request $request)
     {
         if ($request->user()) {
             return redirect(url()->previous());
@@ -94,19 +94,19 @@ class RegisterController extends Controller
             return redirect(url()->previous())->with('status', trans('user.registration_closed'));
         }
         $this->setReferrer();
-        return view('auth.register-phone');
+        return view('auth.register-mobile');
     }
 
     /**
      * 手机注册
-     * @param PhoneRegisterRequest $request
+     * @param MobileRegisterRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function phoneRegister(PhoneRegisterRequest $request)
+    public function mobileRegister(MobileRegisterRequest $request)
     {
-        event(new Registered($user = UserService::createByPhone($request->phone, $request->password)));
+        event(new Registered($user = UserService::createByMobile($request->mobile, $request->password)));
         $this->guard()->login($user);
-        $user->markPhoneAsVerified();//标记为已验证
+        $user->markMobileAsVerified();//标记为已验证
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }

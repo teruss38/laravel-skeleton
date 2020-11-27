@@ -6,20 +6,17 @@
  * @license http://www.larva.com.cn/license/
  */
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Api\Main;
 
 use App\Http\Requests\Request;
 
 /**
- * 手机号注册请求
- * @property-read int $phone
- * @property-read string $verify_code
- * @property-read string $password
- * @property-read boolean $terms
+ * 短信验证码请求
+ * @property string $mobile
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class PhoneRegisterRequest extends Request
+class MobileVerifyCodeRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -38,21 +35,17 @@ class PhoneRegisterRequest extends Request
      */
     public function rules()
     {
-        return [
-            'phone' => [
+        $rules = [
+            'mobile' => [
                 'required',
                 'max:11',
-                'phone',
-                'unique:users'
+                'mobile',
+                'mobile_verify',
             ],
-            'verify_code' => [
-                'required',
-                'min:4',
-                'max:6',
-                'phone_verify_code:phone',
-            ],
-            'password' => 'required|string|min:6',
-            'terms' => ['accepted'],
         ];
+        if (config('app.env') != 'testing') {
+            $rules['ticket'] = ['required', 'ticket:verify_code'];//防水墙
+        }
+        return $rules;
     }
 }

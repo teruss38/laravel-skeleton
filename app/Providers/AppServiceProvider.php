@@ -16,19 +16,18 @@ class AppServiceProvider extends ServiceProvider
      * @var array 验证器
      */
     protected $validators = [
-        'phone' => \App\Validators\PhoneValidator::class,
-        'tel_phone' => \App\Validators\TelPhoneValidator::class,
-        'phone_two' => \App\Validators\PhoneTwoValidator::class,
+        'mobile' => \App\Validators\MobileValidator::class,
+        'tel' => \App\Validators\TelPhoneValidator::class,
         'username' => \App\Validators\UsernameValidator::class,
         'nickname' => \App\Validators\NicknameValidator::class,
-        'phone_verify_code' => \App\Validators\PhoneVerifyCodeValidator::class,
+        'mobile_verify_code' => \App\Validators\MobileVerifyCodeValidator::class,
         'mail_verify_code' => \App\Validators\MailVerifyCodeValidator::class,
         'hash' => \App\Validators\HashValidator::class,
         'longitude' => \App\Validators\LongitudeValidator::class,//纬度
         'latitude' => \App\Validators\LatitudeValidator::class,//经度
         'ticket' => \App\Validators\TicketValidator::class,
         'keep_word' => \App\Validators\KeepWordValidator::class,//保留词
-        'phone_verify' => \App\Validators\PhoneVerifyValidator::class,
+        'mobile_verify' => \App\Validators\MobileVerifyValidator::class,
         'mac_address' => \App\Validators\MacAddressValidator::class,//Mac 地址验证
         'captcha' => \App\Validators\CaptchaValidator::class,//验证码验证
         'id_card' => \App\Validators\IdCardValidator::class,//中国大陆身份证验证

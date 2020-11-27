@@ -32,7 +32,7 @@ class AjaxController extends Controller
                 'nickname' => $user->nickname,
                 'avatar' => $user->avatar,
                 'email' => $user->email,
-                'phone' => $user->phone,
+                'mobile' => $user->mobile,
                 'unreadNotificationCount' => $user->unreadNotifications()->count()
             ];
         }

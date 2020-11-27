@@ -12,12 +12,12 @@ use App\Http\Requests\Request;
 
 /**
  * 修改手机号码请求
- * @property-read int $phone
+ * @property-read int $mobile
  * @property-read string $verifyCode
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class ModifyPhoneRequest extends Request
+class ModifyMobileRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,17 +37,17 @@ class ModifyPhoneRequest extends Request
     public function rules()
     {
         return [
-            'phone' => [
+            'mobile' => [
                 'required',
                 'max:11',
-                'phone',
+                'mobile',
                 'unique:users',
             ],
             'verify_code' => [
                 'required',
                 'min:4',
                 'max:6',
-                'phone_verify_code:phone',
+                'mobile_verify_code:mobile',
             ],
         ];
     }

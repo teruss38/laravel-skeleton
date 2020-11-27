@@ -144,34 +144,34 @@ class UserService
     public static function byPassportSmsRequest(\Illuminate\Http\Request $request, $autoRegistration = false)
     {
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            'phone' => ['required', 'min:11', 'max:11', 'phone',],
-            'verifyCode' => ['required', 'min:4', 'max:6', 'phone_verify_code'],
+            'mobile' => ['required', 'min:11', 'max:11', 'mobile',],
+            'verifyCode' => ['required', 'min:4', 'max:6', 'mobile_verify_code'],
         ])->validate();
-        if (($user = User::query()->where('phone',$request->phone)->first()) != null) {
+        if (($user = User::query()->where('mobile',$request->mobile)->first()) != null) {
             if ($user->hasDisabled()) {//禁止掉的用户不允许登录
                 throw new \Exception(__('user.account_has_been_blocked'));
             }
         } else if ($autoRegistration && settings('user.enable_sms_auto_registration', false)) {
-            $user = static::createByPhone($request->phone, '');
+            $user = static::createByMobile($request->mobile, '');
         }
         return $user;
     }
 
     /**
      * 通过手机创建用户
-     * @param int $phone
+     * @param int $mobile
      * @param string $password
      * @return User
      */
-    public static function createByPhone($phone, $password)
+    public static function createByMobile($mobile, $password)
     {
         /** @var User $user */
         $user = User::create([
-            'username' => 'm' . $phone,
-            'phone' => $phone,
+            'username' => 'm' . $mobile,
+            'mobile' => $mobile,
             'password' => Hash::make($password)
         ]);
-        $user->markPhoneAsVerified();
+        $user->markMobileAsVerified();
         return $user;
     }
 

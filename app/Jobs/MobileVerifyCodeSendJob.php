@@ -22,7 +22,7 @@ use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class PhoneVerifyCodeSendJob implements ShouldQueue
+class MobileVerifyCodeSendJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 

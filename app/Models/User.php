@@ -19,14 +19,14 @@ use Laravel\Passport\HasApiTokens;
 /**
  * 用户模型
  * @property int $id ID
- * @property string $phone 手机号
+ * @property string $mobile 手机号
  * @property string $username 昵称
  * @property string $email 邮箱
  * @property string $password 密码
  * @property string $remember_token
  * @property string $avatar_path 头像路径
  * @property boolean $disabled 是否已经停用
- * @property \Illuminate\Support\Carbon|null $phone_verified_at 手机验证时间
+ * @property \Illuminate\Support\Carbon|null $mobile_verified_at 手机验证时间
  * @property \Illuminate\Support\Carbon|null $email_verified_at 邮箱验证时间
  * @property \Illuminate\Support\Carbon|null $first_sign_in_at 开始签到时间
  * @property \Illuminate\Support\Carbon|null $created_at 注册时间
@@ -66,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'phone', 'password', 'avatar_path', 'disabled', 'first_sign_in_at'
+        'username', 'email', 'mobile', 'password', 'avatar_path', 'disabled', 'first_sign_in_at'
     ];
 
     /**
@@ -86,7 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'disabled' => 'boolean',
         'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
+        'mobile_verified_at' => 'datetime',
         'first_sign_in_at' => 'datetime',
     ];
 
@@ -260,9 +260,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @param \Illuminate\Notifications\Notification|null $notification
      * @return int|null
      */
-    public function routeNotificationForPhone($notification)
+    public function routeNotificationForMobile($notification)
     {
-        return $this->phone;
+        return $this->mobile;
     }
 
     /**
@@ -310,26 +310,26 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Determine if the user has verified their phone number.
+     * Determine if the user has verified their mobile number.
      *
      * @return bool
      */
-    public function hasVerifiedPhone()
+    public function hasVerifiedMobile()
     {
-        return !is_null($this->phone_verified_at);
+        return !is_null($this->mobile_verified_at);
     }
 
     /**
-     * Mark the given user's phone as verified.
+     * Mark the given user's mobile as verified.
      *
      * @return bool
      */
-    public function markPhoneAsVerified()
+    public function markMobileAsVerified()
     {
         $status = $this->forceFill([
-            'phone_verified_at' => $this->freshTimestamp(),
+            'mobile_verified_at' => $this->freshTimestamp(),
         ])->save();
-        event(new \App\Events\User\PhoneVerified($this));
+        event(new \App\Events\User\MobileVerified($this));
         return $status;
     }
 
@@ -371,16 +371,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * 重置用户手机号
-     * @param int $phone
+     * @param int $mobile
      * @return bool
      */
-    public function resetPhone($phone)
+    public function resetMobile($mobile)
     {
         $status = $this->forceFill([
-            'phone' => $phone,
-            'phone_verified_at' => $this->freshTimestamp(),
+            'mobile' => $mobile,
+            'mobile_verified_at' => $this->freshTimestamp(),
         ])->save();
-        event(new \App\Events\User\PhoneReset($this));
+        event(new \App\Events\User\MobileReset($this));
         return $status;
     }
 
@@ -441,9 +441,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function findForPassport($username)
     {
-        if (preg_match(config('system.phone_rule'), $username)) {
+        if (preg_match(config('system.mobile_rule'), $username)) {
             return static::active()
-                ->where('phone', $username)
+                ->where('mobile', $username)
                 ->first();
         } else if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             return static::active()

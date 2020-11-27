@@ -17,7 +17,7 @@ class TelPhoneValidator
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        if (!preg_match(config('system.tel_phone_rule'), $value)) {
+        if (!preg_match(config('system.tel_rule'), $value)) {
             return false;
         }
         return true;

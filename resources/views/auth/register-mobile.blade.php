@@ -15,8 +15,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">+86</div>
                             </div>
-                            <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" placeholder="{{ __('Phone') }}" required autocomplete="phone">
-                            @error('phone')
+                            <input id="mobile" type="mobile" class="form-control @error('mobile') is-invalid @enderror" name="mobile" value="{{ old('mobile') }}" placeholder="{{ __('Mobile') }}" required autocomplete="mobile">
+                            @error('mobile')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -27,7 +27,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control @error('verify_code') is-invalid @enderror" name="verify_code" placeholder="{{ __('VerifyCode') }}" >
                         <div class="input-group-append">
-                            <send-phone-verify-code phone_id="phone"></send-phone-verify-code>
+                            <send-mobile-verify-code phone_id="phone"></send-mobile-verify-code>
                         </div>
                         @error('verify_code')
                         <span class="invalid-feedback" role="alert">

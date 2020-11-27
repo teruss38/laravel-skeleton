@@ -11,15 +11,15 @@ namespace App\Events\User;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 手机号码重置事件
+ * 手机号码验证成功
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class PhoneReset
+class MobileVerified
 {
     use SerializesModels;
 
     /**
-     * The user.
+     * The verified user.
      *
      * @var \App\Models\User
      */

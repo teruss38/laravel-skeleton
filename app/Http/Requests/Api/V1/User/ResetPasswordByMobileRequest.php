@@ -11,14 +11,14 @@ namespace App\Http\Requests\Api\V1\User;
 use App\Http\Requests\Request;
 
 /**
- * 短信验证码注册
- * @property string $phone
+ * 短信验证码重设密码
+ * @property string $mobile
  * @property string $verifyCode
  * @property string $password
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class PhoneRegisterRequest extends Request
+class ResetPasswordByMobileRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -38,17 +38,17 @@ class PhoneRegisterRequest extends Request
     public function rules()
     {
         return [
-            'phone' => [
+            'mobile' => [
                 'required',
                 'max:11',
-                'phone',
-                'unique:users',
+                'mobile',
+                'exists:users',
             ],
             'verify_code' => [
                 'required',
                 'min:4',
                 'max:6',
-                'phone_verify_code:phone',
+                'mobile_verify_code:mobile',
             ],
             'password' => 'required|string|min:6',
         ];

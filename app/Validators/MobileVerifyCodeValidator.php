@@ -8,7 +8,7 @@
 
 namespace App\Validators;
 
-use App\Services\PhoneVerifyCodeService;
+use App\Services\MobileVerifyCodeService;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -16,19 +16,19 @@ use Illuminate\Support\Facades\Log;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class PhoneVerifyCodeValidator
+class MobileVerifyCodeValidator
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        $phone = request($parameters[0] ?? 'verify_phone');
+        $mobile = request($parameters[0] ?? 'verify_mobile');
 
         if (\is_numeric($parameters[0])) {
-            $phone = $parameters[0];
+            $mobile = $parameters[0];
         }
 
-        Log::debug('phone verify: ', [$parameters, $phone]);
+        Log::debug('mobile verify: ', [$parameters, $mobile]);
 
-        $service = PhoneVerifyCodeService::make($phone);
+        $service = MobileVerifyCodeService::make($mobile);
         if (config('app.env') == 'testing') {
             $service->setFixedVerifyCode(1234);
         }

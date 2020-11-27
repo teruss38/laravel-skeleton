@@ -8,22 +8,16 @@
 
 namespace App\Validators;
 
-use App\Services\PhoneVerifyCodeService;
-
 /**
- * Class PhoneVerifyValidator
+ * 中国大陆手机号码验证
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class PhoneVerifyValidator
+class MobileValidator
 {
     public function validate($attribute, $value, $parameters, $validator)
     {
-        $verifyCode = PhoneVerifyCodeService::make($value);
-        if ($verifyCode->getIpSendCount() > 20) {//一个IP地址每天最多发送 20
-            return false;
-        }
-        if ($verifyCode->getMobileSendCount() > 10) {//一个手机号码每天最多发送 10条
+        if (!preg_match(config('system.mobile_rule'), $value)) {
             return false;
         }
         return true;

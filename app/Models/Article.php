@@ -57,6 +57,7 @@ class Article extends Model
     const STATUS_PENDING = 0b0;//待审核
     const STATUS_ACCEPTED = 0b1;//正常
     const STATUS_REJECTED = 0b10;//拒绝
+    const STATUS_REVIEW = 0b11;//需要复审
 
     /**
      * The table associated with the model.
@@ -246,10 +247,23 @@ class Article extends Model
 
     /**
      * 设置审核拒绝通过
+     * @param string $msg
      */
-    public function setRejected()
+    public function setRejected($msg)
     {
         $this->status = static::STATUS_REJECTED;
+
+        $this->saveQuietly();
+    }
+
+    /**
+     * 设置需要复审
+     * @param string $msg
+     */
+    public function setReview($msg)
+    {
+        $this->status = static::STATUS_REVIEW;
+
         $this->saveQuietly();
     }
 
@@ -276,9 +290,10 @@ class Article extends Model
     public static function getStatusLabels()
     {
         return [
-            Article::STATUS_PENDING => '待审核',
-            Article::STATUS_ACCEPTED => '通过',
-            Article::STATUS_REJECTED => '拒绝',
+            static::STATUS_PENDING => '待审核',
+            static::STATUS_ACCEPTED => '通过',
+            static::STATUS_REJECTED => '拒绝',
+            static::STATUS_REVIEW => '复审'
         ];
     }
 
@@ -289,9 +304,10 @@ class Article extends Model
     public static function getStatusDots()
     {
         return [
-            Article::STATUS_PENDING => 'info',
-            Article::STATUS_ACCEPTED => 'success',
-            Article::STATUS_REJECTED => 'warning',
+            static::STATUS_PENDING => 'info',
+            static::STATUS_ACCEPTED => 'success',
+            static::STATUS_REJECTED => 'error',
+            static::STATUS_REVIEW => 'warning'
         ];
     }
 

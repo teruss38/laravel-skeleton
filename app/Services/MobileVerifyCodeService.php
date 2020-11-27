@@ -8,7 +8,7 @@
 
 namespace App\Services;
 
-use App\Jobs\PhoneVerifyCodeSendJob;
+use App\Jobs\MobileVerifyCodeSendJob;
 use App\Sms\VerifyCodeMessage;
 use Illuminate\Support\Facades\Cache;
 
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Cache;
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class PhoneVerifyCodeService
+class MobileVerifyCodeService
 {
     /**
      * @var string
@@ -153,7 +153,7 @@ class PhoneVerifyCodeService
             Cache::tags($this->ipTag)->set('ipCount', $ipCount + 1, 1440);//缓存1天
 
             //推到队列
-            PhoneVerifyCodeSendJob::dispatch($this->mobile, new VerifyCodeMessage(['code' => $code]));
+            MobileVerifyCodeSendJob::dispatch($this->mobile, new VerifyCodeMessage(['code' => $code]));
 
             return [
                 'hash' => $this->generateValidationHash($code),
