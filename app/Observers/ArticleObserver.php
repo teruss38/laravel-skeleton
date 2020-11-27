@@ -25,22 +25,6 @@ class ArticleObserver
      */
     public function created(Article $article)
     {
-        //远程图片本地化
-        $article->detail->content = FileService::handleContentRemoteFile($article->detail->content);
-
-        //自动提取缩略图
-        if (empty($article->thumb_path)) {
-            if (preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $article->detail->content, $matches)) {
-                $article->thumb_path = $matches[3][0];
-            }
-        }
-
-        //自动提取摘要
-        if (empty($article->description)) {
-            $description = str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($article->detail->content));
-            $article->description = mb_substr($description, 0, 190);
-        }
-
         if ($article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
             if ($article->detail->extra['bd_daily']) {
                 //BaiduPush::daily($article->link);//推快速收录

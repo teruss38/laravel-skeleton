@@ -9,6 +9,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use App\Services\FileService;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -45,7 +46,6 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        Cache::forget('users:' . $user->id);
     }
 
     /**
@@ -57,7 +57,6 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        Cache::forget('users:' . $user->id);
     }
 
     /**
@@ -90,6 +89,7 @@ class UserObserver
         if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
             $user->integral()->delete();
         }
-        Cache::forget('users:' . $user->id);
+        //删除头像
+        FileService::deleteFile($user->avatar);
     }
 }

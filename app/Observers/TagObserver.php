@@ -8,7 +8,9 @@
 
 namespace App\Observers;
 
+use App\Models\Article;
 use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -27,5 +29,18 @@ class TagObserver
     public function created(Tag $tag)
     {
 
+    }
+
+    /**
+     * 处理「强制删除」事件
+     *
+     * @param Tag $tag
+     * @return void
+     * @throws \Exception
+     */
+    public function forceDeleted(Tag $tag)
+    {
+        //清理数据库 Tag 关联
+        DB::table('taggables')->where('tag_id', $tag->id)->delete();
     }
 }

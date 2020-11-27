@@ -63,7 +63,9 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\User::observe(\App\Observers\UserObserver::class);//用户
         \App\Models\UserLoginHistory::observe(\App\Observers\UserLoginHistoryObserver::class);//登录
         \App\Models\Tag::observe(\App\Observers\TagObserver::class);//标签
+        \App\Models\Category::observe(\App\Observers\CategoryObserver::class);//栏目
         \App\Models\Article::observe(\App\Observers\ArticleObserver::class);//文章
+        \App\Models\ArticleDetail::observe(\App\Observers\ArticleDetailObserver::class);//文章详情
     }
 
     /**

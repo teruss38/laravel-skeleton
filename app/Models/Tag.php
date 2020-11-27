@@ -57,6 +57,16 @@ class Tag extends Model
         'updated_at',
     ];
 
+
+    /**
+     * 模型的默认属性值。
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'frequency' => 0,
+    ];
+
     /**
      * 查找指定的Tag
      * @param \Illuminate\Database\Eloquent\Builder $query

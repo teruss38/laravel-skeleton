@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property array $extra
  *
+ * @property Article $article
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class ArticleDetail extends Model
