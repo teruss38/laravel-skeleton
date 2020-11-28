@@ -34,10 +34,9 @@ class Settings extends Form
             $this->email('system.lawyer_email', '法律邮箱')->rules('nullable|email');
         });
         $this->tab('系统设置', function () {
-            $this->switch('system.text_censor', '启用文本智能审核')->help('该功能依赖百度云文本审核。<a href="https://cloud.baidu.com/product/textcensoring" target="_blank">查看</a>');
-            $this->switch('system.image_censor', '启用图片智能审核')->help('该功能依赖百度云图片审核。<a href="https://cloud.baidu.com/product/imagecensoring" target="_blank">查看</a>');
-            $this->switch('system.voice_censor', '启用音频智能审核')->help('该功能依赖百度云音频审核。<a href="https://cloud.baidu.com/doc/ANTIPORN/s/Gk928k8z9" target="_blank">查看</a>');
-            $this->switch('system.video_censor', '启用视频智能审核')->help('该功能依赖百度云视频审核。<a href="https://cloud.baidu.com/doc/ANTIPORN/s/ek7ehnhso" target="_blank">查看</a>');
+            $this->switch('system.local_censor', '启用本地文本智能审核');
+            $this->switch('system.tencent_censor', '启用腾讯云智能审核');
+            $this->switch('system.baidu_censor', '启用百度云智能审核');
             $this->text('system.sitemap_chunk', '单个Sitemap Url 数量')->append('<span class="input-group-text">个</span>')->help('修改该值请手动删除所有已经生成的 XML 文件，防止错乱！');
             $this->text('system.sitemap_cache', 'Sitemap 缓存时间')->append('<span class="input-group-text">分钟</span>');
             $this->switch('system.sitemap_static', 'Sitemap 智能静态化')->help('在第一次请求时自动生成静态 XML 文件减轻服务器压力并自动跳过最后一页。');

@@ -131,14 +131,6 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 2,
-                'name' => '关键词管理',
-                'slug' => 'key-word-management',
-                'http_method' => '',
-                'http_path' => '/dictionary/key-words*',
-                'created_at' => $createdAt
-            ],
-            [
-                'order' => 3,
                 'name' => '地区管理',
                 'slug' => 'region-management',
                 'http_method' => '',
@@ -351,13 +343,6 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 2,
-                'title' => '关键词管理',
-                'icon' => '',
-                'uri' => 'dictionary/key-words',
-                'created_at' => $createdAt,
-            ],
-            [
-                'order' => 3,
                 'title' => '地区管理',
                 'icon' => '',
                 'uri' => 'dictionary/region',

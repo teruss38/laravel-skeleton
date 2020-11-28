@@ -33,6 +33,10 @@ class SettingsSeeder extends Seeder
         Settings::set('system.lawyer_email', 'lawyer@email.com');
 
         //系统设置
+        Settings::set('system.local_censor', '1');
+        Settings::set('system.tencent_censor', '0');
+        Settings::set('system.baidu_censor', '0');
+
         Settings::set('system.sitemap_cache', '60');
         Settings::set('system.sitemap_static', '1');
         Settings::set('system.sitemap_chunk', '2000');
