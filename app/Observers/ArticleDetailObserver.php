@@ -65,7 +65,7 @@ class ArticleDetailObserver
 
         $censor = Censor::getFacadeRoot();
         try {
-            $articleDetail->content = $censor->textCensor($articleDetail->article->title . $articleDetail->content);
+            $articleDetail->content = $censor->textCensor($articleDetail->content);
             if ($censor->isMod) {//需要审核
                 $articleDetail->article->status = Article::STATUS_PENDING;
             }
