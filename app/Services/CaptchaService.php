@@ -97,7 +97,7 @@ class CaptchaService
      * @param int $minLength 验证码最短长度
      * @param int $maxLength 验证码最长长度
      * @param int $testLimit 允许的尝试次数
-     * @param string $fixedVerifyCode 静态验证码
+     * @param string|null $fixedVerifyCode 静态验证码(用于单元测试)
      */
     public function __construct($minLength = 6, $maxLength = 6, $testLimit = 3, $fixedVerifyCode = null)
     {

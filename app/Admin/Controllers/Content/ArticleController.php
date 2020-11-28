@@ -140,17 +140,17 @@ class ArticleController extends AdminController
                 $form->showFooter();
                 $form->tab('基本信息', function (Form\BlockForm $form) {
                     $form->hidden('user_id');
-                    $form->text('title', '标题')->required()->rules('required|string|max:40|min:5')->placeholder('请输入文字标题（5-30个汉字）');
-                    $form->editor('detail.content', '内容')->required()->placeholder('请输入正文');
+                    $form->text('title', '标题')->required()->rules('string|max:40|min:5|text_censor')->placeholder('请输入文字标题（5-30个汉字）');
+                    $form->editor('detail.content', '内容')->required()->rules('string|text_censor')->placeholder('请输入内容正文');
                 })->tab('Metas', function (Form\BlockForm $form) {
                     $form->embeds('metas', false, function ($form) {
-                        $form->text('title', 'Title');
-                        $form->text('keywords', 'Keywords');
-                        $form->textarea('description', 'Description')->rows(3);
+                        $form->text('title', 'Title')->rules('nullable|string|text_censor');
+                        $form->text('keywords', 'Keywords')->rules('nullable|string|text_censor');
+                        $form->textarea('description', 'Description')->rows(3)->rules('nullable|string|text_censor');
                     });
                 })->tab('扩展', function (Form\BlockForm $form) {
                     $form->embeds('detail.extra', false, function ($form) {
-                        $form->text('from', '来源名');
+                        $form->text('from', '来源名')->rules('nullable|string|text_censor');
                         $form->text('from_url', '来源网址');
                         $form->switch('bd_daily', '百度快速收录')->default(0);
                     });
@@ -161,7 +161,7 @@ class ArticleController extends AdminController
                 $form->select('category_id', '栏目')->options(Category::selectOptions())->required();
                 $form->tags('tag_values', '标签')->ajax('api/tags', 'name', 'name');
                 $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
-                $form->textarea('description', '摘要')->rows(3);
+                $form->textarea('description', '摘要')->rows(3)->rules('nullable|string|text_censor');
                 $form->number('order', '排序权重')->default(0);
             });
 
