@@ -137,6 +137,22 @@ class AdminSeeder extends Seeder
                 'http_path' => '/dictionary/region*',
                 'created_at' => $createdAt
             ],
+            [
+                'order' => 3,
+                'name' => '邮件验证码',
+                'slug' => 'mail-code-management',
+                'http_method' => '',
+                'http_path' => '/dictionary/mail-codes*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 4,
+                'name' => '短信验证码',
+                'slug' => 'mobile-code-management',
+                'http_method' => '',
+                'http_path' => '/dictionary/mobile-codes*',
+                'created_at' => $createdAt
+            ],
         ]);
 
         //用户管理
@@ -346,6 +362,20 @@ class AdminSeeder extends Seeder
                 'title' => '地区管理',
                 'icon' => '',
                 'uri' => 'dictionary/region',
+                'created_at' => $createdAt,
+            ],
+            [
+                'order' => 3,
+                'title' => '邮件验证码',
+                'icon' => '',
+                'uri' => 'dictionary/mail-codes',
+                'created_at' => $createdAt,
+            ],
+            [
+                'order' => 4,
+                'title' => '短信验证码',
+                'icon' => '',
+                'uri' => 'dictionary/mobile-codes',
                 'created_at' => $createdAt,
             ],
         ]);

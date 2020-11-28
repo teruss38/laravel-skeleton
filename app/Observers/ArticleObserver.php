@@ -10,6 +10,8 @@ namespace App\Observers;
 
 use App\Models\Article;
 use App\Services\FileService;
+use Larva\Censor\Censor;
+use Larva\Censor\CensorNotPassedException;
 
 /**
  * 文章观察者
@@ -18,7 +20,26 @@ use App\Services\FileService;
 class ArticleObserver
 {
     /**
-     * Handle the user "created" event.
+     * Handle the "created" event.
+     *
+     * @param Article $article
+     * @return void
+     */
+    public function creating(Article $article)
+    {
+        $censor = Censor::getFacadeRoot();
+        try {
+            $article->title = $censor->textCensor($article->title);
+            if ($censor->isMod) {//如果标题命中了关键词就放入待审核
+                $article->status = Article::STATUS_UNAPPROVED;
+            }
+        } catch (CensorNotPassedException $e) {
+            $article->status = Article::STATUS_REJECTED;
+        }
+    }
+
+    /**
+     * Handle the "created" event.
      *
      * @param Article $article
      * @return void
@@ -26,6 +47,23 @@ class ArticleObserver
     public function created(Article $article)
     {
 
+    }
+
+    /**
+     * Handle the "updating" event.
+     * @param Article $article
+     */
+    public function updating(Article $article)
+    {
+        $censor = Censor::getFacadeRoot();
+        try {
+            $article->title = $censor->textCensor($article->title);
+            if ($censor->isMod) {//如果标题命中了关键词就放入待审核
+                $article->status = Article::STATUS_UNAPPROVED;
+            }
+        } catch (CensorNotPassedException $e) {
+            $article->status = Article::STATUS_REJECTED;
+        }
     }
 
     /**
@@ -41,10 +79,9 @@ class ArticleObserver
             \App\Models\UserExtra::dec($article->user_id, 'articles');
         }
         //删除附件
-        if (preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $article->detail->content, $matches)) {
-            foreach ($matches[3] as $img) {
-                FileService::deleteFile($img);
-            }
+        $files = FileService::getLocalFilesByContent($article->detail->content);
+        foreach ($files as $file) {
+            FileService::deleteFile($file);
         }
         //删除缩略图
         if ($article->thumb_path) {

@@ -24,6 +24,8 @@ Route::group([
     //数据管理
     $router->resource('dictionary/stop-words', 'Dictionary\StopWordController');
     $router->resource('dictionary/region', 'Dictionary\RegionController');
+    $router->resource('dictionary/mail-codes', 'Dictionary\MailCodeController')->only(['index']);
+    $router->resource('dictionary/mobile-codes', 'Dictionary\MobileCodeController')->only(['index']);
 
     //内容
     $router->resource('content/categories', 'Content\CategoryController');

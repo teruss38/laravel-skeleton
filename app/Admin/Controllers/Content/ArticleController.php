@@ -20,7 +20,6 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Show;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * 文章管理
@@ -46,31 +45,39 @@ class ArticleController extends AdminController
     protected function grid()
     {
         return Grid::make(Article::with(['category', 'tags', 'user']), function (Grid $grid) {
+
             $grid->model()->orderBy('id', 'desc');
 
             $grid->filter(function (Grid\Filter $filter) {
                 //右侧搜索
                 $filter->equal('id');
                 $filter->equal('title', '标题');
-                $filter->scope('pending', '待审核')->where('status', Article::STATUS_PENDING);
+                $filter->scope('pending', '待审核')->where('status', Article::STATUS_UNAPPROVED);
                 $filter->scope('rejected', '已拒绝')->where('status', Article::STATUS_REJECTED);
                 $filter->scope('trashed', '回收站')->onlyTrashed();
             });
             $grid->quickSearch(['id', 'title']);
+            $with = ['category', 'tags', 'user'];
 
             $grid->column('id', 'ID')->sortable();
             $grid->column('user.username', '作者');
             $grid->column('category.name', '文章类别');
             $grid->column('title', '标题');
             $grid->column('tag_values', '标签');
-            $grid->column('views', '查看数');
-            $grid->column('comment_count', '评论数');
-            $grid->column('support_count', '点赞数');
-            $grid->column('collection_count', '收藏数');
+            if (request('_scope_') == 'pending') {
+                $grid->model()->with('stopWords');
+                $grid->column('stopWords.stop_word', '命中敏感词');
+            } else {
+                $grid->column('views', '查看数');
+                $grid->column('comment_count', '评论数');
+                $grid->column('support_count', '点赞数');
+                $grid->column('collection_count', '收藏数');
+                $grid->column('order', '排序权重')->editable();
+            }
             $grid->column('status', '状态')->using(Article::getStatusLabels())->dot(Article::getStatusDots(), 'info');
-            $grid->column('order', '排序权重')->editable();
             $grid->column('created_at', '发布时间')->sortable();
             $grid->paginate(10);
+
             //待审核
             if (request('_scope_') == 'pending') {
                 $grid->actions(function (Grid\Displayers\Actions $actions) {
@@ -151,7 +158,6 @@ class ArticleController extends AdminController
             });
 
             $form->block(4, function (Form\BlockForm $form) {
-                $form->radio('status', '状态')->options(Article::getStatusLabels())->default(Article::STATUS_ACCEPTED);
                 $form->select('category_id', '栏目')->options(Category::selectOptions())->required();
                 $form->tags('tag_values', '标签')->ajax('api/tags', 'name', 'name');
                 $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();

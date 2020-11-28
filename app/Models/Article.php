@@ -39,11 +39,11 @@ use Illuminate\Support\Str;
  *
  * @property string $tag_values 文章标签
  * @property-read string $link 文章Url
- * @property-read boolean $hasAccepted 是否已审核
+ * @property-read boolean $isApproved 是否已审核
  * @property-read boolean $hasPending 是否待审核
  * @property-read boolean $thumb 缩略图Url
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Article accepted()
+ * @method static \Illuminate\Database\Eloquent\Builder|Article approved()
  * @method static \Illuminate\Database\Eloquent\Builder|Article byCategoryId($categoryId)
  *
  * @author Tongle Xu <xutongle@gmail.com>
@@ -54,10 +54,9 @@ class Article extends Model
     use Traits\HasDateTimeFormatter;
     use SoftDeletes;
 
-    const STATUS_PENDING = 0b0;//待审核
-    const STATUS_ACCEPTED = 0b1;//正常
+    const STATUS_UNAPPROVED = 0b0;//待审核
+    const STATUS_APPROVED = 0b1;//已审核
     const STATUS_REJECTED = 0b10;//拒绝
-    const STATUS_REVIEW = 0b11;//需要复审
 
     /**
      * The table associated with the model.
@@ -156,6 +155,16 @@ class Article extends Model
     }
 
     /**
+     * Define the relationship with the article stop words.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function stopWords()
+    {
+        return $this->hasOne(ArticleMod::class);
+    }
+
+    /**
      * 查找指定栏目下的文章
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param int $categoryId
@@ -170,27 +179,27 @@ class Article extends Model
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeAccepted($query)
+    public function scopeApproved($query)
     {
-        return $query->where('status', static::STATUS_ACCEPTED);
+        return $query->where('status', static::STATUS_APPROVED);
     }
 
     /**
      * 是否待审核
      * @return boolean
      */
-    public function getHasPendingAttribute()
+    public function getIsUnapprovedAttribute()
     {
-        return $this->status == static::STATUS_PENDING;
+        return $this->status == static::STATUS_UNAPPROVED;
     }
 
     /**
      * 是否已经审核
      * @return boolean
      */
-    public function getHasAcceptedAttribute()
+    public function getIsApprovedAttribute()
     {
-        return $this->status == static::STATUS_ACCEPTED;
+        return $this->status == static::STATUS_APPROVED;
     }
 
     /**
@@ -237,32 +246,20 @@ class Article extends Model
     }
 
     /**
-     * 设置审核通过
+     * 设置已审核
      */
-    public function setAccepted()
+    public function setApproved()
     {
-        $this->status = static::STATUS_ACCEPTED;
+        $this->status = static::STATUS_APPROVED;
         $this->saveQuietly();
     }
 
     /**
      * 设置审核拒绝通过
-     * @param string $msg
      */
-    public function setRejected($msg)
+    public function setRejected()
     {
         $this->status = static::STATUS_REJECTED;
-
-        $this->saveQuietly();
-    }
-
-    /**
-     * 设置需要复审
-     * @param string $msg
-     */
-    public function setReview($msg)
-    {
-        $this->status = static::STATUS_REVIEW;
 
         $this->saveQuietly();
     }
@@ -276,7 +273,7 @@ class Article extends Model
     public static function latest($limit = 10, $cacheMinutes = 15)
     {
         $ids = Cache::store('file')->remember('articles:latest:ids', now()->addMinutes($cacheMinutes), function () use ($limit) {
-            return static::accepted()->orderByDesc('id')->limit($limit)->pluck('id');
+            return static::approved()->orderByDesc('id')->limit($limit)->pluck('id');
         });
         return $ids->map(function ($id) {
             return static::find($id);
@@ -290,10 +287,9 @@ class Article extends Model
     public static function getStatusLabels()
     {
         return [
-            static::STATUS_PENDING => '待审核',
-            static::STATUS_ACCEPTED => '通过',
+            static::STATUS_UNAPPROVED => '待审核',
+            static::STATUS_APPROVED => '已审核',
             static::STATUS_REJECTED => '拒绝',
-            static::STATUS_REVIEW => '复审'
         ];
     }
 
@@ -304,10 +300,9 @@ class Article extends Model
     public static function getStatusDots()
     {
         return [
-            static::STATUS_PENDING => 'info',
-            static::STATUS_ACCEPTED => 'success',
+            static::STATUS_UNAPPROVED => 'info',
+            static::STATUS_APPROVED => 'success',
             static::STATUS_REJECTED => 'error',
-            static::STATUS_REVIEW => 'warning'
         ];
     }
 

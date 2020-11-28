@@ -26,7 +26,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedInteger('comment_count')->nullable()->default(0)->comment('评论数量');
             $table->unsignedInteger('support_count')->nullable()->default(0)->comment('点赞数量');
             $table->unsignedInteger('collection_count')->nullable()->default(0)->comment('收藏数量');
-            $table->unsignedTinyInteger('status');
+            $table->unsignedTinyInteger('status')->comment('状态');
             $table->json('metas')->nullable()->comment('元数据');
 
             $table->timestamps();

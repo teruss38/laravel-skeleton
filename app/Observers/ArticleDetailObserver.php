@@ -10,7 +10,7 @@ namespace App\Observers;
 
 use App\Models\Article;
 use App\Models\ArticleDetail;
-use App\Models\User;
+use App\Models\ArticleMod;
 use App\Services\FileService;
 use Larva\Censor\Censor;
 use Larva\Censor\CensorNotPassedException;
@@ -22,7 +22,7 @@ use Larva\Censor\CensorNotPassedException;
 class ArticleDetailObserver
 {
     /**
-     * Handle the user "created" event.
+     * Handle the "created" event.
      *
      * @param ArticleDetail $articleDetail
      * @return void
@@ -56,21 +56,26 @@ class ArticleDetailObserver
         if (empty($articleDetail->article->thumb_path) && preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $articleDetail->content, $matches)) {
             $articleDetail->article->thumb_path = $matches[3][0];
         }
-
         //自动提取摘要
         if (empty($articleDetail->article->description)) {
             $description = str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($articleDetail->content));
             $articleDetail->article->description = mb_substr($description, 0, 190);
         }
-
         $censor = Censor::getFacadeRoot();
         try {
             $articleDetail->content = $censor->textCensor($articleDetail->content);
             if ($censor->isMod) {//需要审核
-                $articleDetail->article->status = Article::STATUS_PENDING;
+                $articleDetail->article->status = Article::STATUS_UNAPPROVED;
             }
         } catch (CensorNotPassedException $e) {
             $articleDetail->article->status = Article::STATUS_REJECTED;
+        }
+
+        // 记录触发的审核词
+        if ($articleDetail->article->status === Article::STATUS_UNAPPROVED && $censor->wordMod) {
+            $stopWords = new ArticleMod;
+            $stopWords->stop_word = implode(',', array_unique($censor->wordMod));
+            $articleDetail->article->stopWords()->save($stopWords);
         }
 
         //保存并且不再触发 事件
@@ -78,7 +83,7 @@ class ArticleDetailObserver
         $articleDetail->article->saveQuietly();
 
         //推送
-        if ($articleDetail->article->status == Article::STATUS_ACCEPTED && !config('app.debug')) {
+        if ($articleDetail->article->status == Article::STATUS_APPROVED && !config('app.debug')) {
             if ($articleDetail->extra['bd_daily']) {
                 //BaiduPush::daily($articleDetail->article->link);//推快速收录
             } else {

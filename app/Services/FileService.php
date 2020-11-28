@@ -53,6 +53,27 @@ class FileService
     }
 
     /**
+     * 获取内容中本地媒体列表
+     * @param string $content
+     * @return array
+     */
+    public static function getLocalFilesByContent($content): array
+    {
+        // 匹配<img>、src，存入$matches数组,
+        $p = '/<img.*[\s]src=[\"|\'](.*)[\"|\'].*>/iU';
+        $num = preg_match_all($p, $content, $matches);
+        $files = [];
+        if ($num) {
+            foreach ($matches[1] as $src) {
+                if (isset($src) && strpos($src, config('filesystems.disks.' . config('filesystems.cloud') . '.url')) !== false) {
+                    $files[] = $src;
+                }
+            }
+        }
+        return $files;
+    }
+
+    /**
      * 保存远程文件
      * @param string $url 文件Url
      * @param string $prefix 保存前缀
