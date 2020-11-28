@@ -12,6 +12,8 @@ use App\Models\Article;
 use App\Models\ArticleDetail;
 use App\Models\User;
 use App\Services\FileService;
+use Larva\Censor\Censor;
+use Larva\Censor\CensorNotPassedException;
 
 /**
  * Class ArticleDetailObserver
@@ -59,6 +61,16 @@ class ArticleDetailObserver
         if (empty($articleDetail->article->description)) {
             $description = str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($articleDetail->content));
             $articleDetail->article->description = mb_substr($description, 0, 190);
+        }
+
+        $censor = Censor::getFacadeRoot();
+        try {
+            $articleDetail->content = $censor->checkText($articleDetail->content);
+            if ($censor->isMod) {//需要审核
+                $articleDetail->article->status = Article::STATUS_PENDING;
+            }
+        } catch (CensorNotPassedException $e) {
+            $articleDetail->article->status = Article::STATUS_REJECTED;
         }
 
         //保存并且不再触发 事件
