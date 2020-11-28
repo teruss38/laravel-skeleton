@@ -35,8 +35,8 @@ class Settings extends Form
         });
         $this->tab('系统设置', function () {
             $this->switch('system.local_censor', '启用本地文本智能审核');
-            $this->switch('system.tencent_censor', '启用腾讯云智能审核');
-            $this->switch('system.baidu_censor', '启用百度云智能审核');
+            $this->switch('system.tencent_censor', '启用腾讯云智能审核')->help('该功能需要安装 larva/laravel-tencent-cloud。')->attribute('disabled', !class_exists('\Larva\TencentCloud\TencentCloud'));
+            $this->switch('system.baidu_censor', '启用百度云智能审核')->help('该功能需要安装 larva/laravel-bce。')->attribute('disabled', !class_exists('\Larva\Baidu\Cloud\Bce'));
             $this->text('system.sitemap_chunk', '单个Sitemap Url 数量')->append('<span class="input-group-text">个</span>')->help('修改该值请手动删除所有已经生成的 XML 文件，防止错乱！');
             $this->text('system.sitemap_cache', 'Sitemap 缓存时间')->append('<span class="input-group-text">分钟</span>');
             $this->switch('system.sitemap_static', 'Sitemap 智能静态化')->help('在第一次请求时自动生成静态 XML 文件减轻服务器压力并自动跳过最后一页。');
