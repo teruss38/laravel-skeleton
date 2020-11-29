@@ -1,26 +1,21 @@
 <?php
-/**
- * This is NOT a freeware, use is subject to license terms
- * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
- */
 
-namespace App\Admin\Actions\Grid;
+namespace App\Admin\Actions\Show;
 
-use Dcat\Admin\Grid\RowAction;
+use Dcat\Admin\Show\AbstractTool;
 use Illuminate\Http\Request;
 
-/**
- * 审核通过
- * @author Tongle Xu <xutongle@gmail.com>
- */
-class ReviewReject extends RowAction
+class ReviewReject extends AbstractTool
 {
     /**
      * @var string
      */
-    protected $title = '<i class="feather icon-slash"></i> '.'拒绝通过';
+    protected $title = '<i class="feather icon-slash"></i> '.'设为拒绝通过';
+
+    /**
+     * @var string
+     */
+    protected $style = 'btn btn-sm btn-danger';
 
     /**
      * @var string|null
@@ -57,5 +52,19 @@ class ReviewReject extends RowAction
         return [
             'model' => $this->model,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    protected function html()
+    {
+        $this->defaultHtmlAttribute('href', 'javascript:void(0)');
+
+        return <<<HTML
+<div class="btn-group pull-right btn-mini" style="margin-right: 5px">
+<a {$this->formatHtmlAttributes()}>{$this->title()}</a>
+</div>
+HTML;
     }
 }

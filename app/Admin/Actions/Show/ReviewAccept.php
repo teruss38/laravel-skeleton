@@ -1,26 +1,22 @@
 <?php
-/**
- * This is NOT a freeware, use is subject to license terms
- * @copyright Copyright (c) 2010-2099 Jinan Larva Information Technology Co., Ltd.
- * @link http://www.larva.com.cn/
- * @license http://www.larva.com.cn/license/
- */
 
-namespace App\Admin\Actions\Grid;
+namespace App\Admin\Actions\Show;
 
-use Dcat\Admin\Grid\RowAction;
+use Dcat\Admin\Actions\Response;
+use Dcat\Admin\Show\AbstractTool;
 use Illuminate\Http\Request;
 
-/**
- * 审核通过
- * @author Tongle Xu <xutongle@gmail.com>
- */
-class ReviewAccept extends RowAction
+class ReviewAccept extends AbstractTool
 {
+    /**
+     * @return string
+     */
+    protected $title = '<i class="feather icon-check"></i> '.'设为审核通过';
+
     /**
      * @var string
      */
-    protected $title = '<i class="feather icon-check"></i> '.'审核通过';
+    protected $style = 'btn btn-sm btn-success';
 
     /**
      * @var string|null
@@ -37,13 +33,18 @@ class ReviewAccept extends RowAction
         parent::__construct($this->title);
     }
 
+    /**
+     * Handle the action request.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function handle(Request $request)
     {
         $key = $this->getKey();
         $model = $request->get('model');
-
         $model::findOrFail($key)->setApproved();
-
         return $this->response()->success('已审核通过')->refresh();
     }
 
@@ -57,5 +58,19 @@ class ReviewAccept extends RowAction
         return [
             'model' => $this->model,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    protected function html()
+    {
+        $this->defaultHtmlAttribute('href', 'javascript:void(0)');
+
+        return <<<HTML
+<div class="btn-group pull-right btn-mini" style="margin-right: 5px">
+<a {$this->formatHtmlAttributes()}>{$this->title()}</a>
+</div>
+HTML;
     }
 }

@@ -12,7 +12,6 @@ use App\Models\Article;
 use App\Models\ArticleDetail;
 use App\Models\ArticleMod;
 use Larva\Censor\Censor;
-use Larva\Censor\CensorManager;
 use Larva\Censor\CensorNotPassedException;
 
 /**

@@ -110,22 +110,26 @@ class ArticleController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new Article, function (Show $show) {
-            $show->model()->with(['category', 'tags', 'detail']);
+        return Show::make($id, Article::with(['category', 'tags', 'detail']), function (Show $show) {
             $show->field('id', 'ID');
-            $show->field('category.title', '文章栏目');
             $show->field('title', '标题');
+            $show->field('category.name', '文章栏目');
             $show->field('description', '摘要');
             $show->field('thumb', '特色图像')->image();
-            $show->field('tag_values', '标签');
+            $show->field('tag_values', '标签')->explode()->label();
             $show->field('views', '查看数');
             $show->field('comment_count', '评论数');
             $show->field('support_count', '点赞数');
             $show->field('collection_count', '收藏数');
             $show->field('order', '排序权重');
-            $show->field('detail.content', '文章内容');
             $show->field('created_at');
             $show->field('updated_at');
+            $show->field('detail.content', '文章内容')->unescape();
+
+            $show->tools(function (Show\Tools $tools) {
+                $tools->append(new \App\Admin\Actions\Show\ReviewAccept(Article::class));
+                $tools->append(new \App\Admin\Actions\Show\ReviewReject(Article::class));
+            });
         });
     }
 
