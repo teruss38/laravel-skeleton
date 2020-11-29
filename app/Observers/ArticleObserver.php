@@ -20,40 +20,12 @@ use Larva\Censor\CensorNotPassedException;
 class ArticleObserver
 {
     /**
-     * Handle the "created" event.
+     * Handle the "saving" event.
      *
      * @param Article $article
      * @return void
      */
-    public function creating(Article $article)
-    {
-        $censor = Censor::getFacadeRoot();
-        try {
-            $article->title = $censor->textCensor($article->title);
-            if ($censor->isMod) {//如果标题命中了关键词就放入待审核
-                $article->status = Article::STATUS_UNAPPROVED;
-            }
-        } catch (CensorNotPassedException $e) {
-            $article->status = Article::STATUS_REJECTED;
-        }
-    }
-
-    /**
-     * Handle the "created" event.
-     *
-     * @param Article $article
-     * @return void
-     */
-    public function created(Article $article)
-    {
-
-    }
-
-    /**
-     * Handle the "updating" event.
-     * @param Article $article
-     */
-    public function updating(Article $article)
+    public function saving(Article $article)
     {
         $censor = Censor::getFacadeRoot();
         try {

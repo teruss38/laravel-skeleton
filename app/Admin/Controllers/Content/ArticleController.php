@@ -15,6 +15,7 @@ use App\Admin\Actions\Grid\ReviewAccept;
 use App\Admin\Actions\Grid\ReviewReject;
 use App\Models\Article;
 use App\Models\Category;
+use App\Services\FileService;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -142,6 +143,18 @@ class ArticleController extends AdminController
                     $form->hidden('user_id');
                     $form->text('title', '标题')->required()->rules('string|max:40|min:5|text_censor')->placeholder('请输入文字标题（5-30个汉字）');
                     $form->editor('detail.content', '内容')->required()->rules('string|text_censor')->placeholder('请输入内容正文');
+
+                    $default_extra_operation = ['extract_summary_automatically_from_content'];
+                    if (settings('system.download_remote_pictures')) {
+                        $default_extra_operation[] = 'download_remote_pictures';
+                        $default_extra_operation[] = 'use_the_first_picture_as_the_thumbnail';
+                    }
+
+                    $form->checkbox('extra_operation', false)->options([
+                        'download_remote_pictures' => '下载远程图片',
+                        'use_the_first_picture_as_the_thumbnail' => '使用第一张图片作为缩略图',
+                        'extract_summary_automatically_from_content' => '从内容自动提取摘要',
+                    ])->default($default_extra_operation);
                 })->tab('Metas', function (Form\BlockForm $form) {
                     $form->embeds('metas', false, function ($form) {
                         $form->text('title', 'Title')->rules('nullable|string|text_censor');
@@ -151,7 +164,7 @@ class ArticleController extends AdminController
                 })->tab('扩展', function (Form\BlockForm $form) {
                     $form->embeds('detail.extra', false, function ($form) {
                         $form->text('from', '来源名')->rules('nullable|string|text_censor');
-                        $form->text('from_url', '来源网址');
+                        $form->url('from_url', '来源网址')->rules('nullable|url|text_censor');
                         $form->switch('bd_daily', '百度快速收录')->default(0);
                     });
                 });
@@ -162,13 +175,36 @@ class ArticleController extends AdminController
                 $form->tags('tag_values', '标签')->ajax('api/tags', 'name', 'name');
                 $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
                 $form->textarea('description', '摘要')->rows(3)->rules('nullable|string|text_censor');
-                $form->number('order', '排序权重')->default(0);
+                $form->slider('order', '排序权重')->options(['max' => 100, 'min' => 0, 'step' => 1, 'prefix' => '权重'])->help('权重越大越靠前。');
             });
 
+            //数据保存前的骚操作
             $form->saving(function (Form $form) {
                 if ($form->isCreating()) {
-                    $form->user_id = Admin::user()->user_id;
+                    $form->input('user_id', Admin::user()->user_id);
                 }
+                //扩展操作
+                $extraOperation = array_flip(array_filter($form->input('extra_operation')));
+                $form->deleteInput('extra_operation');
+                $content = $form->input('detail.content');//取内容
+
+                //远程图片本地化
+                if (settings('system.download_remote_pictures') || isset($extraOperation['download_remote_pictures'])) {
+                    $content = FileService::handleContentRemoteFile($content);
+                    $form->input('detail.content', $content);
+                }
+                //自动提取缩略图
+                if (isset($extraOperation['use_the_first_picture_as_the_thumbnail']) && empty($form->input('thumb_path'))) {
+                    if (preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $content, $matches)) {
+                        $form->input('thumb_path', $matches[3][0]);
+                    }
+                }
+                //自动提取摘要
+                if (isset($extraOperation['extract_summary_automatically_from_content']) && empty($form->input('description'))) {
+                    $description = str_replace(["\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'], '', strip_tags($content));
+                    $form->input('description', mb_substr($description, 0, 190));
+                }
+
             });
         });
     }

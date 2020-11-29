@@ -39,7 +39,7 @@ class ReviewAccept extends RowAction
         $key = $this->getKey();
         $model = $request->get('model');
 
-        $model::findOrFail($key)->setAccepted();
+        $model::findOrFail($key)->setApproved();
 
         return $this->response()->success('已审核通过')->refresh();
     }

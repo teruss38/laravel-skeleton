@@ -42,7 +42,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $items = Article::accepted()->with('user')->orderByDesc('order')->orderByDesc('id')->paginate(15);
+        $items = Article::approved()->with('user')->orderByDesc('order')->orderByDesc('id')->paginate(15);
         $categories = Category::getRootNodes();
         return $this->response->view('article.index', [
             'items' => $items,

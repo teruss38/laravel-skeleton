@@ -11,56 +11,24 @@ namespace App\Observers;
 use App\Models\Article;
 use App\Models\ArticleDetail;
 use App\Models\ArticleMod;
-use App\Services\FileService;
 use Larva\Censor\Censor;
+use Larva\Censor\CensorManager;
 use Larva\Censor\CensorNotPassedException;
 
 /**
- * Class ArticleDetailObserver
+ * 文章详情观察者
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class ArticleDetailObserver
 {
     /**
-     * Handle the "created" event.
+     * Handle the "saved" event.
      *
      * @param ArticleDetail $articleDetail
      * @return void
      */
-    public function created(ArticleDetail $articleDetail)
+    public function saved(ArticleDetail $articleDetail)
     {
-        $this->updateModel($articleDetail);
-    }
-
-    /**
-     * 处理 更新」事件
-     *
-     * @param \App\Models\ArticleDetail $articleDetail
-     * @return void
-     */
-    public function updated(ArticleDetail $articleDetail)
-    {
-        $this->updateModel($articleDetail);
-    }
-
-    /**
-     * 更新模型
-     * @param ArticleDetail $articleDetail
-     */
-    protected function updateModel(ArticleDetail $articleDetail)
-    {
-        //远程图片本地化
-        $articleDetail->content = FileService::handleContentRemoteFile($articleDetail->content);
-
-        //自动提取缩略图
-        if (empty($articleDetail->article->thumb_path) && preg_match_all("/(src)=([\"|']?)([^ \"'>]+\.(gif|jpg|jpeg|bmp|png))\\2/i", $articleDetail->content, $matches)) {
-            $articleDetail->article->thumb_path = $matches[3][0];
-        }
-        //自动提取摘要
-        if (empty($articleDetail->article->description)) {
-            $description = str_replace(array("\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'), '', strip_tags($articleDetail->content));
-            $articleDetail->article->description = mb_substr($description, 0, 190);
-        }
         $censor = Censor::getFacadeRoot();
         try {
             $articleDetail->content = $censor->textCensor($articleDetail->content);
@@ -73,9 +41,11 @@ class ArticleDetailObserver
 
         // 记录触发的审核词
         if ($articleDetail->article->status === Article::STATUS_UNAPPROVED && $censor->wordMod) {
-            $stopWords = new ArticleMod;
+            if (($stopWords = $articleDetail->stopWords) == null) {
+                $stopWords = new ArticleMod(['article_id' => $articleDetail->article_id]);
+            }
             $stopWords->stop_word = implode(',', array_unique($censor->wordMod));
-            $articleDetail->article->stopWords()->save($stopWords);
+            $stopWords->save();
         }
 
         //保存并且不再触发 事件

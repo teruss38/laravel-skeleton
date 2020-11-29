@@ -224,7 +224,7 @@ class Article extends Model
      */
     public function getPreviousAttribute()
     {
-        return static::accepted()->byCategoryId($this->category_id)->where('id', '<', $this->id)->first();
+        return static::approved()->byCategoryId($this->category_id)->where('id', '<', $this->id)->first();
     }
 
     /**
@@ -233,7 +233,7 @@ class Article extends Model
      */
     public function getNextAttribute()
     {
-        return static::accepted()->byCategoryId($this->category_id)->where('id', '>', $this->id)->first();
+        return static::approved()->byCategoryId($this->category_id)->where('id', '>', $this->id)->first();
     }
 
     /**
@@ -260,7 +260,6 @@ class Article extends Model
     public function setRejected()
     {
         $this->status = static::STATUS_REJECTED;
-
         $this->saveQuietly();
     }
 

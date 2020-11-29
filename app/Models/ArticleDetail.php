@@ -9,13 +9,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Larva\Censor\Models\StopWord;
 
 /**
  * 文章内容
+ * @property int $article_id
  * @property string $content
  * @property array $extra
  *
  * @property Article $article
+ * @property StopWord $stopWords
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
@@ -70,7 +73,6 @@ class ArticleDetail extends Model
         'extra' => 'array',
     ];
 
-
     /**
      * Get the article relation.
      *
@@ -79,5 +81,15 @@ class ArticleDetail extends Model
     public function article()
     {
         return $this->belongsTo(Article::class);
+    }
+
+    /**
+     * Define the relationship with the article stop words.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function stopWords()
+    {
+        return $this->hasOne(ArticleMod::class, 'article_id', 'article_id');
     }
 }
