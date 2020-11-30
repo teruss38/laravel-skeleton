@@ -24,11 +24,9 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::insert([
-            [
-                'name' => '默认栏目',
-                'description' => '默认栏目'
-            ],
-        ]);
+        Category::create([
+            'name' => '默认栏目',
+            'description' => '默认栏目'
+        ],);
     }
 }
