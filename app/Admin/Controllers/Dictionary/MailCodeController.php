@@ -41,7 +41,7 @@ class MailCodeController extends AdminController
             $grid->column('id', 'ID')->sortable();
             $grid->column('email', '邮箱');
             $grid->column('code', '验证码');
-            $grid->column('type', '验证类型')->using(MailCode::getTypeLabels());
+            $grid->column('scenario', '验证场景')->using(MailCode::getTypeLabels());
             $grid->column('state', '验证状态')->bool();
             $grid->column('ip', 'IP地址');
             $grid->column('expired_at', '过期时间');

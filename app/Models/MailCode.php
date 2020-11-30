@@ -12,13 +12,17 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 邮件验证码
- * @property string $email
- * @property string $code
- * @property string $type
- * @property string $ip
- * @property int $state
- * @property \Carbon\Carbon $expired_at
+ * @property string $email 邮箱
+ * @property string $code 验证码
+ * @property string $scenario 验证场景
+ * @property string $ip IP地址
+ * @property int $state 使用状态
+ * @property \Carbon\Carbon $expired_at 过期时间
+ * @property \Illuminate\Support\Carbon $created_at 创建时间
+ * @property \Illuminate\Support\Carbon $updated_at 更新时间
+ *
  * @property User $user
+ *
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class MailCode extends Model
