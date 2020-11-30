@@ -50,14 +50,18 @@ class ArticleObserver
         if ($article->user_id) {
             \App\Models\UserExtra::dec($article->user_id, 'articles');
         }
-        //删除附件
-        $files = FileService::getLocalFilesByContent($article->detail->content);
-        foreach ($files as $file) {
-            FileService::deleteFile($file);
-        }
         //删除缩略图
         if ($article->thumb_path) {
             FileService::deleteFile($article->thumb);
+        }
+        //删除附加表
+        if ($article->detail) {
+            //删除附件
+            $files = FileService::getLocalFilesByContent($article->detail->content);
+            foreach ($files as $file) {
+                FileService::deleteFile($file);
+            }
+            $article->detail->delete();
         }
     }
 }

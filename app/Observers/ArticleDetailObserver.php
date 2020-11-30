@@ -21,6 +21,23 @@ use Larva\Censor\CensorNotPassedException;
 class ArticleDetailObserver
 {
     /**
+     * Handle the "saving" event.
+     *
+     * @param ArticleDetail $articleDetail
+     * @return void
+     */
+    public function saving(ArticleDetail $articleDetail)
+    {
+        if (!is_array($articleDetail->extra)) {
+            $articleDetail->extra = [
+                'form' => null,
+                'form_url' => null,
+                'bd_daily' => 0
+            ];
+        }
+    }
+
+    /**
      * Handle the "saved" event.
      *
      * @param ArticleDetail $articleDetail

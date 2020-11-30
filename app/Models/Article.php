@@ -242,7 +242,7 @@ class Article extends Model
      */
     public function getLinkAttribute()
     {
-        return route('article.show', ['id' => $this->id]);
+        return route('articles.show', ['article' => $this]);
     }
 
     /**
