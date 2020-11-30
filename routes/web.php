@@ -70,13 +70,13 @@ Route::group(['prefix' => 'ajax'], function () {
 /**
  * 文章
  */
-Route::get('articles/category/{id}', [App\Http\Controllers\ArticleController::class, 'category'])->name('articles.category');
+
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
 
 //Route::group(['prefix' => 'articles', 'as' => 'articles.'], function () {
 //    Route::get('', [App\Http\Controllers\ArticleController::class, 'index'])->name('index');//文章首页
 //    Route::get('category/{id}', [App\Http\Controllers\ArticleController::class, 'category'])->name('category');
-//    Route::get('{id}.html', [App\Http\Controllers\ArticleController::class, 'show'])->name('show');
+//    Route::get('{article}.html', [App\Http\Controllers\ArticleController::class, 'show'])->name('show');
 //    Route::get('create', [App\Http\Controllers\ArticleController::class, 'create'])->name('create');
 //    Route::post('create', [App\Http\Controllers\ArticleController::class, 'store'])->name('store');
 //});
