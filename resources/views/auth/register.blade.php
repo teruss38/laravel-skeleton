@@ -14,12 +14,12 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
-                                @error('name')
+                                @error('username')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -64,12 +64,42 @@
                         </div>
 
                         <div class="form-group row mb-0">
+                            <div class="form-check">
+                                <input class="form-check-input @error('terms') is-invalid @enderror" type="checkbox" name="terms"
+                                       id="terms" {{ old('terms') ? 'checked' : '' }}>
+
+                                <label class="form-check-label" for="terms">
+                                    同意 <a href="{{ url('terms') }}" target="_blank">服务条款</a> 和 <a href="{{ url('privacy') }}" target="_blank">隐私政策</a>
+                                </label>
+                                @error('terms')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+
+                                @if (Route::has('mobile.register'))
+                                    <a class="btn btn-link" href="{{ route('mobile.register') }}">
+                                        {{ __('Mobile Register') }}
+                                    </a>
+                                @endif
+
+                                @if (Route::has('login'))
+                                    <a class="btn btn-link" href="{{ route('login') }}">
+                                        {{ __('Already have an account?') }}
+                                    </a>
+                                @endif
                             </div>
                         </div>
+
+
                     </form>
                 </div>
             </div>
