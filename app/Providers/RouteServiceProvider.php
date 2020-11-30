@@ -44,9 +44,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('id', '[0-9]+');
         Route::pattern('page', '[0-9]+');
 
-        Route::model('user', \App\Models\User::class);
-        Route::model('article', \App\Models\Article::class);
-
         $this->configureRateLimiting();
 
         $this->routes(function () {

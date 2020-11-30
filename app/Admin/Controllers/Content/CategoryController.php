@@ -40,6 +40,7 @@ class CategoryController extends AdminController
             });
             $grid->column('id', 'ID')->bold()->sortable();
             $grid->column('name', '栏目名称')->tree(); // 开启树状表格功能
+            $grid->column('slug','栏目标识');
             $grid->column('order', '排序')->orderable();
             $grid->column('created_at', '创建时间')->sortable();
             $grid->column('updated_at')->sortable();
@@ -79,7 +80,8 @@ class CategoryController extends AdminController
             });
             $form->display('id', 'ID');
             $form->select('parent_id', '父栏目')->options(Category::selectOptions())->default(0);
-            $form->text('name', '栏目名称')->required()->placeholder('请输入栏目名称。');
+            $form->text('name', '栏目名称')->required()->rules('string')->placeholder('请输入栏目名称。');
+            $form->text('slug','栏目标识')->rules('nullable|string')->placeholder('请输入栏目标识。');
             $form->image('image_path', '栏目图片')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
             $form->fieldset('Metas', function (Form $form) {
                 $form->text('title', 'Meta Title');

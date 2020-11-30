@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
 
 /**
@@ -86,6 +87,20 @@ class Category extends Model implements Sortable
      * @var string
      */
     protected $titleColumn = 'name';
+
+    /**
+     * Perform any actions required before the model boots.
+     *
+     * @return void
+     */
+    protected static function booting()
+    {
+        static::creating(function ($model) {
+            if (!$model->slug) {
+                $model->slug = (new \Overtrue\Pinyin\Pinyin)->permalink($model->name);
+            }
+        });
+    }
 
     /**
      * Get the children relation.
