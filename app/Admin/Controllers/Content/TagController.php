@@ -51,7 +51,9 @@ class TagController extends AdminController
             $grid->model()->orderBy('id', 'desc');
 
             $grid->column('id', 'ID')->sortable();
-            $grid->column('name', '名称');
+            $grid->column('name', '名称')->display(function ($name) {
+                return "<a href='$this->link' target='_blank'>{$name}</a>";
+            });
             $grid->column('frequency', '标签热度');
             $grid->column('title', 'SEO标题');
             $grid->column('keywords', 'SEO关键词');

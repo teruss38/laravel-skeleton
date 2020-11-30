@@ -63,7 +63,9 @@ class ArticleController extends AdminController
             $grid->column('id', 'ID')->sortable();
             $grid->column('user.username', '作者');
             $grid->column('category.name', '文章类别');
-            $grid->column('title', '标题');
+            $grid->column('title', '标题')->display(function ($title) {
+                return "<a href='$this->link' target='_blank'>{$title}</a>";
+            });
             $grid->column('tag_values', '标签');
             if (request('_scope_') == 'pending') {
                 $grid->model()->with('stopWords');
