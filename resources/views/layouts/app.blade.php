@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @stack('head')
 </head>
-<body data-instant-allow-external-links>
+<body>
     <div id="app">
         <!-- Header -->
         @include('layouts._header')
@@ -33,7 +33,6 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
 @stack('footer')
 </body>
 </html>
