@@ -11,7 +11,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- 左侧 -->
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav d-flex mr-auto">
                 <li class="nav-item @if (request()->path() == '/') active @endif">
                     <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                 </li>
@@ -21,7 +21,10 @@
             </ul>
 
             <!-- 右侧 -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav d-flex ml-auto">
+                <form class="navbar-form d-none d-lg-flex mr-2 active" action="/search" method="GET">
+                    <input type="text" name="q" class="form-control" value="" placeholder="搜索"></input>
+                </form>
                 <!-- Authentication Links -->
                 <li class="nav-item" v-show="guest">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -33,7 +36,7 @@
                 @endif
 
                 <li class="nav-item" v-show="!guest">
-                    <a href="{{ route('user.notifications') }}" class="nav-link"><i class="el-icon-bell"></i></a>
+                    <a href="{{ route('user.notifications') }}" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
                 <li class="nav-item" v-show="!guest">
                     <a href="{{ route('user.messages') }}" class="nav-link"><i class="el-icon-message"></i></a>
