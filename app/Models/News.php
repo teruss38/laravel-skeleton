@@ -9,6 +9,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -63,6 +64,29 @@ class News extends Model
     protected $dates = [
         'created_at',
     ];
+
+    /**
+     * 属性类型转换
+     *
+     * @var array
+     */
+    protected $casts = [
+        'pub_date' => 'date',
+    ];
+
+    /**
+     * Perform any actions required before the model boots.
+     *
+     * @return void
+     */
+    protected static function booting()
+    {
+        static::creating(function ($model) {
+            if (!$model->pub_date) {
+                $model->pub_date = Carbon::now()->toDateString();
+            }
+        });
+    }
 
     /**
      * 上一篇

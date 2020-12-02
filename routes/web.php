@@ -70,7 +70,6 @@ Route::group(['prefix' => 'ajax'], function () {
 /**
  * 文章
  */
-
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
 Route::resource('news', App\Http\Controllers\NewsController::class);
 
