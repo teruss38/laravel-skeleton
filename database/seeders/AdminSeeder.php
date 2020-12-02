@@ -211,6 +211,14 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 2,
+                'name' => '快讯管理',
+                'slug' => 'content-news-management',
+                'http_method' => '',
+                'http_path' => '/content/news*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
                 'name' => '标签管理',
                 'slug' => 'content-tags',
                 'http_method' => '',
@@ -218,7 +226,7 @@ class AdminSeeder extends Seeder
                 'created_at' => $createdAt
             ],
             [
-                'order' => 3,
+                'order' => 4,
                 'name' => '栏目管理',
                 'slug' => 'content-article-categories-management',
                 'http_method' => '',
@@ -415,13 +423,20 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 2,
+                'title' => '快讯管理',
+                'icon' => '',
+                'uri' => 'content/news',
+                'created_at' => $createdAt,
+            ],
+            [
+                'order' => 3,
                 'title' => '标签管理',
                 'icon' => '',
                 'uri' => 'content/tags',
                 'created_at' => $createdAt,
             ],
             [
-                'order' => 3,
+                'order' => 4,
                 'title' => '栏目管理',
                 'icon' => '',
                 'uri' => 'content/categories',

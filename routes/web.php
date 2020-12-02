@@ -72,6 +72,7 @@ Route::group(['prefix' => 'ajax'], function () {
  */
 
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
+Route::resource('news', App\Http\Controllers\NewsController::class);
 
 //Route::group(['prefix' => 'articles', 'as' => 'articles.'], function () {
 //    Route::get('', [App\Http\Controllers\ArticleController::class, 'index'])->name('index');//文章首页

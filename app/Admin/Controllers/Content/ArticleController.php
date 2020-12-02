@@ -58,7 +58,6 @@ class ArticleController extends AdminController
                 $filter->scope('trashed', '回收站')->onlyTrashed();
             });
             $grid->quickSearch(['id', 'title']);
-            $with = ['category', 'tags', 'user'];
 
             $grid->column('id', 'ID')->sortable();
             $grid->column('user.username', '作者');
