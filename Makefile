@@ -28,6 +28,7 @@ reload:	##@reload this application
 	php -r "file_exists('.env') || copy('.env.prod', '.env');"
 	composer install --prefer-dist --no-dev --optimize-autoloader --no-progress --no-interaction
 	php artisan migrate --force
+	php artisan queue:restart
 	$(MAKE) optimize
 
 optimize:	##@system build this application cache
