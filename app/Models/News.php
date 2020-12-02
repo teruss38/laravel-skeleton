@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Cache;
  * 快讯
  * @property int $id
  * @property string $title
+ * @property string $keywords
  * @property string $description
  * @property int $views
  * @property string $from
@@ -41,7 +42,7 @@ class News extends Model
      * @var array
      */
     public $fillable = [
-        'title', 'description', 'views', 'from', 'from_url'
+        'title', 'keywords', 'description', 'views', 'from', 'from_url'
     ];
 
     /**
