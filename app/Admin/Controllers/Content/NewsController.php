@@ -89,8 +89,9 @@ class NewsController extends AdminController
     protected function form()
     {
         return Form::make(News::query(), function (Form $form) {
-            $form->text('title', '标题')->required()->rules('string|max:40|min:5|text_censor')->placeholder('请输入文字标题（5-30个汉字）');
-            $form->textarea('description', '摘要')->rows(3)->rules('nullable|string|text_censor');
+            $form->text('title', '标题')->required()->rules('string|max:40|min:2|text_censor')->placeholder('请输入文字标题（一般不超过30个汉字）');
+            $form->text('keywords', 'Keywords')->rules('nullable|string|text_censor')->placeholder('请输入关键词（一般不超过100个汉字）');
+            $form->textarea('description', '摘要')->rows(3)->rules('nullable|string|text_censor')->placeholder('请输入描述（一般不超过200个汉字）');
             $form->text('from', '来源名')->rules('nullable|string|text_censor');
             $form->url('from_url', '来源网址')->rules('nullable|url|text_censor');
         });
