@@ -21,6 +21,7 @@ class CreateNewsTable extends Migration
             $table->unsignedInteger('views')->nullable()->default(0)->comment('查看次数');
             $table->string('from')->nullable()->comment('来源');
             $table->string('from_url')->nullable()->comment('原文链接');
+            $table->date('pub_date')->nullable()->comment('发表时间');
             $table->timestamp('created_at')->nullable();
         });
     }

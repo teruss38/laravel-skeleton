@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Cache;
  * @property int $views
  * @property string $from
  * @property string from_url
+ * @property string $pub_date 发表时间
  * @property \Illuminate\Support\Carbon $created_at 创建时间
  *
  * @author Tongle Xu <xutongle@gmail.com>
@@ -42,7 +43,7 @@ class News extends Model
      * @var array
      */
     public $fillable = [
-        'title', 'keywords', 'description', 'views', 'from', 'from_url'
+        'title', 'keywords', 'description', 'views', 'from', 'from_url', 'pub_date'
     ];
 
     /**
