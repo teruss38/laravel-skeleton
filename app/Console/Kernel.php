@@ -34,6 +34,16 @@ class Kernel extends ConsoleKernel
 
         // Flush expired password reset tokens
         $schedule->command('auth:clear-resets')->daily()->onOneServer();
+
+        // Purge revoked and expired tokens and auth codes...
+        $schedule->command('passport:purge')->daily();
+
+        // Generate statistic once a day
+        $schedule->command('generate:statistic')->daily();
+
+        // Search engine push retry once a day
+//        $schedule->command('baidu:push-retry')->daily();
+//        $schedule->command('bing:push-retry')->daily();
     }
 
     /**

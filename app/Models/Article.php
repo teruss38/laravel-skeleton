@@ -264,22 +264,6 @@ class Article extends Model
     }
 
     /**
-     * 获取最新的10条资讯
-     * @param int $limit
-     * @param int $cacheMinutes
-     * @return mixed
-     */
-    public static function latest($limit = 10, $cacheMinutes = 15)
-    {
-        $ids = Cache::store('file')->remember('articles:latest:ids', now()->addMinutes($cacheMinutes), function () use ($limit) {
-            return static::approved()->orderByDesc('id')->limit($limit)->pluck('id');
-        });
-        return $ids->map(function ($id) {
-            return static::find($id);
-        });
-    }
-
-    /**
      * 获取状态Label
      * @return string[]
      */
@@ -303,6 +287,22 @@ class Article extends Model
             static::STATUS_APPROVED => 'success',
             static::STATUS_REJECTED => 'error',
         ];
+    }
+
+    /**
+     * 获取最新的10条资讯
+     * @param int $limit
+     * @param int $cacheMinutes
+     * @return mixed
+     */
+    public static function latest($limit = 10, $cacheMinutes = 15)
+    {
+        $ids = Cache::store('file')->remember('articles:latest:ids', now()->addMinutes($cacheMinutes), function () use ($limit) {
+            return static::approved()->orderByDesc('id')->limit($limit)->pluck('id');
+        });
+        return $ids->map(function ($id) {
+            return static::find($id);
+        });
     }
 
     /**

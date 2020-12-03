@@ -112,68 +112,6 @@ class Link extends Model
     }
 
     /**
-     * 获取赞助商链接
-     * @param int $limit
-     * @param int $cacheMinutes 缓存时间
-     * @return mixed
-     */
-    public static function sponsor($limit = 10, $cacheMinutes = 60)
-    {
-        $ids = Cache::store('file')->remember('links:sponsor:ids.' . $limit, Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
-            return Link::active()->type(static::TYPE_SPONSOR)->orderByDesc('id')->limit($limit)->pluck('id');
-        });
-        return $ids->map(function ($id) {
-            return static::find($id);
-        });
-    }
-
-    /**
-     * 获取合作伙伴链接
-     * @param int $limit
-     * @param int $cacheMinutes 缓存时间
-     * @return mixed
-     */
-    public static function partner($limit = 10, $cacheMinutes = 60)
-    {
-        $ids = Cache::store('file')->remember('links:partner:ids.' . $limit, Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
-            return Link::active()->type(static::TYPE_PARTNER)->orderByDesc('id')->limit($limit)->pluck('id');
-        });
-        return $ids->map(function ($id) {
-            return static::find($id);
-        });
-    }
-
-    /**
-     * 获取 首页 链接
-     * @param int $cacheMinutes 缓存时间
-     * @return mixed
-     */
-    public static function home($cacheMinutes = 60)
-    {
-        $ids = Cache::store('file')->remember('links:home:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
-            return Link::active()->whereIn('type', [static::TYPE_HOME, static::TYPE_ALL])->orderByDesc('id')->pluck('id');
-        });
-        return $ids->map(function ($id) {
-            return static::find($id);
-        });
-    }
-
-    /**
-     * 获取 内页 链接
-     * @param int $cacheMinutes 缓存时间
-     * @return mixed
-     */
-    public static function inner($cacheMinutes = 60)
-    {
-        $ids = Cache::store('file')->remember('links:inner:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
-            return Link::active()->whereIn('type', [static::TYPE_INNER, static::TYPE_ALL])->orderByDesc('id')->pluck('id');
-        });
-        return $ids->map(function ($id) {
-            return static::find($id);
-        });
-    }
-
-    /**
      * 获取Logo存储位置
      * @return string
      */
@@ -189,6 +127,10 @@ class Link extends Model
         return null;
     }
 
+    /**
+     * 获取连接类型
+     * @return string[]
+     */
     public static function getTypeLabels()
     {
         return [
@@ -198,5 +140,59 @@ class Link extends Model
             Link::TYPE_INNER => '内页链接',
             Link::TYPE_ALL => '全站链接'
         ];
+    }
+
+    /**
+     * 获取赞助商链接
+     * @param int $limit
+     * @param int $cacheMinutes 缓存时间
+     * @return mixed
+     */
+    public static function sponsor($limit = 10, $cacheMinutes = 60)
+    {
+        $ids = Cache::store('file')->remember('links:sponsor:ids.' . $limit, Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
+            return Link::active()->type(static::TYPE_SPONSOR)->orderByDesc('id')->limit($limit)->pluck('id');
+        });
+        return static::query()->whereIn('id', $ids)->get();
+    }
+
+    /**
+     * 获取合作伙伴链接
+     * @param int $limit
+     * @param int $cacheMinutes 缓存时间
+     * @return mixed
+     */
+    public static function partner($limit = 10, $cacheMinutes = 60)
+    {
+        $ids = Cache::store('file')->remember('links:partner:ids.' . $limit, Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
+            return Link::active()->type(static::TYPE_PARTNER)->orderByDesc('id')->limit($limit)->pluck('id');
+        });
+        return static::query()->whereIn('id', $ids)->get();
+    }
+
+    /**
+     * 获取 首页 链接
+     * @param int $cacheMinutes 缓存时间
+     * @return mixed
+     */
+    public static function home($cacheMinutes = 60)
+    {
+        $ids = Cache::store('file')->remember('links:home:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
+            return Link::active()->whereIn('type', [static::TYPE_HOME, static::TYPE_ALL])->orderByDesc('id')->pluck('id');
+        });
+        return static::query()->whereIn('id', $ids)->get();
+    }
+
+    /**
+     * 获取 内页 链接
+     * @param int $cacheMinutes 缓存时间
+     * @return mixed
+     */
+    public static function inner($cacheMinutes = 60)
+    {
+        $ids = Cache::store('file')->remember('links:inner:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
+            return Link::active()->whereIn('type', [static::TYPE_INNER, static::TYPE_ALL])->orderByDesc('id')->pluck('id');
+        });
+        return static::query()->whereIn('id', $ids)->get();
     }
 }
