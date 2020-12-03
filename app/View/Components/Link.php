@@ -45,8 +45,14 @@ class Link extends Component
      */
     public function render()
     {
-        $ids = Cache::store('file')->remember('links:home:ids', Carbon::now()->addMinutes($this->cacheMinutes), function () {
-            return \App\Models\Link::active()->whereIn('type', [\App\Models\Link::TYPE_HOME, \App\Models\Link::TYPE_ALL])->orderByDesc('id')->pluck('id');
+        $ids = Cache::store('file')->remember('links:' . $this->type . ':ids', Carbon::now()->addMinutes($this->cacheMinutes), function () {
+            $type = [\App\Models\Link::TYPE_ALL];
+            if ($this->type == 'home') {
+                $type = [\App\Models\Link::TYPE_HOME, \App\Models\Link::TYPE_ALL];
+            } else if ($this->type == 'inner') {
+                $type = [\App\Models\Link::TYPE_INNER, \App\Models\Link::TYPE_ALL];
+            }
+            return \App\Models\Link::active()->whereIn('type', $type)->orderByDesc('id')->pluck('id');
         });
         $links = \App\Models\Link::query()->whereIn('id', $ids)->get();
         return view('components.link', [
