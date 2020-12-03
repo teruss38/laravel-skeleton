@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Widgets;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -55,7 +55,7 @@ class Link extends Component
             return \App\Models\Link::active()->whereIn('type', $type)->orderByDesc('id')->pluck('id');
         });
         $links = \App\Models\Link::query()->whereIn('id', $ids)->get();
-        return view('components.link', [
+        return view('components.widgets.link', [
             'links' => $links
         ]);
     }

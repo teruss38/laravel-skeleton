@@ -15,7 +15,6 @@
     <meta name="Keywords" content="@yield('keywords', settings('system.keywords'))">
     <title>@yield('title', settings('system.title'))@if (request()->path() != '/') - {{ config('app.name', 'Laravel') }}@endif</title>
 
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @stack('head')
@@ -33,6 +32,7 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @stack('scripts')
 @stack('footer')
 </body>
 </html>

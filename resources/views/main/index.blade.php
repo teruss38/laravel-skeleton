@@ -10,9 +10,8 @@
 @endpush
 
 @section('content')
-    这是首页
-
-
+    <div class="container">
+        这是首页
         <div class="row">
             <div class="col-md-12">
                 <div class="side_box mb-3">
@@ -20,9 +19,10 @@
                         <div class="box-title">友情链接</div>
                     </div>
                     <div class="box-body">
-                        <x-link type="home"/>
+                        <x-widgets.link type="home"/>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection
