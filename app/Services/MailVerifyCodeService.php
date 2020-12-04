@@ -9,6 +9,7 @@
 namespace App\Services;
 
 use App\Mail\MailVerifyCode;
+use App\Models\MailCode;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 
@@ -133,6 +134,7 @@ class MailVerifyCodeService
     /**
      * 发送验证码
      * @return array
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function send()
     {

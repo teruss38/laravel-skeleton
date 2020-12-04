@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 
 /**
  * 前台文章模型
@@ -36,25 +36,6 @@ class ArticleController extends Controller
         return view('article.index', [
             'items' => $items,
             'categories' => $categories,
-        ]);
-    }
-
-    public function category($slug)
-    {
-
-    }
-
-    /**
-     * 文章Tag页
-     * @param Tag $tag
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function tag(Tag $tag)
-    {
-        $items = $tag->articles()->with(['user', 'tags'])->paginate(15);
-        return view('article.tag', [
-            'items' => $items,
-            'tag' => $tag
         ]);
     }
 
@@ -89,22 +70,6 @@ class ArticleController extends Controller
         }
         $this->flash()->error('文章发布失败，请稍后再试!');
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified article.
-     *
-     * @param \App\Models\Article $article
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function show(Article $article)
-    {
-        /*查看数+1*/
-        $article->increment('views');
-        return view('article.show', [
-            'article' => $article
-        ]);
     }
 
     /**

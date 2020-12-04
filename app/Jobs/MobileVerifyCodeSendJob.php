@@ -18,7 +18,7 @@ use Larva\Sms\BaseMessage;
 use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
 
 /**
- * 短信发送任务
+ * 短信验证码发送任务
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
