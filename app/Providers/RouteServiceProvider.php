@@ -47,6 +47,13 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            if (settings('system.mobile_domain', false)) {
+                Route::domain(settings('system.mobile_domain'))
+                    ->middleware('web')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/mobile.php'));
+            }
+
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)

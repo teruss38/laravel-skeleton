@@ -29,6 +29,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedTinyInteger('status')->comment('状态');
             $table->json('metas')->nullable()->comment('元数据');
 
+            $table->timestamp('pub_date')->nullable()->comment('发布时间');
             $table->timestamps();
             $table->softDeletes();
 

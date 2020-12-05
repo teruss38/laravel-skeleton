@@ -146,8 +146,8 @@ class ArticleController extends AdminController
                 $form->showFooter();
                 $form->tab('基本信息', function (Form\BlockForm $form) {
                     $form->hidden('user_id');
-                    $form->text('title', '标题')->required()->rules('string|max:40|min:5|text_censor')->placeholder('请输入文字标题（5-30个汉字）');
-                    $form->editor('detail.content', '内容')->required()->rules('string|text_censor')->placeholder('请输入内容正文');
+                    $form->text('title', '标题')->required()->rules('string|max:40|min:5|text_censor')->placeholder('内容标题（5-30个中英文字符）。');
+                    $form->editor('detail.content', '内容')->required()->rules('string|text_censor|max:20000')->placeholder('内容正文,限制20000个中英文字符内。');
 
                     $default_extra_operation = ['extract_summary_automatically_from_content'];
                     if (settings('system.download_remote_pictures')) {
