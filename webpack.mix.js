@@ -15,6 +15,10 @@ if (mix.inProduction()) {
     mix.version();
     mix.disableNotifications();
 }
+
+
+mix.copyDirectory('resources/img', 'public/img');
+
 mix.js('resources/js/app.js', 'public/js')
-    .extract(['vue'])
+    .extract(['jquery', 'vue', 'vuex'])
     .sass('resources/sass/app.scss', 'public/css');

@@ -2,6 +2,7 @@
 $body-bg: #f8fafc;
 $body-color: #34495e;
 
+
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-family-base: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
@@ -9,6 +10,7 @@ $font-size-base: 0.85rem;
 $line-height-base: 1.6;
 
 // Colors
+$white:    #fff;
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
@@ -19,3 +21,19 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+$black:    #000;
+
+$h1-font-size: $font-size-base * 2.15;
+$h2-font-size: $font-size-base * 1.95;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+// Breadcrumbs
+$breadcrumb-bg: none;
+$breadcrumb-divider: quote(">");
+$custom-file-text: (
+    en: "Browse",
+    es: "Elegir",
+    zh-CN:"浏览",
+);

@@ -25,6 +25,21 @@
                 <form class="navbar-form d-none d-lg-flex mr-2 active" action="/search" method="GET">
                     <input type="text" name="q" class="form-control" value="" placeholder="搜索"></input>
                 </form>
+
+                <li class="nav-item dropdown" style="display: none;" v-show="!guest">
+                    <button class="btn btn-secondary" type="button" id="dropdownAddButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-plus" aria-hidden="true"></i> 发布
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAddButton">
+                        <a class="dropdown-item" href="#">
+                            快讯
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            文章
+                        </a>
+                    </div>
+                </li>
+
                 <!-- Authentication Links -->
                 <li class="nav-item" v-show="guest">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -39,11 +54,12 @@
                     <a href="{{ route('user.notifications') }}" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
                 <li class="nav-item" v-show="!guest">
-                    <a href="{{ route('user.messages') }}" class="nav-link"><i class="el-icon-message"></i></a>
+                    <a href="{{ route('user.messages') }}" class="nav-link"><i class="fa fa-envelope"></i></a>
                 </li>
 
                 <li class="nav-item dropdown" style="display: none;" v-show="!guest">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="javascript:" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="avatar-20" v-bind:alt="username" v-bind:src="avatar">
                         <span v-text="username"></span>
@@ -52,7 +68,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();" data-no-instant>
                             {{ __('Logout') }}
                         </a>
 

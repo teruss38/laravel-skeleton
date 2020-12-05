@@ -27,7 +27,7 @@ const actions = {
     init({dispatch, commit}) {
         getInfo().then(response => {
             commit('SET_INFO', response);
-            if (response.isLogin) {
+            if (response.isLogin === true) {
                 dispatch('getProfile');
             }
         });

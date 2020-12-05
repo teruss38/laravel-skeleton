@@ -9,6 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import store from './store'
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -43,6 +44,7 @@ const app = new Vue({
         },
     },
     mounted() {
+        this.$store.dispatch('app/init');
         this.$store.dispatch('user/init');
     }
 });

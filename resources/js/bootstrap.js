@@ -11,6 +11,18 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    /*全局启用bootstrap tooltip*/
+    window.jQuery('[data-toggle="tooltip"]').tooltip();
+
+    /* 防止表单重复刷新 */
+    window.jQuery("form").submit(function () {
+        let sub = window.jQuery(":submit", this);
+        sub.attr("disabled", "disabled");
+        setTimeout(function () {
+            sub.removeAttr('disabled');
+        }, 1000);
+    });
+
 } catch (e) {}
 
 /**
@@ -23,7 +35,7 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-require('instant.page');
+require('./instantpage');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
