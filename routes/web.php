@@ -17,8 +17,8 @@ Route::get('/', [\App\Http\Controllers\MainController::class, 'index']);
 Route::get('captcha', \App\Http\Controllers\CaptchaController::class)->name('captcha');
 
 Illuminate\Support\Facades\Auth::routes(['verify' => true]);
-Route::get('register/phone', [\App\Http\Controllers\Auth\RegisterController::class, 'showPhoneRegistrationForm'])->name('mobile.register');
-Route::post('register/phone', [\App\Http\Controllers\Auth\RegisterController::class, 'phoneRegister'])->name('mobile.register.store');
+Route::get('register/mobile', [\App\Http\Controllers\Auth\RegisterController::class, 'showMobileRegistrationForm'])->name('mobile.register');
+Route::post('register/mobile', [\App\Http\Controllers\Auth\RegisterController::class, 'mobileRegister'])->name('mobile.register.store');
 
 //社交账户登录
 Route::get('auth/social/{provider}', [\App\Http\Controllers\Auth\SocialController::class, 'redirectToProvider']);
