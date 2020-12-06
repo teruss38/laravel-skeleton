@@ -11,6 +11,7 @@ namespace App\Models;
 use Dcat\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -38,6 +39,8 @@ class Category extends Model implements Sortable
     use ModelTree;
     use Traits\HasDateTimeFormatter;
     use SoftDeletes;
+
+    const CACHE_TAG = 'categories:';
 
     /**
      * The table associated with the model.
@@ -153,6 +156,27 @@ class Category extends Model implements Sortable
             return $image;
         }
         return asset('img/img_invalid.png');
+    }
+
+    /**
+     * 删除缓存
+     * @param int $id
+     */
+    public static function forgetCache($id)
+    {
+        Cache::forget(static::CACHE_TAG . $id);
+    }
+
+    /**
+     * 通过ID获取内容
+     * @param int $id
+     * @return Category
+     */
+    public static function findById($id): Category
+    {
+        return Cache::rememberForever(static::CACHE_TAG . $id, function () use ($id) {
+            return static::query()->find($id);
+        });
     }
 
     /**

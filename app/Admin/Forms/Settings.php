@@ -29,10 +29,10 @@ class Settings extends Form
             $this->textarea('system.description', '网站描述')->required()->rules('required|string|min:5')->placeholder('请输入网站标题（一般不超过200个字符）');
             $this->logo('system.logo', '网站Logo')->rules('file|image')->uniqueName()->autoUpload();
             $this->text('system.mobile_domain', '手机站域名')->rules('nullable|string|min:5')->placeholder('wap.ex.com');
-            $this->text('system.icp_record', 'ICP备案')->rules('nullable|string');
-            $this->text('system.police_record', '公安备案')->rules('nullable|string');
-            $this->email('system.support_email', '服务邮箱')->rules('nullable|email');
-            $this->email('system.lawyer_email', '法律邮箱')->rules('nullable|email');
+            $this->text('system.icp_record', 'ICP备案')->rules('nullable|string')->placeholder('ICP备XXXX号');
+            $this->text('system.police_record', '公安备案')->rules('nullable|string')->placeholder('公安备XXXX号');
+            $this->email('system.support_email', '服务邮箱')->rules('nullable|email')->placeholder('support@xxx.com');
+            $this->email('system.lawyer_email', '法律邮箱')->rules('nullable|email')->placeholder('lawyer@xxx.com');
         });
         $this->tab('系统设置', function () {
             $this->switch('system.download_remote_pictures', '下载远程图片');

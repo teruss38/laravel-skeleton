@@ -30,6 +30,7 @@ use Illuminate\Support\Str;
  * @property int $collection_count 收藏次数
  * @property array $metas Meta信息
  * @property array $extra 扩展信息
+ * @property \Illuminate\Support\Carbon $pub_date 发布时间
  * @property \Illuminate\Support\Carbon $created_at 创建时间
  * @property \Illuminate\Support\Carbon $updated_at 更新时间
  * @property Tag[] $tags
@@ -54,6 +55,8 @@ class Article extends Model
     use Traits\HasDateTimeFormatter;
     use SoftDeletes;
 
+    const CACHE_TAG = 'articles:';
+
     const STATUS_UNAPPROVED = 0b0;//待审核
     const STATUS_APPROVED = 0b1;//已审核
     const STATUS_REJECTED = 0b10;//拒绝
@@ -71,7 +74,7 @@ class Article extends Model
      */
     public $fillable = [
         'user_id', 'category_id', 'title', 'thumb_path', 'status', 'description', 'order', 'tag_values',
-        'metas'
+        'metas', 'pub_date'
     ];
 
     /**
@@ -124,6 +127,7 @@ class Article extends Model
     protected $dates = [
         'created_at',
         'updated_at',
+        'pub_date'
     ];
 
     /**
@@ -251,6 +255,7 @@ class Article extends Model
     public function setApproved()
     {
         $this->status = static::STATUS_APPROVED;
+        $this->pub_date = now();
         $this->saveQuietly();
     }
 
@@ -290,6 +295,29 @@ class Article extends Model
     }
 
     /**
+     * 删除缓存
+     * @param int $id
+     */
+    public static function forgetCache($id)
+    {
+        Cache::forget(static::CACHE_TAG . $id);
+        Cache::forget(static::CACHE_TAG . 'latest');
+        Cache::forget(static::CACHE_TAG . 'total');
+    }
+
+    /**
+     * 通过ID获取内容
+     * @param int $id
+     * @return Article
+     */
+    public static function findById($id): Article
+    {
+        return Cache::rememberForever(static::CACHE_TAG . $id, function () use ($id) {
+            return static::query()->find($id);
+        });
+    }
+
+    /**
      * 获取最新的10条资讯
      * @param int $limit
      * @param int $cacheMinutes
@@ -297,11 +325,11 @@ class Article extends Model
      */
     public static function latest($limit = 10, $cacheMinutes = 15)
     {
-        $ids = Cache::store('file')->remember('articles:latest:ids', now()->addMinutes($cacheMinutes), function () use ($limit) {
+        $ids = Cache::remember(static::CACHE_TAG . 'latest', now()->addMinutes($cacheMinutes), function () use ($limit) {
             return static::approved()->orderByDesc('id')->limit($limit)->pluck('id');
         });
         return $ids->map(function ($id) {
-            return static::find($id);
+            return static::findById($id);
         });
     }
 
@@ -312,7 +340,7 @@ class Article extends Model
      */
     public static function getTotal($cacheMinutes = 60)
     {
-        return Cache::remember('articles:total', now()->addMinutes($cacheMinutes), function () {
+        return Cache::remember(static::CACHE_TAG . 'total', now()->addMinutes($cacheMinutes), function () {
             return static::query()->count();
         });
     }

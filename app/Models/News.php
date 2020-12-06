@@ -31,6 +31,7 @@ class News extends Model
     use Traits\HasDateTimeFormatter;
 
     const UPDATED_AT = null;
+    const CACHE_TAG = 'news:';
 
     /**
      * The table associated with the model.
@@ -119,27 +120,52 @@ class News extends Model
     }
 
     /**
+     * 删除缓存
+     * @param int $id
+     */
+    public static function forgetCache($id)
+    {
+        Cache::forget(static::CACHE_TAG . $id);
+        Cache::forget(static::CACHE_TAG . 'latest');
+        Cache::forget(static::CACHE_TAG . 'total');
+    }
+
+    /**
+     * 通过ID获取内容
+     * @param int $id
+     * @return News
+     */
+    public static function findById($id): News
+    {
+        return Cache::rememberForever(static::CACHE_TAG . $id, function () use ($id) {
+            return static::query()->find($id);
+        });
+    }
+
+    /**
      * 获取最新的10条
      * @param int $limit
      * @param int $cacheMinutes
-     * @return mixed
+     * @return News[]
      */
     public static function latest($limit = 10, $cacheMinutes = 15)
     {
-        $ids = Cache::remember('news:latest:ids', now()->addMinutes($cacheMinutes), function () use ($limit) {
+        $ids = Cache::remember(static::CACHE_TAG . 'latest', now()->addMinutes($cacheMinutes), function () use ($limit) {
             return static::query()->orderByDesc('id')->limit($limit)->pluck('id');
         });
-        return static::query()->whereIn('id', $ids)->get();
+        return $ids->map(function ($id) {
+            return static::findById($id);
+        });
     }
 
     /**
      * 获取缓存的总数
      * @param int $cacheMinutes
-     * @return mixed
+     * @return int
      */
     public static function getTotal($cacheMinutes = 60)
     {
-        return Cache::remember('news:total', now()->addMinutes($cacheMinutes), function () {
+        return Cache::remember(static::CACHE_TAG . 'total', now()->addMinutes($cacheMinutes), function () {
             return static::query()->count();
         });
     }

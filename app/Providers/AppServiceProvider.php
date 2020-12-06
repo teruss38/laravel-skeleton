@@ -67,6 +67,8 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Category::observe(\App\Observers\CategoryObserver::class);//栏目
         \App\Models\Article::observe(\App\Observers\ArticleObserver::class);//文章
         \App\Models\ArticleDetail::observe(\App\Observers\ArticleDetailObserver::class);//文章详情
+        \App\Models\News::observe(\App\Observers\NewsObserver::class);//快讯
+        \App\Models\Link::observe(\App\Observers\LinkObserver::class);//友情链接
     }
 
     /**

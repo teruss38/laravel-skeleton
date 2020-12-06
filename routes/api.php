@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
  * Define the version of the interface that conforms to most of the
  * REST ful specification.
  */
+//Route::get('config', [App\Http\Controllers\Api\MainController::class, 'config']);//应用配置
 Route::post('phone-verify-code', [App\Http\Controllers\Api\MainController::class, 'phoneVerifyCode']);//短信验证码
 Route::post('mail-verify-code', [App\Http\Controllers\Api\MainController::class, 'mailVerifyCode']);//邮件验证码
 Route::get('country', [App\Http\Controllers\Api\MainController::class, 'country']);//国家列表
@@ -44,15 +45,15 @@ Route::group(['prefix' => 'v1'], function (Illuminate\Contracts\Routing\Registra
         Route::post('send-verification-mail', [App\Http\Controllers\Api\V1\UserController::class, 'sendVerificationMail']);//发送激活邮件
         Route::post('phone-reset-password', [App\Http\Controllers\Api\V1\UserController::class, 'resetPasswordByPhone']);//通过手机重置用户登录密码
         Route::get('profile', [App\Http\Controllers\Api\V1\UserController::class, 'profile']);//获取用户个人资料
-        Route::get('extra',  [App\Http\Controllers\Api\V1\UserController::class, 'extra']);//获取扩展资料
-        Route::post('verify-phone',  [App\Http\Controllers\Api\V1\UserController::class, 'verifyPhone']);//验证手机号码
+        Route::get('extra', [App\Http\Controllers\Api\V1\UserController::class, 'extra']);//获取扩展资料
+        Route::post('verify-phone', [App\Http\Controllers\Api\V1\UserController::class, 'verifyPhone']);//验证手机号码
         Route::post('email', [App\Http\Controllers\Api\V1\UserController::class, 'modifyEMail']);//修改邮箱
         Route::post('phone', [App\Http\Controllers\Api\V1\UserController::class, 'modifyPhone']);//修改手机号码
         Route::post('profile', [App\Http\Controllers\Api\V1\UserController::class, 'modifyProfile']);//修改用户个人资料
         Route::post('avatar', [App\Http\Controllers\Api\V1\UserController::class, 'modifyAvatar']);//修改头像
         Route::post('password', [App\Http\Controllers\Api\V1\UserController::class, 'modifyPassword']);//修改密码
         Route::get('search', [App\Http\Controllers\Api\V1\UserController::class, 'search']);//搜索用户
-        Route::delete('',  [App\Http\Controllers\Api\V1\UserController::class, 'destroy']);//注销并删除自己的账户
+        Route::delete('', [App\Http\Controllers\Api\V1\UserController::class, 'destroy']);//注销并删除自己的账户
         Route::get('login-histories', [App\Http\Controllers\Api\V1\UserController::class, 'loginHistories']);//获取登录历史
 
         /**

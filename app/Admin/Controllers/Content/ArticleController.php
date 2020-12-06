@@ -77,7 +77,7 @@ class ArticleController extends AdminController
                 $grid->column('order', '排序权重')->editable();
             }
             $grid->column('status', '状态')->using(Article::getStatusLabels())->dot(Article::getStatusDots(), 'info');
-            $grid->column('created_at', '发布时间')->sortable();
+            $grid->column('pub_date', '发布时间')->sortable();
             $grid->paginate(10);
 
             //待审核
@@ -125,6 +125,7 @@ class ArticleController extends AdminController
             $show->field('order', '排序权重');
             $show->field('created_at');
             $show->field('updated_at');
+            $show->field('pub_date');
             $show->field('detail.content', '文章内容')->unescape();
 
             $show->tools(function (Show\Tools $tools) {

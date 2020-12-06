@@ -37,6 +37,7 @@ class Link extends Model
 {
     use Traits\HasDateTimeFormatter;
 
+    const CACHE_TAG = 'links:';
     //版本约定
     const TYPE_SPONSOR = 1;//赞助商
     const TYPE_PARTNER = 2;//合作伙伴
@@ -143,6 +144,32 @@ class Link extends Model
     }
 
     /**
+     * 通过ID获取内容
+     * @param int $id
+     * @return Link
+     */
+    public static function findById($id): Link
+    {
+        return Cache::rememberForever(static::CACHE_TAG . $id, function () use ($id) {
+            return Link::query()->find($id);
+        });
+    }
+
+    /**
+     * 删除缓存
+     * @param int $id
+     * @return void
+     */
+    public static function forgetCache($id)
+    {
+        Cache::forget(static::CACHE_TAG . $id);
+        Cache::forget(static::CACHE_TAG . 'home:ids');
+        Cache::forget(static::CACHE_TAG . 'inner:ids');
+        Cache::forget(static::CACHE_TAG . 'sponsor:ids');
+        Cache::forget(static::CACHE_TAG . 'partner:ids');
+    }
+
+    /**
      * 获取赞助商链接
      * @param int $limit
      * @param int $cacheMinutes 缓存时间
@@ -150,10 +177,12 @@ class Link extends Model
      */
     public static function sponsor($limit = 10, $cacheMinutes = 60)
     {
-        $ids = Cache::store('file')->remember('links:sponsor:ids.' . $limit, Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
+        $ids = Cache::store('file')->remember(static::CACHE_TAG . 'sponsor:ids', Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
             return Link::active()->type(static::TYPE_SPONSOR)->orderByDesc('id')->limit($limit)->pluck('id');
         });
-        return static::query()->whereIn('id', $ids)->get();
+        return $ids->map(function ($id) {
+            return static::findById($id);
+        });
     }
 
     /**
@@ -164,10 +193,12 @@ class Link extends Model
      */
     public static function partner($limit = 10, $cacheMinutes = 60)
     {
-        $ids = Cache::store('file')->remember('links:partner:ids.' . $limit, Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
+        $ids = Cache::store('file')->remember(static::CACHE_TAG . 'partner:ids', Carbon::now()->addMinutes($cacheMinutes), function () use ($limit) {
             return Link::active()->type(static::TYPE_PARTNER)->orderByDesc('id')->limit($limit)->pluck('id');
         });
-        return static::query()->whereIn('id', $ids)->get();
+        return $ids->map(function ($id) {
+            return static::findById($id);
+        });
     }
 
     /**
@@ -177,10 +208,12 @@ class Link extends Model
      */
     public static function home($cacheMinutes = 60)
     {
-        $ids = Cache::store('file')->remember('links:home:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
+        $ids = Cache::store('file')->remember(static::CACHE_TAG . 'home:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
             return Link::active()->whereIn('type', [static::TYPE_HOME, static::TYPE_ALL])->orderByDesc('id')->pluck('id');
         });
-        return static::query()->whereIn('id', $ids)->get();
+        return $ids->map(function ($id) {
+            return static::findById($id);
+        });
     }
 
     /**
@@ -190,9 +223,11 @@ class Link extends Model
      */
     public static function inner($cacheMinutes = 60)
     {
-        $ids = Cache::store('file')->remember('links:inner:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
+        $ids = Cache::store('file')->remember(static::CACHE_TAG . 'inner:ids', Carbon::now()->addMinutes($cacheMinutes), function () {
             return Link::active()->whereIn('type', [static::TYPE_INNER, static::TYPE_ALL])->orderByDesc('id')->pluck('id');
         });
-        return static::query()->whereIn('id', $ids)->get();
+        return $ids->map(function ($id) {
+            return static::findById($id);
+        });
     }
 }

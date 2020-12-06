@@ -36,6 +36,32 @@ class ArticleObserver
         } catch (CensorNotPassedException $e) {
             $article->status = Article::STATUS_REJECTED;
         }
+        if ($article->status == Article::STATUS_APPROVED) {
+            $article->pub_date = now();
+        }
+    }
+
+    /**
+     * 处理「更新」事件
+     *
+     * @param \App\Models\Article $article
+     * @return void
+     */
+    public function updated(Article $article)
+    {
+        Article::forgetCache($article->id);
+    }
+
+    /**
+     * 处理「删除」事件
+     *
+     * @param \App\Models\Article $article
+     * @return void
+     * @throws \Exception
+     */
+    public function deleted(Article $article)
+    {
+        Article::forgetCache($article->id);
     }
 
     /**
@@ -63,5 +89,6 @@ class ArticleObserver
             }
             $article->detail->delete();
         }
+        Article::forgetCache($article->id);
     }
 }
