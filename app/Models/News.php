@@ -23,14 +23,19 @@ use Illuminate\Support\Facades\Cache;
  * @property string from_url
  * @property string $pub_date 发表时间
  * @property \Illuminate\Support\Carbon $created_at 创建时间
+ * @property string $tag_values 标签
+ * @property Tag[] $tags
+ * @property-read string $link Url
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class News extends Model
 {
     use Traits\HasDateTimeFormatter;
+    //use Traits\HasTaggable;
 
     const UPDATED_AT = null;
+
     const CACHE_TAG = 'news:';
 
     /**

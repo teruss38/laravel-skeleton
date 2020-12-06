@@ -16,10 +16,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 更新快讯关键词
+ * 更新快讯关键词和Tags
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class UpdateKeywordJob implements ShouldQueue
+class ExtractKeywordJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -62,6 +62,9 @@ class UpdateKeywordJob implements ShouldQueue
         if (!empty($words) && is_array($words)) {
             $this->news->keywords = implode(',', $words);
             $this->news->saveQuietly();
+            if (empty($this->news->tag_values)) {
+                $this->news->addTags($words);
+            }
         }
     }
 }

@@ -17,6 +17,20 @@ use App\Models\News;
 class NewsObserver
 {
     /**
+     * Handle the "created" event.
+     *
+     * @param News $news
+     * @return void
+     */
+    public function created(News $news)
+    {
+        if (empty($news->keywords)) {
+            \App\Jobs\News\ExtractKeywordJob::dispatch($news);
+        }
+
+    }
+
+    /**
      * 处理「saved」事件
      * @param News $news
      * @return void
