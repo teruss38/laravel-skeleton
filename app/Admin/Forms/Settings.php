@@ -35,6 +35,7 @@ class Settings extends Form
             $this->email('system.lawyer_email', '法律邮箱')->rules('nullable|email')->placeholder('lawyer@xxx.com');
         });
         $this->tab('系统设置', function () {
+            $this->text('system.coding_token', 'Coding自动部署Token')->rules('nullable|string');
             $this->switch('system.download_remote_pictures', '下载远程图片');
             $this->switch('system.local_censor', '启用本地文本智能审核');
             $this->switch('system.tencent_censor', '启用腾讯云智能审核')->help('该功能需要安装 larva/laravel-tencent-cloud。')->attribute('disabled', !class_exists('\Larva\TencentCloud\TencentCloud'));

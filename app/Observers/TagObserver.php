@@ -8,10 +8,8 @@
 
 namespace App\Observers;
 
-use App\Models\Article;
 use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
-
 
 /**
  * 标签观察者

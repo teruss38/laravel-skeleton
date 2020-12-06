@@ -5,6 +5,10 @@ namespace App\Policies;
 use App\Models\Article;
 use App\Models\User;
 
+/**
+ * 文章策略
+ * @author Tongle Xu <xutongle@gmail.com>
+ */
 class ArticlePolicy extends Policy
 {
 

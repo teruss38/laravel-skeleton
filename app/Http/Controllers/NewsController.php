@@ -22,7 +22,6 @@ class NewsController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
-        $this->authorizeResource(News::class, 'news');
     }
 
     /**
@@ -35,6 +34,22 @@ class NewsController extends Controller
         $items = News::query()->orderByDesc('order')->orderByDesc('id')->paginate(15);
         return view('news.index', [
             'items' => $items
+        ]);
+    }
+
+    /**
+     * Display the specified news.
+     *
+     * @param \App\Models\News $news
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function show(News $news)
+    {
+        /*查看数+1*/
+        $news->increment('views');
+        return view('news.show', [
+            'news' => $news
         ]);
     }
 

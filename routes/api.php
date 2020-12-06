@@ -26,6 +26,7 @@ Route::post('mail-verify-code', [App\Http\Controllers\Api\MainController::class,
 Route::get('country', [App\Http\Controllers\Api\MainController::class, 'country']);//国家列表
 Route::post('idcard', [App\Http\Controllers\Api\MainController::class, 'idCard']);//身份证号码归属地
 Route::any('dns-record', [App\Http\Controllers\Api\MainController::class, 'dnsRecord']);//远程DNS解析
+Route::post('coding', App\Http\Controllers\Api\CodingController::class);//Coding接口
 
 /**
  * RESTFul API version 1.
