@@ -18,9 +18,6 @@ update:	##@update this application
 	php artisan queue:restart
 	$(MAKE) optimize
 
-sitemap:	##@make this application sitemap
-	php artisan generate:sitemap
-
 reload:	##@reload this application
 	rm -f .env
 	rm -rf vendor/
