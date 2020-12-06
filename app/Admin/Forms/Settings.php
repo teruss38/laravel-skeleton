@@ -70,7 +70,7 @@ class Settings extends Form
 
         $this->tab('其他设置', function () {
             $this->text('system.adsense_client', 'Google Adsense 发布商ID')->rules('nullable|string')->placeholder('ca-pub-1234567890');
-            $this->text('system.bd_token', '百度推送Token')->rules('nullable|string');
+            $this->text('system.baidu_site_token', '百度推送Token')->rules('nullable|string');
             $this->text('system.bing_api_key', 'Bing推送Token')->rules('nullable|string');
         });
     }
