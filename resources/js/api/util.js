@@ -1,4 +1,5 @@
 import request from './request'
+
 /**
  * 获取国家列表
  * @returns {AxiosPromise}
@@ -48,8 +49,19 @@ const getEmailVerifyCode = function (email, ticket, randstr) {
     });
 };
 
+/**
+ * 获取App 配置
+ * @returns {AxiosPromise}
+ */
+const getAppConfig = function () {
+    return request({
+        method: 'get',
+        url: '/api/config'
+    });
+};
 export {
     getCountry,
     getPhoneVerifyCode,
-    getEmailVerifyCode
+    getEmailVerifyCode,
+    getAppConfig
 }

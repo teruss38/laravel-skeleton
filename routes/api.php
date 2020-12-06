@@ -27,6 +27,7 @@ Route::get('country', [App\Http\Controllers\Api\MainController::class, 'country'
 Route::post('idcard', [App\Http\Controllers\Api\MainController::class, 'idCard']);//身份证号码归属地
 Route::any('dns-record', [App\Http\Controllers\Api\MainController::class, 'dnsRecord']);//远程DNS解析
 Route::post('coding', App\Http\Controllers\Api\CodingController::class)->name('coding_webhook');//Coding接口
+Route::get('config', [App\Http\Controllers\Api\MainController::class, 'config']);//App配置
 
 /**
  * RESTFul API version 1.

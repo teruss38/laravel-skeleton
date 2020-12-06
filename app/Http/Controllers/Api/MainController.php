@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\ConfigResource;
 use Illuminate\Http\Request;
 
 /**
@@ -26,7 +27,17 @@ class MainController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except([
-            'mobileVerifyCode', 'mailVerifyCode', 'country', 'idCard', 'dnsRecord',
+            'config', 'mobileVerifyCode', 'mailVerifyCode', 'country', 'idCard', 'dnsRecord',
+        ]);
+    }
+
+    /**
+     * @return ConfigResource
+     */
+    public function config()
+    {
+        return new ConfigResource([
+            'adsense_client' => settings('system.adsense_client'),
         ]);
     }
 
