@@ -68,6 +68,10 @@ class ArticleDetailObserver
         $articleDetail->saveQuietly();
         $articleDetail->article->saveQuietly();
 
+        if (empty($articleDetail->article->tag_values)) {
+            \App\Jobs\Article\ExtractKeywordJob::dispatch($articleDetail->article);
+        }
+
         //推送
         if ($articleDetail->article->status == Article::STATUS_APPROVED && !config('app.debug')) {
             if ($articleDetail->extra['bd_daily']) {
