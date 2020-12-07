@@ -18,16 +18,11 @@ use Illuminate\Support\Facades\Http;
  */
 class TicketValidator
 {
-
     public function validate($attribute, $value, $parameters, $validator)
     {
-        if (!isset($parameters[0])) {
-            $parameters[0] = 'verify_code';
-        }
-        $config = config('services.captcha.' . $parameters[0]);
         $query = [
-            'aid' => $config['aid'],
-            'AppSecretKey' => $config['secret'],
+            'aid' => settings('system.captcha_aid'),
+            'AppSecretKey' => settings('system.captcha_secret'),
             'Ticket' => $value,
             'Randstr' => request('randstr'),
             'UserIP' => request()->ip(),

@@ -51,13 +51,15 @@ class Settings extends Form
             $this->switch('user.enable_password_recovery', '启用找回密码');
             $this->switch('user.enable_welcome_email', '发送注册欢迎邮件');
             $this->switch('user.enable_login_email', '发送登录通知邮件');
-            $this->switch('user.enable_register_ticket', '启用注册滑动解锁')->help('该功能依赖<a href="http://007.qq.com" target="_blank">腾讯防水墙</a>。');
-            $this->switch('user.enable_login_ticket', '启用登录滑动解锁')->help('该功能依赖<a href="http://007.qq.com" target="_blank">腾讯防水墙</a>。');
+            $this->switch('user.enable_register_ticket', '启用注册滑动解锁');
+            $this->switch('user.enable_login_ticket', '启用登录滑动解锁');
+            $this->text('system.captcha_aid', '滑动解锁Aid')->rules('nullable|string');
+            $this->text('system.captcha_secret', '滑动解锁Secret')->rules('nullable|string');
         });
 
         $this->tab('其他设置', function () {
-            $this->text('system.baidu_site_token', '百度推送Token')->rules('nullable|string')->help('该功能需要安装 larva/laravel-baidu-push。');
-            $this->text('system.bing_api_key', 'Bing推送Token')->rules('nullable|string')->help('该功能需要安装 larva/laravel-bing-push。');
+            $this->text('system.baidu_site_token', '百度推送Token')->rules('nullable|string');
+            $this->text('system.bing_api_key', 'Bing推送Token')->rules('nullable|string');
         });
     }
 
