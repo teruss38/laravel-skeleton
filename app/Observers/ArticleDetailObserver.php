@@ -69,7 +69,7 @@ class ArticleDetailObserver
         $articleDetail->article->saveQuietly();
 
         if (empty($articleDetail->article->tag_values)) {
-            \App\Jobs\Article\ExtractKeywordJob::dispatch($articleDetail->article);
+            //\App\Jobs\Article\ExtractKeywordJob::dispatch($articleDetail->article);
         }
 
         //推送

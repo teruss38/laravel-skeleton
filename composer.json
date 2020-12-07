@@ -22,7 +22,6 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
         "laravelium/sitemap": "^8.0",
-        "larva/laravel-bce": "^2.0",
         "larva/laravel-censor": "^1.0",
         "larva/laravel-flash": "^1.0",
         "larva/laravel-passport-sms": "^1.2",
