@@ -1,16 +1,13 @@
 // Body
-$body-bg: #f8fafc;
-$body-color: #34495e;
-
+$body-bg: #f6f6f6;
+$body-color: #121212;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-family-base: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-$font-size-base: 0.85rem;
-$line-height-base: 1.6;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+$font-size-base: 0.9375rem;
 
 // Colors
-$white:    #fff;
+$white: #fff;
 $blue: #3490dc;
 $indigo: #6574cd;
 $purple: #9561e2;
@@ -21,7 +18,7 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
-$black:    #000;
+$black: #000;
 
 $h1-font-size: $font-size-base * 2.15;
 $h2-font-size: $font-size-base * 1.95;
@@ -29,6 +26,10 @@ $h3-font-size: $font-size-base * 1.75;
 $h4-font-size: $font-size-base * 1.5;
 $h5-font-size: $font-size-base * 1.25;
 $h6-font-size: $font-size-base;
+
+// Links
+$link-hover-decoration: none;
+
 // Breadcrumbs
 $breadcrumb-bg: none;
 $breadcrumb-divider: quote(">");

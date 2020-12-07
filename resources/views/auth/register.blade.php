@@ -81,7 +81,9 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <input type="hidden" name="ticket" id="ticket" value="">
+                                <input type="hidden" name="randstr" id="randstr" value="">
+                                <button @if (config('app.env') != 'testing' && settings('user.enable_login_ticket')) type="button" @else type="submit" @endif class="btn btn-primary" id="TencentCaptcha" data-appid="{{settings('system.captcha_aid')}}" data-cbfn="captchaCallback">
                                     {{ __('Register') }}
                                 </button>
 
@@ -98,8 +100,6 @@
                                 @endif
                             </div>
                         </div>
-
-
                     </form>
                 </div>
             </div>
@@ -107,3 +107,19 @@
     </div>
 </div>
 @endsection
+
+@push('footer')
+    @if (config('app.env') != 'testing' && settings('user.enable_login_ticket'))
+    <!-- 腾讯防水墙 -->
+    <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+    <script>
+        window.captchaCallback = function(res) {
+            if (res.ret === 0) {
+                document.getElementById("ticket").value = res.ticket;
+                document.getElementById("randstr").value = res.randstr;
+                document.getElementById('register_form').submit();
+            }
+        }
+    </script>
+    @endif
+@endpush
