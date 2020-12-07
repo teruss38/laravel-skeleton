@@ -33,6 +33,7 @@ class NewsObserver
             \App\Jobs\News\ExtractKeywordJob::dispatch($news)->delay(now()->addSeconds(20));
         }
         News::forgetCache($news->id);
+        $news->notifySearchEngines();
     }
 
     /**

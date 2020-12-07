@@ -77,15 +77,6 @@ class ArticleDetailObserver
         if (empty($articleDetail->article->metas['keywords'])) {
             \App\Jobs\Article\ExtractKeywordJob::dispatch($articleDetail->article)->delay(now()->addSeconds(20));
         }
-
-        //推送
-        if ($articleDetail->article->status == Article::STATUS_APPROVED && !config('app.debug')) {
-            if ($articleDetail->extra['bd_daily']) {
-                //BaiduPush::daily($articleDetail->article->link);//推快速收录
-            } else {
-                //BaiduPush::push($articleDetail->article->link);//推普通收录
-            }
-            //BingPush::push($articleDetail->article->link);//推普通收录
-        }
+        $articleDetail->article->notifySearchEngines();
     }
 }

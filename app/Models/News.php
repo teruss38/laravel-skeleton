@@ -124,6 +124,17 @@ class News extends Model
     }
 
     /**
+     * 通知搜索引擎
+     */
+    public function notifySearchEngines()
+    {
+        //推送
+        if (!config('app.debug')) {
+            \Larva\Baidu\Push\BaiduPush::push($this->link);//推普通收录
+            \Larva\Bing\Push\BingPush::push($this->link);//推普通收录
+        }
+    }
+    /**
      * 删除缓存
      * @param int $id
      */

@@ -257,7 +257,23 @@ class Article extends Model
         $this->status = static::STATUS_APPROVED;
         $this->pub_date = now();
         $this->saveQuietly();
+        $this->notifySearchEngines();
+    }
 
+    /**
+     * 通知搜索引擎
+     */
+    public function notifySearchEngines()
+    {
+        //推送
+        if ($this->status == Article::STATUS_APPROVED && !config('app.debug')) {
+            if ($this->extra['bd_daily']) {
+                \Larva\Baidu\Push\BaiduPush::daily($this->link);//推快速收录
+            } else {
+                \Larva\Baidu\Push\BaiduPush::push($this->link);//推普通收录
+            }
+            \Larva\Bing\Push\BingPush::push($this->link);//推普通收录
+        }
     }
 
     /**

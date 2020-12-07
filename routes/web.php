@@ -67,19 +67,8 @@ Route::group(['prefix' => 'ajax'], function () {
 //    Route::get('search/query', [App\Http\Controllers\SearchController::class, 'query'])->name('query');
 //});
 
-/**
- * 文章
- */
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
 Route::resource('news', App\Http\Controllers\NewsController::class);
-
-//Route::group(['prefix' => 'articles', 'as' => 'articles.'], function () {
-//    Route::get('', [App\Http\Controllers\ArticleController::class, 'index'])->name('index');//文章首页
-//    Route::get('category/{id}', [App\Http\Controllers\ArticleController::class, 'category'])->name('category');
-//    Route::get('{article}.html', [App\Http\Controllers\ArticleController::class, 'show'])->name('show');
-//    Route::get('create', [App\Http\Controllers\ArticleController::class, 'create'])->name('create');
-//    Route::post('create', [App\Http\Controllers\ArticleController::class, 'store'])->name('store');
-//});
 
 /**
  * 标签
