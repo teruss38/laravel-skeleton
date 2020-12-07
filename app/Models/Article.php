@@ -257,6 +257,7 @@ class Article extends Model
         $this->status = static::STATUS_APPROVED;
         $this->pub_date = now();
         $this->saveQuietly();
+
     }
 
     /**

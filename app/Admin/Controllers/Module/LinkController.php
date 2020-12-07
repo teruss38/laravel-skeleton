@@ -15,11 +15,16 @@ use Dcat\Admin\Grid;
 use Illuminate\Support\Carbon;
 
 /**
- * Class LinkController
+ * 友情链接
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class LinkController extends AdminController
 {
+    /**
+     * Get content title.
+     *
+     * @return string
+     */
     protected function title()
     {
         return '友情链接';

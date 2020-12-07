@@ -253,6 +253,22 @@ class AdminSeeder extends Seeder
                 'http_path' => '/module/links*',
                 'created_at' => $createdAt
             ],
+            [
+                'order' => 2,
+                'name' => '百度推送',
+                'slug' => 'module-baidu-push-management',
+                'http_method' => '',
+                'http_path' => '/module/baidu-push*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'name' => '必应推送',
+                'slug' => 'module-bing-push-management',
+                'http_method' => '',
+                'http_path' => '/module/bing-push*',
+                'created_at' => $createdAt
+            ],
         ]);
 
 //        Role::first()->permissions()->save(Permission::first());
@@ -451,6 +467,20 @@ class AdminSeeder extends Seeder
                 'title' => '友情链接管理',
                 'icon' => '',
                 'uri' => 'module/links',
+                'created_at' => $createdAt,
+            ],
+            [
+                'order' => 2,
+                'title' => '百度推送',
+                'icon' => '',
+                'uri' => 'module/baidu-push',
+                'created_at' => $createdAt,
+            ],
+            [
+                'order' => 3,
+                'title' => '必应推送',
+                'icon' => '',
+                'uri' => 'module/bing-push',
                 'created_at' => $createdAt,
             ],
         ]);

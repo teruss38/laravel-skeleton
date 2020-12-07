@@ -8,9 +8,9 @@ Admin::routes();
 
 Route::group([
     'as' => 'admin.',
-    'prefix'        => config('admin.route.prefix'),
-    'namespace'     => config('admin.route.namespace'),
-    'middleware'    => config('admin.route.middleware'),
+    'prefix' => config('admin.route.prefix'),
+    'namespace' => config('admin.route.namespace'),
+    'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index')->name('home');
@@ -40,4 +40,6 @@ Route::group([
 
     //模块
     $router->resource('module/links', 'Module\LinkController');
+    $router->resource('module/baidu-push', 'Module\BaiduPushController');
+    $router->resource('module/bing-push', 'Module\BingPushController');
 });
