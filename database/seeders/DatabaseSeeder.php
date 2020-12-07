@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingsSeeder::class);
         $this->call(PassportSeeder::class);
         $this->call(CategorySeeder::class);
-        $this->call(StopWordSeeder::class);
+        $this->call(StopWordsSeeder::class);
         $this->call(RegionSeeder::class);
 
     }
