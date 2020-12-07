@@ -68,8 +68,14 @@ class ArticleDetailObserver
         $articleDetail->saveQuietly();
         $articleDetail->article->saveQuietly();
 
+        //自动提取Tag
         if (empty($articleDetail->article->tag_values)) {
-            //\App\Jobs\Article\ExtractKeywordJob::dispatch($articleDetail->article);
+            \App\Jobs\Article\ExtractTagJob::dispatch($articleDetail->article);
+        }
+
+        //提取关键词
+        if (empty($articleDetail->article->metas['keywords'])) {
+            \App\Jobs\Article\ExtractKeywordJob::dispatch($articleDetail->article)->delay(now()->addSeconds(20));
         }
 
         //推送

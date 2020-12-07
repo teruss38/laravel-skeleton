@@ -47,7 +47,7 @@ class NewsController extends AdminController
 
             $grid->column('id', 'ID')->sortable();
             $grid->column('from', '来源')->display(function ($from) {
-                if($this->from_url){
+                if ($this->from_url) {
                     return "<a href='$this->from_url' target='_blank'>{$from}</a>";
                 }
                 return $from;
@@ -55,6 +55,7 @@ class NewsController extends AdminController
             $grid->column('title', '标题')->display(function ($title) {
                 return "<a href='$this->link' target='_blank'>{$title}</a>";
             });
+            $grid->column('keywords', '关键词');
             $grid->column('views', '查看数');
             $grid->column('created_at', '发布时间')->sortable();
             $grid->paginate(10);
@@ -90,7 +91,7 @@ class NewsController extends AdminController
     {
         return Form::make(News::query(), function (Form $form) {
             $form->text('title', '标题')->required()->rules('string|max:40|min:2|text_censor')->placeholder('请输入文字标题（一般不超过30个汉字）');
-            $form->text('keywords', 'Keywords')->rules('nullable|string|text_censor')->placeholder('请输入关键词（一般不超过100个汉字）');
+            $form->text('keywords', '关键词')->rules('nullable|string|text_censor')->placeholder('请输入关键词（一般不超过100个汉字）');
             $form->textarea('description', '摘要')->rows(3)->rules('nullable|string|text_censor')->placeholder('请输入描述（一般不超过200个汉字）');
             $form->text('from', '来源名')->rules('nullable|string|text_censor');
             $form->url('from_url', '来源网址')->rules('nullable|url|text_censor');

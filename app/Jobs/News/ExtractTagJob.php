@@ -6,9 +6,9 @@
  * @license http://www.larva.com.cn/license/
  */
 
-namespace App\Jobs\Article;
+namespace App\Jobs\News;
 
-use App\Models\Article;
+use App\Models\News;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,10 +16,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 更新文章关键词
+ * 提取Tag
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class ExtractKeywordJob implements ShouldQueue
+class ExtractTagJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -38,18 +38,18 @@ class ExtractKeywordJob implements ShouldQueue
     public $timeout = 60;
 
     /**
-     * @var Article
+     * @var \App\Models\News
      */
-    protected $article;
+    protected $news;
 
     /**
      * Create a new job instance.
      *
-     * @param Article $article
+     * @param News $news
      */
-    public function __construct(Article $article)
+    public function __construct(News $news)
     {
-        $this->article = $article;
+        $this->news = $news;
     }
 
     /**
@@ -58,16 +58,9 @@ class ExtractKeywordJob implements ShouldQueue
      */
     public function handle()
     {
-        $metas = $this->article->metas;
-        if (!empty($article->tag_values)) {
-            $metas['keywords'] = $article->tag_values;
-        } else {
-            $words = \Larva\Baidu\Cloud\Bce::get('nlp')->keywords($this->article->title, $this->article->detail->content);
-            if (!empty($words) && is_array($words)) {
-                $metas['keywords'] = implode(',', $words);
-            }
+        $words = \Larva\Baidu\Cloud\Bce::get('nlp')->keywords($this->news->title, $this->news->description);
+        if (!empty($words) && is_array($words)) {
+            $this->news->addTags($words);
         }
-        $this->article->metas = $metas;
-        $this->article->saveQuietly();
     }
 }

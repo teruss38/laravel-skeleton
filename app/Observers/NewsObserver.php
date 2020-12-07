@@ -17,26 +17,21 @@ use App\Models\News;
 class NewsObserver
 {
     /**
-     * Handle the "created" event.
-     *
-     * @param News $news
-     * @return void
-     */
-    public function created(News $news)
-    {
-        if (empty($news->keywords)) {
-            \App\Jobs\News\ExtractKeywordJob::dispatch($news);
-        }
-
-    }
-
-    /**
      * 处理「saved」事件
      * @param News $news
      * @return void
      */
     public function saved(News $news)
     {
+        //自动提取Tag
+        if (empty($news->tag_values)) {
+            \App\Jobs\News\ExtractTagJob::dispatch($news);
+        }
+
+        //提取关键词
+        if (empty($news->keywords)) {
+            \App\Jobs\News\ExtractKeywordJob::dispatch($news)->delay(now()->addSeconds(20));
+        }
         News::forgetCache($news->id);
     }
 

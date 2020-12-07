@@ -16,10 +16,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 更新文章关键词
+ * 导入Tag
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class ExtractKeywordJob implements ShouldQueue
+class ExtractTagJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -58,16 +58,9 @@ class ExtractKeywordJob implements ShouldQueue
      */
     public function handle()
     {
-        $metas = $this->article->metas;
-        if (!empty($article->tag_values)) {
-            $metas['keywords'] = $article->tag_values;
-        } else {
-            $words = \Larva\Baidu\Cloud\Bce::get('nlp')->keywords($this->article->title, $this->article->detail->content);
-            if (!empty($words) && is_array($words)) {
-                $metas['keywords'] = implode(',', $words);
-            }
+        $words = \Larva\Baidu\Cloud\Bce::get('nlp')->keywords($this->article->title, $this->article->detail->content);
+        if (!empty($words) && is_array($words)) {
+            $this->article->addTags($words);
         }
-        $this->article->metas = $metas;
-        $this->article->saveQuietly();
     }
 }

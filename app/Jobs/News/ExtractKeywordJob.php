@@ -16,7 +16,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * 更新快讯关键词和Tags
+ * 更新快讯关键词
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class ExtractKeywordJob implements ShouldQueue
@@ -58,13 +58,12 @@ class ExtractKeywordJob implements ShouldQueue
      */
     public function handle()
     {
-        $words = \Larva\Baidu\Cloud\Bce::get('nlp')->keywords($this->news->title, $this->news->description);
-        if (!empty($words) && is_array($words)) {
+        if (!empty($this->news->tag_values)) {
+            $this->news->keywords = $this->news->tag_values;
+        } else {
+            $words = \Larva\Baidu\Cloud\Bce::get('nlp')->keywords($this->news->title, $this->news->description);
             $this->news->keywords = implode(',', $words);
-            $this->news->saveQuietly();
-            if (empty($this->news->tag_values)) {
-                $this->news->addTags($words);
-            }
         }
+        $this->news->saveQuietly();
     }
 }
