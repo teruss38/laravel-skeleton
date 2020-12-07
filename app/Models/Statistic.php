@@ -20,8 +20,8 @@ class Statistic extends Model
     const TYPE_NEW_USER = 'new_user';
     const TYPE_NEW_DEVICE_ANDROID = 'new_device_android';
     const TYPE_NEW_DEVICE_IOS = 'new_device_ios';
-    const TYPE_NEW_KEYWORD = 'new_keyword';
     const TYPE_NEW_ARTICLE = 'new_article';
+    const TYPE_NEW_NEWS = 'new_news';
     const TYPE_NEW_BAIDU_PUSH = 'new_baidu_push';
     const TYPE_NEW_BING_PUSH = 'new_bing_push';
 

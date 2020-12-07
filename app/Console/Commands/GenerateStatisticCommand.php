@@ -58,9 +58,57 @@ class GenerateStatisticCommand extends Command
         try {
             $this->user();
             $this->device();
+            $this->article();
+            $this->baiduPush();
+            $this->bingPush();
+            $this->news();
             $this->info('[' . date('Y-m-d H:i:s', time()) . ']统计完成!');
         } catch (\Exception $exception) {
             $this->error('执行统计失败：' . $exception->getMessage());
+        }
+    }
+
+    /**
+     * 百度提交统计
+     */
+    public function baiduPush()
+    {
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_BAIDU_PUSH)->whereDate('date', $this->yesterday)->exists()) {
+            $quantity = \Larva\Baidu\Push\Models\BaiduPush::query()->whereDate('created_at', $this->yesterday)->count();
+            Statistic::create(['type' => Statistic::TYPE_NEW_BAIDU_PUSH, 'date' => $this->yesterday->toDateString(), 'quantity' => $quantity]);
+        }
+    }
+
+    /**
+     * 必应提交统计
+     */
+    public function bingPush()
+    {
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_BING_PUSH)->whereDate('date', $this->yesterday)->exists()) {
+            $quantity = \Larva\Bing\Push\Models\BingPush::query()->whereDate('created_at', $this->yesterday)->count();
+            Statistic::create(['type' => Statistic::TYPE_NEW_BING_PUSH, 'date' => $this->yesterday->toDateString(), 'quantity' => $quantity]);
+        }
+    }
+
+    /**
+     * 文章统计
+     */
+    public function article()
+    {
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_ARTICLE)->whereDate('date', $this->yesterday)->exists()) {
+            $quantity = \App\Models\Article::query()->whereDate('created_at', $this->yesterday)->count();
+            Statistic::create(['type' => Statistic::TYPE_NEW_ARTICLE, 'date' => $this->yesterday->toDateString(), 'quantity' => $quantity]);
+        }
+    }
+
+    /**
+     * 快讯统计
+     */
+    public function news()
+    {
+        if (!Statistic::query()->where('type', Statistic::TYPE_NEW_NEWS)->whereDate('date', $this->yesterday)->exists()) {
+            $quantity = \App\Models\News::query()->whereDate('created_at', $this->yesterday)->count();
+            Statistic::create(['type' => Statistic::TYPE_NEW_NEWS, 'date' => $this->yesterday->toDateString(), 'quantity' => $quantity]);
         }
     }
 
