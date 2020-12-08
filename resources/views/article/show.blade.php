@@ -32,6 +32,9 @@
                     <div class="article-header">
                         <div class="article-title">{{ $article->title }}</div>
                         <div class="article-meta">
+                            @if($article->detail->extra['from'])
+                                <span class="item">来源： <a href="{{$article->detail->extra['from_url']}}" title="{{$article->detail->extra['from']}}">{{$article->detail->extra['from']}}</a></span>
+                            @endif
                             <span class="item">发布时间：{{$article->created_at}}</span>
                             <span class="item">阅读：{{$article->views}}</span>
                         </div>
@@ -39,6 +42,19 @@
                     <article class="article-content">
                         {!! $article->detail->content !!}
                     </article>
+                    <div class="article-footer mt-4">
+                        <div>文章为作者独立观点，不代表{{config('app.name')}}立场。</div>
+                        <div>本文由{{$article->user->username}}发表，转载此文章须经作者同意，并请附上出处( {{config('app.name')}} )及本页链接。
+                        </div>
+                        <div class="mylink">原文链接 {{$article->link}}</div>
+                        @if($article->tag_values)
+                            <div class="keywords">
+                                @foreach($article->tags as $tag)
+                                    <a href="{{ route('tag.articles',['id'=>$tag->id]) }}" title="{{$tag->name}}">{{$tag->name}}</a>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
 

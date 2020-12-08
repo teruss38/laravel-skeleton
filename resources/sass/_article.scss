@@ -82,16 +82,19 @@
         .article-meta {
             font-size: .875rem;
             color: #999;
+
             .item {
                 margin-right: 1.25rem;
             }
         }
+
         @media screen and (max-width: 992px) {
             .article-title {
                 font-size: 1.25rem;
             }
             .article-meta {
                 font-size: .625rem;
+
                 .item {
                     margin-right: 1rem;
                 }
@@ -115,6 +118,7 @@
         a {
             text-decoration: underline;
             color: #45B6F7;
+
             &:hover {
                 color: #FF5E52;
             }
@@ -123,11 +127,40 @@
         p {
             margin-bottom: 20px;
             word-wrap: break-word;
+
             &:last-child {
                 margin-bottom: 0;
             }
         }
     }
+
+    .article-footer {
+        font-size: .875rem;
+        line-height: 1.9;
+        color: #34495e;
+        div:first-child {
+            color: #9aabb8;
+            font-size: .875rem;
+            font-style: italic;
+        }
+        .keywords {
+            margin-top: 1rem;
+            a {
+                height: 1.625rem;
+                line-height: 1.625rem;
+                padding: 0 10px;
+                margin-right: .625rem;
+                background: #f7faff;
+                border-radius: 3px;
+                display: inline-block;
+                &:hover {
+                    color: #45B6F7 !important;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
 
     @media screen and (max-width: 992px) {
         .article-content {

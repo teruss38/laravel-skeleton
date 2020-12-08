@@ -67,6 +67,7 @@ Route::group(['prefix' => 'ajax'], function () {
 //    Route::get('search/query', [App\Http\Controllers\SearchController::class, 'query'])->name('query');
 //});
 
+Route::get('category/{id}', [App\Http\Controllers\ArticleController::class, 'category'])->name('articles.category');
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
 Route::resource('news', App\Http\Controllers\NewsController::class);
 
