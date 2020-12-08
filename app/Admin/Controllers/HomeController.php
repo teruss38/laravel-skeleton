@@ -42,7 +42,7 @@ class HomeController extends Controller
                     $column->row(new Examples\ProductOrders());
                 });
 
-                
+
             });
     }
 

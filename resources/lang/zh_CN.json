@@ -1,4 +1,17 @@
 {
+    "Home": "主页",
+    "Search": "搜索",
+    "Login": "登陆",
+    "Register": "注册",
+    "Logout": "退出",
+    "Account": "账号",
+    "Password": "密码",
+    "Remember Me": "记住我",
+    "Username": "用户名",
+    "E-Mail Address": "电子邮箱",
+    "Confirm Password": "确认密码",
+    "Reset Password": "找回密码",
+    "Mobile Register": "手机注册",
     "A fresh verification link has been sent to your email address.": "新的验证链接已发送到您的电子邮件地址。",
     "Before proceeding, please check your email for a verification link.": "在继续之前，请检查您的电子邮件以获取验证链接。",
     "If you did not receive the email": "如果您没有收到电子邮件",
@@ -11,5 +24,7 @@
     "Your account :username was successfully logged in at :time on IP :ip [:address]!": "您的帐号 :username 于:time 在 IP :ip [:address] 上登录成功！",
     "If this login is not yours, your account has been stolen!": "如果本次登录不是您本人所为，说明您的帐号已经被盗！",
     "Click here to view": "点击查看",
-    "Your verification code is: :verify_code, please verify as soon as possible!": "您的验证码是：:verify_code，请尽快进行验证！"
+    "Your verification code is: :verify_code, please verify as soon as possible!": "您的验证码是：:verify_code，请尽快进行验证！",
+    "Articles": "文章",
+    "News": "快讯"
 }

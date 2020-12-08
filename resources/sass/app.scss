@@ -1,20 +1,35 @@
-// Variables
-@import 'variables';
-
-//font-awesome
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/brands.scss";
-@import "~@fortawesome/fontawesome-free/scss/regular.scss";
-@import "~@fortawesome/fontawesome-free/scss/solid.scss";
-@import "~@fortawesome/fontawesome-free/scss/v4-shims.scss";
-
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'bootstrap';
 
+// Font Awesome
+@import 'fontawesome';
+
+// User
 @import "user";
 
 // Article
 @import "article";
+
+.wrapper {
+    min-height: 80vh;
+}
+
+.page-header {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 1.5rem 0 1.5rem;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+}
 
 .footer {
     background: #fff;
