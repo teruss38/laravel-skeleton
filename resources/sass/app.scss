@@ -10,8 +10,11 @@
 // Article
 @import "article";
 
-.wrapper {
-    min-height: 80vh;
+// Utils
+@import "utils";
+
+main {
+    font-size: .875rem;
 }
 
 .page-header {

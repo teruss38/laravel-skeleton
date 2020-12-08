@@ -1,7 +1,59 @@
-/*用户头像*/
+.login-box {
+    min-height: 80vh;
+    background: #f0f5f8;
+    padding: 7rem 0;
+    .title {
+        font-size: 1.5rem;
+        margin: 10px 0;
+        font-family: inherit;
+        line-height: 20px;
+        color: inherit;
+        text-rendering: optimizelegibility;
+    }
+    .login_inside_box {
+        padding: 2rem 13rem 4rem;
+        border-radius: 5px;
+    }
+    .login-form {
+        input {
+            padding: 0.7rem 0.7rem;
+        }
+    }
+    @media (max-width: 768px) {
+        .login-form {
+            margin-bottom: 30px
+        }
+    }
+    .btn-login {
+        background: #0099ee;
+    }
+    .login-sns {
+        a {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            border-radius: 50%;
+            line-height: 30px;
+            font-size: 20px;
 
-.avatar-1 { width: 1.3rem; height: 1.3rem; border-radius: 1.3rem; }
-.avatar-2 { width: 1.8rem; height: 1.8rem; border-radius: 1.8rem; }
-.avatar-3 { width: 2.4rem; height: 2.4rem; border-radius: 2.4rem; }
-.avatar-4 { width: 4.5rem; height: 4.5rem; border-radius: 4.5rem; }
-.avatar-5 { width: 6rem; height: 6rem; border-radius: 6rem; }
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .register_btn {
+        border: 1px solid #ced4da;
+        font-size: .875rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .login-box {
+        padding: 1rem 0;
+        .login_inside_box {
+            padding: 2rem 1rem 2rem;
+        }
+    }
+}
+

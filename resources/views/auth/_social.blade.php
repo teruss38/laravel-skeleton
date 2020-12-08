@@ -1,33 +1,27 @@
-<h5 class="text-muted mb-3">使用以下账号直接登录</h5>
-<div class="login-three">
-    <div class="item">
-        <a href="{{ url('/auth/social/weibo') }}" title="微博">
-            <svg-icon icon="icon-social-weibo"></svg-icon>
-            微博登录
-        </a>
+<div class="login-sns mt-3">
+    <div class="text-muted my-0 position-relative">
+        <hr class="position-absolute w-100">
+        <div class="d-inline-block bg-white px-3 position-relative" style="height: 28px; line-height: 28px;">
+            使用以下账号登录
+        </div>
     </div>
-    <div class="item">
-        <a href="{{ url('/auth/social/wechat_web') }}" title="微信">
-            <svg-icon icon="icon-social-wechat"></svg-icon>
-            微信登录
-        </a>
-    </div>
-    <div class="item">
-        <a href="{{ url('/auth/social/alipay') }}" title="支付宝">
-            <svg-icon icon="icon-alipay"></svg-icon>
-            支付宝登录
-        </a>
-    </div>
-    <div class="item">
-        <a href="{{ url('/auth/social/baidu') }}" title="百度">
-            <svg-icon icon="icon-baidu"></svg-icon>
-            百度登录
-        </a>
-    </div>
-    <div class="item">
-        <a href="{{ url('/auth/social/qq') }}" title="QQ">
-            <svg-icon icon="icon-social-qq"></svg-icon>
-            QQ登录
-        </a>
-    </div>
+
+    <a href="{{ url('/auth/social/weibo') }}" class="my-3">
+        <img src="{{asset('img/weibo.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+    </a>
+    <a href="{{ url('/auth/social/wechat_web') }}" class="my-3">
+        <img src="{{asset('img/wechat.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+    </a>
+    <a href="{{ url('/auth/social/qq') }}" class="my-3" >
+        <img src="{{asset('img/qq.png')}}" alt="github" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Github account to log in">
+    </a>
+    <a href="{{ url('/auth/social/alipay') }}" class="my-3">
+        <img src="{{asset('img/alipay.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+    </a>
+    <a href="{{ url('/auth/social/baidu') }}" class="my-3">
+        <img src="{{asset('img/baidu.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+    </a>
+    <a href="{{ url('/auth/social/github') }}" class="my-3" >
+        <img src="{{asset('img/github.png')}}" alt="github" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Github account to log in">
+    </a>
 </div>

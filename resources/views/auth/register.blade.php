@@ -3,123 +3,95 @@
 @section('title', __('Register'))
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-
+    <div class="login-box">
+        <div class="container">
+            <div class="row mx-0 justify-content-md-center">
+                <div class="col-12 col-lg-9 text-center bg-white login_inside_box">
+                    <h4 class="mt-0 mb-3 pb-0 pb-lg-4 pt-0 pt-lg-4 title">
+                        <span>{{ __('Register') }}</span>
+                    </h4>
+                    <div class="login-form">
+                        <form id="register_form" class="form" method="POST" action="{{ route('register') }}">
+                            @csrf
+                            <div class="form-group input-group mb-4">
+                                <input id="username" type="text" class="form-control form-control-lg @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" placeholder="{{ __('Username') }}" required autocomplete="username" autofocus>
                                 @error('username')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback text-left" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+                                </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                            <div class="form-group input-group mb-4">
+                                <input id="email" type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="{{ __('E-Mail Address') }}" required autocomplete="email">
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback text-left" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+                                </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <div class="form-group input-group mb-4">
+                                <input id="password" type="password"
+                                       class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                       name="password" placeholder="{{ __('Password') }}" required autocomplete="new-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback text-left" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </span>
+                                </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div class="form-group input-group mb-4">
+                                <input id="password-confirm" type="password" class="form-control form-control-lg" name="password_confirmation" placeholder="{{ __('Confirm Password') }}" required autocomplete="new-password">
                             </div>
-                        </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="form-check">
-                                <input class="form-check-input @error('terms') is-invalid @enderror" type="checkbox" name="terms"
-                                       id="terms" {{ old('terms') ? 'checked' : '' }}>
-
-                                <label class="form-check-label" for="terms">
-                                    同意 <a href="{{ url('terms') }}" target="_blank">服务条款</a> 和 <a href="{{ url('privacy') }}" target="_blank">隐私政策</a>
-                                </label>
-                                @error('terms')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="form-group">
+                                <input type="hidden" name="terms" value="1">
                                 <input type="hidden" name="ticket" id="ticket" value="">
                                 <input type="hidden" name="randstr" id="randstr" value="">
-                                <button @if (config('app.env') != 'testing' && settings('user.enable_login_ticket')) type="button" @else type="submit" @endif class="btn btn-primary" id="TencentCaptcha" data-appid="{{settings('system.captcha_aid')}}" data-cbfn="captchaCallback">
+                                <button
+                                    @if (config('app.env') != 'testing' && settings('user.enable_login_ticket')) type="button"
+                                    @else type="submit" @endif class="btn btn-block text-white btn-lg btn-login" id="TencentCaptcha"
+                                    data-appid="{{settings('system.captcha_aid')}}" data-cbfn="captchaCallback">
                                     {{ __('Register') }}
                                 </button>
-
-                                @if (Route::has('mobile.register'))
-                                    <a class="btn btn-link" href="{{ route('mobile.register') }}">
-                                        {{ __('Mobile Register') }}
-                                    </a>
-                                @endif
-
-                                @if (Route::has('login'))
-                                    <a class="btn btn-link" href="{{ route('login') }}">
-                                        {{ __('Already have an account?') }}
-                                    </a>
-                                @endif
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+
+                    @include('auth._social')
+
+                    <div class="mt-3">
+                        <a href="{{ route('login') }}" class="btn btn-block register_btn btn-lg text-muted bg-white">
+                            {{ __('Already have an account?') }}
+                        </a>
+                    </div>
+
+                    <div class="mt-4 text-center text-muted">
+                        注册即表示你同意网站的
+                        <a class="text-primary" href="{{ url('terms') }}" target="_blank">{{ __('Terms') }}</a> 和 <a
+                            class="text-primary" href="{{ url('privacy') }}" target="_blank">{{ __('Privacy') }}</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('footer')
     @if (config('app.env') != 'testing' && settings('user.enable_login_ticket'))
-    <!-- 腾讯防水墙 -->
-    <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
-    <script>
-        window.captchaCallback = function(res) {
-            if (res.ret === 0) {
-                document.getElementById("ticket").value = res.ticket;
-                document.getElementById("randstr").value = res.randstr;
-                document.getElementById('register_form').submit();
+        <!-- 腾讯防水墙 -->
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script>
+            window.captchaCallback = function (res) {
+                if (res.ret === 0) {
+                    document.getElementById("ticket").value = res.ticket;
+                    document.getElementById("randstr").value = res.randstr;
+                    document.getElementById('register_form').submit();
+                }
             }
-        }
-    </script>
+        </script>
     @endif
 @endpush
