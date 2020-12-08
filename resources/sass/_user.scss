@@ -2,6 +2,7 @@
     min-height: 80vh;
     background: #f0f5f8;
     padding: 7rem 0;
+
     .title {
         font-size: 1.5rem;
         margin: 10px 0;
@@ -10,23 +11,33 @@
         color: inherit;
         text-rendering: optimizelegibility;
     }
+
     .login_inside_box {
         padding: 2rem 13rem 4rem;
         border-radius: 5px;
+    }
+
+    @media (max-width: 992px) {
+        .login_inside_box {
+            padding: 2rem 1rem 2rem;
+        }
     }
     .login-form {
         input {
             padding: 0.7rem 0.7rem;
         }
     }
+
     @media (max-width: 768px) {
         .login-form {
             margin-bottom: 30px
         }
     }
+
     .btn-login {
         background: #0099ee;
     }
+
     .login-sns {
         a {
             width: 30px;
@@ -42,6 +53,7 @@
             }
         }
     }
+
     .register_btn {
         border: 1px solid #ced4da;
         font-size: .875rem;
@@ -51,9 +63,6 @@
 @media (max-width: 992px) {
     .login-box {
         padding: 1rem 0;
-        .login_inside_box {
-            padding: 2rem 1rem 2rem;
-        }
     }
 }
 

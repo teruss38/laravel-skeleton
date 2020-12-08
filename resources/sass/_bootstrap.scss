@@ -34,12 +34,28 @@ $h6-font-size: $font-size-base;
 // Breadcrumbs
 $breadcrumb-bg: none;
 $breadcrumb-divider: quote(">");
+$breadcrumb-padding-x: 0;
 
 $custom-file-text: (
     en: "Browse",
     es: "Elegir",
     zh-CN:"浏览",
 );
+
+// Nav
+.navbar-nav {
+    font-size: 1rem;
+}
+
+// 鼠标触动下拉
+.dropdown:hover > .dropdown-menu {
+    display: block;
+    top: 80%;
+}
+
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none;
+}
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

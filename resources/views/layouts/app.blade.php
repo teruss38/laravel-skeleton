@@ -28,9 +28,7 @@
     </header>
     <!-- End Header -->
     @yield('jumbotron')
-    <main>
-        @yield('content')
-    </main>
+    @yield('content')
     <!-- Footer -->
     <footer>
         @include('layouts._footer')
