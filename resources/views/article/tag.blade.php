@@ -1,21 +1,15 @@
 @extends('layouts.app')
 
-@if (isset($category))
-    @section('title', $category->title.'_'. __('Articles'))
-@section('keywords', $category->keywords)
-@section('description', $category->description)
-@else
-    @section('title', __('Articles'))
-@section('keywords', '科技媒体,大数据,企业级服务')
-@endif
+@section('title', $tag->title.'_'.__('Articles'))
+@section('keywords', $tag->keywords)
+@section('description', $tag->description)
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="page-header">
-                    <div
-                        class="page-title">@if (isset($category)) {{$category->name}} @else {{__('Articles')}} @endif</div>
+                    <div class="page-title">{{$tag->name}}</div>
                 </div>
                 <ul class="list-unstyled">
                     @foreach ($items as $item)

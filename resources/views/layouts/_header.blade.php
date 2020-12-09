@@ -15,6 +15,9 @@
                 <li class="nav-item @if (request()->path() == '/') active @endif">
                     <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                 </li>
+                <li class="nav-item @if (request()->route()->getName() == 'news.index') active @endif">
+                    <a class="nav-link" href="{{ route('news.index') }}">{{__('News')}}</a>
+                </li>
                 <li class="nav-item @if (request()->route()->getName() == 'articles.index') active @endif">
                     <a class="nav-link" href="{{ route('articles.index') }}">{{__('Articles')}}</a>
                 </li>

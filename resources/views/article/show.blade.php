@@ -42,7 +42,7 @@
                     <article class="article-content">
                         {!! $article->detail->content !!}
                     </article>
-                    <div class="article-footer mt-4">
+                    <div class="d-none d-md-block article-footer mt-4">
                         <div>文章为作者独立观点，不代表{{config('app.name')}}立场。</div>
                         <div>本文由{{$article->user->username}}发表，转载此文章须经作者同意，并请附上出处( {{config('app.name')}} )及本页链接。
                         </div>

@@ -59,9 +59,8 @@
     }
 }
 
-
 .article {
-    min-height: 80vh;
+    min-height: 60vh;
     margin-bottom: 1rem;
     border: 1px solid #eaeaea;
     border-radius: 4px;
@@ -138,6 +137,7 @@
         font-size: .875rem;
         line-height: 1.9;
         color: #34495e;
+        margin-bottom: 1rem;
         div:first-child {
             color: #9aabb8;
             font-size: .875rem;
@@ -161,12 +161,16 @@
         }
     }
 
-
     @media screen and (max-width: 992px) {
         .article-content {
             font-size: .875rem;
         }
     }
+}
+
+//快讯
+.news {
+    min-height: 20vh;
 }
 
 

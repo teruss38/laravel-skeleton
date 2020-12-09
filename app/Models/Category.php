@@ -139,7 +139,7 @@ class Category extends Model implements Sortable
      */
     public function getLinkAttribute()
     {
-        return route('article.category', ['id' => $this->id]);
+        return route('articles.category', ['id' => $this->id]);
     }
 
     /**

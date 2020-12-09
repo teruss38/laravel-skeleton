@@ -29,7 +29,6 @@ use Illuminate\Support\Str;
  * @property int $support_count 点赞次数
  * @property int $collection_count 收藏次数
  * @property array $metas Meta信息
- * @property array $extra 扩展信息
  * @property \Illuminate\Support\Carbon $pub_date 发布时间
  * @property \Illuminate\Support\Carbon $created_at 创建时间
  * @property \Illuminate\Support\Carbon $updated_at 更新时间
@@ -219,7 +218,7 @@ class Article extends Model
                 return Storage::cloud()->url($this->attributes['thumb_path']);
             }
         }
-        return null;
+        return asset('img/article.jpg');
     }
 
     /**
