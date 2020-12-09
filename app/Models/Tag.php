@@ -102,7 +102,7 @@ class Tag extends Model
     }
 
     /**
-     * 获取 访问Url
+     * 获取Title
      * @return string
      */
     public function getTitleAttribute()
@@ -110,7 +110,7 @@ class Tag extends Model
         if (!empty($this->attributes['title'])) {
             return $this->attributes['title'];
         }
-        return $this->attributes['name'];
+        return $this->name;
     }
 
     /**
@@ -122,7 +122,7 @@ class Tag extends Model
         if (!empty($this->attributes['keywords'])) {
             return $this->attributes['keywords'];
         }
-        return $this->attributes['name'];
+        return $this->name;
     }
 
     /**
@@ -134,7 +134,16 @@ class Tag extends Model
         if (!empty($this->attributes['description'])) {
             return $this->attributes['description'];
         }
-        return $this->attributes['name'];
+        return $this->name;
+    }
+
+    /**
+     * 拥有这个标签的快讯
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function news()
+    {
+        return $this->morphedByMany(News::class, 'taggable');
     }
 
     /**

@@ -46,7 +46,7 @@ class ArticleController extends Controller
      */
     public function tag(Tag $tag)
     {
-        $items = $tag->articles()->with(['user', 'tags'])->paginate(15);
+        $items = $tag->articles()->with(['user'])->paginate(15);
         return view('article.tag', [
             'items' => $items,
             'tag' => $tag

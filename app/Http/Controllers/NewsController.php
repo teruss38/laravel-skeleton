@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Tag;
 
 /**
  * 快讯
@@ -31,9 +32,23 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $items = News::query()->orderByDesc('order')->orderByDesc('id')->paginate(15);
+        $items = News::query()->orderByDesc('id')->paginate(15);
         return view('news.index', [
             'items' => $items
+        ]);
+    }
+
+    /**
+     * 快讯Tag页
+     * @param Tag $tag
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function tag(Tag $tag)
+    {
+        $items = $tag->news()->with(['user'])->paginate(15);
+        return view('news.tag', [
+            'items' => $items,
+            'tag' => $tag
         ]);
     }
 

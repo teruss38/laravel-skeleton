@@ -75,9 +75,10 @@ Route::resource('news', App\Http\Controllers\NewsController::class);
  * 标签
  */
 Route::group(['prefix' => 'tags', 'as' => 'tag.'], function () {
+    Route::get('{id}/articles', [App\Http\Controllers\ArticleController::class, 'tag'])->name('articles');
+    Route::get('{id}/news', [App\Http\Controllers\NewsController::class, 'tag'])->name('news');
     Route::get('/', [App\Http\Controllers\TagController::class, 'index'])->name('index');
     Route::get('{id}', [App\Http\Controllers\TagController::class, 'show'])->name('show');
-    Route::get('{id}/articles', [App\Http\Controllers\ArticleController::class, 'tag'])->name('articles');
 });
 
 /**
