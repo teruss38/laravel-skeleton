@@ -47,6 +47,34 @@ $custom-file-text: (
     font-size: 1rem;
 }
 
+.navbar .navbar-brand img {
+    height: 40px;
+}
+
+.nav-item {
+    a {
+        &:hover {
+            color: #1054ff !important;
+            text-decoration: none;
+        }
+    }
+}
+
+.nav-link {
+    i {
+        font-size: 1rem;
+    }
+}
+
+.navbar-light {
+    padding: 0.25rem 1rem !important;
+}
+
+.navbar-light .navbar-nav .active > .nav-link {
+    color: #1054ff !important;
+    border-bottom: 2px #1054ff solid;
+}
+
 // 鼠标触动下拉
 .dropdown:hover > .dropdown-menu {
     display: block;

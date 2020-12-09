@@ -5,7 +5,7 @@
 @section('description', $article->metas['description'] ?? $article->description)
 
 @push('head')
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="article"/>
     <meta property="og:site_name" content="{{ config('app.name', 'Larva') }}"/>
     <meta property="og:image" content="{{$article->thumb}}"/>
     <meta property="og:release_date" content="{{$article->created_at}}"/>
@@ -33,7 +33,8 @@
                         <div class="article-title">{{ $article->title }}</div>
                         <div class="article-meta">
                             @if($article->detail->extra['from'])
-                                <span class="item">来源： <a href="{{$article->detail->extra['from_url']}}" title="{{$article->detail->extra['from']}}">{{$article->detail->extra['from']}}</a></span>
+                                <span class="item">来源： <a href="{{$article->detail->extra['from_url']}}"
+                                                          title="{{$article->detail->extra['from']}}">{{$article->detail->extra['from']}}</a></span>
                             @endif
                             <span class="item">发布时间：{{$article->created_at}}</span>
                             <span class="item">阅读：{{$article->views}}</span>
@@ -50,7 +51,7 @@
                         @if($article->tag_values)
                             <div class="keywords">
                                 @foreach($article->tags as $tag)
-                                    <a href="{{ route('tag.articles',['id'=>$tag->id]) }}" title="{{$tag->name}}">{{$tag->name}}</a>
+                                    <a href="{{ route('tag.articles',$tag) }}" title="{{$tag->name}}">{{$tag->name}}</a>
                                 @endforeach
                             </div>
                         @endif
@@ -59,7 +60,7 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-右侧
+                右侧
             </div>
         </div>
     </div>
