@@ -14,26 +14,15 @@
                 <form id="article_form" method="POST" role="form" enctype="multipart/form-data"
                       action="{{ route('articles.store') }}">
                     @csrf
-                    <div class="form-group">
-                        <label for="title">文章标题</label>
-                        <input type="text" class="form-control form-control-lg @error('title') is-invalid @enderror"
-                               id="title" name="title" value="{{ old('title') }}"
-                               aria-describedby="title" placeholder="我想起那天下午在夕阳下的奔跑,那是我逝去的青春">
-                        @error('title')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
+
+                    <x-forms.text name="title" label="文章标题" placeholder="我想起那天下午在夕阳下的奔跑,那是我逝去的青春"/>
 
                     <div class="form-row">
                         <x-forms.category-select name="category_id" label="文章栏目" class="col-md-4"/>
                         <x-forms.tags name="tag_values" label="文章标签" class="col-md-8"/>
                     </div>
 
-                    <div class="form-group">
-                        <x-forms.ckeditor name="content" label="文章正文"/>
-                    </div>
+                    <x-forms.ckeditor name="content" label="文章正文"/>
 
                     <div class="form-row">
                         <x-forms.text name="extra[from]" label="" placeholder="文章出处" class="col-md-4"/>
@@ -41,7 +30,7 @@
                     </div>
 
                     <div class="float-right">
-                        <button type="submit" class="btn btn-primary">发布</button>
+                        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                     </div>
                 </form>
             </div>

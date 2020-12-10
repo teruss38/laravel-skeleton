@@ -218,7 +218,7 @@ class Article extends Model
                 return Storage::cloud()->url($this->attributes['thumb_path']);
             }
         }
-        return asset('img/article.jpg');
+        return asset('img/default_picture.png');
     }
 
     /**

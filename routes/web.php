@@ -75,7 +75,7 @@ Route::group(['prefix' => 'ajax'], function () {
 
 Route::get('category/{id}', [App\Http\Controllers\ArticleController::class, 'category'])->name('articles.category');
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
-Route::resource('news', App\Http\Controllers\NewsController::class);
+Route::resource('news', App\Http\Controllers\NewsController::class)->only(['index', 'show']);
 
 /**
  * 标签

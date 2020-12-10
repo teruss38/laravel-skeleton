@@ -8,14 +8,13 @@
 
 namespace App\View\Components\Forms;
 
-use App\Models\Tag;
 use Illuminate\View\Component;
 
 /**
- * 标签输入
+ * 图片上传
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class Tags extends Component
+class Image extends Component
 {
     /**
      * The input id attribute.
@@ -25,7 +24,7 @@ class Tags extends Component
     public $id;
 
     /**
-     * The input name attribute.
+     * The input name.
      *
      * @var string
      */
@@ -39,36 +38,32 @@ class Tags extends Component
     public $label;
 
     /**
-     * @var array
-     */
-    public $options;
-
-    /**
-     * The selectable options.
+     * The input placeholder.
      *
      * @var string
      */
     public $placeholder;
 
     /**
+     * @var string
+     */
+    public $value;
+
+    /**
      * Create a new component instance.
      *
      * @param string $name
      * @param string $label
+     * @param string $value
      * @param string $placeholder
-     * @param string|null $value
      */
-    public function __construct(string $name = "tag_values", string $label = "选择标签", string $placeholder = "请输入标签", string $value = null)
+    public function __construct($name = "text", $label = "Text Input", $value = "", $placeholder = "Enter Text")
     {
         $this->id = 'form-' . $name;
         $this->name = $name;
         $this->label = $label;
+        $this->value = $value;
         $this->placeholder = $placeholder;
-        if ($value) {
-            $this->options = Tag::query()->whereIn('id', explode(',', $value))->pluck('name', 'id');
-        } else {
-            $this->options = [];
-        }
     }
 
     /**
@@ -78,6 +73,6 @@ class Tags extends Component
      */
     public function render()
     {
-        return view('components.forms.tags');
+        return view('components.forms.image');
     }
 }

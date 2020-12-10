@@ -6,20 +6,21 @@
  * @license http://www.larva.com.cn/license/
  */
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\News;
 
 use App\Http\Requests\Request;
 
 /**
- * 文章存储请求
+ * 快讯存储请求
  * @property int $user_id;
- * @property int $category_id
  * @property string $title
- * @property string $content
+ * @property string $description
+ * @property string $from
+ * @property string $from_url
  *
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class StoreArticleRequest extends Request
+class StoreNewsRequest extends Request
 {
     /**
      * @return bool
@@ -50,26 +51,14 @@ class StoreArticleRequest extends Request
     {
         return [
             'user_id' => ['numeric'],
-            'category_id' => ['required', 'numeric', 'exists:categories,id',],
             'title' => ['required', 'string', 'max:40', 'min:5', 'text_censor'],
-            'tag_values' => ['nullable', 'array'],
-            'content' => ['required', 'string', 'text_censor'],
-            'extra.from' => [
+            'description' => ['required', 'string', 'text_censor'],
+            'from' => [
                 'nullable', 'string', 'min:2', 'max:20', 'text_censor'
             ],
-            'extra.from_url' => [
+            'from_url' => [
                 'nullable', 'url'
             ],
-        ];
-    }
-
-    /**
-     * @return string[]
-     */
-    public function messages()
-    {
-        return [
-            'category_id.numeric' => '必须选择一个栏目。',
         ];
     }
 }

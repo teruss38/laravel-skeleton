@@ -45,29 +45,26 @@ class CKEditor extends Component
     public $placeholder;
 
     /**
-     * The selectable options.
-     *
-     * @var array
+     * @var string
      */
-    public $options;
+    public $value;
 
     /**
      * Create a new component instance.
      *
      * @param string $name
      * @param string $label
+     * @param string $value
      * @param string $placeholder
      * @param array $options
-     *
-     * @return void
      */
-    public function __construct(string $name = "tag_values", string $label = "内容", string $placeholder = "输入内容", array $options = [])
+    public function __construct(string $name = "tag_values", string $label = "内容", string $value = "", string $placeholder = "输入内容")
     {
         $this->id = 'form-' . $name;
         $this->name = $name;
         $this->label = $label;
+        $this->value = $value;
         $this->placeholder = $placeholder;
-        $this->options = $options;
     }
 
     /**

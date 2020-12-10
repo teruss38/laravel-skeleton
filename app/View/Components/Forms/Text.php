@@ -22,18 +22,21 @@ class Text extends Component
      * @var string
      */
     public $id;
+
     /**
      * The input name.
      *
      * @var string
      */
     public $name;
+
     /**
      * The input label.
      *
      * @var string
      */
     public $label;
+
     /**
      * The input placeholder.
      *
@@ -42,19 +45,24 @@ class Text extends Component
     public $placeholder;
 
     /**
+     * @var string
+     */
+    public $value;
+
+    /**
      * Create a new component instance.
      *
-     * @param  string  $name
-     * @param  string  $label
-     * @param  string  $placeholder
-     *
-     * @return void
+     * @param string $name
+     * @param string $label
+     * @param string $value
+     * @param string $placeholder
      */
-    public function __construct($name = "text", $label = "Text Input", $placeholder = "Enter Text")
+    public function __construct($name = "text", $label = "Text Input", $value = "", $placeholder = "Enter Text")
     {
         $this->id = 'form-' . $name;
         $this->name = $name;
         $this->label = $label;
+        $this->value = $value;
         $this->placeholder = $placeholder;
     }
 

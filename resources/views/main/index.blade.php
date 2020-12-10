@@ -64,10 +64,6 @@
                     <div class="tab-pane fade show active" id="nav-main" role="tabpanel" aria-labelledby="nav-main-tab">
                         <x-widgets.home-article limit="10"/>
                     </div>
-
-                    <div class="tab-pane fade" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">
-                        <x-widgets.home-article limit="10"/>
-                    </div>
                 </div>
             </div>
 
@@ -76,17 +72,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="d-none px-0 d-md-block col-md-12">
-                <div class="side_box mb-3">
-                    <div class="box-header">
-                        <div class="box-title">友情链接</div>
-                    </div>
-                    <div class="box-body">
-                        <x-widgets.link type="home"/>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-widgets.home-link/>
     </div>
 @endsection

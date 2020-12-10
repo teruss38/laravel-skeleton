@@ -30,7 +30,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $items = Article::approved()->with('user')->orderByDesc('order')->orderByDesc('id')->paginate(3);
+        $items = Article::approved()->with('user')->orderByDesc('order')->orderByDesc('id')->paginate(15);
         $categories = Category::getRootNodes();
         return view('article.index', [
             'items' => $items,
@@ -124,9 +124,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        $categories = Category::getRootNodes();
         return view('article.edit', [
-            'categories' => $categories,
             'article' => $article
         ]);
     }
@@ -141,8 +139,8 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        if ($article->update($request->except(['content'])) && $article->detail->update($request->only(['content']))) {
-            $message = '文章更新成功！为了确保文章的质量，我们会对您发布的文章进行审核。请耐心等待......';
+        if ($article->update($request->except(['content', 'extra'])) && $article->detail->update($request->only(['content', 'extra']))) {
+            $message = '文章更新成功！为了确保文章的质量，我们可能会对您发布的文章进行审核。';
             $this->flash()->info($message);
             return redirect()->route('articles.show', $article);
         }

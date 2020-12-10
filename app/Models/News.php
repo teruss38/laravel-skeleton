@@ -49,7 +49,15 @@ class News extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'keywords', 'description', 'views', 'from', 'from_url', 'pub_date'
+        'title', 'keywords', 'description', 'views', 'from', 'from_url', 'pub_date', 'tag_values'
+    ];
+
+    /**
+     * 追加字段
+     * @var string[]
+     */
+    protected $appends = [
+        'tag_values',
     ];
 
     /**
@@ -134,6 +142,7 @@ class News extends Model
             \Larva\Bing\Push\BingPush::push($this->link);//推普通收录
         }
     }
+
     /**
      * 删除缓存
      * @param int $id

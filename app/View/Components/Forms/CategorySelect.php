@@ -39,6 +39,11 @@ class CategorySelect extends Component
     public $label;
 
     /**
+     * @var string
+     */
+    public $value;
+
+    /**
      * The selectable options.
      *
      * @var string
@@ -57,16 +62,15 @@ class CategorySelect extends Component
      *
      * @param string $name
      * @param string $label
+     * @param string $value
      * @param string $placeholder
-     * @param array $options
-     *
-     * @return void
      */
-    public function __construct(string $name = "category_id", string $label = "栏目", string $placeholder = "请选择栏目")
+    public function __construct(string $name = "category_id", string $label = "栏目",  $value = "", string $placeholder = "请选择栏目")
     {
         $this->id = 'form-' . $name;
         $this->name = $name;
         $this->label = $label;
+        $this->value = $value;
         $this->placeholder = $placeholder;
         $this->categories = Category::getRootSelect();
     }

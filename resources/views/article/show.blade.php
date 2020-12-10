@@ -62,5 +62,7 @@
                 @include('layouts._side')
             </div>
         </div>
+
+        <x-widgets.inner-link/>
     </div>
 @endsection

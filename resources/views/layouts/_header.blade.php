@@ -35,9 +35,6 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAddButton">
                         <a class="dropdown-item" href="{{route('articles.create')}}">
-                            {{__('News')}}
-                        </a>
-                        <a class="dropdown-item" href="{{route('articles.create')}}">
                             {{__('Articles')}}
                         </a>
                     </div>

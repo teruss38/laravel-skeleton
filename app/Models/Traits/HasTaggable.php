@@ -85,6 +85,15 @@ trait HasTaggable
     }
 
     /**
+     * 获取逗号分隔的tag ID
+     * @return string
+     */
+    public function getTagIdsAttribute()
+    {
+        return $this->tags()->pluck('id')->implode(',');
+    }
+
+    /**
      * Sets tags.
      * @param array $values
      */

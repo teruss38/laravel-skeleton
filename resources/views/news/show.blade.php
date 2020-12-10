@@ -27,7 +27,7 @@
         </ol>
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <div class="article news bg-white position-relative px-3">
+                <div class="article news bg-white position-relative p-3">
                     <div class="article-header">
                         <div class="article-title">{{ $news->title }}</div>
                         <div class="article-meta">
@@ -45,10 +45,11 @@
                         <a href="{{$news->from_url}}" class="btn btn-primary" rel="nofollow" target="_blank">{{$news->from}}AAA</a>
                     </div>
                     <div class="d-none d-md-block article-footer mt-4">
+                        <div ></div>
                         @if($news->tag_values)
                             <div class="keywords">
                                 @foreach($news->tags as $tag)
-                                    <a href="{{ route('tag.news',['id'=>$tag->id]) }}" title="{{$tag->name}}">{{$tag->name}}</a>
+                                    <a href="{{ route('tag.news',$tag) }}" title="{{$tag->name}}">{{$tag->name}}</a>
                                 @endforeach
                             </div>
                         @endif
@@ -60,5 +61,6 @@
                 @include('layouts._side')
             </div>
         </div>
+        <x-widgets.inner-link/>
     </div>
 @endsection

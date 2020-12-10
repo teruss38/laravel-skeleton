@@ -1,9 +1,9 @@
 <div {{ $attributes->merge(['class' => 'form-group']) }}>
     @if($label)<label class="form-label">{{ $label }}</label>@endif
     <select name="{{$name}}" id="{{$id}}" class="form-control @error($name) is-invalid @enderror">
-        <option>{{ $placeholder }}</option>
-        @foreach($categories as $value=>$option)
-            <option value="{{ $value }}">{{ $option }}</option>
+        <option value="">{{ $placeholder }}</option>
+        @foreach($categories as $val=>$name)
+            <option value="{{ $val }}" @if($val == $value) selected @endif >{{ $name }}</option>
         @endforeach
     </select>
     @error($name)

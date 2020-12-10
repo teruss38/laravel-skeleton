@@ -20,7 +20,7 @@
                 </div>
             </div>
         </li>
-        @if($loop->iteration % 2 == 0)
+        @if($loop->iteration % 5 == 0)
             <li class="p-4 bg-white">广告位</li>
         @endif
     @endforeach

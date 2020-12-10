@@ -1,6 +1,10 @@
 <div {{ $attributes->merge(['class' => 'form-group']) }}>
     @if($label)<label class="form-label">{{ $label }}</label>@endif
-    <select class="form-control @error($name) is-invalid @enderror" id="{{$id}}" name="{{$name}}[]" multiple></select>
+    <select id="{{$id}}" name="{{$name}}[]" class="form-control @error($name) is-invalid @enderror" multiple>
+        @foreach($options as $name)
+            <option value="{{ $name }}" selected>{{ $name }}</option>
+        @endforeach
+    </select>
     @error($name)<span role="alert" class="invalid-feedback"><strong>{{ $message }}</strong></span>@enderror
 </div>
 

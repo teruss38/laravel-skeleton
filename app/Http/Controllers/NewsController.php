@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\News\StoreNewsRequest;
 use App\Models\News;
 use App\Models\Tag;
 
@@ -17,13 +18,6 @@ use App\Models\Tag;
  */
 class NewsController extends Controller
 {
-    /**
-     * NewsController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth')->except(['index', 'show']);
-    }
 
     /**
      * Display a listing of the news.
@@ -45,7 +39,7 @@ class NewsController extends Controller
      */
     public function tag(Tag $tag)
     {
-        $items = $tag->news()->with(['user'])->paginate(15);
+        $items = $tag->news()->paginate(15);
         return view('news.tag', [
             'items' => $items,
             'tag' => $tag
@@ -66,18 +60,5 @@ class NewsController extends Controller
         return view('news.show', [
             'news' => $news
         ]);
-    }
-
-    /**
-     * Remove the specified news from storage.
-     *
-     * @param \App\Models\News $news
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function destroy(News $news)
-    {
-        $news->delete();
-        return redirect()->route('news.index');
     }
 }
