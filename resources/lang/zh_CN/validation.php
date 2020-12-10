@@ -176,6 +176,8 @@ return [
         'password' => '密码',
         'verify_code' => '验证码',
         'terms' => '服务条款',
+        'title' => '标题',
+        'content' => '内容',
     ],
 
     // 扩展的

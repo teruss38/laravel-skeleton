@@ -11,12 +11,12 @@
 
 @section('content')
     <div class="container">
+        <div class="page-header">
+            <div
+                class="page-title">@if (isset($category)) {{$category->name}} @else {{__('Articles')}} @endif</div>
+        </div>
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <div class="page-header">
-                    <div
-                        class="page-title">@if (isset($category)) {{$category->name}} @else {{__('Articles')}} @endif</div>
-                </div>
                 <ul class="list-unstyled">
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">
@@ -31,7 +31,6 @@
                                     <div class="col-4 text-truncate px-0">
                                         <span class="text-black-50 small">作者 :</span>
                                         <a href="#" class="article_author small mr-2">{{$item->user->username}}</a>
-                                        <span class="text-black-50">来源：专栏</span>
                                     </div>
                                     <div class="col-8 text-right text-truncate px-0" style="color: #888;">
                                         已有 <span class="read_number_style">{{$item->views}}</span>
@@ -40,6 +39,9 @@
                                 </div>
                             </div>
                         </li>
+                        @if($loop->iteration % 2 == 0)
+                            <li class="p-4 bg-white">广告位</li>
+                        @endif
                     @endforeach
                 </ul>
                 <div class="text-center mt-4">
@@ -48,7 +50,8 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-                右侧
+                <x-widgets.side-category/>
+                @include('layouts._side')
             </div>
         </div>
     </div>

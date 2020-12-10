@@ -12,7 +12,6 @@
     <meta property="og:url" content="{{$article->link}}"/>
     <meta property="og:title" content="{{$article->title}}"/>
     <meta property="og:description" content="{{$article->description}}"/>
-
     <meta itemprop="name" content="{{$article->title}}"/>
     <meta itemprop="description" content="{{$article->description}}"/>
     <meta itemprop="image" content="{{$article->thumb}}"/>
@@ -28,19 +27,18 @@
         </ol>
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <div class="article bg-white position-relative px-3">
+                <div class="article bg-white position-relative p-3">
                     <div class="article-header">
                         <div class="article-title">{{ $article->title }}</div>
                         <div class="article-meta">
                             @if($article->detail->extra['from'])
-                                <span class="item">来源： <a href="{{$article->detail->extra['from_url']}}"
-                                                          title="{{$article->detail->extra['from']}}">{{$article->detail->extra['from']}}</a></span>
+                                <span class="item">来源： <a href="{{$article->detail->extra['from_url']}}" title="{{$article->detail->extra['from']}}" target="_blank">{{$article->detail->extra['from']}}</a></span>
                             @endif
                             <span class="item">发布时间：{{$article->created_at}}</span>
                             <span class="item">阅读：{{$article->views}}</span>
                         </div>
                     </div>
-                    <article class="article-content">
+                    <article class="article-content ck-content">
                         {!! $article->detail->content !!}
                     </article>
                     <div class="d-none d-md-block article-footer mt-4">
@@ -60,7 +58,8 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-                右侧
+                <x-widgets.side-category/>
+                @include('layouts._side')
             </div>
         </div>
     </div>

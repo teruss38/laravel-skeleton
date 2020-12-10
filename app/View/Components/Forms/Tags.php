@@ -8,39 +8,43 @@
 
 namespace App\View\Components\Forms;
 
-use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 /**
- * 标签组件
+ * 标签输入
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class Tags extends Component
+class Tags  extends Component
 {
+
     /**
      * The input id attribute.
      *
      * @var string
      */
     public $id;
+
     /**
      * The input name attribute.
      *
      * @var string
      */
     public $name;
+
     /**
      * The input label.
      *
      * @var string
      */
     public $label;
+
     /**
      * The selectable options.
      *
      * @var string
      */
     public $placeholder;
+
     /**
      * The selectable options.
      *
@@ -58,9 +62,9 @@ class Tags extends Component
      *
      * @return void
      */
-    public function __construct(string $name = "tags", string $label = "Select Tags", string $placeholder = "Select Option...", array $options = [])
+    public function __construct(string $name = "tag_values", string $label = "选择标签", string $placeholder = "输入标签", array $options = [])
     {
-        $this->id = 'form-' . Str::kebab(class_basename(get_class($this))) . '-' . md5($name);
+        $this->id = 'form-' . $name;
         $this->name = $name;
         $this->label = $label;
         $this->placeholder = $placeholder;

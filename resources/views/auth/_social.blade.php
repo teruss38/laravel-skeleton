@@ -7,21 +7,21 @@
     </div>
 
     <a href="{{ url('/auth/social/weibo') }}" class="my-3">
-        <img src="{{asset('img/weibo.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+        <img src="{{asset('img/social/weibo.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
     </a>
     <a href="{{ url('/auth/social/wechat_web') }}" class="my-3">
-        <img src="{{asset('img/wechat.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+        <img src="{{asset('img/social/wechat.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
     </a>
     <a href="{{ url('/auth/social/qq') }}" class="my-3" >
-        <img src="{{asset('img/qq.png')}}" alt="github" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Github account to log in">
+        <img src="{{asset('img/social/qq.png')}}" alt="github" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Github account to log in">
     </a>
     <a href="{{ url('/auth/social/alipay') }}" class="my-3">
-        <img src="{{asset('img/alipay.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+        <img src="{{asset('img/social/alipay.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
     </a>
     <a href="{{ url('/auth/social/baidu') }}" class="my-3">
-        <img src="{{asset('img/baidu.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
+        <img src="{{asset('img/social/baidu.png')}}" alt="wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Wechat and scan the QR code to login in.">
     </a>
     <a href="{{ url('/auth/social/github') }}" class="my-3" >
-        <img src="{{asset('img/github.png')}}" alt="github" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Github account to log in">
+        <img src="{{asset('img/social/github.png')}}" alt="github" data-toggle="tooltip" data-placement="top" title="" data-original-title="Use Github account to log in">
     </a>
 </div>

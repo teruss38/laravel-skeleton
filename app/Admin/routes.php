@@ -42,4 +42,5 @@ Route::group([
     $router->resource('module/links', 'Module\LinkController');
     $router->resource('module/baidu-push', 'Module\BaiduPushController');
     $router->resource('module/bing-push', 'Module\BingPushController');
+    $router->resource('module/carousels', 'Module\CarouselController');
 });

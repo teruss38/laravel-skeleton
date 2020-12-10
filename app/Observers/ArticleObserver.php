@@ -27,6 +27,12 @@ class ArticleObserver
      */
     public function saving(Article $article)
     {
+        $article->metas = array_merge([
+            'title' => null,
+            'keywords' => null,
+            'description' => null
+        ], is_array($article->metas) ? $article->metas : []);
+
         $censor = Censor::getFacadeRoot();
         try {
             $article->title = $censor->textCensor($article->title);

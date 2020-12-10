@@ -1,5 +1,5 @@
 // Body
-$body-bg: #f9f9f9;
+$body-bg: #f7faff;
 $body-color: #000;
 
 // Typography
@@ -8,7 +8,7 @@ $font-size-base: 0.875rem;
 
 // Colors
 $white: #fff;
-$blue: #007bff;
+$blue: #0099ee;
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66d9b;
@@ -42,6 +42,9 @@ $custom-file-text: (
     zh-CN:"浏览",
 );
 
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
 // Nav
 .navbar-nav {
     font-size: 1rem;
@@ -54,7 +57,7 @@ $custom-file-text: (
 .nav-item {
     a {
         &:hover {
-            color: #1054ff !important;
+            color: #0099ee !important;
             text-decoration: none;
         }
     }
@@ -71,8 +74,8 @@ $custom-file-text: (
 }
 
 .navbar-light .navbar-nav .active > .nav-link {
-    color: #1054ff !important;
-    border-bottom: 2px #1054ff solid;
+    color: #0099ee !important;
+    border-bottom: 2px #0099ee solid;
 }
 
 // 鼠标触动下拉
@@ -85,5 +88,44 @@ $custom-file-text: (
     pointer-events: none;
 }
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+.page-header {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 1rem 0 1rem;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+}
+
+.home_tab {
+    position: relative;
+
+    a {
+        font-size: 1rem;
+    }
+
+    .nav-tabs .nav-item {
+        margin-bottom: -1px;
+    }
+
+    .nav-link {
+        box-sizing: border-box;
+        color: #757575;
+        border: none;
+    }
+    .nav-link.active {
+        color: #0099ee;
+        box-sizing: border-box;
+        border-color: #fff #fff #e9ecef #fff;
+        border-bottom: 3px solid #0099ee;
+        background-color: #fff;
+    }
+}

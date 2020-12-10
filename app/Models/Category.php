@@ -53,7 +53,7 @@ class Category extends Model implements Sortable
      * 允许批量赋值的属性
      * @var array
      */
-    public $fillable = [
+    protected $fillable = [
         'id', 'parent_id', 'name', 'order', 'image_path', 'title', 'keywords', 'description'
     ];
 
@@ -75,14 +75,6 @@ class Category extends Model implements Sortable
         'order_column_name' => 'order',
         // 是否在创建时自动排序，此参数建议设置为true
         'sort_when_creating' => true,
-    ];
-
-    /**
-     * 追加字段
-     * @var string[]
-     */
-    protected $appends = [
-        'image'
     ];
 
     /**

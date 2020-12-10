@@ -35,6 +35,8 @@
     "If this login is not yours, your account has been stolen!": "如果本次登录不是您本人所为，说明您的帐号已经被盗！",
     "Click here to view": "点击查看",
     "Your verification code is: :verify_code, please verify as soon as possible!": "您的验证码是：:verify_code，请尽快进行验证！",
+    "Contribution": "投稿",
     "Articles": "文章",
-    "News": "快讯"
+    "News": "快讯",
+    "Create Article": "发布文章"
 }

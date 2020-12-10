@@ -5,32 +5,35 @@
 
 @section('content')
     <div class="container">
+        <div class="page-header">
+            <div class="page-title">{{__('News')}}</div>
+        </div>
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <div class="page-header">
-                    <div class="page-title">{{__('News')}}</div>
-                </div>
                 <ul class="list-unstyled">
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">
-                            <div class="media-body position-relative">
-                                <a href="{{ route('news.show',$item) }}" target="_blank" class="article_url"
-                                   title="{{$item->title}}">
-                                    <h4 class="article_title">{{$item->title}}</h4>
-                                    <div class="article-excerpt">{{$item->description}}</div>
-                                </a>
-                                <div class="row article_userinfo small mx-0">
-                                    <div class="col-4 text-truncate px-0">
-                                        @if($item->from)
-                                            <span class="text-black-50">来源：{{$item->from}}</span>
-                                        @endif
-                                    </div>
-                                    <div class="col-8 text-right text-truncate px-0" style="color: #888;">
-                                        <span>{{$item->created_at}}</span>
+                                <div class="media-body position-relative">
+                                    <a href="{{ route('news.show',$item) }}" target="_blank" class="article_url"
+                                       title="{{$item->title}}">
+                                        <h4 class="article_title">{{$item->title}}</h4>
+                                        <div class="article-excerpt">{{$item->description}}</div>
+                                    </a>
+                                    <div class="row article_userinfo small mx-0">
+                                        <div class="col-4 text-truncate px-0">
+                                            @if($item->from)
+                                                <span class="text-black-50">来源：{{$item->from}}</span>
+                                            @endif
+                                        </div>
+                                        <div class="col-8 text-right text-truncate px-0" style="color: #888;">
+                                            <span>{{$item->created_at}}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        @if($loop->iteration % 2 == 0)
+                            <li class="p-4 bg-white">广告位</li>
+                        @endif
                     @endforeach
                 </ul>
                 <div class="text-center mt-4">
@@ -39,7 +42,7 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-                右侧
+                @include('layouts._side')
             </div>
         </div>
     </div>

@@ -8,11 +8,10 @@
 
 namespace App\View\Components\Forms;
 
-use Illuminate\Support\Str;
 use Illuminate\View\Component;
 
 /**
- * 文本组件
+ * 文本输入框
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class Text extends Component
@@ -45,15 +44,15 @@ class Text extends Component
     /**
      * Create a new component instance.
      *
-     * @param string $name
-     * @param string $label
-     * @param string $placeholder
+     * @param  string  $name
+     * @param  string  $label
+     * @param  string  $placeholder
      *
      * @return void
      */
     public function __construct($name = "text", $label = "Text Input", $placeholder = "Enter Text")
     {
-        $this->id = 'form-' . Str::kebab(class_basename(get_class($this))) . '-' . md5($name);
+        $this->id = 'form-' . $name;
         $this->name = $name;
         $this->label = $label;
         $this->placeholder = $placeholder;

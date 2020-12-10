@@ -38,7 +38,7 @@
                             <span class="item">阅读：{{$news->views}}</span>
                         </div>
                     </div>
-                    <article class="article-content">
+                    <article class="article-content ck-content">
                         {!! $news->description !!}
                     </article>
                     <div class="text-center">
@@ -57,7 +57,7 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-                右侧
+                @include('layouts._side')
             </div>
         </div>
     </div>

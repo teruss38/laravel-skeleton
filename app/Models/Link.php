@@ -55,7 +55,7 @@ class Link extends Model
     /**
      * @var array 允许批量赋值属性
      */
-    public $fillable = [
+    protected $fillable = [
         'type', 'title', 'url', 'logo_path', 'description', 'expired_at'
     ];
 

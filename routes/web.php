@@ -26,6 +26,11 @@ Route::get('auth/social/{provider}/callback', [\App\Http\Controllers\Auth\Social
 Route::get('auth/social/{provider}/binding', [\App\Http\Controllers\Auth\SocialController::class, 'handleProviderBinding']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//上传
+Route::group(['prefix' => 'uploader', 'as' => 'uploader.'], function () {
+    Route::post('ckeditor', [App\Http\Controllers\UploaderController::class, 'ckeditor'])->name('ckeditor');
+});
+
 /**
  * 单页面
  */
@@ -57,6 +62,7 @@ Route::get('notifications', [App\Http\Controllers\User\NotificationController::c
  */
 Route::group(['prefix' => 'ajax'], function () {
     Route::get('info', [App\Http\Controllers\AjaxController::class, 'info']);//获取用户登录状态
+    Route::get('tags', [App\Http\Controllers\AjaxController::class, 'tags'])->name('ajax.tags');//获取用户登录状态
 });
 
 /**
@@ -75,10 +81,10 @@ Route::resource('news', App\Http\Controllers\NewsController::class);
  * 标签
  */
 Route::group(['prefix' => 'tags', 'as' => 'tag.'], function () {
-    Route::get('{id}/articles', [App\Http\Controllers\ArticleController::class, 'tag'])->name('articles');
-    Route::get('{id}/news', [App\Http\Controllers\NewsController::class, 'tag'])->name('news');
     Route::get('/', [App\Http\Controllers\TagController::class, 'index'])->name('index');
-    Route::get('{id}', [App\Http\Controllers\TagController::class, 'show'])->name('show');
+    Route::get('{tag}', [App\Http\Controllers\TagController::class, 'show'])->name('show');
+    Route::get('{tag}/articles', [App\Http\Controllers\ArticleController::class, 'tag'])->name('articles');
+    Route::get('{tag}/news', [App\Http\Controllers\NewsController::class, 'tag'])->name('news');
 });
 
 /**

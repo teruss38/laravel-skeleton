@@ -1,7 +1,5 @@
 <div {{ $attributes->merge(['class' => 'form-group']) }}>
-    <label for="{{ $name }}" class="form-label">{{ $label }}</label>
-    <input name="{{ $name }}" type="text" class="form-control @error($name) is-invalid @enderror" placeholder="{{ $placeholder }}" value="{{ old($name) }}">
-    @error($name)
-    <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
+    @if($label)<label class="form-label">{{ $label }}</label>@endif
+    <input id="{{$id}}" name="{{$name}}" type="text" class="form-control @error($name) is-invalid @enderror" placeholder="{{$placeholder}}"></input>
+    @error($name)<span role="alert" class="invalid-feedback"><strong>{{ $message }}</strong></span>@enderror
 </div>

@@ -98,7 +98,7 @@ class Tag extends Model
      */
     public function getLinkAttribute()
     {
-        return route('tag.show', ['id' => $this->id]);
+        return route('tag.show', $this);
     }
 
     /**

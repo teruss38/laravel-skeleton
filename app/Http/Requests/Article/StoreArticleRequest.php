@@ -53,6 +53,22 @@ class StoreArticleRequest extends Request
             'category_id' => ['required', 'numeric', 'exists:categories,id',],
             'title' => ['required', 'string', 'max:40', 'min:5', 'text_censor'],
             'content' => ['required', 'string', 'text_censor'],
+            'extra.from' => [
+                'nullable', 'string', 'min:2', 'max:20', 'text_censor'
+            ],
+            'extra.from_url' => [
+                'nullable', 'url'
+            ],
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function messages()
+    {
+        return [
+            'category_id.numeric' => '必须选择一个栏目。',
         ];
     }
 }

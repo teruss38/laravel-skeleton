@@ -60,10 +60,9 @@
 }
 
 .article {
-    min-height: 60vh;
     margin-bottom: 1rem;
-    border: 1px solid #eaeaea;
-    border-radius: 4px;
+    //border: 1px solid #eaeaea;
+    //border-radius: 4px;
     color: #303030;
 
     .article-header {
@@ -168,9 +167,46 @@
     }
 }
 
-//快讯
-.news {
-    min-height: 20vh;
-}
+//文章时间线
+.articles-li {
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
 
+    .articles-change {
+        margin-top: 0;
+        border-left: 1px solid #efefef;
+        padding: 15px 0;
+        position: relative;
+
+        .articles-title {
+            padding-left: 1.25rem;
+            margin-top: 1.25rem;
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:before {
+                content: "";
+                background-color: #f99750;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                display: block;
+                position: absolute;
+                left: -0.1875rem;
+                margin-top: .3125rem;
+            }
+
+            span {
+                font-size: .75rem;
+                color: #aaa;
+                margin-top: 0.625rem;
+                display: block;
+            }
+        }
+    }
+}
 

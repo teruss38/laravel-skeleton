@@ -71,7 +71,7 @@ class Article extends Model
      * 允许批量赋值的属性
      * @var array
      */
-    public $fillable = [
+    protected $fillable = [
         'user_id', 'category_id', 'title', 'thumb_path', 'status', 'description', 'order', 'tag_values',
         'metas', 'pub_date'
     ];

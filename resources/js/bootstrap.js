@@ -11,6 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+
     /*全局启用bootstrap tooltip*/
     window.jQuery('[data-toggle="tooltip"]').tooltip();
 

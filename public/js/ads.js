@@ -1,1 +1,0 @@
-window.adIsBlocked=!1;

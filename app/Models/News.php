@@ -48,7 +48,7 @@ class News extends Model
      * 允许批量赋值的属性
      * @var array
      */
-    public $fillable = [
+    protected $fillable = [
         'title', 'keywords', 'description', 'views', 'from', 'from_url', 'pub_date'
     ];
 

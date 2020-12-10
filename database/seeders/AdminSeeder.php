@@ -247,7 +247,7 @@ class AdminSeeder extends Seeder
         ], [
             [
                 'order' => 1,
-                'name' => '友情链接管理',
+                'name' => '友情链接',
                 'slug' => 'module-links-management',
                 'http_method' => '',
                 'http_path' => '/module/links*',
@@ -267,6 +267,14 @@ class AdminSeeder extends Seeder
                 'slug' => 'module-bing-push-management',
                 'http_method' => '',
                 'http_path' => '/module/bing-push*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 4,
+                'name' => '轮播管理',
+                'slug' => 'module-carousels-management',
+                'http_method' => '',
+                'http_path' => '/module/carousels*',
                 'created_at' => $createdAt
             ],
         ]);
@@ -464,7 +472,7 @@ class AdminSeeder extends Seeder
         $this->addSubMenu(6, [
             [
                 'order' => 1,
-                'title' => '友情链接管理',
+                'title' => '友情链接',
                 'icon' => '',
                 'uri' => 'module/links',
                 'created_at' => $createdAt,
@@ -482,6 +490,13 @@ class AdminSeeder extends Seeder
                 'icon' => '',
                 'uri' => 'module/bing-push',
                 'created_at' => $createdAt,
+            ],
+            [
+                'order' => 4,
+                'title' => '轮播管理',
+                'icon' => '',
+                'uri' => 'module/carousels',
+                'created_at' => $createdAt
             ],
         ]);
 

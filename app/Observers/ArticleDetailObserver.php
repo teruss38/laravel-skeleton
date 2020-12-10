@@ -28,13 +28,11 @@ class ArticleDetailObserver
      */
     public function saving(ArticleDetail $articleDetail)
     {
-        if (!is_array($articleDetail->extra)) {
-            $articleDetail->extra = [
-                'form' => null,
-                'form_url' => null,
-                'bd_daily' => 0
-            ];
-        }
+        $articleDetail->extra = array_merge([
+            'from' => null,
+            'from_url' => null,
+            'bd_daily' => 0
+        ], is_array($articleDetail->extra) ? $articleDetail->extra : []);
     }
 
     /**

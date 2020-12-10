@@ -4,6 +4,11 @@
 // Font Awesome
 @import 'fontawesome';
 
+@import '~select2/dist/css/select2.css';
+
+// CKEditor 5 (v23.1.0) content styles.
+@import "_ckeditor5";
+
 // User
 @import "user";
 
@@ -13,27 +18,7 @@
 // Utils
 @import "utils";
 
-.page-header {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    margin: 1rem 0 1rem;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
+// Side
+@import "side";
 
-.page-title {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 2.5rem;
-}
 
-.footer {
-    background: #fff;
-    border-top: 1px solid rgba(0, 40, 100, 0.12);
-    font-size: 0.875rem;
-    padding: 1.25rem 0;
-    color: #9aa0ac;
-}

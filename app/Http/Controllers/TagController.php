@@ -40,11 +40,11 @@ class TagController extends Controller
 
     /**
      * Tag 详情
-     * @param int $id
+     * @param Tag $tag
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function show($id)
+    public function show(Tag $tag)
     {
-        return response()->redirectToRoute('tag.articles', ['id' => $id]);
+        return response()->redirectToRoute('tag.articles', $tag);
     }
 }

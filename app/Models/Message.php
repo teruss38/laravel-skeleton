@@ -40,7 +40,7 @@ class Message extends Model
      * 允许批量赋值的属性
      * @var array
      */
-    public $fillable = [
+    protected $fillable = [
         'to_user_id', 'from_user_id', 'content', 'is_read', 'from_deleted', 'to_deleted'
     ];
 

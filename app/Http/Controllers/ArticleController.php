@@ -7,7 +7,6 @@ use App\Http\Requests\Article\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 
 /**
  * 前台文章模型
@@ -31,7 +30,24 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $items = Article::approved()->with('user')->orderByDesc('order')->orderByDesc('id')->paginate(15);
+        $items = Article::approved()->with('user')->orderByDesc('order')->orderByDesc('id')->paginate(3);
+        $categories = Category::getRootNodes();
+        return view('article.index', [
+            'items' => $items,
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * Display a listing of the article.
+     *
+     * @param Category $category
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function category($id)
+    {
+        $category = Category::query()->findOrFail($id);
+        $items = Article::approved()->with('user')->byCategoryId($category->id)->orderByDesc('order')->orderByDesc('id')->paginate(15);
         $categories = Category::getRootNodes();
         return view('article.index', [
             'items' => $items,
@@ -61,10 +77,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::getRootNodes();
-        return view('article.create', [
-            'categories' => $categories,
-        ]);
+        return view('article.create');
     }
 
     /**
@@ -76,8 +89,8 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        $article = Article::create($request->except(['content']));
-        if ($article && $article->detail()->create($request->only(['content']))) {
+        $article = Article::create($request->except(['content', 'extra']));
+        if ($article && $article->detail()->create($request->only(['content', 'extra']))) {
             $message = '文章发布成功！为了确保文章的质量，我们会对您发布的文章进行审核。请耐心等待......';
             $this->flash()->info($message);
             return redirect()->route('articles.show', $article);

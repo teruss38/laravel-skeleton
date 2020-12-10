@@ -52,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Illuminate\Support\Carbon::setLocale('zh');
+        \Illuminate\Pagination\Paginator::useBootstrap();
         $this->registerObserve();
         $this->registerValidators();
     }
@@ -69,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\ArticleDetail::observe(\App\Observers\ArticleDetailObserver::class);//文章详情
         \App\Models\News::observe(\App\Observers\NewsObserver::class);//快讯
         \App\Models\Link::observe(\App\Observers\LinkObserver::class);//友情链接
+        \App\Models\Carousel::observe(\App\Observers\CarouselObserver::class);//轮播
     }
 
     /**

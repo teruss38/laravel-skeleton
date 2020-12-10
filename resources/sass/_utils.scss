@@ -59,3 +59,46 @@ dl.row > dt {
     height: 6rem;
     border-radius: 6rem;
 }
+
+//首页广告
+.main_ad_style1 {
+    padding: 10px 10px 0 10px;
+    background: #fff;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 10px;
+
+    dl {
+        position: relative;
+        padding: 0 0 0 600px;
+        height: auto;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    dt {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    dd {
+        width: 250px;
+        height: 150px;
+        float: left;
+        margin: 0 0 10px 10px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.footer {
+    background: #fff;
+    border-top: 1px solid rgba(0, 40, 100, 0.12);
+    font-size: 0.875rem;
+    padding: 1.25rem 0;
+    color: #9aa0ac;
+}
