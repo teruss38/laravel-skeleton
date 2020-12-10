@@ -23,5 +23,5 @@ mix.js('resources/js/app.js', 'public/js')
     .extract(['jquery', 'vue', 'vuex'])
     .sass('resources/sass/app.scss', 'public/css');
 
-mix.js('resources/js/ckeditor.js', 'public/js');
-mix.js('resources/js/select2.js', 'public/js');
+mix.js('resources/js/plugins/ckeditor.js', 'public/js');
+mix.js('resources/js/plugins/select2.js', 'public/js');

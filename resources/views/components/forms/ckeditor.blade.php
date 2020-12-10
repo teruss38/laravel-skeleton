@@ -18,10 +18,8 @@
                 defaultProtocol: 'https://',
                 addTargetToExternalLinks: true
             },
-            image: {
-                upload:{
-
-                }
+            ckfinder: {
+                uploadUrl: '{{route('uploader.ckeditor')}}',
             },
         }).catch(error => {
             console.error(error);

@@ -130,6 +130,21 @@ class FileService
     }
 
     /**
+     * 保存上传的文件
+     * @param \Illuminate\Http\UploadedFile $file
+     * @param string $prefix
+     * @return false|string
+     */
+    public static function store($file, $prefix = 'images')
+    {
+        $path = $prefix . '/' . date('Y/m');
+        if (($fileName = Storage::cloud()->putFile($path, $file, ['visibility' => 'public'])) != false) {
+            return Storage::cloud()->url($fileName);
+        }
+        return false;
+    }
+
+    /**
      * 删除文件
      * @param string $url
      * @return bool

@@ -91,7 +91,7 @@ class ArticleController extends Controller
     {
         $article = Article::create($request->except(['content', 'extra']));
         if ($article && $article->detail()->create($request->only(['content', 'extra']))) {
-            $message = '文章发布成功！为了确保文章的质量，我们会对您发布的文章进行审核。请耐心等待......';
+            $message = '文章发布成功！为了确保文章的质量，我们可能会对您发布的文章进行审核。';
             $this->flash()->info($message);
             return redirect()->route('articles.show', $article);
         }
