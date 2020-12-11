@@ -25,8 +25,8 @@
 
             <!-- 右侧 -->
             <ul class="navbar-nav d-flex ml-auto">
-                <form class="navbar-form d-none d-lg-flex mr-2 active" action="/search" method="GET">
-                    <input type="text" name="q" class="form-control" value="" placeholder="{{__('Search')}}"></input>
+                <form class="navbar-form d-none d-lg-flex mr-2 active " action="{{route('search.index')}}" method="GET">
+                    <input type="text" name="q" class="form-control" value="@isset($q){{$q}}@endisset" placeholder="{{__('Search')}}"></input>
                 </form>
 
                 <li class="nav-item dropdown" style="display: none;" v-show="!guest">

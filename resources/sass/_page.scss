@@ -1,0 +1,39 @@
+.page-menu {
+    .list-group-item {
+        text-align: center;
+        border:none;
+    }
+}
+
+.site-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+
+    .entry-header {
+        padding: 0.25rem .5rem 0.25rem 0;
+        margin-bottom: 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .entry-title {
+        line-height: 32px;
+        padding-left: 10px;
+        font-size: 1rem;
+        border-left: 2px #3490dc solid;
+    }
+
+    .entry-content {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1.25rem;
+    }
+}
+
+

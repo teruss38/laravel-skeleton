@@ -68,10 +68,10 @@ Route::group(['prefix' => 'ajax'], function () {
 /**
  * 搜索
  */
-//Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
-//    Route::get('search', [App\Http\Controllers\SearchController::class, 'index'])->name('index');
-//    Route::get('search/query', [App\Http\Controllers\SearchController::class, 'query'])->name('query');
-//});
+Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
+    Route::get('', [App\Http\Controllers\SearchController::class, 'index'])->name('index');
+    Route::get('{q}', [App\Http\Controllers\SearchController::class, 'query'])->name('query');
+});
 
 Route::get('category/{id}', [App\Http\Controllers\ArticleController::class, 'category'])->name('articles.category');
 Route::resource('articles', App\Http\Controllers\ArticleController::class);

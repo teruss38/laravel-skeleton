@@ -2,7 +2,8 @@
     <div class="d-none px-0 d-md-block col-md-12">
         <div class="side_box mb-3">
             <div class="box-header">
-                <div class="box-title">友情链接</div>
+                <div class="box-title">{{__('Friend Link')}}</div>
+                <a href="{{route('page.link')}}" class="box-title-link">申请链接</a>
             </div>
             <div class="box-body">
                 @foreach ($links as $link)

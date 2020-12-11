@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\News\StoreNewsRequest;
 use App\Models\News;
 use App\Models\Tag;
 

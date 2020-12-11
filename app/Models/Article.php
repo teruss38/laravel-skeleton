@@ -37,11 +37,13 @@ use Illuminate\Support\Str;
  * @property User $user
  * @property ArticleDetail $detail 文章详情
  *
- * @property string $tag_values 文章标签
+ * @property string $tag_values 文章标签名称列表
+ * @property string $tag_ids 文章标签ID列表
  * @property-read string $link 文章Url
  * @property-read boolean $isApproved 是否已审核
  * @property-read boolean $hasPending 是否待审核
- * @property-read boolean $thumb 缩略图Url
+ * @property-read string $thumb 缩略图Url
+ * @property-read boolean $hasThumb
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Article approved()
  * @method static \Illuminate\Database\Eloquent\Builder|Article byCategoryId($categoryId)
@@ -203,6 +205,18 @@ class Article extends Model
     public function getIsApprovedAttribute()
     {
         return $this->status == static::STATUS_APPROVED;
+    }
+
+    /**
+     * 是否有缩略图
+     * @return boolean
+     */
+    public function getHasThumbAttribute()
+    {
+        if (!empty($this->attributes['thumb_path'])) {
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -24,6 +24,7 @@ import store from './store'
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('send-mobile-verify-code', require('./widgets/SendMobileVerifyCode.vue').default);
+Vue.component('notification-mark-as-read', require('./widgets/notification/MarkAsRead.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

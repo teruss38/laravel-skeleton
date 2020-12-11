@@ -6,10 +6,9 @@
     <div class="container">
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <h4 class="mt-2 mb-3">
+                <h4 class="mt-3 mb-3">
                     通知<span class="float-right"><notification-mark-as-read></notification-mark-as-read></span>
                 </h4>
-
                 <div class="widget-notify border-top">
                     @foreach($notifications as $notification)
                         <section class="notify-item @if($notification->read_at==null) not_read @endif">

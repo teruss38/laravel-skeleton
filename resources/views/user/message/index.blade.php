@@ -6,7 +6,7 @@
     <div class="container py-4">
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <h4 class="mt-2 mb-3">
+                <h4 class="mt-3 mb-3">
                     短消息<span class="float-right"><send-message></send-message></span>
                 </h4>
                 <div class="message-list border-top">
