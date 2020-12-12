@@ -55,12 +55,15 @@
                         <a class="nav-item nav-link active" id="nav-main-tab" data-toggle="tab" href="#nav-main"
                            role="tab" aria-controls="nav-main" aria-selected="true">最新</a>
                         <a class="nav-item nav-link" id="nav-news-tab" data-toggle="tab" href="#nav-news" role="tab"
-                           aria-controls="nav-news" aria-selected="false">最新</a>
+                           aria-controls="nav-news" aria-selected="false">快讯</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-main" role="tabpanel" aria-labelledby="nav-main-tab">
                         <x-widgets.home-article limit="10"/>
+                    </div>
+                    <div class="tab-pane fade show" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">
+                        <x-widgets.home-news limit="10"/>
                     </div>
                 </div>
             </div>

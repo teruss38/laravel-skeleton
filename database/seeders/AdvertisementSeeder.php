@@ -28,5 +28,6 @@ class AdvertisementSeeder extends Seeder
         Advertisement::create(['id' => 2, 'name' => '边栏下', 'body' => '边栏广告下']);
         Advertisement::create(['id' => 3, 'name' => '内容页上', 'body' => '内容广告上']);
         Advertisement::create(['id' => 4, 'name' => '内容页下', 'body' => '内容广告下']);
+        Advertisement::create(['id' => 5, 'name' => '首页内容穿插', 'body' => '首页内容穿插']);
     }
 }

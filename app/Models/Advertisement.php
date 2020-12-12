@@ -104,9 +104,9 @@ class Advertisement extends Model
     /**
      * 通过ID获取内容
      * @param int $id
-     * @return Advertisement
+     * @return Advertisement|null
      */
-    public static function findById($id): Advertisement
+    public static function findById($id)
     {
         return Cache::rememberForever(static::CACHE_TAG . $id, function () use ($id) {
             return Advertisement::query()->find($id);
