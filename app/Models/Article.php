@@ -263,6 +263,24 @@ class Article extends Model
     }
 
     /**
+     * 获取AMP访问Url
+     * @return string
+     */
+    public function getAmpLinkAttribute()
+    {
+        return route('articles.show.amp', ['article' => $this]);
+    }
+
+    /**
+     * 获取Mip访问Url
+     * @return string
+     */
+    public function getMipLinkAttribute()
+    {
+        return route('articles.show.mip', ['article' => $this]);
+    }
+
+    /**
      * 设置已审核
      */
     public function setApproved()

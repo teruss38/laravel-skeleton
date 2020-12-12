@@ -73,7 +73,10 @@ Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
     Route::get('{q}', [App\Http\Controllers\SearchController::class, 'query'])->name('query');
 });
 
-Route::get('category/{id}', [App\Http\Controllers\ArticleController::class, 'category'])->name('articles.category');
+//栏目页
+Route::get('categories/{category}', [App\Http\Controllers\ArticleController::class, 'category'])->name('categories.show');
+Route::get('articles/{article}/amp', [App\Http\Controllers\ArticleController::class, 'showAmp'])->name('articles.show.amp');
+Route::get('articles/{article}/mip', [App\Http\Controllers\ArticleController::class, 'showMip'])->name('articles.show.mip');
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
 Route::resource('news', App\Http\Controllers\NewsController::class)->only(['index', 'show']);
 

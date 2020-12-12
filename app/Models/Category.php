@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
 
 /**
@@ -131,7 +130,43 @@ class Category extends Model implements Sortable
      */
     public function getLinkAttribute()
     {
-        return route('articles.category', ['id' => $this->id]);
+        return route('categories.show', $this);
+    }
+
+    /**
+     * 获取 栏目Title
+     * @return string
+     */
+    public function getTitleAttribute()
+    {
+        if (!empty($this->attributes['title'])) {
+            return $this->attributes['title'];
+        }
+        return $this->attributes['name'];
+    }
+
+    /**
+     * 获取 栏目keywords
+     * @return string
+     */
+    public function getKeywordsAttribute()
+    {
+        if (!empty($this->attributes['keywords'])) {
+            return $this->attributes['keywords'];
+        }
+        return $this->attributes['name'];
+    }
+
+    /**
+     * 获取 栏目 description
+     * @return string
+     */
+    public function getDescriptionAttribute()
+    {
+        if (!empty($this->attributes['description'])) {
+            return $this->attributes['description'];
+        }
+        return $this->attributes['name'];
     }
 
     /**

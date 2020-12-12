@@ -44,14 +44,12 @@ class ArticleController extends Controller
      * @param Category $category
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function category($id)
+    public function category(Category $category)
     {
-        $category = Category::query()->findOrFail($id);
         $items = Article::approved()->with('user')->byCategoryId($category->id)->orderByDesc('order')->orderByDesc('id')->paginate(15);
-        $categories = Category::getRootNodes();
         return view('article.index', [
             'items' => $items,
-            'categories' => $categories,
+            'category' => $category,
         ]);
     }
 
@@ -111,6 +109,26 @@ class ArticleController extends Controller
         /*查看数+1*/
         $article->increment('views');
         return view('article.show', [
+            'article' => $article
+        ]);
+    }
+
+    /**
+     * Display the specified article.
+     *
+     * @param \App\Models\Article $article
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function showAmp(Article $article)
+    {
+        return view('article.show_amp', [
+            'article' => $article
+        ]);
+    }
+
+    public function showMip(Article $article){
+        return view('article.show_mip', [
             'article' => $article
         ]);
     }

@@ -5,6 +5,9 @@
 @section('description', $article->metas['description'] ?? $article->description)
 
 @push('head')
+    <link rel="canonical" href="{{$article->link}}">
+    <link rel="amphtml" href="{{$article->ampLink}}" />
+    <link rel="miphtml" href="{{$article->mipLink}}" />
     <meta property="og:type" content="article"/>
     <meta property="og:site_name" content="{{ config('app.name', 'Larva') }}"/>
     <meta property="og:image" content="{{$article->thumb}}"/>

@@ -12,8 +12,7 @@
 @section('content')
     <div class="container">
         <div class="page-header">
-            <div
-                class="page-title">@if (isset($category)) {{$category->name}} @else {{__('Articles')}} @endif</div>
+            <div class="page-title">@if (isset($category)) {{$category->name}} @else {{__('Articles')}} @endif</div>
         </div>
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
@@ -50,7 +49,6 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-                <x-widgets.side-category/>
                 @include('layouts._side')
             </div>
         </div>
