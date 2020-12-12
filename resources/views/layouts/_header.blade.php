@@ -23,16 +23,24 @@
                 </li>
             </ul>
 
+            <form class="form-inline d-flex ml-auto my-lg-0 d-none d-lg-block" action="{{route('search.index')}}" method="get">
+                <div class="input-group">
+                    <input type="text" id="search" class="form-control" name="q" value="@isset($q){{$q}}@endisset" placeholder="{{__('Search')}}" autocomplete="off">
+                    <span class="input-group-append">
+                        <button type="submit" class="btn btn-primary d-none d-md-block">
+                            <i class="fa fa-search fa-w-16"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
             <!-- 右侧 -->
-            <ul class="navbar-nav d-flex ml-auto">
-                <form class="navbar-form d-none d-lg-flex mr-2 active " action="{{route('search.index')}}" method="GET">
-                    <input type="text" name="q" class="form-control" value="@isset($q){{$q}}@endisset" placeholder="{{__('Search')}}"></input>
-                </form>
-
-                <li class="nav-item dropdown" style="display: none;" v-show="!guest">
-                    <button class="btn btn-secondary" type="button" id="dropdownAddButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ul class="navbar-nav d-flex ml-1">
+                <li class="nav-item dropdown my-lg-0 d-none d-lg-block" style="display: none;" v-show="!guest">
+                    <a id="dropdownAddButton" class="nav-link dropdown-toggle" href="javascript:" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-plus" aria-hidden="true"></i> 发布
-                    </button>
+                    </a>
+
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAddButton">
                         <a class="dropdown-item" href="{{route('articles.create')}}">
                             {{__('Articles')}}
