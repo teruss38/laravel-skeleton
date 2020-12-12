@@ -271,6 +271,14 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 4,
+                'name' => '广告管理',
+                'slug' => 'module-advertisements-management',
+                'http_method' => '',
+                'http_path' => '/module/advertisements*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 5,
                 'name' => '轮播管理',
                 'slug' => 'module-carousels-management',
                 'http_method' => '',
@@ -493,6 +501,13 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 4,
+                'title' => '广告管理',
+                'icon' => '',
+                'uri' => 'module/advertisements',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 5,
                 'title' => '轮播管理',
                 'icon' => '',
                 'uri' => 'module/carousels',

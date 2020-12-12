@@ -8,30 +8,30 @@
 
 namespace App\View\Components\Widgets;
 
-use App\Models\Carousel;
+use App\Models\Advertisement;
 use Illuminate\View\Component;
 
 /**
- * 首页广告风格1
+ * 广告
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class HomeAdStyle1 extends Component
+class Ads extends Component
 {
     /**
-     * 缓存时间
+     * 广告ID
      *
-     * @var int
+     * @var string
      */
-    public $cacheMinutes;
+    public $id;
 
     /**
      * Create a new component instance.
      *
-     * @param int $cacheMinutes
+     * @param int $id
      */
-    public function __construct($cacheMinutes = 5)
+    public function __construct($id)
     {
-        $this->cacheMinutes = $cacheMinutes;
+        $this->id = $id;
     }
 
     /**
@@ -41,10 +41,8 @@ class HomeAdStyle1 extends Component
      */
     public function render()
     {
-        $carousels = Carousel::home($this->cacheMinutes);
-        return view('components.widgets.home_ad_style1', [
-            'count' => $carousels->count(),
-            'carousels' => $carousels
+        return view('components.widgets.ads', [
+            'advertisement' => Advertisement::findById($this->id)
         ]);
     }
 }

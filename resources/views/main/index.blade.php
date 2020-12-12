@@ -10,8 +10,6 @@
 @endpush
 
 @section('content')
-    <x-widgets.home-ad-style1/>
-
     <div class="container my-3">
         <div class="row">
             <div class="d-block bg-white p-2 col-xs-12 col-sm-12 col-md-12 col-lg-6">
