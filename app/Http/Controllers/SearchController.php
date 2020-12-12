@@ -24,7 +24,7 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->has('q')) {
+        if (!$request->has('q') || empty($request->get('q'))) {
             return view('search.index');
         }
         return $this->callAction('query', ['q' => $request->get('q')]);
