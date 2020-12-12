@@ -6,13 +6,13 @@
 
 @section('content')
     <div class="container">
+        <div class="page-header">
+            <div class="page-title">{{$tag->name}}</div>
+        </div>
+
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <div class="page-header">
-                    <div class="page-title">{{$tag->name}}</div>
-                </div>
                 @include('tag._header',['tag'=>$tag])
-
                 <ul class="list-unstyled">
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">

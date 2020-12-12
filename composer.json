@@ -16,6 +16,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "hisorange/browser-detect": "^4.3",
+        "jaeger/querylist": "^4.2",
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.0",
         "laravel/socialite": "^5.1",

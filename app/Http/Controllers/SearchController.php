@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 /**
@@ -37,7 +38,10 @@ class SearchController extends Controller
      */
     public function query($q)
     {
-
+        $tag = Tag::findByName($q);
+        if ($tag) {//命中Tag
+            return redirect()->route('tag.show', $tag);
+        }
         return view('search.list', ['items' => [], 'q' => $q]);
     }
 }

@@ -13,6 +13,7 @@ use App\Admin\Actions\Grid\ForceDelete;
 use App\Admin\Actions\Grid\Restore;
 use App\Admin\Actions\Grid\ReviewAccept;
 use App\Admin\Actions\Grid\ReviewReject;
+use App\Admin\Actions\WechatArticleCrawler;
 use App\Models\Article;
 use App\Models\Category;
 use App\Services\FileService;
@@ -99,6 +100,8 @@ class ArticleController extends AdminController
                     $batch->add(new BatchRestore(Article::class));
                 });
             }
+
+            $grid->tools(WechatArticleCrawler::make());
         });
     }
 
