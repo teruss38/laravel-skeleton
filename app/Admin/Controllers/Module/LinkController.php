@@ -8,10 +8,12 @@
 
 namespace App\Admin\Controllers\Module;
 
+use App\Models\Advertisement;
 use App\Models\Link;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
+use Dcat\Admin\Show;
 use Illuminate\Support\Carbon;
 
 /**
@@ -72,6 +74,27 @@ class LinkController extends AdminController
             $grid->enableDialogCreate();
             $grid->disableViewButton();
             $grid->paginate(10);
+        });
+    }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     *
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        return Show::make($id, Link::query(), function (Show $show) {
+            $show->field('id', 'ID');
+            $show->field('title', '链接名称');
+            $show->field('url', 'Url')->link();
+            $show->field('logo', '链接Logo')->image();
+            $show->field('description', '链接描述');
+            $show->field('created_at','创建时间');
+            $show->field('updated_at', '更新时间');
+            $show->field('expired_at','过期时间');
         });
     }
 

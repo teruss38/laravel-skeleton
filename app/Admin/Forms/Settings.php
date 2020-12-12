@@ -34,6 +34,8 @@ class Settings extends Form
             $this->email('system.lawyer_email', '法律邮箱')->rules('nullable|email')->placeholder('lawyer@xxx.com');
         });
         $this->tab('系统设置', function () {
+            $this->switch('system.mip_enabled', '启用MIP支持');
+            $this->switch('system.amp_enabled', '启用Amp支持');
             $this->text('system.coding_token', 'Coding自动部署Token')->rules('nullable|string')->help('Coding WebHook Url地址为：' . route('coding_webhook'));
             $this->switch('system.download_remote_pictures', '下载远程图片');
             $this->switch('system.local_censor', '启用本地文本智能审核');

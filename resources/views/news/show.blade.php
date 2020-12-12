@@ -5,7 +5,7 @@
 @section('description', $news->description)
 
 @push('head')
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="article"/>
     <meta property="og:site_name" content="{{ config('app.name', 'Larva') }}"/>
     <meta property="og:image" content="{{$news->thumb}}"/>
     <meta property="og:release_date" content="{{$news->created_at}}"/>
@@ -39,13 +39,17 @@
                         </div>
                     </div>
                     <article class="article-content ck-content">
+                        <div class="p-3">
+                            <x-widgets.ads id="3"/>
+                        </div>
                         {!! $news->description !!}
                     </article>
                     <div class="text-center">
-                        <a href="{{$news->from_url}}" class="btn btn-primary" rel="nofollow" target="_blank">{{$news->from}}AAA</a>
+                        <a href="{{$news->from_url}}" class="btn btn-primary" rel="nofollow"
+                           target="_blank">{{$news->from}}AAA</a>
                     </div>
                     <div class="d-none d-md-block article-footer mt-4">
-                        <div ></div>
+                        <div></div>
                         @if($news->tag_values)
                             <div class="keywords">
                                 @foreach($news->tags as $tag)
@@ -53,6 +57,10 @@
                                 @endforeach
                             </div>
                         @endif
+                    </div>
+
+                    <div class="p-3">
+                        <x-widgets.ads id="4"/>
                     </div>
                 </div>
             </div>

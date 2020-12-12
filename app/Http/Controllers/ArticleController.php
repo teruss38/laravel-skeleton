@@ -117,20 +117,32 @@ class ArticleController extends Controller
      * Display the specified article.
      *
      * @param \App\Models\Article $article
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
      */
     public function showAmp(Article $article)
     {
-        return view('article.show_amp', [
-            'article' => $article
-        ]);
+        if (settings('system.system.amp_enabled')) {
+            return view('article.show_amp', [
+                'article' => $article
+            ]);
+        }
+        return abort(404);
     }
 
-    public function showMip(Article $article){
-        return view('article.show_mip', [
-            'article' => $article
-        ]);
+    /**
+     * Display the specified article.
+     *
+     * @param \App\Models\Article $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|void
+     */
+    public function showMip(Article $article)
+    {
+        if (settings('system.system.mip_enabled')) {
+            return view('article.show_mip', [
+                'article' => $article
+            ]);
+        }
+        return abort(404);
     }
 
     /**

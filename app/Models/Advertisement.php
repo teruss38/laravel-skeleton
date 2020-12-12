@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Cache;
  */
 class Advertisement extends Model
 {
+    use Traits\HasDateTimeFormatter;
+
     const CACHE_TAG = 'ads:';
 
     /**

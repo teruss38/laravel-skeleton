@@ -6,8 +6,8 @@
 
 @push('head')
     <link rel="canonical" href="{{$article->link}}">
-    <link rel="amphtml" href="{{$article->ampLink}}" />
-    <link rel="miphtml" href="{{$article->mipLink}}" />
+@if(settings('system.system.amp_enabled'))<link rel="amphtml" href="{{$article->ampLink}}" />@endif
+    @if(settings('system.system.mip_enabled'))<link rel="miphtml" href="{{$article->mipLink}}" />@endif
     <meta property="og:type" content="article"/>
     <meta property="og:site_name" content="{{ config('app.name', 'Larva') }}"/>
     <meta property="og:image" content="{{$article->thumb}}"/>
@@ -42,6 +42,7 @@
                         </div>
                     </div>
                     <article class="article-content ck-content">
+                        <x-widgets.ads id="3"/>
                         {!! $article->detail->content !!}
                     </article>
                     <div class="d-none d-md-block article-footer mt-4">
@@ -56,6 +57,10 @@
                                 @endforeach
                             </div>
                         @endif
+                    </div>
+
+                    <div class="p-3">
+                        <x-widgets.ads id="4"/>
                     </div>
                 </div>
             </div>

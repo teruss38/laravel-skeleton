@@ -12,6 +12,7 @@ use App\Models\Advertisement;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Show;
 use Larva\Supports\HtmlHelper;
 
 /**
@@ -60,6 +61,24 @@ class AdvertisementController extends AdminController
             $grid->enableDialogCreate();
             $grid->disableViewButton();
             $grid->paginate(10);
+        });
+    }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     *
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        return Show::make($id, Advertisement::query(), function (Show $show) {
+            $show->field('id', 'ID');
+            $show->field('name', '名称');
+            $show->field('enabled', '状态');
+            $show->field('created_at','创建时间');
+            $show->field('updated_at', '更新时间');
         });
     }
 

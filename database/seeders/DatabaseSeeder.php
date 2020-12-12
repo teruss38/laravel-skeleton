@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(StopWordsSeeder::class);
         $this->call(RegionSeeder::class);
-
+        $this->call(AdvertisementSeeder::class);
+        $this->call(LinkSeeder::class);
     }
 }

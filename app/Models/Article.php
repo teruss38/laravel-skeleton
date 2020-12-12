@@ -268,7 +268,10 @@ class Article extends Model
      */
     public function getAmpLinkAttribute()
     {
-        return route('articles.show.amp', ['article' => $this]);
+        if (settings('system.system.amp_enabled')) {
+            return route('articles.show.amp', ['article' => $this]);
+        }
+        return '';
     }
 
     /**
@@ -277,7 +280,10 @@ class Article extends Model
      */
     public function getMipLinkAttribute()
     {
-        return route('articles.show.mip', ['article' => $this]);
+        if (settings('system.mip_enabled')) {
+            return route('articles.show.mip', ['article' => $this]);
+        }
+        return '';
     }
 
     /**

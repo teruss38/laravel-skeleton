@@ -16,12 +16,12 @@
 
 <div class="side_box mb-3">
     <div class="box-body">
-        广告代码
+        <x-widgets.ads id="1"/>
     </div>
 </div>
 
 <x-widgets.latest-news/>
 
 <div class="side_box mb-3">
-    广告代码
+    <x-widgets.ads id="2"/>
 </div>
