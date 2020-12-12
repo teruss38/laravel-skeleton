@@ -10,8 +10,6 @@ namespace App\Observers;
 
 use App\Models\Article;
 use App\Services\FileService;
-use Larva\Censor\Censor;
-use Larva\Censor\CensorNotPassedException;
 
 /**
  * 文章观察者
@@ -32,18 +30,22 @@ class ArticleObserver
             'keywords' => null,
             'description' => null
         ], is_array($article->metas) ? $article->metas : []);
-
-        $censor = Censor::getFacadeRoot();
-        try {
-            $article->title = $censor->textCensor($article->title);
-            if ($censor->isMod) {//如果标题命中了关键词就放入待审核
-                $article->status = Article::STATUS_UNAPPROVED;
-            }
-        } catch (CensorNotPassedException $e) {
-            $article->status = Article::STATUS_REJECTED;
-        }
         if ($article->status == Article::STATUS_APPROVED) {
             $article->pub_date = now();
+        }
+    }
+
+    /**
+     * Handle the "created" event.
+     *
+     * @param Article $article
+     * @return void
+     */
+    public function created(Article $article)
+    {
+        $article->stopWords()->create();
+        if ($article->user_id) {
+            \App\Models\UserExtra::inc($article->user_id, 'articles');
         }
     }
 

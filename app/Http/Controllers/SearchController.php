@@ -34,14 +34,17 @@ class SearchController extends Controller
     /**
      * 搜索结果
      * @param string $q
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function query($q)
+    public function query(string $q)
     {
-        $tag = Tag::findByName($q);
-        if ($tag) {//命中Tag
+        if (($tag = Tag::findByName($q)) != null) {//检查Tag是否命中
+            return redirect()->route('tag.show', $tag);
+        } else if (($tag = Tag::findByName($q)) != null) {//检查词库命中
             return redirect()->route('tag.show', $tag);
         }
-        return view('search.list', ['items' => [], 'q' => $q]);
+        //开始搜索
+        $items = [];
+        return view('search.list', ['items' => $items, 'q' => $q]);
     }
 }

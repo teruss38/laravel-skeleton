@@ -126,7 +126,7 @@ class News extends Model
     public function getLinkAttribute()
     {
         if (empty($this->from_url)) {
-            return route('news.show', ['news' => $this]);
+            return route('news.view', ['news' => $this]);
         }
         return $this->from_url;
     }

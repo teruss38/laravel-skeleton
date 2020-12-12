@@ -143,7 +143,7 @@ class Tag extends Model
      */
     public function news()
     {
-        return $this->morphedByMany(News::class, 'taggable');
+        return $this->morphedByMany(News::class, 'taggable')->orderByDesc('id');
     }
 
     /**
@@ -152,7 +152,7 @@ class Tag extends Model
      */
     public function articles()
     {
-        return $this->morphedByMany(Article::class, 'taggable');
+        return $this->morphedByMany(Article::class, 'taggable')->orderByDesc('id');
     }
 
     /**

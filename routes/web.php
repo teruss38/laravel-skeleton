@@ -77,7 +77,9 @@ Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
 Route::get('categories/{category}', [App\Http\Controllers\ArticleController::class, 'category'])->name('categories.show');
 Route::get('articles/{article}/amp', [App\Http\Controllers\ArticleController::class, 'showAmp'])->name('articles.show.amp');
 Route::get('articles/{article}/mip', [App\Http\Controllers\ArticleController::class, 'showMip'])->name('articles.show.mip');
+Route::get('articles/{article}.html', [App\Http\Controllers\ArticleController::class, 'show'])->name('articles.view');
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
+Route::get('news/{news}.html', [App\Http\Controllers\NewsController::class, 'show'])->name('news.view');
 Route::resource('news', App\Http\Controllers\NewsController::class)->only(['index', 'show']);
 
 /**

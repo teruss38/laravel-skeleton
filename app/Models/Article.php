@@ -36,6 +36,7 @@ use Illuminate\Support\Str;
  * @property Category $category
  * @property User $user
  * @property ArticleDetail $detail 文章详情
+ * @property ArticleMod $stopWords 触发的审核词
  *
  * @property string $tag_values 文章标签名称列表
  * @property string $tag_ids 文章标签ID列表
@@ -259,7 +260,7 @@ class Article extends Model
      */
     public function getLinkAttribute()
     {
-        return route('articles.show', ['article' => $this]);
+        return route('articles.view', ['article' => $this]);
     }
 
     /**
