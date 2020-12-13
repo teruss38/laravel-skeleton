@@ -23,7 +23,6 @@ try {
             sub.removeAttr('disabled');
         }, 1000);
     });
-
 } catch (e) {}
 
 /**

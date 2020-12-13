@@ -34,6 +34,7 @@
         @include('layouts._footer')
     </footer>
     <!-- End Footer -->
+    <go-top />
 </div>
 <!-- Scripts -->
 <script src="{{ asset(mix('/js/manifest.js')) }}"></script>

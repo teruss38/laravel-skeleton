@@ -8,7 +8,7 @@ $font-size-base: 0.875rem;
 
 // Colors
 $white: #fff;
-$blue: #0099ee;
+$blue: #4285f4;
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66d9b;
@@ -57,7 +57,7 @@ $custom-file-text: (
 .nav-item {
     a {
         &:hover {
-            color: #0099ee !important;
+            color: #4285f4 !important;
             text-decoration: none;
         }
     }
@@ -74,8 +74,8 @@ $custom-file-text: (
 }
 
 .navbar-light .navbar-nav .active > .nav-link {
-    color: #0099ee !important;
-    border-bottom: 2px #0099ee solid;
+    color: #4285f4 !important;
+    border-bottom: 2px #4285f4 solid;
 }
 
 // 鼠标触动下拉
@@ -122,10 +122,10 @@ $custom-file-text: (
         border: none;
     }
     .nav-link.active {
-        color: #0099ee;
+        color: #4285f4;
         box-sizing: border-box;
         border-color: #fff #fff #e9ecef #fff;
-        border-bottom: 3px solid #0099ee;
+        border-bottom: 3px solid #4285f4;
         background-color: #fff;
     }
 }
