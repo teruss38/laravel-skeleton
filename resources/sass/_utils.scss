@@ -60,10 +60,25 @@ dl.row > dt {
     border-radius: 6rem;
 }
 
+
 .footer {
     background: #fff;
     border-top: 1px solid rgba(0, 40, 100, 0.12);
     font-size: 0.875rem;
     padding: 1.25rem 0;
     color: #9aa0ac;
+    a {
+        color: inherit;
+        &:hover {
+            color: #1054ff;
+        }
+    }
+    .copyright {
+        color: #9aabb8;
+    }
+    .beian {
+        a {
+            color: #0099ee;
+        }
+    }
 }

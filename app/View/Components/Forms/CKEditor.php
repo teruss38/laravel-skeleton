@@ -56,7 +56,6 @@ class CKEditor extends Component
      * @param string $label
      * @param string $value
      * @param string $placeholder
-     * @param array $options
      */
     public function __construct(string $name = "tag_values", string $label = "内容", string $value = "", string $placeholder = "输入内容")
     {

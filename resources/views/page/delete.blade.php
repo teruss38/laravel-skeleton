@@ -5,16 +5,16 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-lg-2 d-none d-lg-block">
                 @include('page._left')
             </div>
-            <div class="col-md-10 bg-white">
+            <div class="col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Infringement Deletion')}}</div>
                     </div>
 
-                    <div class="entry-content markdown-body">
+                    <div class="entry-content">
                         <p>依照法律规定删除违法信息是{{ config('app.name', 'Laravel') }}团队的法定义务，当事方不需要委托第三方进行投诉，<strong
                                 style="color: red;">此服务为免费服务，拉瓦科技未与任何中介机构合作开展此项业务，不接受任何付费删帖、亦未授权任何代理公司负责删帖，请勿轻信任何谣传谨防上当受骗！</strong>
                         </p>

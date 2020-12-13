@@ -2,17 +2,11 @@
     <div class="box-header">
         <div class="box-title">分类目录</div>
     </div>
-    <ul class="list-group page-menu">
+    <div class="list-group rounded-0">
         @foreach($categories as $category)
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="{{$category->link}}">{{$category->name}}</a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="{{$category->link}}">{{$category->name}}</a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="{{$category->link}}">{{$category->name}}</a>
-            </li>
+        <a href="{{$category->link}}" class="list-group-item list-group-item-action border-0 @if($category_id == $category->id) active @endif">
+            {{$category->name}}
+        </a>
         @endforeach
-    </ul>
+    </div>
 </div>

@@ -5,15 +5,15 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-lg-2 d-none d-lg-block">
                 @include('page._left')
             </div>
-            <div class="col-md-10 bg-white">
+            <div class="col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Friend Link')}}</div>
                     </div>
-                    <div class="entry-content markdown-body">
+                    <div class="entry-content">
                         <h4>申请要求：</h4>
                         <p>1、 ALEXA排名2万以内，未被百度、Google等搜索引擎封杀的网站；<br>
                             2、 百度收录≥5万；<br>

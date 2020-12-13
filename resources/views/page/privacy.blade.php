@@ -5,15 +5,15 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-lg-2 d-none d-lg-block">
                 @include('page._left')
             </div>
-            <div class="col-md-10 bg-white">
+            <div class="col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Privacy')}}</div>
                     </div>
-                    <div class="entry-content markdown-body">
+                    <div class="entry-content">
                         <p>尊重用户个人隐私信息的私有性是{{config('app.name')}}的一贯原则，{{config('app.name')}}
                             将通过技术手段、强化内部管理等办法充分保护用户的个人隐私信息，除法律或有法律赋予权限的政府部门要求或事先得到用户明确授权等原因外，{{config('app.name')}}
                             保证不对外公开或向第三方透露用户个人隐私信息，或用户在使用服务时存储的非公开内容。同时，为了运营和改善{{config('app.name')}}

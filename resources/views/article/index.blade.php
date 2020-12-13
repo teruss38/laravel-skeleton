@@ -49,6 +49,11 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
+                @if (isset($category))
+                <x-widgets.side-category id="{{$category->id}}"/>
+                @else
+                    <x-widgets.side-category/>
+                @endif
                 @include('layouts._side')
             </div>
         </div>

@@ -66,7 +66,7 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-                <x-widgets.side-category/>
+                <x-widgets.side-category id="{{$article->category_id}}"/>
                 @include('layouts._side')
             </div>
         </div>

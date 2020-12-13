@@ -5,15 +5,15 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-lg-2 d-none d-lg-block">
                 @include('page._left')
             </div>
-            <div class="col-md-10 bg-white">
+            <div class="col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Copyright')}}</div>
                     </div>
-                    <div class="entry-content markdown-body">
+                    <div class="entry-content">
                         <h4>免责条款</h4>
                         <ol>
                             <li>本站部分转载的文章非原创，其版权和文责属于原作者。</li>

@@ -12,11 +12,31 @@ use App\Models\Category;
 use Illuminate\View\Component;
 
 /**
- * Class SideCategory
+ * 边栏栏目
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class SideCategory extends Component
 {
+    /**
+     * @var int|null
+     */
+    public $category_id;
+
+    /**
+     * @var Category[]
+     */
+    public $categories;
+
+    /**
+     * Create a new component instance.
+     *
+     * @param string $id
+     */
+    public function __construct(string $id = "")
+    {
+        $this->category_id = intval($id);
+        $this->categories = Category::getRootNodes();
+    }
 
     /**
      * Get the view / contents that represent the component.
@@ -25,9 +45,6 @@ class SideCategory extends Component
      */
     public function render()
     {
-        $categories = Category::getRootNodes();
-        return view('components.widgets.side_category', [
-            'categories' => $categories
-        ]);
+        return view('components.widgets.side_category');
     }
 }

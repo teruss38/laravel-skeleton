@@ -5,15 +5,15 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-lg-2 d-none d-lg-block">
                 @include('page._left')
             </div>
-            <div class="col-md-10 bg-white">
+            <div class="col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Terms')}}</div>
                     </div>
-                    <div class="entry-content markdown-body">
+                    <div class="entry-content">
                         <p>欢迎您使用{{config('app.name')}}服务（以下称“我们”或“{{config('app.name')}}
                             ”），您在使用本服务前请认真阅读以下协议（下称：本协议）。</p>
                         <p>请您仔细阅读以下条款，如果您对本协议的任何条款表示异议，您可以选择不进入{{config('app.name')}}。当您注册成功，无论是进入{{config('app.name')}}

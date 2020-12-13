@@ -23,7 +23,8 @@
                 </li>
             </ul>
 
-            <form class="form-inline d-flex ml-auto my-lg-0 d-none d-lg-block" action="{{route('search.index')}}" method="get">
+            <!-- 右侧 -->
+            <form class="form-inline d-flex my-lg-0 d-none d-lg-block" action="{{route('search.index')}}" method="get">
                 <div class="input-group">
                     <input type="text" id="search" class="form-control" name="q" value="@isset($q){{$q}}@endisset" placeholder="{{__('Search')}}" autocomplete="off">
                     <span class="input-group-append">
@@ -33,8 +34,8 @@
                     </span>
                 </div>
             </form>
-            <!-- 右侧 -->
-            <ul class="navbar-nav d-flex ml-1">
+
+            <ul class="navbar-nav d-flex">
                 <li class="nav-item dropdown my-lg-0 d-none d-lg-block" style="display: none;" v-show="!guest">
                     <a id="dropdownAddButton" class="nav-link dropdown-toggle" href="javascript:" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

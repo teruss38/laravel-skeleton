@@ -88,7 +88,7 @@ class SitemapController extends Controller
         if (!$sitemap->isCached()) {
             // add items to the sitemap (url, date, priority, freq)
             $sitemap->add(URL::to('/'), now()->toRfc3339String(), '1.0', 'daily');
-            $sitemap->add(URL::route('article.index'), now()->toRfc3339String(), '0.8', 'always');
+            $sitemap->add(URL::route('articles.index'), now()->toRfc3339String(), '0.8', 'always');
             $sitemap->add(URL::route('tag.index'), now()->toRfc3339String(), '0.8', 'always');
         }
         /** @var \Illuminate\Http\Response $response */
