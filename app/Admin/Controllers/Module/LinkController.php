@@ -46,18 +46,11 @@ class LinkController extends AdminController
 
             $grid->filter(function (Grid\Filter $filter) {
                 //右侧搜索
-                $filter->equal('id');
+                $filter->equal('id', 'ID');
+                $filter->like('title', '名称');
+                $filter->like('url', 'Url');
                 //顶部筛选
-                $filter->scope('today', '今天数据')->whereDay('created_at', Carbon::today());
-                $filter->scope('yesterday', '昨天数据')->whereDay('created_at', Carbon::yesterday());
-                $thisWeek = [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()];
-                $filter->scope('this_week', '本周数据')
-                    ->whereBetween('created_at', $thisWeek);
-                $lastWeek = [Carbon::now()->startOfWeek()->subWeek(), Carbon::now()->endOfWeek()->subWeek()];
-                $filter->scope('last_week', '上周数据')->whereBetween('created_at', $lastWeek);
-                $filter->scope('this_month', '本月数据')->whereMonth('created_at', Carbon::now()->month);
-                $filter->scope('last_month', '上月数据')->whereBetween('created_at', [Carbon::now()->subMonth()->startOfDay(), Carbon::now()->subMonth()->endOfDay()]);
-                $filter->scope('year', '本年数据')->whereYear('created_at', Carbon::now()->year);
+                $filter->scope('expired', '已经到期')->where('expired_at', '>', now());
             });
             $grid->quickSearch(['id', 'title']);
             $grid->model()->orderBy('id', 'desc');
@@ -68,8 +61,8 @@ class LinkController extends AdminController
             $grid->column('url')->link();
             $grid->column('logo')->image();
             $grid->description('链接描述');
-            $grid->column('expired_at','过期时间');
-            $grid->column('created_at','创建时间')->sortable();
+            $grid->column('expired_at', '过期时间');
+            $grid->column('created_at', '创建时间')->sortable();
             $grid->disableRowSelector();
             $grid->enableDialogCreate();
             $grid->disableViewButton();
@@ -92,9 +85,9 @@ class LinkController extends AdminController
             $show->field('url', 'Url')->link();
             $show->field('logo', '链接Logo')->image();
             $show->field('description', '链接描述');
-            $show->field('created_at','创建时间');
+            $show->field('created_at', '创建时间');
             $show->field('updated_at', '更新时间');
-            $show->field('expired_at','过期时间');
+            $show->field('expired_at', '过期时间');
         });
     }
 
