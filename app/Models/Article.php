@@ -42,7 +42,7 @@ use Illuminate\Support\Str;
  * @property string $tag_ids 文章标签ID列表
  * @property-read string $link 文章Url
  * @property-read boolean $isApproved 是否已审核
- * @property-read boolean $hasPending 是否待审核
+ * @property-read boolean $isPending 是否待审核
  * @property-read string $thumb 缩略图Url
  * @property-read boolean $hasThumb
  *
@@ -59,7 +59,7 @@ class Article extends Model
 
     const CACHE_TAG = 'articles:';
 
-    const STATUS_UNAPPROVED = 0b0;//待审核
+    const STATUS_PENDING = 0b0;//待审核
     const STATUS_APPROVED = 0b1;//已审核
     const STATUS_REJECTED = 0b10;//拒绝
 
@@ -194,9 +194,9 @@ class Article extends Model
      * 是否待审核
      * @return boolean
      */
-    public function getIsUnapprovedAttribute()
+    public function getIsPendingAttribute()
     {
-        return $this->status == static::STATUS_UNAPPROVED;
+        return $this->status == static::STATUS_PENDING;
     }
 
     /**
@@ -304,7 +304,7 @@ class Article extends Model
     public function notifySearchEngines()
     {
         //推送
-        if ($this->status == Article::STATUS_APPROVED && !config('app.debug')) {
+        if ($this->isApproved && !config('app.debug')) {
             if ($this->extra['bd_daily']) {
                 \Larva\Baidu\Push\BaiduPush::daily($this->link);//推快速收录
             } else {
@@ -323,6 +323,18 @@ class Article extends Model
         $this->saveQuietly();
     }
 
+
+    /**
+     * 文章类型栏目下拉
+     * @return array
+     */
+    public static function categorySelectOptions(): array
+    {
+        return Category::selectOptions(function ($query) {
+            return $query->where('type', Category::TYPE_ARTICLE);
+        });
+    }
+
     /**
      * 获取状态Label
      * @return string[]
@@ -330,7 +342,7 @@ class Article extends Model
     public static function getStatusLabels()
     {
         return [
-            static::STATUS_UNAPPROVED => '待审核',
+            static::STATUS_PENDING => '待审核',
             static::STATUS_APPROVED => '已审核',
             static::STATUS_REJECTED => '拒绝',
         ];
@@ -343,7 +355,7 @@ class Article extends Model
     public static function getStatusDots()
     {
         return [
-            static::STATUS_UNAPPROVED => 'info',
+            static::STATUS_PENDING => 'info',
             static::STATUS_APPROVED => 'success',
             static::STATUS_REJECTED => 'error',
         ];

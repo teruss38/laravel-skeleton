@@ -25,8 +25,14 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::create([
-            'name' => '默认栏目',
-            'description' => '默认栏目'
-        ],);
+            'name' => '默认文章栏目',
+            'description' => '默认栏目',
+            'type' => Category::TYPE_ARTICLE
+        ]);
+        Category::create([
+            'name' => '默认下载栏目',
+            'description' => '默认栏目',
+            'type' => Category::TYPE_DOWNLOAD
+        ]);
     }
 }

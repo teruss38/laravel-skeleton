@@ -81,6 +81,8 @@ Route::get('articles/{article}.html', [App\Http\Controllers\ArticleController::c
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
 Route::get('news/{news}.html', [App\Http\Controllers\NewsController::class, 'show'])->name('news.view');
 Route::resource('news', App\Http\Controllers\NewsController::class)->only(['index', 'show']);
+Route::get('downloads/{download}.html', [App\Http\Controllers\DownloadController::class, 'show'])->name('downloads.view');
+Route::resource('downloads', App\Http\Controllers\DownloadController::class);
 
 /**
  * 标签

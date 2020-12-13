@@ -15,7 +15,6 @@ use App\Admin\Actions\Grid\ReviewAccept;
 use App\Admin\Actions\Grid\ReviewReject;
 use App\Admin\Actions\WechatArticleCrawler;
 use App\Models\Article;
-use App\Models\Category;
 use App\Services\FileService;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Form;
@@ -54,7 +53,7 @@ class ArticleController extends AdminController
                 //右侧搜索
                 $filter->equal('id');
                 $filter->equal('title', '标题');
-                $filter->scope('pending', '待审核')->where('status', Article::STATUS_UNAPPROVED);
+                $filter->scope('pending', '待审核')->where('status', Article::STATUS_PENDING);
                 $filter->scope('rejected', '已拒绝')->where('status', Article::STATUS_REJECTED);
                 $filter->scope('trashed', '回收站')->onlyTrashed();
             });
@@ -180,7 +179,7 @@ class ArticleController extends AdminController
             });
 
             $form->block(4, function (Form\BlockForm $form) {
-                $form->select('category_id', '栏目')->options(Category::selectOptions())->required();
+                $form->select('category_id', '栏目')->options(Article::categorySelectOptions())->required();
                 $form->tags('tag_values', '标签')->ajax('api/tags', 'name', 'name');
                 $form->image('thumb_path', '特色图像')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
                 $form->textarea('description', '摘要')->rows(3)->rules('nullable|string|text_censor');

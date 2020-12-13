@@ -64,7 +64,7 @@ class CensorJob implements ShouldQueue
             $this->article->title = $censor->textCensor($this->article->title);
             $this->article->detail->content = $censor->textCensor($this->article->detail->content);
             if ($censor->isMod) {//如果标题命中了关键词就放入待审核
-                $this->article->status = Article::STATUS_UNAPPROVED;
+                $this->article->status = Article::STATUS_PENDING;
                 $stopWords = array_unique($censor->wordMod);
             }
         } catch (CensorNotPassedException $e) {

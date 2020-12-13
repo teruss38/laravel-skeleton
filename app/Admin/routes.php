@@ -30,6 +30,7 @@ Route::group([
     //内容
     $router->resource('content/categories', 'Content\CategoryController');
     $router->resource('content/articles', 'Content\ArticleController');
+    $router->resource('content/downloads', 'Content\DownloadController');
     $router->resource('content/news', 'Content\NewsController');
     $router->resource('content/tags', 'Content\TagController');
 

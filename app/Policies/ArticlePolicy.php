@@ -34,9 +34,9 @@ class ArticlePolicy extends Policy
     {
         if (!$article->isApproved) {
             if (!$user) {
-                return $this->deny('该文章待审核！');
+                return $this->deny('该内容待审核！');
             } else if ($user && $user->id != $article->user_id) {
-                return $this->deny('该文章待审核！');
+                return $this->deny('该内容待审核！');
             }
         }
         return true;

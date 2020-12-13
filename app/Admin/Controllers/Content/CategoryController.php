@@ -32,6 +32,10 @@ class CategoryController extends AdminController
         return '栏目';
     }
 
+    /**
+     * 列表
+     * @return Grid
+     */
     protected function grid()
     {
         return Grid::make(new Category(), function (Grid $grid) {
@@ -39,6 +43,7 @@ class CategoryController extends AdminController
                 $filter->scope('trashed', '回收站')->onlyTrashed();
             });
             $grid->column('id', 'ID')->bold()->sortable();
+            $grid->column('type', '栏目类型')->using(Category::getTypeLabels());
             $grid->column('name', '栏目名称')->tree(); // 开启树状表格功能
             $grid->column('slug','栏目标识');
             $grid->column('order', '排序')->orderable();

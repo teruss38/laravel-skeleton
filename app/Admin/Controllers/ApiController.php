@@ -52,7 +52,7 @@ class ApiController extends Controller
     {
         $query = \App\Models\Tag::query()->select(['id', 'name', 'frequency'])->orderByDesc('frequency');
         $q = $request->get('q');
-        if (mb_strlen($q) >= 2) {
+        if (mb_strlen($q) >= 1) {
             $query->where('name', 'LIKE', '%' . $q . '%');
         }
         return $query->paginate(10);

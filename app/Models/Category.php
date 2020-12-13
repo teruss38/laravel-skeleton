@@ -21,6 +21,7 @@ use Spatie\EloquentSortable\Sortable;
  * @property int $id ID
  * @property int $parent_id 父ID
  * @property string $name 栏目名称
+ * @protecty string $type 栏目类型
  * @property string $image_path 缩略图
  * @property string $title 网页Title
  * @property string $keywords 关键词
@@ -40,6 +41,8 @@ class Category extends Model implements Sortable
     use SoftDeletes;
 
     const CACHE_TAG = 'categories:';
+    const TYPE_ARTICLE = 0b0;
+    const TYPE_DOWNLOAD = 0b1;
 
     /**
      * The table associated with the model.
@@ -222,5 +225,17 @@ class Category extends Model implements Sortable
     public static function getRootNodes()
     {
         return static::query()->select(['id', 'name'])->where('parent_id', 0)->orderBy('order')->get();
+    }
+
+    /**
+     * 获取Type Label
+     * @return string[]
+     */
+    public static function getTypeLabels()
+    {
+        return [
+            static::TYPE_ARTICLE => '文章',
+            static::TYPE_DOWNLOAD => '下载',
+        ];
     }
 }

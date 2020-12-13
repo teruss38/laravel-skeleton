@@ -219,6 +219,14 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 3,
+                'name' => '下载管理',
+                'slug' => 'content-downloads-management',
+                'http_method' => '',
+                'http_path' => '/content/downloads*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 4,
                 'name' => '标签管理',
                 'slug' => 'content-tags',
                 'http_method' => '',
@@ -226,7 +234,7 @@ class AdminSeeder extends Seeder
                 'created_at' => $createdAt
             ],
             [
-                'order' => 4,
+                'order' => 5,
                 'name' => '栏目管理',
                 'slug' => 'content-article-categories-management',
                 'http_method' => '',
@@ -462,13 +470,20 @@ class AdminSeeder extends Seeder
             ],
             [
                 'order' => 3,
+                'title' => '下载管理',
+                'icon' => '',
+                'uri' => 'content/downloads',
+                'created_at' => $createdAt,
+            ],
+            [
+                'order' => 4,
                 'title' => '标签管理',
                 'icon' => '',
                 'uri' => 'content/tags',
                 'created_at' => $createdAt,
             ],
             [
-                'order' => 4,
+                'order' => 5,
                 'title' => '栏目管理',
                 'icon' => '',
                 'uri' => 'content/categories',
