@@ -1,20 +1,19 @@
 .login-box {
     min-height: 80vh;
-    background: #f0f5f8;
     padding: 7rem 0;
 
     .title {
         font-size: 1.5rem;
         margin: 10px 0;
         font-family: inherit;
-        line-height: 20px;
+        line-height: 1.25rem;
         color: inherit;
         text-rendering: optimizelegibility;
     }
 
     .login_inside_box {
         padding: 2rem 13rem 4rem;
-        border-radius: 5px;
+        border-radius: .3125rem;
     }
 
     @media (max-width: 992px) {
@@ -30,7 +29,7 @@
 
     @media (max-width: 768px) {
         .login-form {
-            margin-bottom: 30px
+            margin-bottom: 2rem
         }
     }
 
@@ -40,12 +39,12 @@
 
     .login-sns {
         a {
-            width: 30px;
-            height: 30px;
+            width: 2rem;
+            height: 2rem;
             display: inline-block;
             border-radius: 50%;
-            line-height: 30px;
-            font-size: 20px;
+            line-height: 2rem;
+            font-size: 1.25rem;
 
             img {
                 width: 100%;
@@ -68,7 +67,7 @@
 
 //右侧消息菜单
 .widget-messages {
-    padding: 15px
+    padding: 1rem;
 }
 
 .widget-message-item {
@@ -89,12 +88,12 @@
     .notify-item {
         position: relative;
         border-bottom: 1px solid #EEE;
-        padding-top: 15px;
-        padding-bottom: 10px;
+        padding-top: 1rem;
+        padding-bottom: .625rem;
         margin-top: 0;
 
         .text-muted {
-            margin-bottom: 4px
+            margin-bottom: .25rem
         }
     }
 }

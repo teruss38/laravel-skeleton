@@ -1,3 +1,4 @@
+//文章列表
 .media {
     .article-img {
         width: 176px;
@@ -5,15 +6,9 @@
     }
 
     .article_title {
-        font-weight: 500;
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-        color: #303030;
+        color: $gray-800;
         position: relative;
         vertical-align: middle;
-        margin-bottom: 0.3125rem !important;
-        height: 1.75rem;
-        margin-top: -0.1875rem;
         overflow: hidden;
     }
 
@@ -26,10 +21,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        line-height: 1.5;
-        color: #828a92;
-        font-size: .875rem;
-        font-weight: 400;
+        color: var(--gray);
     }
 
     .article_userinfo {
@@ -39,14 +31,14 @@
     }
 
     .article_author {
-        color: #303030;
+        color: $gray-900;
     }
 
     .read_number_style {
-        color: #0099ee;
+        color: var(--blue);
     }
 
-    @media screen and (max-width: 992px) {
+    @include media-breakpoint-down(md) {
         .article-img {
             display: none;
         }
@@ -59,88 +51,38 @@
     }
 }
 
+// 文章详情页
 .article {
     margin-bottom: 1rem;
-    //border: 1px solid #eaeaea;
-    //border-radius: 4px;
-    color: #303030;
+    color: $gray-800;
 
     .article-header {
-        margin-bottom: 20px;
-        padding: 25px 0;
-        border-bottom: 1px solid #eee;
+        margin-bottom: 1.25rem;
+        padding: .875rem 0;
+        border-bottom: 1px solid $border-color;
         text-align: center;
-
-        .article-title {
-            margin-top: 0;
-            font-size: 1.625rem;
-            line-height: 2.25rem;
-        }
 
         .article-meta {
             font-size: .875rem;
-            color: #999;
-
+            color: var(--gray);
             .item {
                 margin-right: 1.25rem;
             }
         }
 
-        @media screen and (max-width: 992px) {
-            .article-title {
-                font-size: 1.25rem;
-            }
+        @include media-breakpoint-down(md) {
             .article-meta {
                 font-size: .625rem;
-
                 .item {
                     margin-right: 1rem;
                 }
             }
         }
     }
-
-    .article-content {
-        font-size: 1rem;
-        line-height: 1.9;
-        word-wrap: break-word;
-        text-align: justify;
-
-        img {
-            margin: 5px auto;
-            display: block;
-            max-width: 100%;
-            height: auto
-        }
-
-        a {
-            text-decoration: underline;
-            color: #4285f4;
-
-            &:hover {
-                color: #FF5E52;
-            }
-        }
-
-        p {
-            margin-bottom: 20px;
-            word-wrap: break-word;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-    }
-
     .article-footer {
-        font-size: .875rem;
-        line-height: 1.9;
-        color: #34495e;
-        margin-bottom: 1rem;
+        margin: 2rem 0;
         div:first-child {
-            color: #9aabb8;
-            font-size: .875rem;
-            font-style: italic;
+            color: var(--gray);
         }
         .keywords {
             margin-top: 1rem;
@@ -149,20 +91,10 @@
                 line-height: 1.625rem;
                 padding: 0 10px;
                 margin-right: .625rem;
-                background: #f7faff;
+                background: $gray-100;
                 border-radius: 3px;
                 display: inline-block;
-                &:hover {
-                    color: #4285f4 !important;
-                    text-decoration: none;
-                }
             }
-        }
-    }
-
-    @media screen and (max-width: 992px) {
-        .article-content {
-            font-size: .875rem;
         }
     }
 }
@@ -171,13 +103,12 @@
 .articles-li {
     -webkit-box-flex: 1;
     flex: 1 1 auto;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding: 0 1.25rem;
 
     .articles-change {
         margin-top: 0;
-        border-left: 1px solid #efefef;
-        padding: 15px 0;
+        border-left: 1px solid $gray-200;
+        padding: 1rem 0;
         position: relative;
 
         .articles-title {
@@ -190,9 +121,9 @@
 
             &:before {
                 content: "";
-                background-color: #f99750;
-                width: 5px;
-                height: 5px;
+                background-color: $orange;
+                width: .3125rem;
+                height: .3125rem;
                 border-radius: 50%;
                 display: block;
                 position: absolute;
@@ -202,8 +133,8 @@
 
             span {
                 font-size: .75rem;
-                color: #aaa;
-                margin-top: 0.625rem;
+                color: var(--gray);
+                margin-top: .625rem;
                 display: block;
             }
         }

@@ -5,10 +5,10 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-lg-2 d-none d-lg-block">
+            <div class="d-none d-lg-block col-lg-2">
                 @include('page._left')
             </div>
-            <div class="col-md-12 col-lg-10 bg-white">
+            <div class="d-block col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Infringement Deletion')}}</div>
@@ -18,21 +18,21 @@
                         <p>依照法律规定删除违法信息是{{ config('app.name', 'Laravel') }}团队的法定义务，当事方不需要委托第三方进行投诉，<strong
                                 style="color: red;">此服务为免费服务，拉瓦科技未与任何中介机构合作开展此项业务，不接受任何付费删帖、亦未授权任何代理公司负责删帖，请勿轻信任何谣传谨防上当受骗！</strong>
                         </p>
-                        <h4>受理范围</h4>
+                        <h6>受理范围</h6>
                         <p>{{ config('app.name', 'Laravel') }}侵删通道仅处理涉及泄露隐私、造谣、诽谤、严重人身攻击等删帖申请，除此之外一概不予受理。</p>
                         <p>① 泄露个人隐私：文章内容中直接涉及个人姓名、家庭住址、身份证号码、工作单位、私人电话等详细个人隐私；<br>
                             ② 造谣、诽谤、严重人身攻击：文章内容中指名道姓的直接谩骂、侮辱、虚构中伤、恶意诽谤等。
                         </p>
                         <p>无论出于何种目的要求本站删除内容，您均需要提供相关证明，否则不予处理；</p>
 
-                        <h4>主体要求</h4>
+                        <h6>主体要求</h6>
                         <ol>
                             <li>无论是因我站侵权还是刊发内容可能影响到“您”的权益，所有删除、修改请求仅允许直接权利人申请；</li>
                             <li>您如果希望删除、修改内容，首先您必须是直接权利人且必须可以提供相关证明文件；</li>
                             <li>非直接权利人例如关联公司、朋友等，需持有直接权利人的授权证明；</li>
                         </ol>
 
-                        <h4>处理流程</h4>
+                        <h6>处理流程</h6>
                         <p>请直接点击《<a style="color: #3490dc" href="https://pan.baidu.com/s/1aHpGIbJDKL29NE_pi8JrwA"
                                     target="_blank"
                                     rel="nofollow">{{config('app.name')}}删帖申请表</a>》提取码: eey1
@@ -49,7 +49,7 @@
                         </p>
                         <p>唯一侵权删改文章内容处理邮箱：{{str_replace('@','#',settings('system.lawyer_email'))}} ( 请将#替换为@再发送邮件 )</p>
 
-                        <h4>特别声明</h4>
+                        <h6>特别声明</h6>
                         <ol>
                             <li>为保证本站正常运作，凡是无法提供完整证明文件的请求本站一律不予处理，请谅解；</li>
                             <li>因时间精力有限，凡是无法提供完整证明文件的请求本站均不会回复邮件，请谅解；</li>

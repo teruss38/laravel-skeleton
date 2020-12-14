@@ -1,4 +1,4 @@
-<div class="list-group page-menu">
+<div class="list-group page-menu border">
     <a href="{{ route('page.about') }}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'page.about') active @endif">{{__('About us')}}</a>
     <a href="{{ route('page.contact') }}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'page.contact') active @endif">{{__('Contact us')}}</a>
     <a href="{{ route('page.terms') }}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'page.terms') active @endif">{{__('Terms')}}</a>

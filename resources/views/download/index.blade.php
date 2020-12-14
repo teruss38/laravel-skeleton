@@ -13,14 +13,14 @@
 @section('content')
     <div class="container mt-3">
         <div class="row">
-            <div class="d-none pr-0 d-md-block col-md-1 col-lg-1">
+            <div class="d-none d-lg-block pr-lg-0 col-lg-1">
                 @if (isset($category))
                     <x-widgets.side-download-category id="{{$category->id}}"/>
                 @else
                     <x-widgets.side-download-category/>
                 @endif
             </div>
-            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-12 col-lg-8">
                 <div class="side_box">
                     <div class="box-header">
                         <div class="box-title">@if (isset($category)) {{$category->title}} @else {{__('Downloads')}} @endif</div>
@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="d-none d-xl-block col-lg-3">
+            <div class="d-none d-lg-block col-lg-3">
                 @include('layouts._side')
             </div>
         </div>

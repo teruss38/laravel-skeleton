@@ -5,22 +5,22 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-lg-2 d-none d-lg-block">
+            <div class="d-none d-lg-block col-lg-2">
                 @include('page._left')
             </div>
-            <div class="col-md-12 col-lg-10 bg-white">
+            <div class="d-block col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Friend Link')}}</div>
                     </div>
                     <div class="entry-content">
-                        <h4>申请要求：</h4>
+                        <h6>申请要求：</h6>
                         <p>1、 ALEXA排名2万以内，未被百度、Google等搜索引擎封杀的网站；<br>
                             2、 百度收录≥5万；<br>
                             3、 百度权重≥3；<br>
                             4、 友链要求互联网相关行业站点优先的网站。</p>
                         <p>以上数据查询结果以爱站网为准，同时满足以上三点站点，即可申请与{{ config('app.name', 'Laravel') }}申请友情链接！</p>
-                        <h4>申请步骤：</h4>
+                        <h6>申请步骤：</h6>
                         <p>1、 请先在贵站做{{ config('app.name', 'Laravel') }}的文字友情链接：</p>
                         <blockquote><p>链接文字：{{ config('app.name', 'Laravel') }}<br>
                                 链接地址：{{ config('app.url') }}</p></blockquote>

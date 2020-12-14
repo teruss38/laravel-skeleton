@@ -7,8 +7,6 @@
 // Font Awesome
 @import 'fontawesome';
 
-@import '~select2/dist/css/select2.css';
-
 // CKEditor 5 (v23.1.0) content styles.
 @import "_ckeditor5";
 
@@ -17,6 +15,9 @@
 
 // Article
 @import "article";
+
+// Download
+@import "download";
 
 // Search
 @import "search";

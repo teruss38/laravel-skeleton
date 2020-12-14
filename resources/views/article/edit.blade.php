@@ -18,7 +18,7 @@
                     <x-forms.text name="title" label="文章标题" value="{{$article->title}}"/>
 
                     <div class="form-row">
-                        <x-forms.category-select name="category_id" label="文章栏目" value="{{$article->category_id}}"
+                        <x-forms.article-category-select name="category_id" label="文章栏目" value="{{$article->category_id}}"
                                                  class="col-md-4"/>
                         <x-forms.tags name="tag_values" label="文章标签" value="{{$article->tag_ids}}" class="col-md-8"/>
                     </div>
@@ -32,13 +32,13 @@
                                       placeholder="原文链接" class="col-md-8"/>
                     </div>
 
-                    <div class="float-right">
+                    <div class="form-group">
                         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                     </div>
                 </form>
             </div>
 
-            <div class="d-none d-xl-block col-lg-3">
+            <div class="d-none d-lg-block col-lg-3">
                 <div class="side_box mb-3">
                     <div class="box-header">
                         <div class="box-title"> 发布提示</div>

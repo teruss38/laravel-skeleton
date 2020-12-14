@@ -5,16 +5,16 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-lg-2 d-none d-lg-block">
+            <div class="d-none d-lg-block col-lg-2">
                 @include('page._left')
             </div>
-            <div class="col-md-12 col-lg-10 bg-white">
+            <div class="d-block col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Copyright')}}</div>
                     </div>
                     <div class="entry-content">
-                        <h4>免责条款</h4>
+                        <h6>免责条款</h6>
                         <ol>
                             <li>本站部分转载的文章非原创，其版权和文责属于原作者。</li>
                             <li>本站用户投递的原创文章，其版权和文责属于投递者，除非另有说明。</li>
@@ -23,7 +23,7 @@
                             <li>对可以提供充分证据的侵权信息， {{config('app.name')}}将在确认后12小时内删除。</li>
                             <li>{{config('app.name')}}服从其服务器节点所在地的法律管辖。</li>
                         </ol>
-                        <h4>评论须知</h4>
+                        <h6>评论须知</h6>
                         <ol>
                             <li>{{config('app.name')}}不能对用户发表的回答或评论的正确性进行保证。</li>
                             <li>用户在{{config('app.name')}}发表的内容仅表明其个人的立场和观点，并不代表{{config('app.name')}}
@@ -35,7 +35,7 @@
                                 不承担任何责任，但将尽力减少因此而给用户造成的损失和影响。
                             </li>
                         </ol>
-                        <h4>知识产权</h4>
+                        <h6>知识产权</h6>
                         <p>{{config('app.name')}}是一个信息获取、分享及传播的平台，我们尊重和鼓励{{config('app.name')}}
                             用户创作的内容，认识到保护知识产权对{{config('app.name')}}生存与发展的重要性，承诺将保护知识产权作为{{config('app.name')}}
                             运营的基本原则之一。</p>
@@ -72,7 +72,6 @@
                                 社区指导原则对侵权信息进行处理。
                             </li>
                         </ol>
-
                     </div>
                 </div>
             </div>

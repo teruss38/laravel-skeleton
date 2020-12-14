@@ -1,4 +1,4 @@
-<div id="carouselHomeIndicators" class="carousel slide" data-ride="carousel">
+<div id="carouselHomeIndicators"  {{ $attributes->merge(['class' => 'carousel slide']) }}  data-ride="carousel">
     <ol class="carousel-indicators">
         @for ($i = 0; $i < $count; $i++)
             <li data-target="#carouselHomeIndicators" data-slide-to="{{$i}}" @if ($i==0) class="active" @endif></li>

@@ -74,7 +74,7 @@ class CarouselController extends AdminController
             $form->text('name', '名称')->required();
             $form->url('url', 'Url')->required();
             $form->text('order', '排序')->default(0);
-            $form->image('image_path', '图片')->rules('image|dimensions:ratio=2/1')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
+            $form->image('image_path', '图片')->required()->rules('image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();
         });
     }
 }

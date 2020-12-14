@@ -29,7 +29,7 @@ dl.row > dt {
     font-weight: normal;
 }
 
-/*用户头像*/
+//用户头像
 .avatar-1 {
     width: 1.3rem;
     height: 1.3rem;
@@ -60,25 +60,29 @@ dl.row > dt {
     border-radius: 6rem;
 }
 
-
+// 页尾
 .footer {
-    background: #fff;
-    border-top: 1px solid rgba(0, 40, 100, 0.12);
-    font-size: 0.875rem;
+    background: $white;
+    border-top: 1px solid $border-color;
+    font-size: inherit;
     padding: 1.25rem 0;
-    color: #9aa0ac;
-    a {
-        color: inherit;
-        &:hover {
-            color: #1054ff;
+    color: $gray-500;
+
+    .copyright {
+        color: $gray-500;
+
+        a {
+            color: inherit;
+
+            &:hover {
+                color: $link-hover-color;
+            }
         }
     }
-    .copyright {
-        color: #9aabb8;
-    }
+
     .beian {
         a {
-            color: #4285f4;
+            color: $link-hover-color;
         }
     }
 }

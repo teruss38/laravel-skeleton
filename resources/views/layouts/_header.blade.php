@@ -37,8 +37,9 @@
                     </span>
                 </div>
             </form>
+
             <ul class="navbar-nav navbar-right d-flex">
-                <li class="nav-item dropdown my-lg-0 d-none d-lg-block" style="display: none;" v-show="!guest">
+                <li class="nav-item dropdown my-lg-0 d-none d-lg-block" v-show="!guest">
                     <a id="dropdownAddButton" class="nav-link dropdown-toggle" href="javascript:" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-plus" aria-hidden="true"></i> 发布
@@ -80,6 +81,10 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{route('settings.profile')}}">{{__('User Profile')}}</a>
+                        <a class="dropdown-item" href="{{route('settings.account')}}">{{__('User Account')}}</a>
+                        <a class="dropdown-item" href="{{route('settings.integral')}}">{{ __('User Integral') }}</a>
+                        @if(settings('wallet.enable'))<a class="dropdown-item" href="{{route('settings.balance')}}">{{ __('User Balance') }}</a>@endif
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();" data-no-instant>

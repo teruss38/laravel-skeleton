@@ -1,5 +1,5 @@
 .download-list {
-    padding: 0 20px;
+    padding: 0 1.25rem;
 }
 
 .resource_recommend {
@@ -20,21 +20,20 @@
     }
 
     .download-title {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 700;
     }
 
     .download-meta {
         float: right;
         text-align: right;
-        color: #999aaa;
-        line-height: 24px;
-        font-size: 14px;
+        color: #999;
+        font-size: .875rem;
         font-weight: 400;
     }
 
     .download-desc {
-        font-size: 14px;
+        font-size: .875rem;
         color: rgba(0, 0, 0, 0.44);
         fill: rgba(0, 0, 0, 0.44);
         a {
@@ -53,7 +52,7 @@
             margin-bottom: 8px;
 
             .resource_title {
-                border-left: 4px #1054ff solid;
+                border-left: 4px $blue solid;
                 padding-left: 10px;
                 font-size: 24px;
                 display: inline-block;
@@ -152,7 +151,7 @@
                             color: #555666;
 
                             &:hover {
-                                color: #1054ff;
+                                color: $blue;
                             }
                         }
                     }

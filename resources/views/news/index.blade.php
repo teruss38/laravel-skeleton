@@ -9,7 +9,7 @@
             <div class="page-title">{{__('News')}}</div>
         </div>
         <div class="row">
-            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="d-block pr-lg-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <ul class="list-unstyled">
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">
@@ -26,7 +26,8 @@
                                             @endif
                                         </div>
                                         <div class="col-8 text-right text-truncate px-0" style="color: #888;">
-                                            <span>{{$item->created_at}}</span>
+                                            已有 <span class="read_number_style">{{$item->views}}</span>
+                                            人阅读・<span>{{$item->created_at}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="d-none d-xl-block col-lg-3">
+            <div class="d-none d-lg-block col-lg-3">
                 @include('layouts._side')
             </div>
         </div>

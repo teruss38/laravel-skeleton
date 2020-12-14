@@ -38,7 +38,7 @@
                 {{ $messages->links() }}
             </div>
 
-            <div class="d-none d-xl-block col-lg-3">
+            <div class="d-none d-lg-block col-lg-3">
                 @include('user._right_menu')
             </div>
         </div>

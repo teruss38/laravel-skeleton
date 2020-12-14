@@ -44,6 +44,21 @@ Route::get('delete', [App\Http\Controllers\PageController::class, 'delete'])->na
 Route::get('link', [App\Http\Controllers\PageController::class, 'link'])->name('page.link');
 
 /**
+ * 设置中心
+ */
+Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
+    Route::get('profile', [App\Http\Controllers\SettingsController::class, 'profile'])->name('profile');
+    Route::get('account', [App\Http\Controllers\SettingsController::class, 'account'])->name('account');
+    Route::get('login-histories', [App\Http\Controllers\SettingsController::class, 'loginHistories'])->name('login-histories');
+    Route::get('tokens', [App\Http\Controllers\SettingsController::class, 'tokens'])->name('tokens');
+    Route::get('applications', [App\Http\Controllers\SettingsController::class, 'applications'])->name('applications');
+    Route::get('authorization', [App\Http\Controllers\SettingsController::class, 'authorization'])->name('authorization');
+    Route::get('balance', [App\Http\Controllers\SettingsController::class, 'balance'])->name('balance');
+    Route::get('integral', [App\Http\Controllers\SettingsController::class, 'integral'])->name('integral');
+    Route::get('settle', [App\Http\Controllers\SettingsController::class, 'settle'])->name('settle');
+});
+
+/**
  * 站内信
  */
 Route::group(['prefix' => 'messages'], function () {

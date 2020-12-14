@@ -15,24 +15,24 @@
                       action="{{ route('downloads.store') }}">
                     @csrf
 
+                    <x-forms.file name="file" label="资源文件" placeholder="请输入资源描述"/>
+
                     <x-forms.text name="title" label="资源标题" placeholder="我想起那天下午在夕阳下的奔跑,那是我逝去的青春"/>
+
+                    <x-forms.textarea name="content" label="资源描述" placeholder="请输入资源描述"/>
 
                     <div class="form-row">
                         <x-forms.download-category-select name="category_id" label="资源栏目" class="col-md-4"/>
                         <x-forms.tags name="tag_values" label="资源标签" class="col-md-8"/>
                     </div>
 
-                    <x-forms.file name="file" label="资源文件" placeholder="请输入资源描述"/>
-
-                    <x-forms.textarea name="content" label="资源描述" placeholder="请输入资源描述"/>
-
-                    <div class="float-right">
+                    <div class="form-group">
                         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                     </div>
                 </form>
             </div>
 
-            <div class="d-none d-xl-block col-lg-3">
+            <div class="d-none d-lg-block col-lg-3">
                 <div class="side_box mb-3">
                     <div class="box-header">
                         <div class="box-title"> 发布提示</div>

@@ -10,7 +10,7 @@
         </ol>
 
         <div class="row">
-            <div class="d-none d-md-block col-md-12">
+            <div class="d-block col-md-12">
                 <div class="side_box mb-3">
                     <div class="box-header">
                         <div class="box-title">标签聚合</div>

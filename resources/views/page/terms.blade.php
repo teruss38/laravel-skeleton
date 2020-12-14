@@ -5,10 +5,10 @@
 @section('content')
     <div class="container py-3">
         <div class="row">
-            <div class="col-lg-2 d-none d-lg-block">
+            <div class="d-none d-lg-block col-lg-2">
                 @include('page._left')
             </div>
-            <div class="col-md-12 col-lg-10 bg-white">
+            <div class="d-block col-md-12 col-lg-10 bg-white">
                 <div class="site-content">
                     <div class="entry-header">
                         <div class="entry-title">{{__('Terms')}}</div>
@@ -18,7 +18,7 @@
                             ”），您在使用本服务前请认真阅读以下协议（下称：本协议）。</p>
                         <p>请您仔细阅读以下条款，如果您对本协议的任何条款表示异议，您可以选择不进入{{config('app.name')}}。当您注册成功，无论是进入{{config('app.name')}}
                             ，还是在{{config('app.name')}}上发布任何内容（即「内容」），均意味着您（即「用户」）完全接受本协议项下的全部条款。</p>
-                        <h4>使用规则</h4>
+                        <h6>使用规则</h6>
                         <ol>
                             <li>用户注册成功后，{{config('app.name')}}
                                 将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。
@@ -61,16 +61,14 @@
                             </li>
                         </ol>
 
-                        <h4>个人隐私</h4>
+                        <h6>个人隐私</h6>
                         <p>尊重用户个人隐私信息的私有性是{{config('app.name')}}的一贯原则，{{config('app.name')}}
                             将通过技术手段、强化内部管理等办法充分保护用户的个人隐私信息，除法律或有法律赋予权限的政府部门要求或事先得到用户明确授权等原因外，{{config('app.name')}}
                             保证不对外公开或向第三方透露用户个人隐私信息，或用户在使用服务时存储的非公开内容。同时，为了运营和改善{{config('app.name')}}
                             的技术与服务，{{config('app.name')}}将可能会自行收集使用或向第三方提供用户的非个人隐私信息，这将有助于{{config('app.name')}}
                             向用户提供更好的用户体验和服务质量。</p>
                         <p>您使用或继续使用我们的服务，即意味着同意我们按照{{config('app.name')}}《隐私政策》收集、使用、储存和分享您的相关信息。</p>
-
-
-                        <h4>协议修改</h4>
+                        <h6>协议修改</h6>
                         <ol>
                             <li>根据互联网的发展和有关法律、法规及规范性文件的变化，或者因业务发展需要，{{config('app.name')}}
                                 有权对本协议的条款作出修改或变更，一旦本协议的内容发生变动，{{config('app.name')}}将会直接在{{config('app.name')}}
