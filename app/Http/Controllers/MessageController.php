@@ -5,9 +5,8 @@
  * @license http://www.arva.com.cn/license/
  */
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\User\SendMessageRequest;
 use App\Models\Message;
 use App\Models\User;
@@ -36,7 +35,7 @@ class MessageController extends Controller
     public function index(Request $request)
     {
         $messages = Message::byUserId($request->user()->id)->paginate();
-        return view('user.message.index', [
+        return view('message.index', [
             'messages' => $messages,
         ]);
     }
@@ -71,7 +70,7 @@ class MessageController extends Controller
             }
         });
 
-        return view('user.message.show', [
+        return view('message.show', [
             'from' => $fromUser,
             'messages' => $messages
         ]);

@@ -24,9 +24,7 @@ class SpaceController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->has('q')) {
-            return view('space.index');
-        }
+
         return view('space.index');
     }
 }

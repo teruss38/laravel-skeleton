@@ -6,9 +6,8 @@
  * @license http://www.larva.com.cn/license/
  */
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 /**
@@ -34,7 +33,7 @@ class NotificationController extends Controller
     public function index(Request $request)
     {
         $notifications = $request->user()->notifications()->paginate();
-        return view('user.notification.index', [
+        return view('notification.index', [
             'notifications' => $notifications
         ]);
     }

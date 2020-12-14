@@ -3,10 +3,10 @@
 @section('title', __('My Notifications'))
 
 @section('content')
-    <div class="container">
+    <div class="container py-4">
         <div class="row">
             <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
-                <h4 class="mt-3 mb-3">
+                <h4 class="mb-3">
                     通知<span class="float-right"><notification-mark-as-read></notification-mark-as-read></span>
                 </h4>
                 <div class="widget-notify border-top">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="d-none d-lg-block col-lg-3">
-                @include('user._right_menu')
+                @include('layouts._right_messages_menu')
             </div>
         </div>
     </div>

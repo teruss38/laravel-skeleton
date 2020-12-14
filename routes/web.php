@@ -62,15 +62,15 @@ Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
  * 站内信
  */
 Route::group(['prefix' => 'messages'], function () {
-    Route::get('link', [App\Http\Controllers\User\MessageController::class, 'index'])->name('user.messages');
-    Route::post('create', [App\Http\Controllers\User\MessageController::class, 'store'])->name('user.messages.store');
-    Route::get('{user_id}', [App\Http\Controllers\User\MessageController::class, 'show'])->name('user.messages.show');
+    Route::get('link', [App\Http\Controllers\MessageController::class, 'index'])->name('user.messages');
+    Route::post('create', [App\Http\Controllers\MessageController::class, 'store'])->name('user.messages.store');
+    Route::get('{user_id}', [App\Http\Controllers\MessageController::class, 'show'])->name('user.messages.show');
 });
 
 /**
  * 通知
  */
-Route::get('notifications', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('user.notifications');
+Route::get('notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('user.notifications');
 
 /**
  * 远程调用
