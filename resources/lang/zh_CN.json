@@ -23,6 +23,7 @@
     "Mobile Register": "手机注册",
     "User Login": "用户登录",
     "VerifyCode": "验证码",
+    "Submit": "提交",
     "PhoneOrEmail": "邮箱/手机号 (暂不支持非中国大陆区手机号)",
     "No account? Register now": "没有账户？立即注册",
     "Already have an account?": "已有账号？",
@@ -47,6 +48,9 @@
     "Contribution": "投稿",
     "Articles": "文章",
     "News": "快讯",
+    "Downloads": "下载",
+    "Resource": "资源",
     "Create Article": "发布文章",
-    "Edit Article": "修改文章"
+    "Edit Article": "修改文章",
+    "Upload Resource": "上传资源"
 }

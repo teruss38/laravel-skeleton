@@ -47,6 +47,7 @@ const app = new Vue({
         },
     },
     mounted() {
+        this.$store.dispatch('app/init');
         this.$store.dispatch('user/init');
     }
 });

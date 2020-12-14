@@ -25,3 +25,5 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.js('resources/js/plugins/ckeditor.js', 'public/js');
 mix.js('resources/js/plugins/select2.js', 'public/js');
+
+mix.copy('node_modules/select2/dist/css/select2.css', 'public/css/select2.css');

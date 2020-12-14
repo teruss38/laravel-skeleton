@@ -59,9 +59,18 @@ const getAppConfig = function () {
         url: '/api/config'
     });
 };
+
+const getIPInfo = function () {
+    return request({
+        method: 'get',
+        url: 'https://api.myip.la/cn?json'
+    });
+};
+
 export {
     getCountry,
     getPhoneVerifyCode,
     getEmailVerifyCode,
-    getAppConfig
+    getAppConfig,
+    getIPInfo
 }

@@ -36,7 +36,7 @@ use Illuminate\Support\Str;
  * @property Category $category
  * @property User $user
  * @property ArticleDetail $detail 文章详情
- * @property ArticleMod $stopWords 触发的审核词
+ * @property ArticleStopWord $stopWords 触发的审核词
  *
  * @property string $tag_values 文章标签名称列表
  * @property string $tag_ids 文章标签ID列表
@@ -167,7 +167,7 @@ class Article extends Model
      */
     public function stopWords()
     {
-        return $this->hasOne(ArticleMod::class);
+        return $this->hasOne(ArticleStopWord::class);
     }
 
     /**
@@ -288,17 +288,6 @@ class Article extends Model
     }
 
     /**
-     * 设置已审核
-     */
-    public function setApproved()
-    {
-        $this->status = static::STATUS_APPROVED;
-        $this->pub_date = now();
-        $this->saveQuietly();
-        $this->notifySearchEngines();
-    }
-
-    /**
      * 通知搜索引擎
      */
     public function notifySearchEngines()
@@ -312,6 +301,17 @@ class Article extends Model
             }
             \Larva\Bing\Push\BingPush::push($this->link);//推普通收录
         }
+    }
+
+    /**
+     * 设置已审核
+     */
+    public function setApproved()
+    {
+        $this->status = static::STATUS_APPROVED;
+        $this->pub_date = now();
+        $this->saveQuietly();
+        $this->notifySearchEngines();
     }
 
     /**

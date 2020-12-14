@@ -145,6 +145,31 @@ class FileService
     }
 
     /**
+     * 获取文件访问地址
+     * @param string $filename
+     * @return string
+     */
+    public static function url(string $filename)
+    {
+        return Storage::cloud()->url($filename);
+    }
+
+    /**
+     * 获取临时下载地址
+     * @param string $filename
+     * @param \DateTimeInterface $expiration 链接有效期
+     * @return string
+     */
+    public static function temporaryUrl(string $filename, \DateTimeInterface $expiration)
+    {
+        try {
+            return Storage::cloud()->temporaryUrl($filename, $expiration);
+        } catch (\Exception $e) {
+            return static::url($filename);
+        }
+    }
+
+    /**
      * 删除文件
      * @param string $url
      * @return bool

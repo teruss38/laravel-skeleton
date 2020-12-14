@@ -32,6 +32,8 @@ use Spatie\EloquentSortable\Sortable;
  * @property-read string $image 缩略图连接
  * @property-read string $link 栏目链接
  *
+ * @method static \Illuminate\Database\Eloquent\Builder|Category type($type)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category root()
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class Category extends Model implements Sortable
@@ -56,7 +58,7 @@ class Category extends Model implements Sortable
      * @var array
      */
     protected $fillable = [
-        'id', 'parent_id', 'name', 'order', 'image_path', 'title', 'keywords', 'description'
+        'id', 'parent_id', 'type', 'name', 'order', 'image_path', 'title', 'keywords', 'description'
     ];
 
     /**
@@ -65,6 +67,7 @@ class Category extends Model implements Sortable
      * @var array
      */
     protected $attributes = [
+        'parent_id' => 0,
         'order' => 0,
     ];
 
@@ -116,6 +119,27 @@ class Category extends Model implements Sortable
     public function parent()
     {
         return $this->belongsTo(static::class);
+    }
+
+    /**
+     * 查找指定类型栏目
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    /**
+     * 查找顶级栏目
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRoot($query)
+    {
+        return $query->where('parent_id', 0);
     }
 
     /**
@@ -213,18 +237,18 @@ class Category extends Model implements Sortable
      * 获取顶级栏目下拉数据
      * @return \Illuminate\Support\Collection
      */
-    public static function getRootSelect()
+    public static function getRootSelect($type)
     {
-        return static::query()->select(['id', 'name'])->where('parent_id', 0)->orderBy('order')->pluck('name', 'id');
+        return static::type($type)->root()->select(['id', 'name'])->orderBy('order')->pluck('name', 'id');
     }
 
     /**
      * 获取顶级栏目
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public static function getRootNodes()
+    public static function getRootNodes($type)
     {
-        return static::query()->select(['id', 'name'])->where('parent_id', 0)->orderBy('order')->get();
+        return static::type($type)->root()->select(['id', 'name'])->orderBy('order')->get();
     }
 
     /**

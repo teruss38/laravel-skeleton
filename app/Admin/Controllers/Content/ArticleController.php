@@ -66,7 +66,7 @@ class ArticleController extends AdminController
                 return "<a href='$this->link' target='_blank'>{$title}</a>";
             });
             $grid->column('tag_values', '标签');
-            if (request('_scope_') == 'pending') {
+            if (request('_scope_') == 'pending' || request('_scope_') == 'rejected') {
                 $grid->model()->with('stopWords');
                 $grid->column('stopWords.stop_word', '命中敏感词');
             } else {

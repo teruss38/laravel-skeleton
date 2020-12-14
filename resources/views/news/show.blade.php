@@ -26,7 +26,7 @@
             <li class="breadcrumb-item active">正文</li>
         </ol>
         <div class="row">
-            <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="article news bg-white position-relative p-3">
                     <div class="article-header">
                         <div class="article-title">{{ $news->title }}</div>

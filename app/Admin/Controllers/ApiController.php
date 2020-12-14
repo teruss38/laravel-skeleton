@@ -9,7 +9,9 @@
 namespace App\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 /**
  * Class ApiController
@@ -26,6 +28,24 @@ class ApiController extends Controller
     {
         $parent_id = $request->get('q');
         return \App\Models\Region::getRegion($parent_id, ['id', \Illuminate\Support\Facades\DB::raw('name as text')]);
+    }
+
+    /**
+     * 按类别加载栏目
+     * @param Request $request
+     * @return array
+     */
+    public function categories(Request $request)
+    {
+        $type = $request->get('q');
+        $categories = Category::selectOptions(function ($query) use ($type) {
+            return $query->where('type', $type);
+        });
+        $options = [];
+        foreach ($categories as $id => $category) {
+            $options[] = ['id' => $id, 'text' => html_entity_decode($category)];
+        }
+        return $options;
     }
 
     /**

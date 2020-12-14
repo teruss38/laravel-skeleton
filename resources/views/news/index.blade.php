@@ -9,7 +9,7 @@
             <div class="page-title">{{__('News')}}</div>
         </div>
         <div class="row">
-            <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <ul class="list-unstyled">
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">

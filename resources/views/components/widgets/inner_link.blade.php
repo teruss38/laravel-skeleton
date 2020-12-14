@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row py-3">
     <div class="d-none d-md-block col-md-12">
         <div class="side_box mb-3">
             <div class="box-header">

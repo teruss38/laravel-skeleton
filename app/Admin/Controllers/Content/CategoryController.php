@@ -84,7 +84,8 @@ class CategoryController extends AdminController
                 $tools->disableView();
             });
             $form->display('id', 'ID');
-            $form->select('parent_id', '父栏目')->options(Category::selectOptions())->default(0);
+            $form->select('type', '栏目类型')->required()->options(Category::getTypeLabels())->load('parent_id', '/api/categories');
+            $form->select('parent_id', '父栏目')->default(0);
             $form->text('name', '栏目名称')->required()->rules('string')->placeholder('请输入栏目名称。');
             $form->text('slug','栏目标识')->rules('nullable|string')->placeholder('请输入栏目标识。');
             $form->image('image_path', '栏目图片')->rules('file|image')->dir('images/' . date('Y/m'))->uniqueName()->autoUpload();

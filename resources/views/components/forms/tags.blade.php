@@ -9,6 +9,9 @@
 </div>
 
 @once
+    @prepend('head')
+        <link href="{{ asset(mix('/css/select2.css')) }}" rel="stylesheet">
+    @endprepend
     @prepend('scripts')
 <script src="{{ asset(mix('/js/select2.js')) }}"></script>
     @endprepend

@@ -15,7 +15,7 @@ use Illuminate\View\Component;
  * 栏目选择器
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class CategorySelect extends Component
+class DownloadCategorySelect extends Component
 {
     /**
      * The input id attribute.
@@ -72,7 +72,7 @@ class CategorySelect extends Component
         $this->label = $label;
         $this->value = $value;
         $this->placeholder = $placeholder;
-        $this->categories = Category::getRootSelect();
+        $this->categories = Category::getRootSelect(Category::TYPE_DOWNLOAD);
     }
 
     /**

@@ -1,0 +1,169 @@
+.download-list {
+    padding: 0 20px;
+}
+
+.resource_recommend {
+    background-color: #fff;
+}
+
+.download-card {
+    border-bottom: 1px dashed #eee;
+    padding: 10px 0;
+
+    .download-img {
+        margin-right: 15px;
+        float: left;
+
+        img {
+            display: block;
+        }
+    }
+
+    .download-title {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .download-meta {
+        float: right;
+        text-align: right;
+        color: #999aaa;
+        line-height: 24px;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .download-desc {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.44);
+        fill: rgba(0, 0, 0, 0.44);
+        a {
+            color: rgba(0, 0, 0, 0.44);
+        }
+    }
+}
+
+.resource_box {
+    padding: 16px 24px 8px;
+    position: relative;
+    background: #fff;
+
+    .resource_box_info {
+        h1 {
+            margin-bottom: 8px;
+
+            .resource_title {
+                border-left: 4px #1054ff solid;
+                padding-left: 10px;
+                font-size: 24px;
+                display: inline-block;
+                color: #222226;
+                word-wrap: break-word;
+                word-break: normal;
+                width: 100%;
+            }
+        }
+    }
+
+    .dl_bread_score {
+        height: 32px;
+        width: 100%;
+        background-color: #f7f7fd;
+        border-radius: 4px;
+        padding: 6px 8px;
+        margin-bottom: 8px;
+        font-size: 0;
+
+        .info_box {
+            display: inline-block;
+            font-weight: 400;
+            vertical-align: top;
+
+            span {
+                font-size: 14px;
+                color: #999aaa;
+                display: inline-block;
+                vertical-align: top;
+                line-height: 20px;
+                margin-right: 12px;
+
+                em {
+                    font-style: normal;
+                }
+
+                .cost {
+                    font-size: 14px;
+                    color: #ff9358;
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+
+    dd, dl, dt {
+        line-height: 1.2;
+        list-style: none;
+        font-weight: 400;
+        margin: 0;
+        padding: 0;
+    }
+
+    .resource_box_dl {
+        dd {
+            .resource_box_desc {
+                word-break: break-all;
+                font-weight: 400;
+                line-height: 24px;
+                position: relative;
+
+                .resource_description {
+                    word-break: break-all;
+                    max-height: 240px;
+                    overflow: hidden;
+                    font-size: 14px;
+                    color: #3d3d3d;
+                    position: relative;
+
+                    p {
+                        color: #555666;
+                        line-height: 24px;
+                    }
+                }
+                .resource_box_b {
+                    margin-bottom: 8px;
+
+                    .resource_tags {
+                        display: inline-block;
+                        vertical-align: middle;
+                        padding-top: 8px;
+                        font-weight: 400;
+
+                        a {
+                            cursor: pointer;
+                            display: inline-block;
+                            padding: 0 8px;
+                            line-height: 22px;
+                            font-size: 12px;
+                            border-radius: 11px;
+                            margin-right: 8px;
+                            word-break: break-all;
+                            text-decoration: none;
+                            border: 1px solid #ccccdb;
+                            color: #555666;
+
+                            &:hover {
+                                color: #1054ff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .resource_box_fn {
+        margin: 0;
+        padding: 8px 0;
+    }
+}
+

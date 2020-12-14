@@ -19,7 +19,7 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'category', 'show', 'tag']);
+        $this->middleware('auth')->except(['index', 'show', 'tag']);
         $this->authorizeResource(Article::class, 'article');
     }
 
@@ -31,25 +31,8 @@ class ArticleController extends Controller
     public function index()
     {
         $items = Article::approved()->with('user')->orderByDesc('order')->orderByDesc('id')->paginate(15);
-        $categories = Category::getRootNodes();
         return view('article.index', [
             'items' => $items,
-            'categories' => $categories,
-        ]);
-    }
-
-    /**
-     * Display a listing of the article.
-     *
-     * @param Category $category
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function category(Category $category)
-    {
-        $items = Article::approved()->with('user')->byCategoryId($category->id)->orderByDesc('order')->orderByDesc('id')->paginate(15);
-        return view('article.index', [
-            'items' => $items,
-            'category' => $category,
         ]);
     }
 

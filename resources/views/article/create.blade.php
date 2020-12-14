@@ -18,7 +18,7 @@
                     <x-forms.text name="title" label="文章标题" placeholder="我想起那天下午在夕阳下的奔跑,那是我逝去的青春"/>
 
                     <div class="form-row">
-                        <x-forms.category-select name="category_id" label="文章栏目" class="col-md-4"/>
+                        <x-forms.category-select name="category_id" type="" label="文章栏目" class="col-md-4"/>
                         <x-forms.tags name="tag_values" label="文章标签" class="col-md-8"/>
                     </div>
 

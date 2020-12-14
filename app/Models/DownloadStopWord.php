@@ -12,13 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * 内容涉及的敏感词表
- * @property int $article_id
+ * @property int $download_id
  * @property string $stop_word
- * @property Article $article
- *
+ * @property Download $download
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class ArticleMod extends Model
+class DownloadStopWord extends Model
 {
     /**
      * @var bool
@@ -30,12 +29,12 @@ class ArticleMod extends Model
      *
      * @var string
      */
-    protected $table = 'article_mod';
+    protected $table = 'download_stopwords';
 
     /**
      * @var string 主键
      */
-    protected $primaryKey = 'article_id';
+    protected $primaryKey = 'download_id';
 
     /**
      * @var bool 关闭主键自增
@@ -48,7 +47,7 @@ class ArticleMod extends Model
      * @var array
      */
     protected $fillable = [
-        'article_id', 'stop_word'
+        'download_id', 'stop_word'
     ];
 
     /**
@@ -56,8 +55,8 @@ class ArticleMod extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function article()
+    public function download()
     {
-        return $this->belongsTo(Article::class);
+        return $this->belongsTo(Download::class);
     }
 }

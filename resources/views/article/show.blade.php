@@ -29,7 +29,7 @@
             <li class="breadcrumb-item active">正文</li>
         </ol>
         <div class="row">
-            <div class="d-block col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="article bg-white position-relative p-3">
                     <div class="article-header">
                         <div class="article-title">{{ $article->title }}</div>
@@ -66,7 +66,7 @@
             </div>
 
             <div class="d-none d-xl-block col-lg-3">
-                <x-widgets.side-category id="{{$article->category_id}}"/>
+                <x-widgets.side-article-category id="{{$article->category_id}}"/>
                 @include('layouts._side')
             </div>
         </div>

@@ -21,6 +21,9 @@
                 <li class="nav-item @if (request()->route()->getName() == 'articles.index') active @endif">
                     <a class="nav-link" href="{{ route('articles.index') }}">{{__('Articles')}}</a>
                 </li>
+                <li class="nav-item @if (request()->route()->getName() == 'downloads.index') active @endif">
+                    <a class="nav-link" href="{{ route('downloads.index') }}">{{__('Downloads')}}</a>
+                </li>
             </ul>
 
             <!-- 右侧 -->
@@ -34,8 +37,7 @@
                     </span>
                 </div>
             </form>
-
-            <ul class="navbar-nav d-flex">
+            <ul class="navbar-nav navbar-right d-flex">
                 <li class="nav-item dropdown my-lg-0 d-none d-lg-block" style="display: none;" v-show="!guest">
                     <a id="dropdownAddButton" class="nav-link dropdown-toggle" href="javascript:" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,6 +47,9 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownAddButton">
                         <a class="dropdown-item" href="{{route('articles.create')}}">
                             {{__('Articles')}}
+                        </a>
+                        <a class="dropdown-item" href="{{route('downloads.create')}}">
+                            {{__('Resource')}}
                         </a>
                     </div>
                 </li>

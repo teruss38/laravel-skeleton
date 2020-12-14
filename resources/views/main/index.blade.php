@@ -49,7 +49,7 @@
 
     <div class="container">
         <div class="row mb-3">
-            <div class="d-block bg-white col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="d-block bg-white pr-0  col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <nav class="home_tab">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-main-tab" data-toggle="tab" href="#nav-main"

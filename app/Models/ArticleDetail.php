@@ -90,6 +90,6 @@ class ArticleDetail extends Model
      */
     public function stopWords()
     {
-        return $this->hasOne(ArticleMod::class, 'article_id', 'article_id');
+        return $this->hasOne(ArticleStopWord::class, 'article_id', 'article_id');
     }
 }

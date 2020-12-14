@@ -20,6 +20,7 @@ Route::group([
     $router->get('api/tags', 'ApiController@tags');
     $router->get('api/users', 'ApiController@users');
     $router->get('api/regions', 'ApiController@regions');
+    $router->get('api/categories', 'ApiController@categories');
 
     //数据管理
     $router->resource('dictionary/stop-words', 'Dictionary\StopWordController');

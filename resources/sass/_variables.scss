@@ -1,0 +1,46 @@
+// Body
+$body-bg: #f7faff;
+$body-color: #000;
+
+// Typography
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+$font-size-base: 0.875rem;
+
+// Colors
+$white: #fff;
+$blue: #4285f4;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: #f6993f;
+$yellow: #ffed4a;
+$green: #38c172;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$black: #000;
+
+// Links
+$link-color: $black;
+$link-hover-decoration: none;
+
+$h1-font-size: $font-size-base * 2.15;
+$h2-font-size: $font-size-base * 1.95;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+
+// Breadcrumbs
+$breadcrumb-bg: none;
+$breadcrumb-divider: quote(">");
+$breadcrumb-padding-x: 0;
+
+$custom-file-text: (
+    en: "Browse",
+    es: "Elegir",
+    zh-CN:"浏览",
+);
+
+// 去掉圆角
+$border-radius: 0;

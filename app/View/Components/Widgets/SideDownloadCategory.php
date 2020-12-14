@@ -15,7 +15,7 @@ use Illuminate\View\Component;
  * 边栏栏目
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class SideCategory extends Component
+class SideDownloadCategory extends Component
 {
     /**
      * @var int|null
@@ -35,7 +35,7 @@ class SideCategory extends Component
     public function __construct(string $id = "")
     {
         $this->category_id = intval($id);
-        $this->categories = Category::getRootNodes();
+        $this->categories = Category::getRootNodes(Category::TYPE_DOWNLOAD);
     }
 
     /**
@@ -45,6 +45,6 @@ class SideCategory extends Component
      */
     public function render()
     {
-        return view('components.widgets.side_category');
+        return view('components.widgets.side_download_category');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticleModTable extends Migration
+class CreateDownloadStopwordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateArticleModTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_mod', function (Blueprint $table) {
-            $table->unsignedBigInteger('article_id')->unique();
+        Schema::create('download_stopwords', function (Blueprint $table) {
+            $table->unsignedBigInteger('download_id')->unique();
             $table->string('stop_word')->nullable();
         });
     }
@@ -26,6 +26,6 @@ class CreateArticleModTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_mod');
+        Schema::dropIfExists('download_stopwords');
     }
 }

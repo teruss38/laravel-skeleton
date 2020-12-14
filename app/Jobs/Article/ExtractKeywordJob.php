@@ -59,8 +59,8 @@ class ExtractKeywordJob implements ShouldQueue
     public function handle()
     {
         $metas = $this->article->metas;
-        if (!empty($article->tag_values)) {
-            $metas['keywords'] = $article->tag_values;
+        if (!empty($this->article->tag_values)) {
+            $metas['keywords'] = $this->article->tag_values;
         } else {
             $words = \Larva\Baidu\Cloud\Bce::get('nlp')->keywords($this->article->title, $this->article->detail->content);
             if (!empty($words) && is_array($words)) {

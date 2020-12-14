@@ -73,14 +73,20 @@ Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
     Route::get('{q}', [App\Http\Controllers\SearchController::class, 'query'])->name('query');
 });
 
-//栏目页
-Route::get('categories/{category}', [App\Http\Controllers\ArticleController::class, 'category'])->name('categories.show');
+//栏目
+Route::get('categories/{category}', [App\Http\Controllers\CategoryController::class, 'show'])->name('categories.show');
+
+//文章
 Route::get('articles/{article}/amp', [App\Http\Controllers\ArticleController::class, 'showAmp'])->name('articles.show.amp');
 Route::get('articles/{article}/mip', [App\Http\Controllers\ArticleController::class, 'showMip'])->name('articles.show.mip');
 Route::get('articles/{article}.html', [App\Http\Controllers\ArticleController::class, 'show'])->name('articles.view');
 Route::resource('articles', App\Http\Controllers\ArticleController::class);
+
+//快讯
 Route::get('news/{news}.html', [App\Http\Controllers\NewsController::class, 'show'])->name('news.view');
 Route::resource('news', App\Http\Controllers\NewsController::class)->only(['index', 'show']);
+
+//下载
 Route::get('downloads/{download}.html', [App\Http\Controllers\DownloadController::class, 'show'])->name('downloads.view');
 Route::resource('downloads', App\Http\Controllers\DownloadController::class);
 
@@ -92,6 +98,7 @@ Route::group(['prefix' => 'tags', 'as' => 'tag.'], function () {
     Route::get('{tag}', [App\Http\Controllers\TagController::class, 'show'])->name('show');
     Route::get('{tag}/articles', [App\Http\Controllers\ArticleController::class, 'tag'])->name('articles');
     Route::get('{tag}/news', [App\Http\Controllers\NewsController::class, 'tag'])->name('news');
+    Route::get('{tag}/downloads', [App\Http\Controllers\DownloadController::class, 'tag'])->name('downloads');
 });
 
 /**

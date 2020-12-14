@@ -156,6 +156,15 @@ class Tag extends Model
     }
 
     /**
+     * 拥有这个标签的下载
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function downloads()
+    {
+        return $this->morphedByMany(Download::class, 'taggable')->orderByDesc('id');
+    }
+
+    /**
      * 获取缓存的总数
      * @param int $cacheMinutes
      * @return mixed
