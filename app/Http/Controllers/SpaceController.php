@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 /**
@@ -19,12 +20,34 @@ class SpaceController extends Controller
     /**
      * Display space page.
      *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Symfony\Component\HttpFoundation\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Request $request)
+    public function index(User $user)
     {
+        \App\Models\UserExtra::inc($user->id, 'views');
+        return view('space.index', ['user' => $user]);
+    }
 
-        return view('space.index');
+    /**
+     * TA的文章
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function articles(User $user)
+    {
+        $items = $user->articles()->paginate();
+        return view('space.article', ['user' => $user, 'items' => $items]);
+    }
+
+    /**
+     * TA的资源
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function downloads(User $user)
+    {
+        $items = $user->downloads()->paginate();
+        return view('space.download', ['user' => $user, 'items' => $items]);
     }
 }

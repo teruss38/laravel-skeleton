@@ -8,14 +8,14 @@
 
 namespace App\View\Components\Widgets;
 
-use App\Models\Article;
+use App\Models\Download;
 use Illuminate\View\Component;
 
 /**
- * Class HomeArticle
+ * Class HomeDownload
  * @author Tongle Xu <xutongle@gmail.com>
  */
-class HomeArticle extends Component
+class HomeDownload extends Component
 {
     /**
      * @var int
@@ -40,8 +40,8 @@ class HomeArticle extends Component
      */
     public function render()
     {
-        return view('components.widgets.home_article', [
-            'items' => Article::latest($this->limit)
+        return view('components.widgets.home_download', [
+            'items' => Download::latest($this->limit)
         ]);
     }
 }

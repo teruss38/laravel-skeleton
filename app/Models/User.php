@@ -174,6 +174,24 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 获取用户文章
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    /**
+     * 获取用户资源
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function downloads()
+    {
+        return $this->hasMany(Download::class);
+    }
+
+    /**
      * 获取用户钱包
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      * @throws \Exception

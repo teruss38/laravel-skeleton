@@ -77,7 +77,7 @@
                                  alt="{{$article->user->username}}">
                         </div>
                         <div class="py-4 bg-white">
-                            <a href="#" title="{{$article->user->username}}">
+                            <a href="{{route('space.index',[$article->user])}}" title="{{$article->user->username}}">
                                 <h5 class="text-center mb-2">{{$article->user->username}}</h5>
                             </a>
                             <div class="row mx-0 text-center mb-3">

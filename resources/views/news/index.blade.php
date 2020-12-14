@@ -37,7 +37,7 @@
                         @endif
                     @endforeach
                 </ul>
-                <div class="text-center mt-4">
+                <div class="text-center p-2">
                     {{ $items->links() }}
                 </div>
             </div>

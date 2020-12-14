@@ -23,22 +23,14 @@ class HomeNews extends Component
     public $limit;
 
     /**
-     * 缓存时间
-     *
-     * @var int
-     */
-    public $cacheMinutes;
-
-    /**
      * Create a new component instance.
      *
      * @param int $limit
      * @param int $cacheMinutes
      */
-    public function __construct($limit = 10, $cacheMinutes = 5)
+    public function __construct($limit = 10)
     {
         $this->limit = $limit;
-        $this->cacheMinutes = $cacheMinutes;
     }
 
     /**
@@ -48,9 +40,8 @@ class HomeNews extends Component
      */
     public function render()
     {
-        $items = News::latest($this->limit);
         return view('components.widgets.home_news', [
-            'items' => $items
+            'items' => News::latest($this->limit)
         ]);
     }
 }

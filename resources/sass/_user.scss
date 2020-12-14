@@ -21,6 +21,7 @@
             padding: 2rem 1rem 2rem;
         }
     }
+
     .login-form {
         input {
             padding: 0.7rem 0.7rem;
@@ -123,4 +124,74 @@
         }
     }
 }
+
+// 空间页头
+.space {
+    background-color: $white;
+
+    .space-header-desc {
+        padding: .625rem;
+        background: $gray-100;
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .space-header-info {
+        .h3 {
+            display: block;
+            color: $gray-800;
+            margin: 0 0 .3125rem;
+        }
+
+        a {
+            color: var(--blue);
+        }
+
+        span {
+            line-height: 1.25rem;
+        }
+    }
+}
+
+// 空间左侧菜单
+.space-nav li.divider {
+    border-bottom: 1px solid $gray-300;
+    margin-right: 5px;
+    border-radius: 0
+}
+
+.space-main {
+    .heading {
+        padding: 1rem 0;
+        margin-bottom: 0;
+        border-bottom: .0625rem solid $border-color;
+        position: relative;
+        overflow: hidden;
+    }
+    .stream-list {
+        list-style: none;
+        padding: 0;
+        border-top: none;
+        li {
+            padding: .625rem 0;
+            border-bottom: .0625rem solid $border-color;
+            margin-top: 0;
+        }
+        .item-title {
+            font-size: .875rem;
+            color: #333;
+            line-height: 1.8125rem;
+        }
+        .title-warp {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+
+
 

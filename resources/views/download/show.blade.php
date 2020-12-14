@@ -94,7 +94,7 @@
                                  alt="{{$download->user->username}}">
                         </div>
                         <div class="py-4 bg-white">
-                            <a href="#" title="{{$download->user->username}}">
+                            <a href="{{route('space.index',[$download->user])}}" title="{{$download->user->username}}">
                                 <h5 class="text-center mb-2">{{$download->user->username}}</h5>
                             </a>
                             <div class="row mx-0 text-center mb-3">

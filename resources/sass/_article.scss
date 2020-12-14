@@ -1,8 +1,9 @@
 //文章列表
 .media {
-    .article-img {
+    border-bottom: 1px dashed $border-color;
+    .article_img {
         width: 176px;
-        height: 132px;
+        height: 135px;
     }
 
     .article_title {
@@ -12,7 +13,7 @@
         overflow: hidden;
     }
 
-    .article-excerpt {
+    .article_excerpt {
         height: 2.8em;
         margin-bottom: 4.5em;
         overflow: hidden;
@@ -39,13 +40,13 @@
     }
 
     @include media-breakpoint-down(md) {
-        .article-img {
+        .article_img {
             display: none;
         }
         .article_title {
             font-size: .875rem;
         }
-        .article-excerpt {
+        .article_excerpt {
             font-size: .75rem;
         }
     }
