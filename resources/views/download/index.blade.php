@@ -11,7 +11,7 @@
 @endif
 
 @section('content')
-    <div class="container mt-3">
+    <div class="container py-3">
         <div class="row">
             <div class="d-none d-lg-block pr-lg-0 col-lg-1">
                 @if (isset($category))
