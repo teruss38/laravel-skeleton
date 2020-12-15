@@ -8,6 +8,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -76,7 +77,7 @@ class UserCollection extends Model
      * 获取Source模型
      * @param string $type
      * @param int $id
-     * @return null
+     * @return HasCollection
      */
     public static function getSourceModel($type, $id)
     {

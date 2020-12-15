@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     protected $morphMap = [
+        'user' => \App\Models\User::class,
         'article' => \App\Models\Article::class,
         'download' => \App\Models\Download::class,
     ];
@@ -74,6 +75,7 @@ class AppServiceProvider extends ServiceProvider
     {
         \App\Models\User::observe(\App\Observers\UserObserver::class);//用户
         \App\Models\UserLoginHistory::observe(\App\Observers\UserLoginHistoryObserver::class);//登录
+        \App\Models\UserCollection::observe(\App\Observers\UserCollectionObserver::class);//收藏
         \App\Models\Tag::observe(\App\Observers\TagObserver::class);//标签
         \App\Models\Category::observe(\App\Observers\CategoryObserver::class);//栏目
         \App\Models\Article::observe(\App\Observers\ArticleObserver::class);//文章
@@ -83,6 +85,8 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Link::observe(\App\Observers\LinkObserver::class);//友情链接
         \App\Models\Carousel::observe(\App\Observers\CarouselObserver::class);//轮播
         \App\Models\Advertisement::observe(\App\Observers\AdvertisementObserver::class);//广告
+        \App\Models\Support::observe(\App\Observers\SupportObserver::class);//点赞
+        \App\Models\Attention::observe(\App\Observers\AttentionObserver::class);//关注
     }
 
     /**

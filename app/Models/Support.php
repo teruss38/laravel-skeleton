@@ -8,6 +8,8 @@
 
 namespace App\Models;
 
+use App\Contracts\CanSupport;
+use App\Models\Traits\HasSupport;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -75,7 +77,7 @@ class Support extends Model
      * 获取Source模型
      * @param string $type
      * @param int $id
-     * @return null
+     * @return HasSupport
      */
     public static function getSourceModel($type, $id)
     {

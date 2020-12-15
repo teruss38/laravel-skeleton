@@ -52,6 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes, HasApiTokens;
     use Traits\HasDateTimeFormatter;
+    use Traits\HasAttention;
 
     /**
      * 模型数据表

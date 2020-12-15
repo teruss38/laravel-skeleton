@@ -8,7 +8,9 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasAttention;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * 关注
@@ -18,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $souce_type
  *
  * @property User $user
+ * @property Model $source
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class Attention extends Model
@@ -67,5 +70,20 @@ class Attention extends Model
     public function source()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * 获取Source模型
+     * @param string $type
+     * @param int $id
+     * @return HasAttention
+     */
+    public static function getSourceModel($type, $id)
+    {
+        $class = Relation::getMorphedModel($type);
+        if (!$class) {
+            return null;
+        }
+        return $class::find($id);
     }
 }

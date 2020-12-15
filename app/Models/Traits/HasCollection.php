@@ -11,30 +11,17 @@ namespace App\Models\Traits;
 use App\Models\User;
 use App\Models\UserCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
- * Class HasCollection
+ * 收藏
  *
+ * @property-read boolean $isCollected
  * @property \Illuminate\Database\Eloquent\Model $this
  * @author Tongle Xu <xutongle@gmail.com>
  */
 trait HasCollection
 {
-    /**
-     * Boot the trait.
-     *
-     * Listen for the deleting event of a model, then remove the relation between it and tags
-     */
-    protected static function bootHasCollection(): void
-    {
-        static::saved(function ($model) {
-            $model->source()->increment('collection_count');
-        });
-        static::deleted(function ($model) {
-            $model->source()->where('collection_count', '>', 0)->decrement('collection_count');
-        });
-    }
-
     /**
      * Collection Relation
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
@@ -45,22 +32,34 @@ trait HasCollection
     }
 
     /**
-     * 获取收藏
-     * @param User $user
+     * 获取指定的指定收藏
+     * @param \Illuminate\Contracts\Auth\Authenticatable|User $user
      * @return UserCollection|Model|\Illuminate\Database\Eloquent\Relations\MorphMany|object
      */
     public function getCollection($user)
     {
-        return $this->collections()->where(['user_id' => $user->id])->first();
+        return $this->collections()->where(['user_id' => $user->getAuthIdentifier()])->first();
     }
 
     /**
      * 是否收藏过
-     * @param User $user
+     * @param \Illuminate\Contracts\Auth\Authenticatable $user
      * @return bool
      */
     public function isCollected($user)
     {
-        return $this->collections()->where(['user_id' => $user->id])->exists();
+        if ($user) {
+            return $this->collections()->where(['user_id' => $user->getAuthIdentifier()])->exists();
+        }
+        return false;
+    }
+
+    /**
+     * 是否收藏过
+     * @return bool
+     */
+    public function getIsCollectedAttribute()
+    {
+        return $this->isCollected(Auth::guard()->user());
     }
 }

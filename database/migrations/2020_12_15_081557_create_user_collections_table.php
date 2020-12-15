@@ -17,7 +17,7 @@ class CreateUserCollectionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
             $table->morphs('source');
-            $table->string('title')->comment('标题');
+            $table->string('subject')->comment('标题');
             $table->timestamps();
         });
     }

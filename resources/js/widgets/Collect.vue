@@ -8,7 +8,7 @@
 import {collect} from "../api/util";
 
 export default {
-    props: ['id', 'type', 'size'],
+    props: ['id', 'type', 'size', 'disabled'],
     data() {
         return {
             buttonName: "收藏",
@@ -23,6 +23,10 @@ export default {
             this.btnStyle = 'btn btn-light btn-lg'
         } else {
             this.btnStyle = 'btn btn-light'
+        }
+        if (this.disabled === '1') {
+            this.buttonName = '已收藏';
+            this.isDisabled = true;
         }
     },
     methods: {

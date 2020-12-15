@@ -31,6 +31,7 @@ class CollectionController extends Controller
      * 处理收藏
      * @param StoreRequest $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     * @throws \Exception
      */
     public function __invoke(StoreRequest $request)
     {

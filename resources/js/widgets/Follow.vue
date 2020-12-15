@@ -8,7 +8,7 @@
 import {follow} from "../api/util";
 
 export default {
-    props: ['id', 'type', 'size'],
+    props: ['id', 'type', 'size', 'disabled'],
     data() {
         return {
             buttonName: "关注",
@@ -24,12 +24,16 @@ export default {
         } else {
             this.btnStyle = 'btn btn-success'
         }
+        if (this.disabled === '1') {
+            this.buttonName = '已关注';
+            this.isDisabled = true;
+        }
     },
     methods: {
         sendCollect() {
             this.isDisabled = true;
             follow(this.id, this.type).then(response => {
-                if (response.status === 'collected') {
+                if (response.status === 'followed') {
                     this.buttonName = '已关注';
                 } else {
                     this.buttonName = '关注';

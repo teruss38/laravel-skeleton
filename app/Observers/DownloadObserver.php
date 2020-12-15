@@ -10,8 +10,6 @@ namespace App\Observers;
 
 use App\Models\Download;
 use App\Services\FileService;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 /**
  * 下载观察者

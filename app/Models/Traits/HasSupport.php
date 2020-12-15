@@ -10,27 +10,17 @@ namespace App\Models\Traits;
 
 use App\Models\Support;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /**
- * Class HasSupport
+ * 点赞
+ *
+ * @property-read boolean $isSupported 是否已经赞过
+ * @property \Illuminate\Database\Eloquent\Model $this
  * @author Tongle Xu <xutongle@gmail.com>
  */
 trait HasSupport
 {
-    /**
-     * Boot the trait.
-     *
-     * Listen for the deleting event of a model, then remove the relation between it and tags
-     */
-    protected static function bootHasSupport(): void
-    {
-        static::saved(function ($model) {
-            $model->source()->increment('support_count');
-        });
-        static::deleted(function ($model) {
-            $model->source()->where('support_count', '>', 0)->decrement('support_count');
-        });
-    }
 
     /**
      * support Relation
@@ -43,11 +33,23 @@ trait HasSupport
 
     /**
      * 是否赞过
-     * @param User $user
+     * @param \Illuminate\Contracts\Auth\Authenticatable|User $user
      * @return bool
      */
-    public function supported($user)
+    public function supported($user): bool
     {
-        return $this->supports()->where(['user_id' => $user->id])->exists();
+        if ($user) {
+            return $this->supports()->where(['user_id' => $user->getAuthIdentifier()])->exists();
+        }
+        return false;
+    }
+
+    /**
+     * 是否赞过
+     * @return bool
+     */
+    public function getIsSupportedAttribute()
+    {
+        return $this->supported(Auth::guard()->user());
     }
 }

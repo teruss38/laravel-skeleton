@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mt-3">
-                        <follow id="{{$user->username}}" type="user" ></follow>
+                        <follow id="{{$user->id}}" type="user"></follow>
                         <button class="btn btn-default btnMessageTo" data-toggle="modal" data-target="#sendTo_message_model" data-to_user_id="9123" data-to_user_name="{{$user->username}}">发私信</button>
                     </div>
                     <div class="space-header-info row mt-4">

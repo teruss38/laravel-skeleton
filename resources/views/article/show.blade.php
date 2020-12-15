@@ -50,8 +50,10 @@
                         {!! $article->detail->content !!}
 
                         <div class="text-center">
-                            <support id="{{$article->id}}" type="article" num="{{$article->support_count}}" size="lg"></support>
-                            <collect id="{{$article->id}}" type="article" size="lg"></collect>
+                            <support id="{{$article->id}}" type="article" num="{{$article->support_count}}" size="lg"
+                                     disabled="{{$article->isSupported}}"></support>
+                            <collect id="{{$article->id}}" type="article" size="lg"
+                                     disabled="{{$article->isCollected}}"></collect>
                         </div>
                     </article>
                     <div class="d-none d-md-block article-footer">
@@ -98,9 +100,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <!--
-                                <a class="btn btn-sm btn-primary" role="button" href="javascript:void(0);" title="点我关注">关注</a>
-                                -->
+                                <follow id="{{$article->user->id}}" type="user" size="sm"></follow>
                             </div>
                         </div>
                     </div>

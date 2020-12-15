@@ -10,7 +10,7 @@
                         <strong>标题</strong>
                     </div>
                     <div class="col-md-2">
-                        <strong>浏览</strong>
+                        <strong>浏览/收藏</strong>
                     </div>
                     <div class="col-md-2">
                         <strong>收藏日期</strong>
@@ -23,7 +23,7 @@
                         <div class="col-md-8 title-warp">
                             <a class="item-title" href="{{$item->source->link}}">{{$item->source->title}}</a>
                         </div>
-                        <div class="col-md-2"><span class="text-muted">{{$item->source->views}}</span></div>
+                        <div class="col-md-2"><span class="text-muted">{{$item->source->views}} / {{$item->source->collection_count}}</span></div>
                         <div class="col-md-2">
                             <span class="text-muted">{{$item->created_at}}</span>
                         </div>

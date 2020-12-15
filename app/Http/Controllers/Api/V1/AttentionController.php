@@ -9,9 +9,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Attention\FollowRequest;
+use App\Models\Attention;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class AttentionController
+ * 关注某个支持关注的 模型变更 可以关注用户，标签，帖子
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class AttentionController extends Controller
@@ -25,9 +28,21 @@ class AttentionController extends Controller
     }
 
     /**
-     * @param Request $request
+     * 关注请求
+     * @param FollowRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request){
-
+    public function __invoke(FollowRequest $request)
+    {
+        $source = Attention::getSourceModel($request->type, $request->id);
+        if (!$source) {
+            throw new NotFoundHttpException(404);
+        }
+        if (($attention = $source->getAttention($request->user())) != null) {
+            $attention->delete();
+            return response()->json(['status' => 'unfollowed']);
+        }
+        $source->attentions()->create(['user_id' => $request->user_id]);
+        return response()->json(['status' => 'followed']);
     }
 }

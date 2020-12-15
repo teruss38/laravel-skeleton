@@ -42,6 +42,6 @@ class SupportController extends Controller
             return response()->json(['status' => 'supported']);
         }
         $source->supports()->create(['user_id' => $request->user_id]);
-        return response('success')->json(['status' => 'success']);
+        return response()->json(['status' => 'success']);
     }
 }

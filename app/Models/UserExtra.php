@@ -51,7 +51,7 @@ class UserExtra extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'login_ip', 'login_at', 'login_num',
+        'user_id', 'login_ip', 'login_at', 'login_num', 'views', 'articles', 'downloads', 'collections', 'followers'
     ];
 
     /**

@@ -8,46 +8,67 @@
 
 namespace App\Models\Traits;
 
-use App\Models\Support;
+use App\Models\Attention;
 use App\Models\User;
+use App\Models\UserCollection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
- * Trait HasAttention
+ * 关注
+ * @property-read boolean $isFollowed
+ * @property \Illuminate\Database\Eloquent\Model $this
  * @author Tongle Xu <xutongle@gmail.com>
  */
 trait HasAttention
 {
     /**
-     * Boot the trait.
-     *
-     * Listen for the deleting event of a model, then remove the relation between it and tags
+     * 获取粉丝
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    protected static function bootHasAttention(): void
+    public function followers()
     {
-        static::saved(function ($model) {
-            $model->source()->increment('followers');
-        });
-        static::deleted(function ($model) {
-            $model->source()->where('followers', '>', 0)->decrement('support_count');
-        });
+        return $this->morphToMany(Attention::class, 'source','attentions','source_id','id');
     }
 
     /**
-     * support Relation
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * 我的关注
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function supports()
+    public function attentions()
     {
-        return $this->morphMany(Support::class, 'source');
+        return $this->morphMany(Attention::class, 'source');
     }
 
     /**
-     * 是否赞过
-     * @param User $user
+     * 获取关注
+     * @param \Illuminate\Contracts\Auth\Authenticatable|User $user
+     * @return UserCollection|Model|\Illuminate\Database\Eloquent\Relations\MorphMany|object
+     */
+    public function getAttention($user)
+    {
+        return $this->attentions()->where('user_id', $user->getAuthIdentifier())->first();
+    }
+
+    /**
+     * 是否已经关注
+     * @param \Illuminate\Contracts\Auth\Authenticatable|User $user
      * @return bool
      */
-    public function supported($user)
+    public function followed($user)
     {
-        return $this->supports()->where(['user_id' => $user->id])->exists();
+        if ($user) {
+            return $this->attentions()->where(['user_id' => $user->getAuthIdentifier()])->exists();
+        }
+        return false;
+    }
+
+    /**
+     * 是否已经关注
+     * @return bool
+     */
+    public function getIsFollowedAttribute()
+    {
+        return $this->followed(Auth::guard()->user());
     }
 }

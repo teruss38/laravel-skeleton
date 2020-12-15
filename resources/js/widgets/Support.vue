@@ -8,7 +8,7 @@
 import {support} from "../api/util";
 
 export default {
-    props: ['id', 'type', 'num', 'size'],
+    props: ['id', 'type', 'num', 'size', 'disabled'],
     data() {
         return {
             buttonName: "推荐",
@@ -24,13 +24,17 @@ export default {
         } else {
             this.btnStyle = 'btn btn-success'
         }
+        if (this.disabled === '1') {
+            this.buttonName = '已推荐';
+            this.isDisabled = true;
+        }
     },
     methods: {
         sendSupport() {
             this.isDisabled = true;
             support(this.id, this.type).then(response => {
                 this.buttonName = '已推荐';
-                this.isDisabled = false
+                this.isDisabled = true;
             }).catch((error) => {
                 alert(error.message)
                 //this.$message.error(error.message);

@@ -10,7 +10,6 @@ namespace App\Observers;
 
 use App\Models\User;
 use App\Services\FileService;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * User 观察者
@@ -83,6 +82,12 @@ class UserObserver
         $user->extra->delete();
         $user->socials()->delete();
         $user->loginHistories()->delete();
+        $user->collections()->delete();
+        $user->notifications()->delete();
+        $user->doings()->delete();
+        $user->followers()->delete();
+        $user->attentions()->delete();
+
         if (class_exists('\Larva\Wallet\Models\Wallet')) {
             $user->wallet()->delete();
         }
