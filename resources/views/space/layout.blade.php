@@ -30,7 +30,7 @@
                             <span class="h3">
                                 <a href="coins">10</a>
                             </span>
-                            <span class="text-muted">金币数</span>
+                            <span class="text-muted">积分数</span>
                         </div>
                         <div class="col-md-4">
                             <span class="h3">
