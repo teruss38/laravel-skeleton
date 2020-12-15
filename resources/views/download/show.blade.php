@@ -70,7 +70,9 @@
                     </div>
                     <div class="resource_box_fn clearfix">
                         <div class="left_fn">
-                            <a href="#" class="btn btn-outline-primary float-left" role="button" aria-disabled="true">立即下载</a>
+                            <a href="#" class="btn btn-outline-primary float-left mr-2" role="button" aria-disabled="true">立即下载</a>
+                            <support id="{{$download->id}}" type="download" num="{{$download->support_count}}"></support>
+                            <collect id="{{$download->id}}" type="download" ></collect>
                             <integral-recharge></integral-recharge>
                         </div>
                     </div>
