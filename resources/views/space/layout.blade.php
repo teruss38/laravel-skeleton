@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <a class="text-left" href="{{route('space.index',[$user])}}">
-                        <img class="avatar-128" src="{{$user->avatar}}" alt="{{$user->username}}">
+                        <img class="avatar-7" src="{{$user->avatar}}" alt="{{$user->username}}">
                     </a>
                 </div>
                 <div class="col-md-7">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mt-3">
-                        <follow id="{{$user->id}}" type="user"></follow>
+                        <follow id="{{$user->id}}" type="user" disabled="{{$user->isFollowed}}"></follow>
                         <button class="btn btn-default btnMessageTo" data-toggle="modal" data-target="#sendTo_message_model" data-to_user_id="9123" data-to_user_name="{{$user->username}}">发私信</button>
                     </div>
                     <div class="space-header-info row mt-4">
@@ -63,7 +63,8 @@
                     <li class="divider"></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.index') active @endif" href="{{route('space.index',[$user])}}">TA的积分</a></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.collections') active @endif" href="{{route('space.collections',[$user])}}">TA的收藏</a></li>
-                    <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.index') active @endif" href="{{route('space.index',[$user])}}">TA的粉丝</a></li>
+                    <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.attentions') active @endif" href="{{route('space.attentions',[$user])}}">TA的关注</a></li>
+                    <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.followers') active @endif" href="{{route('space.followers',[$user])}}">TA的粉丝</a></li>
                 </ul>
             </div>
 

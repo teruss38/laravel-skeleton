@@ -184,6 +184,24 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 获取用户点赞
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function supports()
+    {
+        return $this->hasMany(Support::class);
+    }
+
+    /**
+     * 我的关注
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function attentions()
+    {
+        return $this->hasMany(Attention::class);
+    }
+
+    /**
      * 获取用户文章
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -237,6 +255,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeActive($query)
     {
         return $query->where('disabled', '=', false);
+    }
+
+    /**
+     * 获取 访问Url
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return route('space.index', [$this]);
     }
 
     /**

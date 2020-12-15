@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property int $id
  * @property int $user_id
  * @property int $source_id
- * @property string $souce_type
+ * @property string $source_type
  *
  * @property User $user
  * @property Model $source

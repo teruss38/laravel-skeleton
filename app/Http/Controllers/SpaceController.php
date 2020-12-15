@@ -61,4 +61,26 @@ class SpaceController extends Controller
         $items = $user->collections()->with('source')->paginate();
         return view('space.collection', ['user' => $user, 'items' => $items]);
     }
+
+    /**
+     * TA的关注
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function attentions(User $user)
+    {
+        $items = $user->attentions()->where('source_type', 'user')->with('source')->paginate();
+        return view('space.attention', ['user' => $user, 'items' => $items]);
+    }
+
+    /**
+     * TA的粉丝
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function followers(User $user)
+    {
+        $items = $user->followers()->with('user')->paginate();
+        return view('space.follower', ['user' => $user, 'items' => $items]);
+    }
 }

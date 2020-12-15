@@ -170,24 +170,50 @@
         position: relative;
         overflow: hidden;
     }
+
     .stream-list {
         list-style: none;
         padding: 0;
         border-top: none;
+
         li {
             padding: .625rem 0;
             border-bottom: .0625rem solid $border-color;
             margin-top: 0;
         }
+
         .item-title {
             font-size: .875rem;
             color: #333;
             line-height: 1.8125rem;
         }
+
         .title-warp {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+    }
+
+    .stream-following {
+        .avatar-3 {
+            float: left;
+            margin-right: .625rem
+        }
+        .stream-following-list > li {
+            padding: .75rem 0;
+            border-bottom: 1px solid #eee
+        }
+
+        .stream-following-followed {
+            color: #999;
+            line-height: 1.25rem;
+        }
+
+        .stream-following-desc {
+            font-size: .875rem;
+            color: #666;
+            line-height: 1.3125rem;
         }
     }
 }

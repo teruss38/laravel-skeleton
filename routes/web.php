@@ -124,6 +124,8 @@ Route::group(['prefix' => 'people', 'as' => 'space.'], function () {
     Route::get('{user}/articles', [App\Http\Controllers\SpaceController::class, 'articles'])->name('articles');
     Route::get('{user}/downloads', [App\Http\Controllers\SpaceController::class, 'downloads'])->name('downloads');
     Route::get('{user}/collections', [App\Http\Controllers\SpaceController::class, 'collections'])->name('collections');
+    Route::get('{user}/attentions', [App\Http\Controllers\SpaceController::class, 'attentions'])->name('attentions');
+    Route::get('{user}/followers', [App\Http\Controllers\SpaceController::class, 'followers'])->name('followers');
 });
 
 /**

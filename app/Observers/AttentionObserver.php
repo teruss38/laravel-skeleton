@@ -24,7 +24,7 @@ class AttentionObserver
      */
     public function created(Attention $attention)
     {
-        if ($attention->souce_type == 'user') {
+        if ($attention->source_type == 'user') {
             UserExtra::inc($attention->source_id, 'followers');
         } else {
             $attention->source()->increment('follower_count');
@@ -39,7 +39,7 @@ class AttentionObserver
      */
     public function deleted(Attention $attention)
     {
-        if ($attention->souce_type == 'user') {
+        if ($attention->source_type == 'user') {
             UserExtra::dec($attention->source_id, 'followers');
         } else {
             $attention->source()->where('follower_count', '>', 0)->decrement('follower_count');

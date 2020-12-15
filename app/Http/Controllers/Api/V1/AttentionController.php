@@ -31,6 +31,7 @@ class AttentionController extends Controller
      * 关注请求
      * @param FollowRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function __invoke(FollowRequest $request)
     {
@@ -38,11 +39,12 @@ class AttentionController extends Controller
         if (!$source) {
             throw new NotFoundHttpException(404);
         }
-        if (($attention = $source->getAttention($request->user())) != null) {
+        //看我有没有关注目标
+        if (($attention = $source->getFollow($request->user())) != null) {
             $attention->delete();
             return response()->json(['status' => 'unfollowed']);
         }
-        $source->attentions()->create(['user_id' => $request->user_id]);
+        $source->followers()->create(['user_id' => $request->user_id]);
         return response()->json(['status' => 'followed']);
     }
 }

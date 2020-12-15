@@ -26,7 +26,6 @@ export default {
         }
         if (this.disabled === '1') {
             this.buttonName = '已关注';
-            this.isDisabled = true;
         }
     },
     methods: {

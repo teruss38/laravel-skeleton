@@ -23,31 +23,22 @@ use Illuminate\Support\Facades\Auth;
 trait HasAttention
 {
     /**
-     * 获取粉丝
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * 关注我的
+     * @return \Illuminate\Database\Eloquent\Relations\morphMany
      */
     public function followers()
-    {
-        return $this->morphToMany(Attention::class, 'source','attentions','source_id','id');
-    }
-
-    /**
-     * 我的关注
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function attentions()
     {
         return $this->morphMany(Attention::class, 'source');
     }
 
     /**
-     * 获取关注
+     * 获取指定的指定关注
      * @param \Illuminate\Contracts\Auth\Authenticatable|User $user
      * @return UserCollection|Model|\Illuminate\Database\Eloquent\Relations\MorphMany|object
      */
-    public function getAttention($user)
+    public function getFollow($user)
     {
-        return $this->attentions()->where('user_id', $user->getAuthIdentifier())->first();
+        return $this->followers()->where(['user_id' => $user->getAuthIdentifier()])->first();
     }
 
     /**
@@ -58,7 +49,7 @@ trait HasAttention
     public function followed($user)
     {
         if ($user) {
-            return $this->attentions()->where(['user_id' => $user->getAuthIdentifier()])->exists();
+            return $this->followers()->where(['user_id' => $user->getAuthIdentifier()])->exists();
         }
         return false;
     }
