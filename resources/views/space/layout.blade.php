@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-md-4">
                         <span class="h3">
-                            <a id="follower-num" href="followers">0</a>
+                            <a id="follower-num" href="{{route('space.followers',[$user])}}">{{$user->extra->followers}}</a>
                         </span>
                             <span class="text-muted">个粉丝</span>
                         </div>
