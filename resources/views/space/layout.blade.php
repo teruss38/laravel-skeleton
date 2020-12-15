@@ -13,42 +13,34 @@
                     <div class="m-0 h3">{{$user->username}}</div>
                     <hr class="my-4">
                     <div>
-                        <span class="text-muted">性别： <i class="fa fa-genderless"></i> </span>
-                        <span class="text-muted"><i class="fa fa-map-marker"></i>  </span>
-                        <span class="text-muted"><i class="fa fa-calendar"></i> 注册于 {{$user->created_at}}</span>
+                        <span class="text-muted">性别： <i class="fa fa-fw fa-lg @if($user->profile->gender==1) fa-mars @elseif($user->profile->gender==2) fa-venus @else fa-genderless @endif"></i> </span>
+                        <span class="text-muted"><i class="fa fa-fw fa-map-marker"></i> {{$user->profile->address}} </span>
+                        <span class="text-muted"><i class="fa fa-fw fa-calendar"></i> 注册于 {{$user->created_at}}</span>
                     </div>
-                    <div class="space-header-desc mt-3"><p>
-                            {{$user->username}}asssssssss打算发asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算
-                            发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法asssssssss打算发射点法射点法</p>
+                    <div class="space-header-desc mt-3"><p>{{$user->profile->bio}}</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mt-3">
-                        <button type="button" id="follow-button" class="btn mr-10 btn-success" data-source_type="user"
-                                data-source_id="9123" data-show_num="true" data-toggle="tooltip" data-placement="right"
-                                title="" data-original-title="关注后将获得更新提醒">关注
-                        </button>
-
-                        <button class="btn btn-default btnMessageTo" data-toggle="modal"
-                                data-target="#sendTo_message_model" data-to_user_id="9123" data-to_user_name="无极无极">发私信
-                        </button>
+                        <follow id="{{$user->username}}" type="user" ></follow>
+                        <button class="btn btn-default btnMessageTo" data-toggle="modal" data-target="#sendTo_message_model" data-to_user_id="9123" data-to_user_name="{{$user->username}}">发私信</button>
                     </div>
                     <div class="space-header-info row mt-4">
                         <div class="col-md-4">
                             <span class="h3">
-                                <a href="https://wenda.tipask.com/people/9123/coins">10</a>
+                                <a href="coins">10</a>
                             </span>
                             <span class="text-muted">金币数</span>
                         </div>
                         <div class="col-md-4">
                             <span class="h3">
-                                <a href="https://wenda.tipask.com/people/9123/credits">30</a>
+                                <a href="credits">30</a>
                             </span>
                             <span class="text-muted">经验值</span>
                         </div>
                         <div class="col-md-4">
                         <span class="h3">
-                            <a id="follower-num" href="https://wenda.tipask.com/people/9123/followers">0</a>
+                            <a id="follower-num" href="followers">0</a>
                         </span>
                             <span class="text-muted">个粉丝</span>
                         </div>
@@ -70,7 +62,7 @@
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.downloads') active @endif" href="{{route('space.downloads',[$user])}}">TA的资源</a></li>
                     <li class="divider"></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.index') active @endif" href="{{route('space.index',[$user])}}">TA的积分</a></li>
-                    <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.index') active @endif" href="{{route('space.index',[$user])}}">TA的收藏</a></li>
+                    <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.collections') active @endif" href="{{route('space.collections',[$user])}}">TA的收藏</a></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.index') active @endif" href="{{route('space.index',[$user])}}">TA的粉丝</a></li>
                 </ul>
             </div>

@@ -50,4 +50,15 @@ class SpaceController extends Controller
         $items = $user->downloads()->paginate();
         return view('space.download', ['user' => $user, 'items' => $items]);
     }
+
+    /**
+     * TA的收藏
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function collections(User $user)
+    {
+        $items = $user->collections()->with('source')->paginate();
+        return view('space.collection', ['user' => $user, 'items' => $items]);
+    }
 }

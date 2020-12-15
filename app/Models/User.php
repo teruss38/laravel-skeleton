@@ -174,6 +174,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 获取用户收藏
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function collections()
+    {
+        return $this->hasMany(UserCollection::class);
+    }
+
+    /**
      * 获取用户文章
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -252,6 +261,17 @@ class User extends Authenticatable implements MustVerifyEmail
             return $avatar;
         }
         return asset('img/avatar.jpg');
+    }
+
+    /**
+     * 获取已经收藏的指定内容
+     * @param string $source_type
+     * @param string $source_id
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\HasMany|object|null
+     */
+    public function getCollected($source_type, $source_id)
+    {
+        return $this->collections()->where('source_type', '=', $source_type)->where('source_id', '=', $source_id)->first();
     }
 
     /**

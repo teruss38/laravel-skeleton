@@ -21,6 +21,7 @@ class CreateUserExtrasTable extends Migration
             $table->unsignedInteger('views')->default(0)->nullable();
             $table->unsignedInteger('articles')->default(0)->nullable();
             $table->unsignedInteger('downloads')->default(0)->nullable();
+            $table->unsignedInteger('collections')->default(0)->nullable();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

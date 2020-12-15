@@ -37,7 +37,7 @@
                                     <div class="row download_userinfo small mx-0">
                                         <div class="col-4 text-truncate px-0">
                                             <span class="text-black-50 small">上传 :</span>
-                                            <a href="#" class="article_author small mr-2">{{$item->user->username}}</a>
+                                            <a href="{{route('space.index',[$item->user])}}" class="article_author small mr-2">{{$item->user->username}}</a>
                                         </div>
                                         <div class="col-8 text-right text-truncate px-0" style="color: #888;">
                                             已有 <span class="read_number_style">{{$item->views}}</span>

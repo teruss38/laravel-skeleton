@@ -48,6 +48,11 @@
                     <article class="ck-content">
                         <x-widgets.ads id="3"/>
                         {!! $article->detail->content !!}
+
+                        <div class="text-center">
+                            <support id="{{$article->id}}" type="article" num="{{$article->support_count}}"></support>
+                            <collect id="{{$article->id}}" type="article"></collect>
+                        </div>
                     </article>
                     <div class="d-none d-md-block article-footer">
                         <div>文章为作者独立观点，不代表{{config('app.name')}}立场。</div>
@@ -82,7 +87,9 @@
                             </a>
                             <div class="row mx-0 text-center mb-3">
                                 <div class="col px-0">
-                                    <div><span class="color0099ee follow_size">{{$article->user->extra->downloads}}</span></div>
+                                    <div><span
+                                            class="color0099ee follow_size">{{$article->user->extra->downloads}}</span>
+                                    </div>
                                     <div class="text-muted">资源数</div>
                                 </div>
                                 <div class="col px-0">

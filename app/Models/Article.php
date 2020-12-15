@@ -55,6 +55,8 @@ class Article extends Model
 {
     use Traits\HasTaggable;
     use Traits\HasDateTimeFormatter;
+    use Traits\HasCollection;
+    use Traits\HasSupport;
     use SoftDeletes;
 
     const CACHE_TAG = 'articles:';

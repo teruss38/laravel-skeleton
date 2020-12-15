@@ -92,4 +92,8 @@ Route::group(['prefix' => 'v1'], function (Illuminate\Contracts\Routing\Registra
     Route::group(['prefix' => 'device'], function () {
         Route::post('register', [App\Http\Controllers\Api\V1\DeviceController::class, 'register']);//设备注册
     });
+
+    Route::post('support', App\Http\Controllers\Api\V1\SupportController::class);//点赞
+    Route::post('collect', App\Http\Controllers\Api\V1\CollectionController::class);//收藏
+    Route::post('follow', App\Http\Controllers\Api\V1\AttentionController::class);//关注
 });

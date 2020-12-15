@@ -2,7 +2,7 @@
 
 @section('main')
     <div class="space-main">
-        <h6 class="heading">{{$items->total()}} 个资源</h6>
+        <h6 class="heading">{{$items->total()}} 个收藏</h6>
         <ul class="stream-list">
             <li>
                 <div class="row">
@@ -13,7 +13,7 @@
                         <strong>浏览</strong>
                     </div>
                     <div class="col-md-2">
-                        <strong>发布日期</strong>
+                        <strong>收藏日期</strong>
                     </div>
                 </div>
             </li>
@@ -21,9 +21,9 @@
                 <li>
                     <div class="row">
                         <div class="col-md-8 title-warp">
-                            <a class="item-title" href="{{$item->link}}">{{$item->title}}</a>
+                            <a class="item-title" href="{{$item->source->link}}">{{$item->source->title}}</a>
                         </div>
-                        <div class="col-md-2"><span class="text-muted">{{$item->views}}</span></div>
+                        <div class="col-md-2"><span class="text-muted">{{$item->source->views}}</span></div>
                         <div class="col-md-2">
                             <span class="text-muted">{{$item->created_at}}</span>
                         </div>

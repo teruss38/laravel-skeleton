@@ -34,6 +34,14 @@ class AppServiceProvider extends ServiceProvider
     ];
 
     /**
+     * @var array
+     */
+    protected $morphMap = [
+        'article' => \App\Models\Article::class,
+        'download' => \App\Models\Download::class,
+    ];
+
+    /**
      * Register any application services.
      *
      * @return void
@@ -55,6 +63,8 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Pagination\Paginator::useBootstrap();
         $this->registerObserve();
         $this->registerValidators();
+
+        \Illuminate\Database\Eloquent\Relations\Relation::morphMap($this->morphMap);
     }
 
     /**

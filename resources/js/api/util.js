@@ -67,10 +67,64 @@ const getIPInfo = function () {
     });
 };
 
+/**
+ * 点赞
+ * @param id
+ * @param type
+ * @returns {AxiosPromise}
+ */
+const support = function (id, type) {
+    return request({
+        method: 'post',
+        url: '/api/v1/support',
+        data: {
+            id: id,
+            type: type
+        }
+    });
+};
+
+/**
+ * 收藏
+ * @param id
+ * @param type
+ * @returns {AxiosPromise}
+ */
+const collect = function (id, type) {
+    return request({
+        method: 'post',
+        url: '/api/v1/collect',
+        data: {
+            id: id,
+            type: type
+        }
+    });
+}
+
+/**
+ * 关注
+ * @param id
+ * @param type
+ * @returns {AxiosPromise}
+ */
+const follow = function (id, type) {
+    return request({
+        method: 'post',
+        url: '/api/v1/follow',
+        data: {
+            id: id,
+            type: type
+        }
+    });
+}
+
 export {
     getCountry,
     getPhoneVerifyCode,
     getEmailVerifyCode,
     getAppConfig,
-    getIPInfo
+    getIPInfo,
+    support,
+    collect,
+    follow
 }
