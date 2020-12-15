@@ -176,7 +176,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * 获取用户收藏
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany|UserCollection
      */
     public function collections()
     {
@@ -194,7 +194,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * 我的关注
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany|Attention
      */
     public function attentions()
     {

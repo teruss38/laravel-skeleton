@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  *
  * @property User $user
  * @property Model $source
+ * @method static \Illuminate\Database\Eloquent\Builder|Attention type($type)
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class Attention extends Model
@@ -70,6 +71,17 @@ class Attention extends Model
     public function source()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * 查找指定类型的收藏
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeType($query, $type)
+    {
+        return $query->where('source_type', $type);
     }
 
     /**

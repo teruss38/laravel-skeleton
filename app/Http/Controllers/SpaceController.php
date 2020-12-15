@@ -26,7 +26,7 @@ class SpaceController extends Controller
     public function index(User $user)
     {
         \App\Models\UserExtra::inc($user->id, 'views');
-        return redirect()->route('space.articles',[$user]);
+        return redirect()->route('space.articles', [$user]);
         return view('space.index', ['user' => $user]);
     }
 
@@ -55,23 +55,27 @@ class SpaceController extends Controller
     /**
      * TA的收藏
      * @param User $user
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function collections(User $user)
+    public function collections(User $user, Request $request)
     {
-        $items = $user->collections()->with('source')->paginate();
-        return view('space.collection', ['user' => $user, 'items' => $items]);
+        $type = $request->get('type', 'article');
+        $items = $user->collections()->type($type)->with('source')->paginate();
+        return view('space.collection', ['user' => $user, 'type' => $type, 'items' => $items]);
     }
 
     /**
      * TA的关注
      * @param User $user
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function attentions(User $user)
+    public function attentions(User $user, Request $request)
     {
-        $items = $user->attentions()->where('source_type', 'user')->with('source')->paginate();
-        return view('space.attention', ['user' => $user, 'items' => $items]);
+        $type = $request->get('type', 'user');
+        $items = $user->attentions()->type($type)->with('source')->paginate();
+        return view('space.attention', ['user' => $user, 'type' => $type, 'items' => $items]);
     }
 
     /**

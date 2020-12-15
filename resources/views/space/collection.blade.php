@@ -4,7 +4,13 @@
 
 @section('main')
     <div class="space-main">
-        <h6 class="heading">{{$items->total()}} 个收藏</h6>
+        <nav class="home_tab bg-white">
+            <div class="nav nav-tabs">
+                <a class="nav-item nav-link @if($type==='article') active @endif" href="{{ route('space.collections',['user'=>$user,'type'=>'article']) }}">文章</a>
+                <a class="nav-item nav-link @if($type==='download') active @endif" href="{{ route('space.collections',['user'=>$user,'type'=>'download']) }}">资源</a>
+            </div>
+        </nav>
+
         <ul class="stream-list">
             <li>
                 <div class="row">

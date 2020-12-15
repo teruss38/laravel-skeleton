@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property string $subject
  *
  * @property User $user
- *
+ * @method static \Illuminate\Database\Eloquent\Builder|UserCollection type($type)
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class UserCollection extends Model
@@ -71,6 +71,17 @@ class UserCollection extends Model
     public function source()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * 查找指定类型的收藏
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeType($query, $type)
+    {
+        return $query->where('source_type', $type);
     }
 
     /**
