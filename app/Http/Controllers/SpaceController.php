@@ -26,6 +26,7 @@ class SpaceController extends Controller
     public function index(User $user)
     {
         \App\Models\UserExtra::inc($user->id, 'views');
+        return redirect()->route('space.articles',[$user]);
         return view('space.index', ['user' => $user]);
     }
 

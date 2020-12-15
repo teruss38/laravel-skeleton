@@ -1,5 +1,7 @@
 @extends('space.layout')
 
+@section('title') @if(Auth()->check() && Auth()->user()->id === $user->id )我的文章 @else 他的文章 @endif  @endsection
+
 @section('main')
     <div class="space-main">
         <h6 class="heading">{{$items->total()}} 篇文章</h6>
