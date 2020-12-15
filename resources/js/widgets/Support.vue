@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-success btn-lg mr-2" @click="sendSupport" :disabled="isDisabled">
+    <button :class="btnStyle" @click="sendSupport" :disabled="isDisabled">
         {{ num }} {{ buttonName }}
     </button>
 </template>
@@ -8,14 +8,22 @@
 import {support} from "../api/util";
 
 export default {
-    props: ['id', 'type', 'num'],
+    props: ['id', 'type', 'num', 'size'],
     data() {
         return {
             buttonName: "推荐",
             isDisabled: false,
+            btnStyle: ''
         };
     },
     mounted() {
+        if (this.size === 'sm') {
+            this.btnStyle = 'btn btn-success btn-sm'
+        } else if (this.size === 'lg') {
+            this.btnStyle = 'btn btn-success btn-lg'
+        } else {
+            this.btnStyle = 'btn btn-success'
+        }
     },
     methods: {
         sendSupport() {

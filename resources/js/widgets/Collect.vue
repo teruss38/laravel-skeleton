@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-lg btn-light" @click="sendCollect" :disabled="isDisabled">
+    <button :class="btnStyle" @click="sendCollect" :disabled="isDisabled">
         {{ buttonName }}
     </button>
 </template>
@@ -13,9 +13,17 @@ export default {
         return {
             buttonName: "收藏",
             isDisabled: false,
+            btnStyle: ''
         };
     },
     mounted() {
+        if (this.size === 'sm') {
+            this.btnStyle = 'btn btn-light btn-sm'
+        } else if (this.size === 'lg') {
+            this.btnStyle = 'btn btn-light btn-lg'
+        } else {
+            this.btnStyle = 'btn btn-light'
+        }
     },
     methods: {
         sendCollect() {

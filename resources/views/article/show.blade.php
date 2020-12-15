@@ -50,8 +50,8 @@
                         {!! $article->detail->content !!}
 
                         <div class="text-center">
-                            <support id="{{$article->id}}" type="article" num="{{$article->support_count}}"></support>
-                            <collect id="{{$article->id}}" type="article"></collect>
+                            <support id="{{$article->id}}" type="article" num="{{$article->support_count}}" size="lg"></support>
+                            <collect id="{{$article->id}}" type="article" size="lg"></collect>
                         </div>
                     </article>
                     <div class="d-none d-md-block article-footer">
