@@ -87,7 +87,7 @@ class WechatCrawlerJob implements ShouldQueue
             $author = $ql->find('.profile_nickname')->text();
             $wx = $ql->find('.profile_meta_value:eq(0)')->text();
             $bio = $ql->find('.profile_meta_value:eq(1)')->text();
-            $content = str_replace('data-src', 'src', $ql->find('.rich_media_content')->html());
+            $content = str_replace('data-src', 'referrerPolicy="no-referrer" src', $ql->find('.rich_media_content')->html());
             $content = str_replace("preview.html", "player.html", $content);
             if (($user = User::query()->where('username', $author)->first()) == null) {//查找作者
                 $user = UserService::createByUsernameAndEmail($author, $wx . '@com.cn', '');
@@ -104,7 +104,7 @@ class WechatCrawlerJob implements ShouldQueue
                     $article->user_id = $this->userId;
                 }
                 if ($link && isset($link[1])) {
-                    $article->thumb_path = FileService::saveRemoteFile($link[1]);
+                    $article->thumb_path = $link[1];
                 }
                 if ($article->save()) {
                     $article->detail()->create([
