@@ -26,8 +26,8 @@ class SpaceController extends Controller
     public function index(User $user)
     {
         \App\Models\UserExtra::inc($user->id, 'views');
-        return redirect()->route('space.articles', [$user]);
-        return view('space.index', ['user' => $user]);
+        $items = $user->supports()->with('source')->paginate();
+        return view('space.index', ['user' => $user, 'items' => $items]);
     }
 
     /**
@@ -37,7 +37,7 @@ class SpaceController extends Controller
      */
     public function articles(User $user)
     {
-        $items = $user->articles()->paginate();
+        $items = $user->articles()->with('source')->paginate();
         return view('space.article', ['user' => $user, 'items' => $items]);
     }
 

@@ -23,20 +23,22 @@
                 <div class="col-md-3">
                     <div class="mt-3">
                         <follow id="{{$user->id}}" type="user" disabled="{{$user->isFollowed}}"></follow>
+                        <!--
                         <button class="btn btn-default btnMessageTo" data-toggle="modal" data-target="#sendTo_message_model" data-to_user_id="9123" data-to_user_name="{{$user->username}}">发私信</button>
+                        -->
                     </div>
                     <div class="space-header-info row mt-4">
                         <div class="col-md-4">
                             <span class="h3">
-                                <a href="coins">10</a>
+                                <a href="{{route('space.articles',[$user])}}">{{$user->extra->articles}}</a>
                             </span>
-                            <span class="text-muted">积分数</span>
+                            <span class="text-muted">篇文章</span>
                         </div>
                         <div class="col-md-4">
                             <span class="h3">
-                                <a href="credits">30</a>
+                                <a href="{{route('space.downloads',[$user])}}">{{$user->extra->downloads}}</a>
                             </span>
-                            <span class="text-muted">经验值</span>
+                            <span class="text-muted">个资源</span>
                         </div>
                         <div class="col-md-4">
                         <span class="h3">
@@ -61,7 +63,6 @@
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.articles') active @endif" href="{{route('space.articles',[$user])}}">TA的文章</a></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.downloads') active @endif" href="{{route('space.downloads',[$user])}}">TA的资源</a></li>
                     <li class="divider"></li>
-                    <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.index') active @endif" href="{{route('space.index',[$user])}}">TA的积分</a></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.collections') active @endif" href="{{route('space.collections',[$user])}}">TA的收藏</a></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.attentions') active @endif" href="{{route('space.attentions',[$user])}}">TA的关注</a></li>
                     <li class="nav-item"><a class="nav-link @if (request()->route()->getName() == 'space.followers') active @endif" href="{{route('space.followers',[$user])}}">TA的粉丝</a></li>

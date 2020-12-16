@@ -4,9 +4,12 @@
 
 @section('main')
     <div class="space-main">
-        <h6 class="heading">{{$items->total()}} 条记录</h6>
-
-        <div class="stream-following border-top">
+        <nav class="home_tab bg-white">
+            <div class="nav nav-tabs">
+                <span class="nav-item nav-link active">{{$items->total()}} 条记录</span>
+            </div>
+        </nav>
+        <div class="stream-following">
             <ul class="list-unstyled stream-following-list">
                 @foreach ($items as $item)
                     <li>

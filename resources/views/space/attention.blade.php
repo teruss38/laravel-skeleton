@@ -8,9 +8,7 @@
                    href="{{ route('space.attentions',['user'=>$user,'type'=>'user']) }}">用户</a>
             </div>
         </nav>
-
-
-        <div class="tab-content bg-white stream-following">
+        <div class="stream-following">
             <ul class="list-unstyled stream-following-list">
                 @foreach ($items as $item)
                     <li>
@@ -34,6 +32,5 @@
                 {{ $items->links() }}
             </div>
         </div>
-
     </div>
 @endsection
