@@ -40,7 +40,7 @@
                                 <span>所需积分：<em class="cost">{{$download->score}}</em></span>
                                 <span>下载次数：{{$download->download_count}}</span>
                                 <span>查看：{{$download->views}}</span>
-                                <span><time datetime="{{$download->created_at}}">{{\Carbon\Carbon::parse($download->created_at)->diffForHumans()}}</time></span>
+                                <span><time datetime="{{$download->created_at}}">{{$download->created_at->diffForHumans()}}</time></span>
                                 <span>{{$download->sizeFormat}}</span>
                                 <span>{{$download->file_type}}</span>
                             </strong>

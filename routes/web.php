@@ -120,7 +120,8 @@ Route::group(['prefix' => 'tags', 'as' => 'tag.'], function () {
  * 空间
  */
 Route::group(['prefix' => 'space', 'as' => 'space.'], function () {
-    Route::get('{user}', [App\Http\Controllers\SpaceController::class, 'index'])->name('index');
+    Route::get('', [App\Http\Controllers\SpaceController::class, 'me'])->name('me');
+    Route::get('{user}', [App\Http\Controllers\SpaceController::class, 'supports'])->name('index');
     Route::get('{user}/articles', [App\Http\Controllers\SpaceController::class, 'articles'])->name('articles');
     Route::get('{user}/downloads', [App\Http\Controllers\SpaceController::class, 'downloads'])->name('downloads');
     Route::get('{user}/collections', [App\Http\Controllers\SpaceController::class, 'collections'])->name('collections');

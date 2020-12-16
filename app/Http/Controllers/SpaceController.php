@@ -18,17 +18,36 @@ use Illuminate\Http\Request;
 class SpaceController extends Controller
 {
     /**
-     * Display space page.
+     * Create a new controller instance.
      *
-     * @param User $user
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['me']);
+    }
+
+    /**
+     * 我的主页
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function me(Request $request)
+    {
+        return redirect()->route('space.index', $request->user());
+    }
+
+    /**
+     * Display space page.
+     * @param User|null $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(User $user)
+    public function supports(User $user)
     {
-        \App\Models\UserExtra::inc($user->id, 'views');
         $items = $user->supports()->with('source')->paginate();
-        return view('space.index', ['user' => $user, 'items' => $items]);
+        return view('space.support', ['user' => $user, 'items' => $items]);
     }
+
 
     /**
      * TA的文章

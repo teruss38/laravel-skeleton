@@ -81,6 +81,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{route('space.me')}}">{{__('My Space')}}</a>
                         <a class="dropdown-item" href="{{route('settings.profile')}}">{{__('User Profile')}}</a>
                         <a class="dropdown-item" href="{{route('settings.account')}}">{{__('User Account')}}</a>
                         <a class="dropdown-item" href="{{route('settings.integral')}}">{{ __('User Integral') }}</a>

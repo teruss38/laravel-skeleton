@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-md-2"><span class="text-muted">{{$item->source->views}}查看 / {{$item->source->collection_count}}收藏</span></div>
                         <div class="col-md-2">
-                            <span class="text-muted">{{$item->created_at}}</span>
+                            <span class="text-muted">{{$item->created_at->diffForHumans()}}</span>
                         </div>
                     </div>
                 </li>

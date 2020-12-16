@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-2"><span class="text-muted">{{$item->views}}</span></div>
                         <div class="col-md-2">
-                            <span class="text-muted">{{$item->created_at}}</span>
+                            <span class="text-muted">{{$item->created_at->diffForHumans()}}</span>
                         </div>
                     </div>
                 </li>
