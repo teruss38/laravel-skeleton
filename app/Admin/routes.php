@@ -47,4 +47,18 @@ Route::group([
     $router->resource('module/advertisements', 'Module\AdvertisementController');
     $router->resource('module/carousels', 'Module\CarouselController');
 
+    //财务
+    $router->resource('transaction/charges', 'Transaction\ChargeController')->only(['index', 'show']);
+    $router->resource('transaction/refunds', 'Transaction\RefundController')->only(['index', 'show']);
+    $router->resource('transaction/transfers', 'Transaction\TransferController')->only(['index', 'show']);
+
+    //钱包
+    $router->resource('wallet/recharges', 'Wallet\RechargeController')->only(['index', 'show']);
+    $router->resource('wallet/withdrawals', 'Wallet\WithdrawalController')->only(['index', 'show']);
+    $router->resource('wallet/transactions', 'Wallet\TransactionController')->only(['index', 'show']);
+
+    //积分
+    $router->resource('integral/recharges', 'Integral\RechargeController')->only(['index', 'show'])->names('integral.recharges');
+    $router->resource('integral/withdrawals', 'Integral\WithdrawalController')->only(['index', 'show'])->names('integral.withdrawals');
+    $router->resource('integral/transactions', 'Integral\TransactionController')->only(['index', 'show'])->names('integral.transactions');
 });

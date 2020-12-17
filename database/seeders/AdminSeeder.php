@@ -295,6 +295,114 @@ class AdminSeeder extends Seeder
             ],
         ]);
 
+        //财务管理
+        $this->addPermission([
+            'order' => 7,
+            'name' => '财务管理',
+            'slug' => 'transaction-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'created_at' => $createdAt
+        ], [
+            [
+                'order' => 1,
+                'name' => '付款单',
+                'slug' => 'module-transaction-charges',
+                'http_method' => '',
+                'http_path' => '/transaction/charges*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 2,
+                'name' => '退款单',
+                'slug' => 'module-transaction-refunds',
+                'http_method' => '',
+                'http_path' => '/transaction/refunds*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'name' => '提现管理',
+                'slug' => 'module-transaction-transfers',
+                'http_method' => '',
+                'http_path' => '/transaction/transfers*',
+                'created_at' => $createdAt
+            ],
+        ]);
+
+        //钱包管理
+        $this->addPermission([
+            'order' => 8,
+            'name' => '钱包管理',
+            'slug' => 'wallet-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'created_at' => $createdAt
+        ], [
+            [
+                'order' => 1,
+                'name' => '钱包充值',
+                'slug' => 'module-wallet-recharges',
+                'http_method' => '',
+                'http_path' => '/wallet/recharges*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 2,
+                'name' => '钱包提现',
+                'slug' => 'module-wallet-withdrawals',
+                'http_method' => '',
+                'http_path' => '/wallet/withdrawals*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'name' => '钱包交易',
+                'slug' => 'module-wallet-transactions',
+                'http_method' => '',
+                'http_path' => '/wallet/transactions*',
+                'created_at' => $createdAt
+            ],
+        ]);
+
+        //积分管理
+        $this->addPermission([
+            'order' => 9,
+            'name' => '积分管理',
+            'slug' => 'integral-management',
+            'http_method' => '',
+            'http_path' => '',
+            'parent_id' => 0,
+            'created_at' => $createdAt
+        ], [
+            [
+                'order' => 1,
+                'name' => '积分充值',
+                'slug' => 'module-integral-recharges',
+                'http_method' => '',
+                'http_path' => '/integral/recharges*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 2,
+                'name' => '积分提现',
+                'slug' => 'module-integral-withdrawals',
+                'http_method' => '',
+                'http_path' => '/integral/withdrawals*',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'name' => '积分交易',
+                'slug' => 'module-integral-transactions',
+                'http_method' => '',
+                'http_path' => '/integral/transactions*',
+                'created_at' => $createdAt
+            ],
+        ]);
+
 //        Role::first()->permissions()->save(Permission::first());
 
         // add default menus.
@@ -348,6 +456,30 @@ class AdminSeeder extends Seeder
                 'uri' => '',
                 'created_at' => $createdAt,
             ],//模块管理 6
+            [
+                'parent_id' => 0,
+                'order' => 7,
+                'title' => '财务管理',
+                'icon' => 'fa-modx',
+                'uri' => '',
+                'created_at' => $createdAt,
+            ],//财务管理 7
+            [
+                'parent_id' => 0,
+                'order' => 8,
+                'title' => '钱包管理',
+                'icon' => 'fa-modx',
+                'uri' => '',
+                'created_at' => $createdAt,
+            ],//钱包管理 8
+            [
+                'parent_id' => 0,
+                'order' => 9,
+                'title' => '积分管理',
+                'icon' => 'fa-modx',
+                'uri' => '',
+                'created_at' => $createdAt,
+            ],//积分管理 9
         ]);
 
         //系统设置 2
@@ -526,6 +658,81 @@ class AdminSeeder extends Seeder
                 'title' => '轮播管理',
                 'icon' => '',
                 'uri' => 'module/carousels',
+                'created_at' => $createdAt
+            ],
+        ]);
+
+        //财务管理 7
+        $this->addSubMenu(7, [
+            [
+                'order' => 1,
+                'title' => '付款单',
+                'icon' => '',
+                'uri' => 'transaction/charges',
+                'created_at' => $createdAt
+            ],
+
+            [
+                'order' => 2,
+                'title' => '退款单',
+                'icon' => '',
+                'uri' => 'transaction/refunds',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'title' => '提现管理',
+                'icon' => '',
+                'uri' => 'transaction/transfers',
+                'created_at' => $createdAt
+            ],
+        ]);
+        //钱包管理 8
+        $this->addSubMenu(8, [
+            [
+                'order' => 1,
+                'title' => '钱包充值',
+                'icon' => '',
+                'uri' => 'wallet/recharges',
+                'created_at' => $createdAt
+            ],
+
+            [
+                'order' => 2,
+                'title' => '钱包提现',
+                'icon' => '',
+                'uri' => 'wallet/withdrawals',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'title' => '钱包流水',
+                'icon' => '',
+                'uri' => 'wallet/transactions',
+                'created_at' => $createdAt
+            ],
+        ]);
+        //积分管理 9
+        $this->addSubMenu(9, [
+            [
+                'order' => 1,
+                'title' => '积分充值',
+                'icon' => '',
+                'uri' => 'integral/recharges',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 2,
+                'title' => '积分提现',
+                'icon' => '',
+                'uri' => 'integral/withdrawals',
+                'created_at' => $createdAt
+            ],
+            [
+                'order' => 3,
+                'title' => '积分流水',
+                'icon' => '',
+                'uri' => 'integral/transactions',
                 'created_at' => $createdAt
             ],
         ]);

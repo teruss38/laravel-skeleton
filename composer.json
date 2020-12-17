@@ -28,11 +28,13 @@
         "larva/laravel-bing-push": "^2.0",
         "larva/laravel-censor": "^1.0",
         "larva/laravel-flash": "^1.0",
+        "larva/laravel-integral": "^2.0",
         "larva/laravel-passport-sms": "^1.2",
         "larva/laravel-passport-socialite": "^2.0",
         "larva/laravel-settings": "^1.0",
         "larva/laravel-sms": "^2.0",
         "larva/laravel-socialite": "^2.0",
+        "larva/laravel-wallet": "^1.0",
         "larva/supports": "^2.0",
         "overtrue/pinyin": "~4.0"
     },

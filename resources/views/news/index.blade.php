@@ -14,7 +14,7 @@
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">
                                 <div class="media-body position-relative">
-                                    <a href="{{$item->link}}" target="_blank" class="article_url"
+                                    <a href="{{$item->link}}" class="article_url"
                                        title="{{$item->title}}">
                                         <h4 class="article_title">{{$item->title}}</h4>
                                         <div class="article-excerpt">{{$item->description}}</div>

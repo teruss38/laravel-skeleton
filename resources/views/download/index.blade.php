@@ -30,7 +30,7 @@
                             <li class="media p-4 bg-white">
                                 <img  class="mr-4 download_img" src="{{ $item->fileIcon }}">
                                 <div class="media-body position-relative">
-                                    <a href="{{$item->link}}" target="_blank" title="{{$item->title}}">
+                                    <a href="{{$item->link}}" title="{{$item->title}}">
                                         <h4 class="download_title">{{$item->title}}</h4>
                                         <div class="download_excerpt">{{$item->description}}</div>
                                     </a>
