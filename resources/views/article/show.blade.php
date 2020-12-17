@@ -48,7 +48,6 @@
                     <article class="ck-content">
                         <x-widgets.ads id="3"/>
                         {!! $article->detail->content !!}
-
                         <div class="text-center">
                             <support id="{{$article->id}}" type="article" num="{{$article->support_count}}" size="lg"
                                      disabled="{{$article->isSupported}}"></support>

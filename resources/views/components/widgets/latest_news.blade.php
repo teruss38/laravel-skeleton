@@ -8,7 +8,7 @@
                 <div class="articles-title">
                     <a href="{{$item->link}}" class="ignored"
                        title="{{$item->title}}">{{$item->title}}</a>
-                    <span>{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</span>
+                    <span>{{$item->created_at->diffForHumans()}}</span>
                 </div>
             @endforeach
         </div>

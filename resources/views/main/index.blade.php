@@ -10,11 +10,11 @@
 @endpush
 
 @section('content')
+
     <div class="container py-3">
         <div class="row  mb-3">
             <div class="d-block pr-lg-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <x-widgets.home-carousel class="mb-3"/>
-
                 <nav class="home_tab bg-white">
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" id="nav-main-tab" data-toggle="tab" href="#nav-main"

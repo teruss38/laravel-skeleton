@@ -15,7 +15,7 @@
                 <ul class="list-unstyled">
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">
-                            <img class="mr-4 article-img rounded" src="{{$item->thumb}}" alt="{{$item->title}}">
+                            <img class="mr-4 article-img rounded" referrerpolicy="no-referrer" src="{{$item->thumb}}" alt="{{$item->title}}">
                             <div class="media-body position-relative">
                                 <a href="{{$item->link}}" target="_blank" class="article_url"
                                    title="{{$item->title}}">

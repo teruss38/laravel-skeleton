@@ -8,6 +8,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 /**
  * Class MainController
  * @author Tongle Xu <xutongle@gmail.com>
@@ -21,5 +23,15 @@ class MainController extends Controller
     public function index()
     {
         return view('main.index');
+    }
+
+    /**
+     * Displays redirect.
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function redirect(Request $request)
+    {
+        return view('main.redirect', ['url' => $request->get('url')]);
     }
 }
