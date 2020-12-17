@@ -80,7 +80,7 @@ class ArticleController extends AdminController
             $grid->column('pub_date', '发布时间')->sortable();
             $grid->paginate(10);
 
-            //待审核
+            //待审核和已经拒绝的
             if (request('_scope_') == 'pending' || request('_scope_') == 'rejected') {
                 $grid->actions(function (Grid\Displayers\Actions $actions) {
                     $actions->append(new ReviewAccept(Article::class));

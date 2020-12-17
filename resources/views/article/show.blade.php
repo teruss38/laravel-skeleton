@@ -45,7 +45,7 @@
                             <span class="item">阅读：{{$article->views}}</span>
                         </div>
                     </div>
-                    <article class="ck-content">
+                    <article class="article-content ck-content">
                         <x-widgets.ads id="3"/>
                         {!! $article->detail->content !!}
                         <div class="text-center">

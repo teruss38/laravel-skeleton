@@ -10,7 +10,6 @@ namespace App\Jobs\Article;
 
 use App\Models\Article;
 use App\Models\User;
-use App\Services\FileService;
 use App\Services\UserService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -88,7 +87,7 @@ class WechatCrawlerJob implements ShouldQueue
             $wx = $ql->find('.profile_meta_value:eq(0)')->text();
             $bio = $ql->find('.profile_meta_value:eq(1)')->text();
             $content = str_replace('data-src', 'referrerPolicy="no-referrer" src', $ql->find('.rich_media_content')->html());
-            $content = str_replace("preview.html", "player.html", $content);
+            $content = str_replace("https://v.qq.com/iframe/preview.html", "https://v.qq.com/txp/iframe/player.html", $content);
             if (($user = User::query()->where('username', $author)->first()) == null) {//查找作者
                 $user = UserService::createByUsernameAndEmail($author, $wx . '@com.cn', '');
                 $user->profile->update(['bio' => $bio]);
@@ -106,6 +105,10 @@ class WechatCrawlerJob implements ShouldQueue
                 if ($link && isset($link[1])) {
                     $article->thumb_path = $link[1];
                 }
+                //自动提取摘要
+                $description = str_replace(["\r\n", "\t", '&ldquo;', '&rdquo;', '&nbsp;'], '', strip_tags($content));
+                $article->description = mb_substr($description, 0, 190);
+
                 if ($article->save()) {
                     $article->detail()->create([
                         'content' => $content,
