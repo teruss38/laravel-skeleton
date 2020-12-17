@@ -81,12 +81,13 @@ class ArticleController extends AdminController
             $grid->paginate(10);
 
             //待审核
-            if (request('_scope_') == 'pending') {
+            if (request('_scope_') == 'pending' || request('_scope_') == 'rejected') {
                 $grid->actions(function (Grid\Displayers\Actions $actions) {
                     $actions->append(new ReviewAccept(Article::class));
                     $actions->append(new ReviewReject(Article::class));
                 });
             }
+
             // 回收站
             if (request('_scope_') == 'trashed') {
                 $grid->tools(function (Grid\Tools $tools) {
