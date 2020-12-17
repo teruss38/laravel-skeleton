@@ -153,11 +153,11 @@ class MemberController extends AdminController
                 $form->display('created_at');
                 $form->display('updated_at');
             })->tab('个人信息', function (Form $form) {
-                $form->date('birthday', '生日');
-                $form->url('address', '联系地址');
-                $form->text('website', '个人主页');
-                $form->textarea('introduction', '个人描述');
-                $form->textarea('bio', '个性签名');
+                $form->date('profile.birthday', '生日');
+                $form->url('profile.address', '联系地址');
+                $form->text('profile.website', '个人主页');
+                $form->textarea('profile.introduction', '个人描述');
+                $form->textarea('profile.bio', '个性签名');
 
 
                 $form->row(function (Form\Row $form) {

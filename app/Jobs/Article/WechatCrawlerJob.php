@@ -113,7 +113,8 @@ class WechatCrawlerJob implements ShouldQueue
                     $article->detail()->create([
                         'content' => $content,
                         'extra' => [
-                            'from' => $author
+                            'from' => $author,
+                            'from_url' => $user->profile->website
                         ],
                     ]);
                 }

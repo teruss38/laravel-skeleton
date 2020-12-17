@@ -17,8 +17,8 @@
                 Copyright © {{ gmdate('Y') }} <a href="{{ config('app.url') }}">{{ config('app.name', 'Laravel') }}</a>.
             </div>
             <div class="beian mb-1">
-                <a href="https://beian.miit.gov.cn" target="_blank">{{settings('system.icp_record')}}</a>
-                <a href="https://www.beian.gov.cn/" target="_blank">{{settings('system.police_record')}}</a>
+                <a href="https://beian.miit.gov.cn" rel="external nofollow noopener noreferrer" target="_blank">{{settings('system.icp_record')}}</a>
+                <a href="https://www.beian.gov.cn/" rel="external nofollow noopener noreferrer" target="_blank">{{settings('system.police_record')}}</a>
                 <!-- 统计代码 -->
             </div>
         </div>

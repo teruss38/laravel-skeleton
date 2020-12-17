@@ -56,7 +56,7 @@ class SpaceController extends Controller
      */
     public function articles(User $user)
     {
-        $items = $user->articles()->with('source')->paginate();
+        $items = $user->articles()->orderByDesc('id')->paginate();
         return view('space.article', ['user' => $user, 'items' => $items]);
     }
 
@@ -67,7 +67,7 @@ class SpaceController extends Controller
      */
     public function downloads(User $user)
     {
-        $items = $user->downloads()->paginate();
+        $items = $user->downloads()->orderByDesc('id')->paginate();
         return view('space.download', ['user' => $user, 'items' => $items]);
     }
 
@@ -80,7 +80,7 @@ class SpaceController extends Controller
     public function collections(User $user, Request $request)
     {
         $type = $request->get('type', 'article');
-        $items = $user->collections()->type($type)->with('source')->paginate();
+        $items = $user->collections()->type($type)->with('source')->orderByDesc('id')->paginate();
         return view('space.collection', ['user' => $user, 'type' => $type, 'items' => $items]);
     }
 
@@ -93,7 +93,7 @@ class SpaceController extends Controller
     public function attentions(User $user, Request $request)
     {
         $type = $request->get('type', 'user');
-        $items = $user->attentions()->type($type)->with('source')->paginate();
+        $items = $user->attentions()->type($type)->with('source')->orderByDesc('id')->paginate();
         return view('space.attention', ['user' => $user, 'type' => $type, 'items' => $items]);
     }
 
@@ -104,7 +104,7 @@ class SpaceController extends Controller
      */
     public function followers(User $user)
     {
-        $items = $user->followers()->with('user')->paginate();
+        $items = $user->followers()->with('user')->orderByDesc('id')->paginate();
         return view('space.follower', ['user' => $user, 'items' => $items]);
     }
 }

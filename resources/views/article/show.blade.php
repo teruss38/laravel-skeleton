@@ -37,9 +37,7 @@
                         <h2 class="article-title">{{ $article->title }}</h2>
                         <div class="article-meta">
                             @if($article->detail->extra['from'])
-                                <span class="item">来源： <a href="{{$article->detail->extra['from_url']}}"
-                                                          title="{{$article->detail->extra['from']}}"
-                                                          target="_blank">{{$article->detail->extra['from']}}</a></span>
+                                <span class="item">来源： <a href="{{$article->detail->extra['from_url']}}" rel="external nofollow noopener noreferrer" title="{{$article->detail->extra['from']}}" target="_blank">{{$article->detail->extra['from']}}</a></span>
                             @endif
                             <span class="item">发布时间：{{$article->created_at}}</span>
                             <span class="item">阅读：{{$article->views}}</span>
@@ -48,7 +46,7 @@
                     <article class="article-content ck-content">
                         <x-widgets.ads id="3"/>
                         {!! $article->detail->content !!}
-                        <div class="text-center">
+                        <div class="text-center mt-3">
                             <support id="{{$article->id}}" type="article" num="{{$article->support_count}}" size="lg"
                                      disabled="{{$article->isSupported}}"></support>
                             <collect id="{{$article->id}}" type="article" size="lg"

@@ -7,7 +7,7 @@
             </div>
             <div class="box-body">
                 @foreach ($links as $link)
-                    <a href="{{$link->url}}" target="_blank" title="{{$link->title}}">{{$link->title}}</a>
+                    <a href="{{$link->url}}" rel="noopener" target="_blank" title="{{$link->title}}">{{$link->title}}</a>
                 @endforeach
             </div>
         </div>

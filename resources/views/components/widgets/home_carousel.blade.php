@@ -1,3 +1,4 @@
+@if($count > 0)
 <div id="carouselHomeIndicators"  {{ $attributes->merge(['class' => 'carousel slide']) }}  data-ride="carousel">
     <ol class="carousel-indicators">
         @for ($i = 0; $i < $count; $i++)
@@ -22,3 +23,4 @@
         <span class="sr-only">下一个</span>
     </a>
 </div>
+@endif
