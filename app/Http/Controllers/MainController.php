@@ -26,6 +26,34 @@ class MainController extends Controller
     }
 
     /**
+     * Displays manifest.json.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function manifest(Request $request)
+    {
+        $manifest = [
+            'name' => settings('system.title'),
+            'short_name' => settings('app.name'),
+            'description' => settings('system.description'),
+            'icons' => [
+                [
+                    'src' => asset('img/favicon_128x128.png'),
+                    'size' => '48x48 96x96'
+                ],
+                [
+                    'src' => asset('img/favicon_256x256.png'),
+                    'size' => '192x192 256x256'
+                ]
+            ],
+            'theme_color' => '#fefefe',
+            'display' => 'standalone',
+            'start_url' => '/',
+            'background_color' => '#212529',
+        ];
+        return response()->json($manifest,200,[],JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+    }
+
+    /**
      * Displays redirect.
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -34,4 +62,5 @@ class MainController extends Controller
     {
         return view('main.redirect', ['url' => $request->get('url')]);
     }
+
 }

@@ -10,7 +10,6 @@
 @endpush
 
 @section('content')
-
     <div class="container py-3">
         <div class="row  mb-3">
             <div class="d-block pr-lg-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
@@ -45,3 +44,15 @@
         <x-widgets.home-link/>
     </div>
 @endsection
+
+@push('scripts')
+<script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "{{ settings('system.title') }}",
+        "alternateName": "{{ config('app.name') }}",
+        "url": "{{ config('app.url') }}"
+      }
+    </script>
+@endpush

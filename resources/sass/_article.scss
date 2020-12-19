@@ -76,6 +76,7 @@
         @include media-breakpoint-down(md) {
             .article-meta {
                 font-size: .625rem;
+
                 .item {
                     margin-right: 1rem;
                 }
@@ -85,6 +86,11 @@
 
     .article-content {
         font-size: 1rem;
+
+        img {
+            max-width: 100%;
+        }
+
         //微信视频
         .video_iframe {
             width: 100%;
