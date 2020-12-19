@@ -147,11 +147,23 @@ class DownloadController extends Controller
 
     /**
      * 下载文件
+     * @param Request $request
      * @param Download $download
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function download(Download $download)
+    public function download(Request $request, Download $download)
     {
-
+        if (Download::isDownload($download, $request->user()->id)) {
+            $download->increment('download_count');
+            return redirect()->away($download->temporaryUrl(now()->addMinutes(5)));
+        } else {
+            if ($download->buy($request->user())) {
+                $download->increment('download_count');
+                return redirect()->away($download->temporaryUrl(now()->addMinutes(5)));
+            } else {
+                $this->flash()->warning(trans('integral.insufficient_integral'));
+                return back();
+            }
+        }
     }
 }

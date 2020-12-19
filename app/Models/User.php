@@ -39,6 +39,8 @@ use Laravel\Passport\HasApiTokens;
  * @property UserProfile $profile 个人信息
  * @property UserSocial[] $socials 社交账户
  * @property UserDevice[] $devices 移动设备
+ * @property Download[] $downloads 资源
+ * @property Article[] $articles 文章
  * @property UserLoginHistory[] $loginHistories 登录历史
  * @property \Larva\Wallet\Models\Wallet $wallet 钱包
  * @property \Larva\Integral\Models\IntegralWallet $integral 积分钱包

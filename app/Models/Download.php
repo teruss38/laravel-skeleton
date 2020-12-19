@@ -292,7 +292,7 @@ class Download extends Model
     }
 
     /**
-     * 购买源码
+     * 购买资源
      * @param User $user
      * @return bool
      */
@@ -300,8 +300,10 @@ class Download extends Model
     {
         if ($user->integral->integral >= $this->score) {
             $this->downloads()->create(['user_id' => $user->id]);
-            //加价
-            $this->increment('score');
+            if ($this->score <= 20) {
+                //加价
+                $this->increment('score');
+            }
             return true;
         }
         return false;
