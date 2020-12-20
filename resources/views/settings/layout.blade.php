@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="d-block col-lg-10 bg-white">
+            <div class="d-block col-lg-10 p-0 bg-white">
                 @yield('panel')
             </div>
         </div>

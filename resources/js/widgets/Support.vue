@@ -36,9 +36,7 @@ export default {
                 this.buttonName = '已推荐';
                 this.isDisabled = true;
             }).catch((error) => {
-                alert(error.message)
-                //this.$message.error(error.message);
-                this.isDisabled = false
+                this.isDisabled = false;
             });
         }
     }

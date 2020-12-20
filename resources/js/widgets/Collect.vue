@@ -33,7 +33,6 @@ export default {
         sendCollect() {
             this.isDisabled = true;
             collect(this.id, this.type).then(response => {
-
                 if (response.status === 'collected') {
                     this.buttonName = '已收藏';
                 } else {
@@ -41,8 +40,6 @@ export default {
                 }
                 this.isDisabled = false
             }).catch((error) => {
-                alert(error.message)
-                //this.$message.error(error.message);
                 this.isDisabled = false
             });
         }

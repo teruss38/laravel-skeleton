@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $dbConnection = DB::connection();
         $autoIncrement = 10000000;
         $tables = [
-            'users', 'user_social_accounts', 'user_login_history', 'messages', 'oauth_clients', 'articles', 'tags'
+            'users', 'user_social_accounts', 'user_login_history', 'messages', 'oauth_clients', 'articles', 'tags', 'news', 'downloads'
         ];
         if ($dbConnection->getConfig('driver') == 'mysql') {
             $tablePrefix = DB::connection()->getTablePrefix();

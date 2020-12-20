@@ -39,6 +39,7 @@
         @include('layouts._footer')
     </footer>
     <!-- End Footer -->
+    <x-flash_message />
     <go-top />
 </div>
 <!-- Scripts -->

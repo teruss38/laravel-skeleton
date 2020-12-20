@@ -42,8 +42,8 @@ use Laravel\Passport\HasApiTokens;
  * @property Download[] $downloads 资源
  * @property Article[] $articles 文章
  * @property UserLoginHistory[] $loginHistories 登录历史
- * @property \Larva\Wallet\Models\Wallet $wallet 钱包
- * @property \Larva\Integral\Models\IntegralWallet $integral 积分钱包
+ * @property \Larva\Wallet\Models\Wallet $balanceWallet 钱包
+ * @property \Larva\Integral\Models\IntegralWallet $integralWallet 积分钱包
  * @property Administrator $administrator 管理员实例
  *
  * @method static \Illuminate\Database\Eloquent\Builder|User active()
@@ -158,6 +158,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * 获取结算账户
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function settleAccounts()
+    {
+        return $this->hasMany(UserSettleAccount::class);
+    }
+
+    /**
      * 获取用户签到记录
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -226,7 +235,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      * @throws \Exception
      */
-    public function wallet()
+    public function balanceWallet()
     {
         if (class_exists('\Larva\Wallet\Models\Wallet')) {
             return $this->hasOne(\Larva\Wallet\Models\Wallet::class);
@@ -240,7 +249,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      * @throws \Exception
      */
-    public function integral()
+    public function integralWallet()
     {
         if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
             return $this->hasOne(\Larva\Integral\Models\IntegralWallet::class);
@@ -257,6 +266,24 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeActive($query)
     {
         return $query->where('disabled', '=', false);
+    }
+
+    /**
+     * 获取余额
+     * @return double
+     */
+    public function getBalanceAttribute()
+    {
+        return $this->balanceWallet->available_amount;
+    }
+
+    /**
+     * 获取积分余额
+     * @return int
+     */
+    public function getIntegralAttribute()
+    {
+        return $this->integralWallet->integral;
     }
 
     /**

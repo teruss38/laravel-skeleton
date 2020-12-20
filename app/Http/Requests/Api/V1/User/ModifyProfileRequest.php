@@ -9,6 +9,7 @@
 namespace App\Http\Requests\Api\V1\User;
 
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 /**
  * 修改个人资料
@@ -35,7 +36,9 @@ class ModifyProfileRequest extends Request
     public function rules()
     {
         return [
-            'username' => 'required|string|max:255|unique:users|nickname',
+            'username' => [
+                'required', 'string', 'max:255', 'nickname', Rule::unique('users')->ignore($this->user()->id),
+            ],
             'birthday' => 'sometimes|date_format:Y-m-d',
             'gender' => 'nullable|integer|min:0|max:2',
             'country_code' => 'nullable|string',

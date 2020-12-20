@@ -42,15 +42,15 @@ Route::group(['prefix' => 'v1'], function (Illuminate\Contracts\Routing\Registra
      */
     Route::group(['prefix' => 'user'], function () {
         Route::post('exists', [App\Http\Controllers\Api\V1\UserController::class, 'exists']);//账号邮箱手机号检查
-        Route::post('phone-register', [App\Http\Controllers\Api\V1\UserController::class, 'phoneRegister']);//手机号注册
+        Route::post('mobile-register', [App\Http\Controllers\Api\V1\UserController::class, 'mobileRegister']);//手机号注册
         Route::post('email-register', [App\Http\Controllers\Api\V1\UserController::class, 'emailRegister']);//邮箱注册
         Route::post('send-verification-mail', [App\Http\Controllers\Api\V1\UserController::class, 'sendVerificationMail']);//发送激活邮件
-        Route::post('phone-reset-password', [App\Http\Controllers\Api\V1\UserController::class, 'resetPasswordByPhone']);//通过手机重置用户登录密码
+        Route::post('mobile-reset-password', [App\Http\Controllers\Api\V1\UserController::class, 'resetPasswordByMobile']);//通过手机重置用户登录密码
         Route::get('profile', [App\Http\Controllers\Api\V1\UserController::class, 'profile']);//获取用户个人资料
         Route::get('extra', [App\Http\Controllers\Api\V1\UserController::class, 'extra']);//获取扩展资料
-        Route::post('verify-phone', [App\Http\Controllers\Api\V1\UserController::class, 'verifyPhone']);//验证手机号码
+        Route::post('verify-mobile', [App\Http\Controllers\Api\V1\UserController::class, 'verifyMobile']);//验证手机号码
         Route::post('email', [App\Http\Controllers\Api\V1\UserController::class, 'modifyEMail']);//修改邮箱
-        Route::post('phone', [App\Http\Controllers\Api\V1\UserController::class, 'modifyPhone']);//修改手机号码
+        Route::post('mobile', [App\Http\Controllers\Api\V1\UserController::class, 'modifyMobile']);//修改手机号码
         Route::post('profile', [App\Http\Controllers\Api\V1\UserController::class, 'modifyProfile']);//修改用户个人资料
         Route::post('avatar', [App\Http\Controllers\Api\V1\UserController::class, 'modifyAvatar']);//修改头像
         Route::post('password', [App\Http\Controllers\Api\V1\UserController::class, 'modifyPassword']);//修改密码
@@ -65,6 +65,29 @@ Route::group(['prefix' => 'v1'], function (Illuminate\Contracts\Routing\Registra
             Route::get('accounts', [App\Http\Controllers\Api\V1\SocialController::class, 'socialAccounts']);//获取绑定的社交账户
             Route::delete('accounts/{provider}', [App\Http\Controllers\Api\V1\SocialController::class, 'destroySocial']);//解绑
             Route::get('bind/{provider}', [App\Http\Controllers\Api\V1\SocialController::class, 'bindSocial']);//绑定社交账户
+        });
+
+        /**
+         * 结算账户
+         */
+        Route::apiResource('settle', App\Http\Controllers\Api\V1\SettleController::class)->only(['index', 'show', 'store', 'destroy']);
+
+        /**
+         * 积分
+         */
+        Route::group(['prefix' => 'integral'], function () {
+            Route::get('transactions', [App\Http\Controllers\Api\V1\IntegralController::class, 'transaction']);//交易明细
+            Route::post('recharge', [App\Http\Controllers\Api\V1\IntegralController::class, 'recharge']);//充值
+            Route::post('withdrawals', [App\Http\Controllers\Api\V1\IntegralController::class, 'withdrawals']);//提现
+        });
+
+        /**
+         * 钱包
+         */
+        Route::group(['prefix' => 'wallet'], function () {
+            Route::get('transactions', [App\Http\Controllers\Api\V1\WalletController::class, 'transaction']);//交易明细
+            Route::post('recharge', [App\Http\Controllers\Api\V1\WalletController::class, 'recharge']);//充值
+            Route::post('withdrawals', [App\Http\Controllers\Api\V1\WalletController::class, 'withdrawals']);//提现
         });
 
         /**

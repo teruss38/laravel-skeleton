@@ -1,39 +1,36 @@
-import {getAppConfig, getIPInfo} from '../../api/util'
+import {getInfo} from '../../api/user'
 
 const state = {
-    config: {},//客户端配置信息
-    ipInfo: {
-        ip: ''
-    },
+    isLogin: false,//是否登录
+    username: "",
+    avatar: "",
+    unreadNotificationCount: 0,
+    integral: 0,
+    balance: 0.0,
+    userinfo: {}
 };
 
 const mutations = {
-    SET_INFO(state, config) {
-        state.config = config;
+    SET_INFO(state, info) {
+        state.userinfo = info;
+        state.isLogin = info.isLogin;
+        state.username = info.username;
+        state.avatar = info.avatar;
+        state.integral = info.integral;
+        state.balance = info.balance;
+        state.unreadNotificationCount = info.unreadNotificationCount;
     },
-    SET_IPINFO(state, ipinfo) {
-        state.ipInfo = ipinfo;
-    }
 };
 
 const actions = {
     init({dispatch, commit}) {
-        getAppConfig().then(response => {
-            commit('SET_INFO', response);
-            dispatch('getIPInfo');
-        });
-    },
-
-    //初始化 getIPInfo 信息
-    getIPInfo({commit}) {
         return new Promise((resolve, reject) => {
-            getIPInfo().then(response => {
-                console.info(response)
-                commit('SET_IPINFO', response);
+            getInfo().then(response => {
+                commit('SET_INFO', response);
                 resolve(response)
             }).catch(error => {
                 reject(error)
-            })
+            });
         });
     },
 };

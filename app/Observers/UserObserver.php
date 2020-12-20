@@ -30,10 +30,10 @@ class UserObserver
         $user->profile()->create();//创建Profile
         $user->extra()->create();//创建Extra
         if (class_exists('\Larva\Wallet\Models\Wallet')) {
-            $user->wallet()->create();//创建wallet
+            $user->balanceWallet()->create();//创建wallet
         }
         if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
-            $user->integral()->create();//创建积分钱包
+            $user->integralWallet()->create();//创建积分钱包
         }
     }
 
@@ -84,15 +84,14 @@ class UserObserver
         $user->loginHistories()->delete();
         $user->collections()->delete();
         $user->notifications()->delete();
-        $user->doings()->delete();
         $user->followers()->delete();
         $user->attentions()->delete();
 
         if (class_exists('\Larva\Wallet\Models\Wallet')) {
-            $user->wallet()->delete();
+            $user->balanceWallet()->delete();
         }
         if (class_exists('\Larva\Integral\Models\IntegralWallet')) {
-            $user->integral()->delete();
+            $user->integralWallet()->delete();
         }
         //删除头像
         FileService::deleteFile($user->avatar);

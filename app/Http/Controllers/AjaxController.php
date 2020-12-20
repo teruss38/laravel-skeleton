@@ -33,7 +33,9 @@ class AjaxController extends Controller
                 'avatar' => $user->avatar,
                 'email' => $user->email,
                 'mobile' => $user->mobile,
-                'unreadNotificationCount' => $user->unreadNotifications()->count()
+                'unreadNotificationCount' => $user->unreadNotifications()->count(),
+                'balance' => $user->balance,
+                'integral' => $user->integral,
             ];
         }
         return response()->json($result);

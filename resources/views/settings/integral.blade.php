@@ -3,5 +3,5 @@
 @section('title', __('User Integral'))
 
 @section('panel')
-    <settings-login-histories></settings-login-histories>
+    <settings-integral></settings-integral>
 @endsection

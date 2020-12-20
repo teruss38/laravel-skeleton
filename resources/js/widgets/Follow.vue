@@ -39,8 +39,6 @@ export default {
                 }
                 this.isDisabled = false
             }).catch((error) => {
-                alert(error.message)
-                //this.$message.error(error.message);
                 this.isDisabled = false
             });
         }

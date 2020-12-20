@@ -39,7 +39,7 @@
             </form>
 
             <ul class="navbar-nav navbar-right d-flex">
-                <li class="nav-item dropdown my-lg-0 d-none d-lg-block" v-show="!guest">
+                <li class="nav-item dropdown my-lg-0 d-none d-lg-block" v-show="isLogin">
                     <a id="dropdownAddButton" class="nav-link dropdown-toggle" href="javascript:" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-plus" aria-hidden="true"></i> 发布
@@ -56,24 +56,23 @@
                 </li>
 
                 <!-- Authentication Links -->
-                <li class="nav-item" v-show="guest">
+                <li class="nav-item" v-show="!isLogin">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
                 @if (Route::has('register'))
-                    <li class="nav-item" v-show="guest">
+                    <li class="nav-item" v-show="!isLogin">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </li>
                 @endif
 
-                <li class="nav-item" v-show="!guest">
+                <li class="nav-item" v-show="isLogin">
                     <a href="{{ route('user.notifications') }}" class="nav-link"><i class="fa fa-bell"></i></a>
                 </li>
-                <li class="nav-item" v-show="!guest">
+                <li class="nav-item" v-show="isLogin">
                     <a href="{{ route('user.messages') }}" class="nav-link"><i class="fa fa-envelope"></i></a>
                 </li>
 
-                <li class="nav-item dropdown" style="display: none;" v-show="!guest">
-
+                <li class="nav-item dropdown" style="display: none;" v-show="isLogin">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="javascript:" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="avatar-1" v-bind:alt="username" v-bind:src="avatar">
