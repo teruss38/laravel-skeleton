@@ -87,6 +87,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Advertisement::observe(\App\Observers\AdvertisementObserver::class);//广告
         \App\Models\Support::observe(\App\Observers\SupportObserver::class);//点赞
         \App\Models\Attention::observe(\App\Observers\AttentionObserver::class);//关注
+        \App\Models\UserDownload::observe(\App\Observers\UserDownloadObserver::class);//下载
     }
 
     /**

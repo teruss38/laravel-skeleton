@@ -35,6 +35,8 @@ use Laravel\Passport\HasApiTokens;
  *
  * @property-read string $avatar 头像Url
  * @property-read boolean $hasAvatar 是否有头像
+ * @property-read int $integral 可用积分
+ * @property-read int $balance 可用余额 单位分
  * @property UserExtra $extra 扩展信息
  * @property UserProfile $profile 个人信息
  * @property UserSocial[] $socials 社交账户

@@ -1,5 +1,3 @@
-import {existUsername} from "../api/user";
-
 var QQV = (rule, value, callback) => {
     debugger
     if (value === '') {
@@ -49,7 +47,7 @@ export function checkInterNum(rule, value, callback) {
 
 export default {
     QQ: [{required: true, validator: QQV, trigger: 'blur'}],
-    phone: [{required: true, pattern: /^1[345789]\d{9}$/, message: '目前只支持中国大陆的手机号码', trigger: 'blur'}],
+    mobile: [{required: true, pattern: /^1[345789]\d{9}$/, message: '目前只支持中国大陆的手机号码', trigger: 'blur'}],
     numPot2: [{required: true, validator: checkNumPot2, trigger: 'blur'}],
-    InterNum: [{required: true, validator: checkInterNum, trigger: 'blur'}],
+    InterNum: [{required: true, validator: checkInterNum, trigger: 'blur'}]
 }

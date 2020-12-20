@@ -53,7 +53,7 @@ class WalletController extends Controller
      */
     public function recharge(RechargeRequest $request)
     {
-        $recharge = $request->user()->wallet->recharge($request->channel, $request->amount, $request->type, $request->getClientIp());
+        $recharge = $request->user()->balanceWallet->recharge($request->channel, $request->amount, $request->type, $request->getClientIp());
         return new ChargeResource($recharge->charge);
     }
 
@@ -65,7 +65,7 @@ class WalletController extends Controller
      */
     public function withdrawals(WithdrawalsRequest $request)
     {
-        $withdrawal = $request->user()->wallet->withdrawal($request->amount, $request->channel, $request->account, $request->metaData, $request->getClientIp());
+        $withdrawal = $request->user()->balanceWallet->withdrawal($request->amount, $request->channel, $request->account, $request->metaData, $request->getClientIp());
         return new WithdrawalResource($withdrawal);
     }
 }

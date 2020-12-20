@@ -298,7 +298,7 @@ class Download extends Model
      */
     public function buy(User $user)
     {
-        if ($user->integral->integral >= $this->score) {
+        if ($user->integral >= $this->score) {
             $this->downloads()->create(['user_id' => $user->id]);
             if ($this->score <= 20) {
                 //加价

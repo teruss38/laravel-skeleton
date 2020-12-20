@@ -53,7 +53,7 @@ class IntegralController extends Controller
      */
     public function recharge(RechargeRequest $request)
     {
-        $recharge = $request->user()->integral->recharge($request->channel, $request->amount, $request->type, $request->getClientIp());
+        $recharge = $request->user()->integralWallet->recharge($request->channel, $request->amount, $request->type, $request->getClientIp());
         return new ChargeResource($recharge->charge);
     }
 
@@ -64,7 +64,7 @@ class IntegralController extends Controller
      */
     public function withdrawals(WithdrawalsRequest $request)
     {
-        $withdrawal = $request->user()->integral->withdrawal($request->integral, $request->channel, $request->account, $request->metaData);
+        $withdrawal = $request->user()->integralWallet->withdrawal($request->integral, $request->channel, $request->account, $request->metaData);
         return new WithdrawalResource($withdrawal);
     }
 }
