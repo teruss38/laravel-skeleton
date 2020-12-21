@@ -7,10 +7,6 @@
 <script>
 export default {
     props: {
-        adClient: {
-            type: String,
-            required: true
-        },
         adSlot: {
             type: String,
             required: true
@@ -37,8 +33,15 @@ export default {
         this.aid = 'as_' + this.adSlot;
     },
     mounted() {
-        this.setAdsense();
-        this.timer = setInterval(this.refreshAdsense, 300000);
+        if (!this.$store.getters.isVip) {
+            this.setAdsense();
+            this.timer = setInterval(this.refreshAdsense, 300000);
+        }
+    },
+    computed: {
+        adClient() {
+            return this.$store.getters.adsense_client;
+        },
     },
     methods: {
         refreshAdsense() {
@@ -53,7 +56,9 @@ export default {
         }
     },
     beforeDestroy() {
-        clearInterval(this.timer);
+        if (!this.$store.getters.isVip) {
+            clearInterval(this.timer);
+        }
     }
 }
 </script>

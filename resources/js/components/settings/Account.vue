@@ -36,7 +36,7 @@
                                     <span class="bindButton">
                                         <svg-icon icon="icon-alipay"></svg-icon>
                                         <el-link :underline="false" href="/auth/social/alipay"
-                                                 target="_blank" :disabled="alipayBind">绑定支付宝</el-link>
+                                                 target="_blank" :disabled="alipayBind" data-no-instant>绑定支付宝</el-link>
                                         <span class="unbindButton" v-if="alipayBind"
                                               @click="handleUNBindButton('alipay')">（解绑）</span>
                                     </span>
@@ -45,7 +45,7 @@
                                     <span class="bindButton">
                                         <svg-icon icon="icon-social-wechat"></svg-icon>
                                         <el-link :underline="false" href="/auth/social/wechat_web"
-                                                 target="_blank" :disabled="wechatBind">绑定微信</el-link>
+                                                 target="_blank" :disabled="wechatBind" data-no-instant>绑定微信</el-link>
                                         <span class="unbindButton" v-if="wechatBind"
                                               @click="handleUNBindButton('wechat_web')">（解绑）</span>
                                     </span>
@@ -54,7 +54,7 @@
                                     <span class="bindButton">
                                         <svg-icon icon="icon-social-qq"></svg-icon>
                                         <el-link :underline="false" href="/auth/social/qq"
-                                                 target="_blank" :disabled="qqBind">绑定QQ</el-link>
+                                                 target="_blank" :disabled="qqBind" data-no-instant>绑定QQ</el-link>
                                         <span class="unbindButton" v-if="qqBind"
                                               @click="handleUNBindButton('qq')">（解绑）</span>
                                     </span>
@@ -63,7 +63,7 @@
                                     <span class="bindButton">
                                         <svg-icon icon="icon-social-weibo"></svg-icon>
                                         <el-link :underline="false" href="/auth/social/weibo"
-                                                 target="_blank" :disabled="weiboBind">绑定微博</el-link>
+                                                 target="_blank" :disabled="weiboBind" data-no-instant>绑定微博</el-link>
                                         <span class="unbindButton" v-if="weiboBind"
                                               @click="handleUNBindButton('weibo')">（解绑）</span>
                                     </span>
@@ -434,10 +434,6 @@
         .thirdAccount {
             .bindButton {
                 cursor: pointer;
-
-                .icon {
-                    margin-right: 8px;
-                }
             }
 
             .unbindButton {

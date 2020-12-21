@@ -86,17 +86,17 @@ const getInfo = function () {
 
 /**
  * 手机注册
- * @param phone
+ * @param mobile
  * @param verifyCode
  * @param password
  * @returns {AxiosPromise}
  */
-const phoneRegister = function (phone, verifyCode, password) {
+const mobileRegister = function (mobile, verifyCode, password) {
     return request({
         method: 'post',
-        url: '/api/v1/user/phone-register',
+        url: '/api/v1/user/mobile-register',
         data: {
-            phone: phone,
+            mobile: mobile,
             verifyCode: verifyCode,
             password: password
         }
@@ -124,17 +124,17 @@ const emailRegister = function (email, verifyCode, password) {
 
 /**
  * 手机重置密码
- * @param phone
+ * @param mobile
  * @param verifyCode
  * @param password
  * @returns {AxiosPromise}
  */
-const phoneResetPassword = function (phone, verifyCode, password) {
+const mobileResetPassword = function (mobile, verifyCode, password) {
     return request({
         method: 'post',
-        url: '/api/v1/user/phone-reset-password',
+        url: '/api/v1/user/mobile-reset-password',
         data: {
-            phone: phone,
+            mobile: mobile,
             verifyCode: verifyCode,
             password: password
         }
@@ -339,7 +339,7 @@ const sendMessage = function (data) {
 
 export {
     login, logout, existUsername, existEMail, existPhone, getInfo, getProfile, getExtra, editEMail, editMobile,
-    editPassword, editProfile, phoneResetPassword, phoneRegister, emailRegister, identification, modifyIdentification,
+    editPassword, editProfile, mobileResetPassword, mobileRegister, emailRegister, identification, modifyIdentification,
     loginHistories, socialAccounts, deleteSocialAccount, search, markNotificationsAsRead,
     unreadNotificationCount, sendMessage
 }

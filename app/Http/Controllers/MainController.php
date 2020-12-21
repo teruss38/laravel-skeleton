@@ -27,6 +27,7 @@ class MainController extends Controller
 
     /**
      * Displays manifest.json.
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function manifest(Request $request)
@@ -50,7 +51,7 @@ class MainController extends Controller
             'start_url' => '/',
             'background_color' => '#212529',
         ];
-        return response()->json($manifest,200,[],JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+        return response()->json($manifest, 200, [], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     }
 
     /**

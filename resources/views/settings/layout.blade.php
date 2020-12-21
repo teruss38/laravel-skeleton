@@ -6,8 +6,8 @@
             <!--左侧菜单-->
             <div class="d-none d-lg-block col-lg-2">
                 <div class="list-group left-menu" role="menu">
-                    <a href="{{route('settings.profile')}}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'settings.profile') active @endif"><span>个人信息</span></a>
                     <a href="{{route('settings.account')}}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'settings.account') active @endif"><span>帐户管理</span></a>
+                    <a href="{{route('settings.profile')}}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'settings.profile') active @endif"><span>个人信息</span></a>
                     <a href="{{route('settings.login-histories')}}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'settings.login-histories') active @endif"><span>帐户安全</span></a>
                     <a href="{{route('settings.settle')}}" class="list-group-item list-group-item-action @if (request()->route()->getName() == 'settings.settle') active @endif"><span>提现账户</span></a>
                     @if(settings('wallet.enable'))

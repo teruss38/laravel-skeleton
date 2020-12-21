@@ -16,14 +16,14 @@ if (mix.inProduction()) {
     mix.disableNotifications();
 }
 
-
 mix.copyDirectory('resources/img', 'public/img');
 
 mix.js('resources/js/app.js', 'public/js')
-    .extract(['jquery', 'vue', 'vuex', 'element-ui', 'qrcode.vue'])
+    .extract(['jquery', 'vue', 'vuex', 'qrcode.vue'])
     .sass('resources/sass/app.scss', 'public/css');
 
 mix.js('resources/js/plugins/ckeditor.js', 'public/js');
 mix.js('resources/js/plugins/select2.js', 'public/js');
 
+mix.copy('resources/js/iconfont.js', 'public/js/iconfont.js');
 mix.copy('node_modules/select2/dist/css/select2.css', 'public/css/select2.css');

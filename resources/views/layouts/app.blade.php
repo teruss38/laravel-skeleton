@@ -46,6 +46,7 @@
 <script src="{{ asset(mix('/js/manifest.js')) }}"></script>
 <script src="{{ asset(mix('/js/vendor.js')) }}"></script>
 <script src="{{ asset(mix('/js/app.js')) }}"></script>
+<script src="{{ asset(mix('/js/iconfont.js')) }}"></script>
 @stack('scripts')
 @stack('footer')
 </body>

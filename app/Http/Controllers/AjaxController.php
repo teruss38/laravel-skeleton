@@ -23,20 +23,24 @@ class AjaxController extends Controller
      */
     public function info(Request $request)
     {
-        $result = ['isLogin' => false];
+        $result = [
+            'isLogin' => false,
+            'isVip' => false,
+            'qq_client_id' => config('services.qq.client_id'),
+            'weibo_client_id' => config('services.weibo.client_id'),
+            'google_adsense_client' => settings('system.google_adsense_client'),
+        ];
         if (($user = $request->user()) != null) {
-            $result = [
-                'isLogin' => true,
-                'id' => $user->id,
-                'username' => $user->username,
-                'nickname' => $user->nickname,
-                'avatar' => $user->avatar,
-                'email' => $user->email,
-                'mobile' => $user->mobile,
-                'unreadNotificationCount' => $user->unreadNotifications()->count(),
-                'balance' => $user->balance,
-                'integral' => $user->integral,
-            ];
+            $result['isLogin'] = true;
+            $result['isVip'] = false;
+            $result['id'] = $user->id;
+            $result['username'] = $user->username;
+            $result['avatar'] = $user->avatar;
+            $result['email'] = $user->email;
+            $result['mobile'] = $user->mobile;
+            $result['unreadNotificationCount'] = $user->unreadNotifications()->count();
+            $result['balance'] = $user->balance;
+            $result['integral'] = $user->integral;
         }
         return response()->json($result);
     }

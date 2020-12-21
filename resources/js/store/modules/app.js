@@ -2,11 +2,15 @@ import {getInfo} from '../../api/user'
 
 const state = {
     isLogin: false,//是否登录
+    isVip: false,
     username: "",
     avatar: "",
     unreadNotificationCount: 0,
     integral: 0,
     balance: 0.0,
+    google_adsense_client: '',
+    qq_client_id: '',
+    weibo_client_id: '',
     userinfo: {}
 };
 

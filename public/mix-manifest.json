@@ -1,11 +1,10 @@
 {
     "/js/manifest.js": "/js/manifest.js?id=7db827d654313dce4250",
-    "/js/vendor.js": "/js/vendor.js?id=4180f3e84306a8bee741",
-    "/js/app.js": "/js/app.js?id=97d4c5c226d94eeed9b5",
-    "/css/app.css": "/css/app.css?id=fb7bc889519730a8a8a0",
-    "/css/user.css": "/css/user.css?id=d41d8cd98f00b204e980",
-    "/js/ckeditor.js": "/js/ckeditor.js?id=cbcf58bfdb6b289a980b",
-    "/js/select2.js": "/js/select2.js?id=29a0ce4b0c30bdbb4113",
-    "/js/user.js": "/js/user.js?id=02aca02abc5aaaec38ed",
+    "/js/vendor.js": "/js/vendor.js?id=a9f58a4333e5db941102",
+    "/js/app.js": "/js/app.js?id=5331f6f8ca7bc4f56730",
+    "/css/app.css": "/css/app.css?id=2e342ccf41368ff5a3e7",
+    "/js/ckeditor.js": "/js/ckeditor.js?id=dfe94d2c985607ac74f0",
+    "/js/select2.js": "/js/select2.js?id=26259746beac7f1011a3",
+    "/js/iconfont.js": "/js/iconfont.js?id=11f328fdbd9e696c7bd2",
     "/css/select2.css": "/css/select2.css?id=a2194c2626489df39c39"
 }

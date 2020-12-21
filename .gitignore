@@ -42,7 +42,6 @@ Homestead.yaml
 # laravel project files
 /public/hot
 /public/storage
-/public/sitemap
 .env
 .env.backup
 .phpunit.result.cache
