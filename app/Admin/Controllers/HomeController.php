@@ -3,13 +3,13 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Forms\Settings;
+use App\Admin\Metrics\Dashboard;
 use App\Admin\Metrics\Examples;
 use App\Admin\Metrics\NewBaiduPush;
 use App\Admin\Metrics\NewBingPush;
 use App\Admin\Metrics\NewDevices;
 use App\Admin\Metrics\NewUsers;
 use App\Http\Controllers\Controller;
-use Dcat\Admin\Http\Controllers\Dashboard;
 use Dcat\Admin\Layout\Column;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\Layout\Row;
