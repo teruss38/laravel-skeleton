@@ -26,21 +26,17 @@ export default {
         }
         if (this.disabled === '1') {
             this.buttonName = '已收藏';
-            this.isDisabled = true;
         }
     },
     methods: {
         sendCollect() {
-            this.isDisabled = true;
             collect(this.id, this.type).then(response => {
                 if (response.status === 'collected') {
                     this.buttonName = '已收藏';
                 } else {
                     this.buttonName = '收藏';
                 }
-                this.isDisabled = false
             }).catch((error) => {
-                this.isDisabled = false
             });
         }
     }
