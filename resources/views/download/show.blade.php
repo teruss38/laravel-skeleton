@@ -28,7 +28,7 @@
                 @endif
             </div>
 
-            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-12 col-lg-8">
+            <div class="d-block pr-lg-0 col-xs-12 col-sm-12 col-md-12 col-lg-8">
                 <!-- 内容主题部分 -->
                 <div class="resource_box">
                     <div class="resource_box_info">

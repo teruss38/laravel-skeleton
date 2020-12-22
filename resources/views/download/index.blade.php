@@ -20,7 +20,7 @@
                     <x-widgets.side-download-category/>
                 @endif
             </div>
-            <div class="d-block pr-0 col-xs-12 col-sm-12 col-md-12 col-lg-8">
+            <div class="d-block pr-lg-0 col-xs-12 col-sm-12 col-md-12 col-lg-8">
                 <div class="side_box">
                     <div class="box-header">
                         <div class="box-title">@if (isset($category)) {{$category->title}} @else {{__('Downloads')}} @endif</div>

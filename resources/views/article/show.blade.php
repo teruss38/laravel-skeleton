@@ -31,7 +31,7 @@
             <li class="breadcrumb-item active">正文</li>
         </ol>
         <div class="row">
-            <div class="d-block pr-md-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="d-block pr-lg-0 col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <div class="article bg-white position-relative p-3">
                     <div class="article-header">
                         <h2 class="article-title">{{ $article->title }}</h2>

@@ -15,7 +15,7 @@
             <div class="page-title">@if (isset($category)) {{$category->name}} @else {{__('Articles')}} @endif</div>
         </div>
         <div class="row">
-            <div class="d-block pr-md-0  col-xs-12 col-sm-12 col-md-12 col-lg-9">
+            <div class="d-block pr-lg-0  col-xs-12 col-sm-12 col-md-12 col-lg-9">
                 <ul class="list-unstyled">
                     @foreach ($items as $item)
                         <li class="media p-4 bg-white" style="overflow: hidden;">

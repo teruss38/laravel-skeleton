@@ -52,6 +52,29 @@ $link-hover-decoration: none;
 
 $border-color: $gray-300;
 
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1320px
+);
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+$container-max-widths: (
+    sm: 540px,
+    md: 756px,
+    lg: 1000px,
+    xl: 1200px
+);
+
 // 版式
 //
 // Font, line-height, and color for body text, headings, and more.
