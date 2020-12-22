@@ -55,9 +55,12 @@
                     </article>
                     <div class="d-none d-md-block article-footer">
                         <div>文章为作者独立观点，不代表{{config('app.name')}}立场。</div>
-                        <div>本文由{{$article->user->username}}发表，转载此文章须经作者同意，并请附上出处( {{config('app.name')}} )及本页链接。
-                        </div>
-                        <div class="mylink">原文链接 {{$article->link}}</div>
+                        @if($article->detail->extra['from'])
+                            <div>本文转载自网络，不代表本平台立场，仅供读者参考，著作权属归原创者所有。我们分享此文出于传播更多资讯之目的。如有侵权，请联系我们进行删除，谢谢！</div>
+                        @else
+                            <div>本文由{{$article->user->username}}发表，转载此文章须经作者同意，并请附上出处( {{config('app.name')}} )及本页链接。</div>
+                        @endif
+                        <div class="mylink">本文链接 {{$article->link}}</div>
                         @if($article->tag_values)
                             <div class="keywords">
                                 @foreach($article->tags as $tag)

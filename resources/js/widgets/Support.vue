@@ -34,6 +34,7 @@ export default {
             this.isDisabled = true;
             support(this.id, this.type).then(response => {
                 this.buttonName = '已推荐';
+                this.num = parseInt(this.num) + 1;
                 this.isDisabled = true;
             }).catch((error) => {
                 this.isDisabled = false;
